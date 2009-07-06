@@ -1,0 +1,96 @@
+{
+  "providing": {
+    "repo_git::test": [
+
+    ],
+    "repo_git::pull": [
+
+    ],
+    "repo_git": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "long_description": "",
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "name": "repo_git",
+  "attributes": {
+    "repo_git\/branch": {
+      "default": "master",
+      "type": "string",
+      "description": "which branch should be fetched?",
+      "multiple_values": false,
+      "display_name": "working branch",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "repo_git\/dest": {
+      "type": "string",
+      "description": "where should we place the local repository?",
+      "multiple_values": false,
+      "display_name": "destination directory",
+      "recipes": [
+
+      ],
+      "required": true
+    },
+    "repo_git\/cred": {
+      "default": "",
+      "type": "string",
+      "description": "private ssh key to use for private repositories",
+      "multiple_values": false,
+      "display_name": "ssh key",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "repo_git\/url": {
+      "type": "string",
+      "description": "location of git repository",
+      "multiple_values": false,
+      "display_name": "repository url",
+      "recipes": [
+
+      ],
+      "required": true
+    },
+    "repo_git": {
+      "type": "hash",
+      "description": "hash of git attributes",
+      "multiple_values": false,
+      "display_name": "git hash",
+      "recipes": [
+
+      ],
+      "required": false
+    }
+  },
+  "recommendations": {
+
+  },
+  "recipes": {
+    "repo_git::test": "",
+    "repo_git::pull": "get source code from repository",
+    "repo_git": ""
+  },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
+  "conflicting": {
+
+  },
+  "description": "installs the git fast version control system"
+}

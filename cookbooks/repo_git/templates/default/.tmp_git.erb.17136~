@@ -1,0 +1,9 @@
+
+Host <%= @git_host %>
+ User git
+ Port 22
+ Hostname <%= @git_host %>
+ IdentityFile /root/.ssh/git_id_rsa
+ TCPKeepAlive yes
+ IdentitiesOnly yes
+ 

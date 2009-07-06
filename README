@@ -1,0 +1,14 @@
+Welcome to the RightScale cookbook repository!  
+
+Let's git cookin'
+
+Please fork yourself a version of this repo for all of your cookbook development.
+Only commit cookbooks here that are complete, documented, and ready for QA testing.
+
+In the repository, you'll find:
+
+    * config/ - Top-level directory for general config files to configure the repository to support the RightScale environment. 
+    * cookbooks/ - The RightScale cookbooks.
+    * Rakefile - Sets up the rake tasks for managing the repository. (use 'rake metadata' to add metadata to your cookbooks!) 
+    * roles/ - You can define node roles here. (Will we support roles?) 
+    * site-cookbooks/ - usage is TBD.
