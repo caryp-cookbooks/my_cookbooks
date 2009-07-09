@@ -4,7 +4,7 @@
 #
 # Copyright 2009, RightScale, Inc.
 #
-include_recipe "repo_git"
+
 
 repo_git_pull "Get Repository" do
   url @node[:repo_git][:url] 
