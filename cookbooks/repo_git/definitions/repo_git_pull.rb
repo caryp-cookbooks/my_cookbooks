@@ -7,28 +7,17 @@ require 'uri'
 define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil do
    
   # add repository credentials
-  if params[:cred] != nil 
-
-    #set filenames based on hostname, make sure it is only lowercase alphanumeric
-    begin
-      uri = URI.parse(params[:url])
-      user = uri.user
-      host = uri.host
-    rescue
-      puts "WARNING: Use ssh://[user@]host.xz/path/to/repo.git/ syntax when accessing private GIT repositories"
-      raise URI::BadURIError
-    end
-
-    ssh_params = params # workaround for chef bug http://tickets.opscode.com/browse/CHEF-422
-
-    auth_ssh_add_cred "add_credential_for_repo" do 
-      user user
-      host host
-      template "git.erb"
-      cred ssh_params[:cred]
+  keyfile = nil
+  if params[:cred] != nil
+    keyfile = "/tmp/gitkey"
+    bash 'create_temp_git_ssh_key' do
+      code <<-EOH
+        echo -n #{params[:cred]} > #{keyfile}
+        exec ssh -i #{keyfile} "$@"
+      EOH
     end
   end 
-  
+
   # make parent dir (if not exist)
   directory params[:dest] do 
     action :create
@@ -40,6 +29,8 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     cwd params[:dest]
     only_if do File.directory?(params[:dest].split('/').last.sub(/\.git/i,'')) end
     code <<-EOH
+      ENV["GIT_SSH"] = #{keyfile}
+
       `cd params[:dest].split('/').last.sub(/\.git/i,'')`
       `git pull` 
     EOH
@@ -50,6 +41,8 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     cwd params[:dest]
     not_if do File.directory?(params[:dest].split('/').last.sub(/\.git/i,'')) end
     code <<-EOH
+      ENV["GIT_SSH"] = #{keyfile}
+
       ## Ripped off from staging
       
       # First we create an empty repo and then we set up a remote branch tracker
@@ -62,6 +55,15 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
       # And "checkout" the branch (merge into empty master)
       `git merge origin/#{params[:branch]}`
     EOH
+  end
+
+  # delete SSH key & clear GIT_SSH
+  if params[:cred] != nil
+    bash 'delete_temp_git_ssh_key' do
+      code <<-EOH
+        rm -f #{keyfile}
+      EOH
+    end
   end
 
 end
