@@ -13,9 +13,9 @@ Only commit cookbooks here that are complete, documented, and ready for QA testi
 
 In the repository, you'll find:
 
-    * config/ - usage is TBD.
-    * cookbooks/ - The RightScale cookbooks. <<<< Place your cookbooks here!
-    * Rakefile - use 'rake metadata' to add metadata to your cookbooks.
-    * roles/ - usage is TBD.
-    * site-cookbooks/ - usage is TBD.
+  config/         - usage is TBD.
+  cookbooks/      - The RightScale cookbooks. <<<< Place your cookbooks here!
+  Rakefile        - use 'rake metadata' to add metadata to your cookbooks.
+  roles/          - usage is TBD.
+  site-cookbooks/ - usage is TBD.
 
