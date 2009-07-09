@@ -2,20 +2,20 @@ Welcome to the RightScale cookbook repository!
 
 Let's git cookin'
 
-Please fork yourself a version of this repo for all of your cookbook development.
-Only commit cookbooks here that are complete, documented, and ready for QA testing.
-
-In the repository, you'll find:
-
-    * config/ - Top-level directory for general config files to configure the repository to support the RightScale environment. 
-    * cookbooks/ - The RightScale cookbooks. <<<< Place your cookbooks here!
-    * Rakefile - Sets up the rake tasks for managing the repository. (use 'rake metadata' to add metadata to your cookbooks!) 
-    * roles/ - You can define node roles here. (Will we support roles?) 
-    * site-cookbooks/ - usage is TBD.
-
 To begin developing, create a new branch and add it to your local repository. For example, to create a branch foo, do:
 
   git clone git@github.com:rightscale/cookbooks.git
   cd cookbooks/
-  git push origin origin:refs/heads/fo
-  git checkout --track -b foo  origin/foo
+  git push origin origin:refs/heads/foo
+  git checkout --track -b foo origin/foo
+
+Only commit cookbooks here that are complete, documented, and ready for QA testing.
+
+In the repository, you'll find:
+
+    * config/ - usage is TBD.
+    * cookbooks/ - The RightScale cookbooks. <<<< Place your cookbooks here!
+    * Rakefile - use 'rake metadata' to add metadata to your cookbooks.
+    * roles/ - usage is TBD.
+    * site-cookbooks/ - usage is TBD.
+
