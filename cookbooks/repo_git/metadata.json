@@ -1,27 +1,13 @@
 {
-  "providing": {
-    "repo_git::test": [
-
-    ],
-    "repo_git::pull": [
-
-    ],
-    "repo_git": [
-
-    ]
-  },
-  "replacing": {
+  "conflicting": {
 
   },
-  "long_description": "",
   "dependencies": {
 
   },
   "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
-  "name": "repo_git",
   "attributes": {
     "repo_git\/branch": {
       "default": "master",
@@ -76,21 +62,35 @@
       "required": false
     }
   },
-  "recommendations": {
+  "providing": {
+    "repo_git::test": [
+
+    ],
+    "repo_git::pull": [
+
+    ],
+    "repo_git": [
+
+    ]
+  },
+  "replacing": {
 
   },
+  "long_description": "",
+  "name": "repo_git",
   "recipes": {
     "repo_git::test": "",
-    "repo_git::pull": "get source code from repository",
-    "repo_git": ""
+    "repo_git": "",
+    "repo_git::pull": "get source code from repository"
+  },
+  "maintainer": "RightScale, Inc.",
+  "description": "installs the git fast version control system",
+  "recommendations": {
+
   },
   "maintainer_email": "cookbooks@rightscale.com",
   "suggestions": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "conflicting": {
-
-  },
-  "description": "installs the git fast version control system"
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide."
 }
