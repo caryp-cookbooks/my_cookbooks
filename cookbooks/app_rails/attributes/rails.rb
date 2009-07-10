@@ -30,5 +30,12 @@ rails[:spawn_method] = "conservative"  unless rails.has_key?(:spawn_method)
 apache Mash.new unless attribute?("apache")
 apache[:mpm] = "prefork"             unless apache.has_key?(:mpm)
 
+if apache.has_key?(:listen_ports)
+     apache[:listen_ports] << rails[:application_port]
+else
+     apache[:listen_ports] = rails[:application_port]
+end
+
+
 
 
