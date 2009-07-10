@@ -25,6 +25,7 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     cwd params[:dest]
     only_if do File.directory?(params[:dest]) end
     code <<-EOH
+      puts "Updateing existing repo at #{params[:dest]}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
       puts `git pull` 
     EOH

@@ -4,7 +4,7 @@ include_recipe "passenger_apache2::mod_rails"
 include_recipe "repo_git"
 
 # grab application source from remote repository
-#include_recipe "app_rails::update_code"
+include_recipe "app_rails::update_code"
 
 # setup the passenger vhost
 web_app @node[:rails][:application_name] do
