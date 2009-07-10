@@ -6,9 +6,9 @@
 #
 
 repo_git_pull "git-test" do
-  url "ssh://git@github.com/caryp/sandbox.git" 
+  url "git@github.com:rightscale/cookbooks.git"
   dest "/root/git_test"
-  branch "master"
+  branch "caryp"
   cred <<-EOH 
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAlyP85WjrtsMyqQixJu7U1h9C3+TMsEfYEOp6hlJgq6xmtbRiCeNPqB9Z6kTh

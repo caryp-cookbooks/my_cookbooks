@@ -12,48 +12,39 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     keyfile = "/tmp/gitkey"
     bash 'create_temp_git_ssh_key' do
       code <<-EOH
-        echo -n #{params[:cred]} > #{keyfile}
-        exec ssh -i #{keyfile} "$@"
+        echo -n '#{params[:cred]}' > #{keyfile}
+	chmod 700 #{keyfile}
+        echo 'exec ssh -i #{keyfile} "$@"' > #{keyfile}.sh
+	chmod +x #{keyfile}.sh
       EOH
     end
   end 
 
-  # make parent dir (if not exist)
-  directory params[:dest] do 
-    action :create
-    not_if do File.directory?(params[:dest]) end
-  end
-  
   # pull repo (if exist)
   ruby "pull-exsiting-local-repo" do
     cwd params[:dest]
-    only_if do File.directory?(params[:dest].split('/').last.sub(/\.git/i,'')) end
+    only_if do File.directory?(params[:dest]) end
     code <<-EOH
-      ENV["GIT_SSH"] = #{keyfile}
-
-      `cd params[:dest].split('/').last.sub(/\.git/i,'')`
+      ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
       `git pull` 
     EOH
   end
   
   # clone repo (if not exist)
   ruby "create-new-local-repo" do
-    cwd params[:dest]
-    not_if do File.directory?(params[:dest].split('/').last.sub(/\.git/i,'')) end
+    not_if do File.directory?(params[:dest]) end
     code <<-EOH
-      ENV["GIT_SSH"] = #{keyfile}
+      puts "Creating new repo at #{params[:dest]}"
+      ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
+      `git clone #{params[:url]} -- #{params[:dest]}`
 
-      ## Ripped off from staging
-      
-      # First we create an empty repo and then we set up a remote branch tracker
-      # The tracker will copy only the relevant branch (-t flag), and then map
-      # that branch to the local master (-m flag)
-      `git init`
-      `git remote add -t '#{params[:branch]}' -m '#{params[:branch]}' origin #{params[:url]}`
-      # Now we actually pull the data from remote
-      `git fetch --depth 4 `
-      # And "checkout" the branch (merge into empty master)
-      `git merge origin/#{params[:branch]}`
+      if "#{params[:branch]}" != "master" 
+	dir = "#{params[:dest]}"
+        puts "cmd1: cd "+dir
+        Dir.chdir(dir) 
+        puts "cmd2: git checkout --track -b #{params[:branch]} origin/#{params[:branch]}"
+        `git checkout --track -b #{params[:branch]} origin/#{params[:branch]}`
+      end
     EOH
   end
 
@@ -62,6 +53,7 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     bash 'delete_temp_git_ssh_key' do
       code <<-EOH
         rm -f #{keyfile}
+        rm -f #{keyfile}.sh
       EOH
     end
   end
