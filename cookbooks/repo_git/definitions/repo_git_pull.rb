@@ -26,7 +26,7 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     only_if do File.directory?(params[:dest]) end
     code <<-EOH
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
-      `git pull` 
+      puts `git pull` 
     EOH
   end
   
@@ -36,14 +36,12 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
     code <<-EOH
       puts "Creating new repo at #{params[:dest]}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
-      `git clone #{params[:url]} -- #{params[:dest]}`
+      puts `git clone #{params[:url]} -- #{params[:dest]}`
 
       if "#{params[:branch]}" != "master" 
 	dir = "#{params[:dest]}"
-        puts "cmd1: cd "+dir
         Dir.chdir(dir) 
-        puts "cmd2: git checkout --track -b #{params[:branch]} origin/#{params[:branch]}"
-        `git checkout --track -b #{params[:branch]} origin/#{params[:branch]}`
+        puts `git checkout --track -b #{params[:branch]} origin/#{params[:branch]}`
       end
     EOH
   end
