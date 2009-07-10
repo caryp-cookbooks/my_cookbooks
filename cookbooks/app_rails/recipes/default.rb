@@ -3,17 +3,6 @@ include_recipe "rails"
 include_recipe "passenger_apache2::mod_rails"
 include_recipe "repo_git"
 
-#package fastthread do
-#  version node[:rails][:version] if (node[:rails][:version])
-#  action :install
-#end
-
-#execute "passenger-install-apache2-module" do
-#  command "/opt/ruby-enterprise/bin/passenger-install-apache2-module --auto"
-#  creates "/opt/ruby-enterprise/lib/ruby/gems/1.8/gems/passenger-2.2.1/ext/apache2/mod_passenger.so"
-#end
-
-
 # grab application source from remote repository
 repo_git_pull "Get Repository" do
   url @node[:rails][:code][:url]

@@ -1,0 +1,50 @@
+{
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "attributes": {
+    "rails": {
+      "type": "hash",
+      "description": "hash of rails attributes",
+      "multiple_values": false,
+      "display_name": "rails hash",
+      "recipes": [
+
+      ],
+      "required": false
+    }
+  },
+  "providing": {
+    "app_rails": [
+
+    ],
+    "app_rails::update_code": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "long_description": "",
+  "name": "app_rails",
+  "recipes": {
+    "app_rails::update_code": "",
+    "app_rails": ""
+  },
+  "maintainer": "RightScale, Inc.",
+  "description": "installs the pasenger version of rails",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide."
+}

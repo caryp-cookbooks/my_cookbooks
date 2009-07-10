@@ -1,27 +1,13 @@
 {
-  "providing": {
-    "auth_ssh::add_cred": [
-
-    ],
-    "auth_ssh::test": [
-
-    ],
-    "auth_ssh": [
-
-    ]
-  },
-  "replacing": {
+  "conflicting": {
 
   },
-  "long_description": "",
   "dependencies": {
 
   },
   "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
-  "name": "auth_ssh",
   "attributes": {
     "auth_ssh\/keyfile": {
       "type": "string",
@@ -66,21 +52,35 @@
       "required": false
     }
   },
-  "recommendations": {
+  "providing": {
+    "auth_ssh::add_cred": [
+
+    ],
+    "auth_ssh::test": [
+
+    ],
+    "auth_ssh": [
+
+    ]
+  },
+  "replacing": {
 
   },
+  "long_description": "",
+  "name": "auth_ssh",
   "recipes": {
     "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
     "auth_ssh::test": "",
     "auth_ssh": ""
   },
+  "maintainer": "RightScale, Inc.",
+  "description": "installs the openssh connectivity tools",
+  "recommendations": {
+
+  },
   "maintainer_email": "cookbooks@rightscale.com",
   "suggestions": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "conflicting": {
-
-  },
-  "description": "installs the openssh connectivity tools"
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide."
 }

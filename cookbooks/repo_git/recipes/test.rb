@@ -9,7 +9,7 @@ repo_git_pull "git-test" do
   url "ssh://git@github.com/ermal14/ermal14.git"
   user "ermal14"
   dest "/root/git_test"
-  branch "photo_demo"
+  branch "rails_app"
   cred <<-EOH
 -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEAz5ycjRe2w/hSqLfkT2rPs9CfCH2IV/C2mWx5vpHfdZUKzN3A
