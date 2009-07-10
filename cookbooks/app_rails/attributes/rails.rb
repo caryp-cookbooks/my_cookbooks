@@ -21,6 +21,7 @@ rails[:env] = "production"             unless rails.has_key?(:env)
 rails[:code][:destination] = "/home/webapp/#{rails[:application_name]}" unless rails[:code].has_key?(:dest)
 rails[:code][:branch] = "master" unless rails[:code].has_key?(:branch)
 rails[:application_port] = "8000"      unless rails.has_key?(:application_port)
+rails[:spawn_method] = "conservative"  unless rails.has_key?(:spawn_method)
 
 #
 # Overrides
