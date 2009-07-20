@@ -8,7 +8,7 @@ rails[:code][:url] = false            unless rails[:code].has_key?(:url)
 rails[:code][:user] =  false          unless rails[:code].has_key?(:user)
 rails[:code][:credentials] = false    unless rails[:code].has_key?(:credentials)
 
-rails[:db_app_user] = nil 						unless rails.has_key?(:db_app_user)
+rails[:db_app_user] = nil   	      unless rails.has_key?(:db_app_user)
 rails[:db_app_passwd] = nil           unless rails.has_key?(:db_app_passwd)
 rails[:db_schema_name] = nil          unless rails.has_key?(:db_schema_name)
 rails[:db_dns_name] = nil             unless rails.has_key?(:db_dns_name)
@@ -27,6 +27,7 @@ rails[:code][:destination] = "/home/webapp/#{rails[:application_name]}" unless r
 rails[:code][:branch] = "master" unless rails[:code].has_key?(:branch)
 rails[:application_port] = "8000"      unless rails.has_key?(:application_port)
 rails[:spawn_method] = "conservative"  unless rails.has_key?(:spawn_method)
+rails[:opt_gems_list] = [""]  unless rails.has_key?(:opt_gems_list)
 
 #
 # Overrides
