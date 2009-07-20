@@ -1,10 +1,37 @@
 include_recipe "web_apache"
 include_recipe "rails"
 include_recipe "passenger_apache2::mod_rails"
+include_recipe "mysql::client"
 include_recipe "repo_git"
+
+# install optional gems required for the application
+@node[:rails][:opt_gems_list].each { |gem| gem_package gem }
 
 # grab application source from remote repository
 include_recipe "app_rails::update_code"
+
+# insert database.yaml
+template "#{@node[:rails][:code][:destination]}/config/database.yaml" do
+  source "database.yaml.erb"
+end
+
+# this should work but chef breaks -- https://tickets.opscode.com/browse/CHEF-205
+ #directory @node[:rails][:code][:destination] do
+   #owner 'www-data'
+   #group 'www-data'
+   #mode 0755
+   #recursive true
+ #end
+
+#we'll just do this for now...
+
+#chown application directory 
+bash "chown_home" do
+  code <<-EOH
+    chown -R www-data:www-data #{@node[:rails][:code][:destination]}
+  EOH
+end
+
 
 # setup the passenger vhost
 web_app @node[:rails][:application_name] do

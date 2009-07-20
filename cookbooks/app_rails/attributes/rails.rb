@@ -8,6 +8,11 @@ rails[:code][:url] = false            unless rails[:code].has_key?(:url)
 rails[:code][:user] =  false          unless rails[:code].has_key?(:user)
 rails[:code][:credentials] = false    unless rails[:code].has_key?(:credentials)
 
+rails[:db_app_user] = nil 						unless rails.has_key?(:db_app_user)
+rails[:db_app_passwd] = nil           unless rails.has_key?(:db_app_passwd)
+rails[:db_schema_name] = nil          unless rails.has_key?(:db_schema_name)
+rails[:db_dns_name] = nil             unless rails.has_key?(:db_dns_name)
+
 #
 # Recommended
 #
