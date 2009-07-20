@@ -1,3 +1,9 @@
+@node[:rails][:opt_gems_list] = "right_aws"
+
+@node[:rails][:db_dns_name] = "reg-rails-db1.test.rightscale.com"
+@node[:rails][:db_schema_name] = "photo_demo_production"
+@node[:rails][:db_app_user] = "demo"
+@node[:rails][:db_app_passwd] = "demo_pass"
 
 @node[:rails][:code][:url] = "ssh://git@github.com/ermal14/ermal14.git"
 @node[:rails][:code][:user] = "ermal14"
