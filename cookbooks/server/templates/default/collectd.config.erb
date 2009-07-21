@@ -1,0 +1,39 @@
+#
+# Config file for collectd, version 4.
+# Prepared by RightScale for EC2 instances.
+#
+Hostname  "<%= @node[:cloud][:instance_id]  %>"
+BaseDir   "/var/lib/collectd"
+PIDFile   "/var/run/collectd.pid"
+PluginDir "<%= @node[:server][:collectd_lib] %>"
+TypesDB   "<%= @node[:server][:collectd_lib] %>/types.db"
+Interval  10
+ReadThreads 5
+LoadPlugin network
+<Plugin network>
+  Server "<%= @node[:rightscale][:server][:sketchy] %>" "3011"
+</Plugin>
+LoadPlugin cpu
+LoadPlugin df
+LoadPlugin disk
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin processes
+#swap does not work on ubuntu?
+#LoadPlugin swap
+LoadPlugin syslog
+LoadPlugin users
+LoadPlugin interface
+<Plugin interface>
+  Interface "eth0"
+</Plugin>
+LoadPlugin ping
+<Plugin ping>
+  Host "www.rightscale.com"
+  Host "s3.amazonaws.com"
+  Host "ec2.amazonaws.com"
+</Plugin>
+#this is where other configs go (e.g. mysql.conf)
+
+Include "<%= @node[:server][:collectd_plugin_dir] %>/*"
+
