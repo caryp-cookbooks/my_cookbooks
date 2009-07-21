@@ -77,7 +77,7 @@ attribute "rails/env",
 attribute "rails/code/destination",
   :display_name => "application home",
   :description => "what directory do you want your application to live in?",
-  :default => "/home/webapp/#{rails[:application_name]}"
+  :default => "/home/webapp/<app_name>"
 
 attribute "rails/code/branch",
   :display_name => "repository branch",
@@ -97,6 +97,6 @@ attribute "rails/spawn_method",
 attribute "rails/opt_gems_list",
   :display_name => "opt_gems_list",
   :description => "list of gems required by your application",
-  :type => "array"
+  :type => "array",
   :required => false
 

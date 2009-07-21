@@ -1,13 +1,21 @@
 {
-  "conflicting": {
+  "providing": {
+    "web_apache": [
+
+    ]
+  },
+  "replacing": {
 
   },
+  "long_description": "",
   "dependencies": {
 
   },
   "platforms": {
 
   },
+  "maintainer": "RightScale, Inc.",
+  "name": "web_apache",
   "attributes": {
     "web_apache\/mpm": {
       "default": [
@@ -45,28 +53,20 @@
       "required": false
     }
   },
-  "providing": {
-    "web_apache": [
-
-    ]
-  },
-  "replacing": {
+  "recommendations": {
 
   },
-  "long_description": "",
-  "name": "web_apache",
   "recipes": {
     "web_apache": "",
     "repo_git::pull": "get source code from repository"
-  },
-  "maintainer": "RightScale, Inc.",
-  "description": "installs the apache2 webserver",
-  "recommendations": {
-
   },
   "maintainer_email": "cookbooks@rightscale.com",
   "suggestions": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide."
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
+  "conflicting": {
+
+  },
+  "description": "installs the apache2 webserver"
 }
