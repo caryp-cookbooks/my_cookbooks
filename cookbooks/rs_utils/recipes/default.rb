@@ -1,10 +1,10 @@
-#install server command for ubuntu
+#install rs_utils command for ubuntu
 package "sysvconfig" do
-  #only_if @node[:platform] == "ubuntu"
+  only_if { @node[:platform] == "ubuntu" }
 end
 
 #setup timezone
-link "/usr/share/zoneinfo/#{@node[:server][:timezone]}" do 
+link "/usr/share/zoneinfo/#{@node[:rs_utils][:timezone]}" do 
   to "/etc/localtime"
 end
 
@@ -44,8 +44,8 @@ end
 bash "configure_logrotate_for_syslog" do 
   code <<-EOH
     perl -p -i -e 's/weekly/daily/; s/rotate\s+\d+/rotate 7/' /etc/logrotate.conf
-    [ -z "$(grep -lir "missingok" #{@node[:server][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    missingok' #{@node[:server][:logrotate_config]}
-    [ -z "$(grep -lir "notifempty" #{@node[:server][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    notifempty' #{@node[:server][:logrotate_config]}
+    [ -z "$(grep -lir "missingok" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    missingok' #{@node[:rs_utils][:logrotate_config]}
+    [ -z "$(grep -lir "notifempty" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    notifempty' #{@node[:rs_utils][:logrotate_config]}
   EOH
 end
 
@@ -64,27 +64,27 @@ end
 package "collectd" 
 
 package "liboping0" do
-  #only_if @node[:platform] == "ubuntu"
+  only_if { @node[:platform] == "ubuntu" }
 end
 
-directory @node[:server][:collectd_plugin_dir] do
+directory @node[:rs_utils][:collectd_plugin_dir] do
   recursive true
 end
 
-template @node[:server][:collectd_config] do 
+template @node[:rs_utils][:collectd_config] do 
   source "collectd.config.erb"
 end
 
 bash "configure_process_monitoring" do 
   code <<-EOH
-    echo "LoadPlugin Processes" > #{@node[:server][:collectd_plugin_dir]}/processes.conf
-    echo "<Plugin processes>" >> #{@node[:server][:collectd_plugin_dir]}/processes.conf
-    echo '  process "collectd"' >> #{@node[:server][:collectd_plugin_dir]}/processes.conf
+    echo "LoadPlugin Processes" > #{@node[:rs_utils][:collectd_plugin_dir]}/processes.conf
+    echo "<Plugin processes>" >> #{@node[:rs_utils][:collectd_plugin_dir]}/processes.conf
+    echo '  process "collectd"' >> #{@node[:rs_utils][:collectd_plugin_dir]}/processes.conf
     #TODO: make this work!
-    #for p in "#{@node[:server][:process_list]}" ; do
-      #echo "  process \"$p\"" >> #{@node[:server][:collectd_plugin_dir]}/processes.conf
+    #for p in "#{@node[:rs_utils][:process_list]}" ; do
+      #echo "  process \"$p\"" >> #{@node[:rs_utils][:collectd_plugin_dir]}/processes.conf
     #done
-    echo "</Plugin>" >> #{@node[:server][:collectd_plugin_dir]}/processes.conf
+    echo "</Plugin>" >> #{@node[:rs_utils][:collectd_plugin_dir]}/processes.conf
   EOH
 end
 
@@ -106,5 +106,5 @@ end
 
 #install private key
 execute "add_ssh_key" do 
-  command "echo #{@node[:rightscale][:ssh_key]} >> /root/.ssh/authorized_keys"
+  command "echo #{@node[:rightscale1][:ssh_key]} >> /root/.ssh/authorized_keys"
 end
