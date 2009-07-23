@@ -108,3 +108,8 @@ end
 execute "add_ssh_key" do 
   command "echo #{@node[:rightscale1][:ssh_key]} >> /root/.ssh/authorized_keys"
 end
+
+#set hostname
+execute "set_hostname" do
+  command "hostname #{@node[:rs_utils][:hostname]}" 
+end
