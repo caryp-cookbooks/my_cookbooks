@@ -1,26 +1,21 @@
 {
-  "providing": {
-    "app_rails": [
-
-    ],
-    "app_rails::update_code": [
-
-    ],
-    "app_rails::test": [
-
-    ]
-  },
-  "replacing": {
+  "recommendations": {
 
   },
-  "long_description": "",
+  "maintainer_email": "cookbooks@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
+  "conflicting": {
+
+  },
   "dependencies": {
 
   },
   "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
   "name": "app_rails",
   "attributes": {
     "rails\/spawn_method": {
@@ -201,21 +196,26 @@
       "required": true
     }
   },
-  "recommendations": {
+  "providing": {
+    "app_rails": [
 
+    ],
+    "app_rails::update_code": [
+
+    ],
+    "app_rails::test": [
+
+    ]
   },
   "recipes": {
-    "app_rails::update_code": "",
     "app_rails": "",
+    "app_rails::update_code": "",
     "app_rails::test": ""
   },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "conflicting": {
-
-  },
-  "description": "installs the pasenger version of rails"
+  "long_description": "",
+  "description": "installs the pasenger version of rails",
+  "maintainer": "RightScale, Inc."
 }
