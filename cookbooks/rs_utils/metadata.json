@@ -1,0 +1,37 @@
+{
+  "recommendations": {
+
+  },
+  "maintainer_email": "support@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "name": "rs_utils",
+  "attributes": {
+
+  },
+  "providing": {
+    "rs_utils": [
+
+    ]
+  },
+  "recipes": {
+    "rs_utils": ""
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures rs_utils",
+  "maintainer": "RightScale, Inc."
+}
