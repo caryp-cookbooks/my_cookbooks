@@ -25,28 +25,30 @@ service "postfix" do
 end
 
 #configure syslog
-package "syslog-ng" 
+if @node[:rightscale][:lumberjack] 
+  package "syslog-ng" 
 
-execute "ensure_dev_null" do 
-  creates "/dev/null.syslog-ng"
-  command "mknod /dev/null.syslog-ng c 1 3"
-end
+  execute "ensure_dev_null" do 
+    creates "/dev/null.syslog-ng"
+    command "mknod /dev/null.syslog-ng c 1 3"
+  end
 
-template "/etc/syslog-ng/syslog-ng.conf" do
-  source "syslog.erb"
-end
+  template "/etc/syslog-ng/syslog-ng.conf" do
+    source "syslog.erb"
+  end
 
-service "syslog-ng" do
-  supports :start => true, :stop => true, :restart => true
-  action [ :enable, :restart ]
-end
+  service "syslog-ng" do
+    supports :start => true, :stop => true, :restart => true
+    action [ :enable, :restart ]
+  end
 
-bash "configure_logrotate_for_syslog" do 
-  code <<-EOH
-    perl -p -i -e 's/weekly/daily/; s/rotate\s+\d+/rotate 7/' /etc/logrotate.conf
-    [ -z "$(grep -lir "missingok" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    missingok' #{@node[:rs_utils][:logrotate_config]}
-    [ -z "$(grep -lir "notifempty" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    notifempty' #{@node[:rs_utils][:logrotate_config]}
-  EOH
+  bash "configure_logrotate_for_syslog" do 
+    code <<-EOH
+      perl -p -i -e 's/weekly/daily/; s/rotate\s+\d+/rotate 7/' /etc/logrotate.conf
+      [ -z "$(grep -lir "missingok" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    missingok' #{@node[:rs_utils][:logrotate_config]}
+      [ -z "$(grep -lir "notifempty" #{@node[:rs_utils][:logrotate_config]}_file)" ] && sed -i '/sharedscripts/ a\    notifempty' #{@node[:rs_utils][:logrotate_config]}
+    EOH
+  end
 end
 
 directory "/var/spool/oldmail" do 
@@ -105,8 +107,10 @@ service "collectd" do
 end
 
 #install private key
-execute "add_ssh_key" do 
-  command "echo #{@node[:rightscale1][:ssh_key]} >> /root/.ssh/authorized_keys"
+if @node[:rs_utils][:private_ssh_key]
+  execute "add_ssh_key" do 
+    command "echo #{@node[:rs_utils][:private_ssh_key]} >> /root/.ssh/id_rsa && chmod 700 /root/.ssh/id_rsa"
+  end
 end
 
 #set hostname

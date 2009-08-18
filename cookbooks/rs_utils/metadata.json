@@ -1,13 +1,13 @@
 {
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "recipes": {
+    "rs_utils": ""
+  },
+  "maintainer": "RightScale, Inc.",
   "recommendations": {
-
-  },
-  "maintainer_email": "support@rightscale.com",
-  "suggestions": {
-
-  },
-  "license": "All rights reserved",
-  "conflicting": {
 
   },
   "dependencies": {
@@ -16,22 +16,23 @@
   "platforms": {
 
   },
+  "maintainer_email": "support@rightscale.com",
   "name": "rs_utils",
   "attributes": {
 
   },
+  "suggestions": {
+
+  },
+  "license": "All rights reserved",
+  "conflicting": {
+
+  },
+  "version": "0.1.0",
   "providing": {
     "rs_utils": [
 
     ]
   },
-  "recipes": {
-    "rs_utils": ""
-  },
-  "replacing": {
-
-  },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "Installs\/Configures rs_utils",
-  "maintainer": "RightScale, Inc."
+  "description": "Installs\/Configures rs_utils"
 }
