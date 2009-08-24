@@ -2,7 +2,7 @@
 # Config file for collectd, version 4.
 # Prepared by RightScale for EC2 instances.
 #
-Hostname  "<%= @node[:cloud][:resource_uid]  %>"
+Hostname  "<%= @node[:cloud][:instance_uid]  %>"
 BaseDir   "/var/lib/collectd"
 PIDFile   "/var/run/collectd.pid"
 PluginDir "<%= @node[:rs_utils][:collectd_lib] %>"
