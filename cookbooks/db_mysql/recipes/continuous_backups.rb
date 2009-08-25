@@ -1,9 +1,13 @@
-# Copyright (c) 2007-2009 by RightScale Inc., all rights reserved
+# Cookbook Name:: db_mysql
+# Recipe:: continuous_backups
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 
-#The EC2_PUBLIC_IPV4 may not be avaiable due to the long propagation delay (while using EIP)
-# if( ENV['EC2_PUBLIC_IPV4'].nil? || ENV['EC2_PUBLIC_IPV4'].empty? )
-#   ENV['EC2_PUBLIC_IPV4'] = `host #{ENV['RS_EIP']}`.split.last
-# end
+rs_tools "dbtools-0.18.12.tgz"
+
 package "xfsprogs" # needed for xfs freeze
 
 #MySQL database cron task log file

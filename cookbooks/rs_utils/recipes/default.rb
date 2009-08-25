@@ -114,6 +114,8 @@ if @node[:rs_utils][:private_ssh_key]
 end
 
 #set hostname
-execute "set_hostname" do
-  command "hostname #{@node[:rs_utils][:hostname]}" 
+if @node[:rs_utils][:hostname]
+  execute "set_hostname" do
+    command "hostname #{@node[:rs_utils][:hostname]}" 
+  end
 end

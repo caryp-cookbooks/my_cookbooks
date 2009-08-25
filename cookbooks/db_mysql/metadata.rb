@@ -6,16 +6,23 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
 depends "mysql", "= 0.9"
+depends "rs_tools"
 
-recipe            "db_mysql::default", "Installs packages required for mysql servers w/o manual intervention"
-recipe            "db_mysql::tools_install", "Installs RightScale dbtools package required by other recipes"
-recipe            "db_mysql::continuous_backups", "Schedule continuous backups of the database"
-recipe            "db_mysql::restore_and_become_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
-recipe            "db_mysql::backup", "Backs up the binary DB contents to an EBS snapshot."
+recipe  "db_mysql::default", "Installs packages required for mysql servers w/o manual intervention"
+recipe  "db_mysql::tools_install", "Installs RightScale dbtools package required by other recipes"
+recipe  "db_mysql::continuous_backups", "Schedule continuous backups of the database"
+recipe  "db_mysql::restore_and_become_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
+recipe  "db_mysql::backup", "Backs up the binary DB contents to an EBS snapshot."
+recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB"
 
 #
 # required
 #
+attribute "web_apache",
+  :display_name => "Database DNS configuration",
+  :description => "",
+  :type => "hash"
+  
 attribute "db_mysql/dns/master_name",
   :display_name => "Master DNS name",
   :description => "This DNS name is the FNDQ MySQL Master used by the slave and application to connect to the MySQL server",
@@ -47,23 +54,23 @@ attribute "db_mysql/backup/prefix",
 attribute "db_mysql/server_usage",
   :display_name => "Server Usage",
   :description => "* dedicated (where the mysql config allocates all existing resources of the machine)\n* shared (where the mysql is configured to use less resources so that it can be run concurrently with other apps like apache and rails for example)",
-  :multiple_values => true,
-  :default => [:dedicated, :shared]
+  :default => "dedicated"
 
 attribute "db_mysql/backup/maximum_snapshots",
   :display_name => "Maximum snapshots ",
   :description => "The total number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded.",
   :default => "60"
   
-attribute "db_mysql/backup/frequency/master",
-  :display_name => "Backup frequency - Master",
-  :description => "How often snapshots are taken. Offset the start time by random number of minutes between 5-29",
-  :calculated => true
-  
-attribute "db_mysql/backup/frequency/slave",
-  :display_name => "Backup frequency - Slave",
-  :description => "How often snapshots are taken. Offset the start time by random number of minutes between 30-59",
-  :calculated => true  
+# TODO: "calculated" attributes not yet supported
+# attribute "db_mysql/backup/frequency/master",
+#   :display_name => "Backup frequency - Master",
+#   :description => "How often snapshots are taken. Offset the start time by random number of minutes between 5-29",
+#   :calculated => true
+#   
+# attribute "db_mysql/backup/frequency/slave",
+#   :display_name => "Backup frequency - Slave",
+#   :description => "How often snapshots are taken. Offset the start time by random number of minutes between 30-59",
+#   :calculated => true  
 
 attribute "db_mysql/backup/keep_daily",
   :display_name => "Daily backup count",

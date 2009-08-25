@@ -15,12 +15,13 @@
 
   },
   "maintainer_email": "support@rightscale.com",
-  "name": "rs_utils",
+  "name": "rs_tools",
   "suggestions": {
 
   },
   "recipes": {
-    "rs_utils": ""
+    "rs_tools::test": "",
+    "rs_tools": ""
   },
   "license": "All rights reserved",
   "conflicting": {
@@ -29,9 +30,15 @@
   "platforms": {
 
   },
-  "description": "Installs\/Configures rs_utils",
+  "description": "Installs\/Configures rs_tools",
   "providing": {
-    "rs_utils": [
+    "rs_tools(:name)": [
+
+    ],
+    "rs_tools::test": [
+
+    ],
+    "rs_tools": [
 
     ]
   }

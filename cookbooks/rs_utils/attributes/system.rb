@@ -5,10 +5,8 @@ rs_utils Mash.new unless attribute?("rs_utils")
 #
 set_unless[:rs_utils][:timezone] = "UTC"    
 set_unless[:rs_utils][:process_list] = ""   
-set_unless[:rs_utils][:hostname] = "asdf" 
-#rs_utils[:hostname] = "#{ENV['HOSTNAME']}" 
+set_unless[:rs_utils][:hostname] = nil
 set_unless[:rs_utils][:private_ssh_key] = nil
-
 
 
 #

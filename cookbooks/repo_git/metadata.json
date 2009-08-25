@@ -3,11 +3,6 @@
 
   },
   "long_description": "",
-  "recipes": {
-    "repo_git::test": "",
-    "repo_git::pull": "get source code from repository",
-    "repo_git": ""
-  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -15,11 +10,7 @@
   "dependencies": {
 
   },
-  "platforms": {
-
-  },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "name": "repo_git",
+  "version": "0.1.0",
   "attributes": {
     "repo_git\/branch": {
       "default": "master",
@@ -27,20 +18,20 @@
       "description": "which branch should be fetched?",
       "multiple_values": false,
       "display_name": "working branch",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "repo_git\/dest": {
       "type": "string",
       "description": "where should we place the local repository?",
       "multiple_values": false,
       "display_name": "destination directory",
-      "required": true,
       "recipes": [
 
-      ]
+      ],
+      "required": true
     },
     "repo_git\/cred": {
       "default": "",
@@ -48,40 +39,50 @@
       "description": "private ssh key to use for private repositories",
       "multiple_values": false,
       "display_name": "ssh key",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "repo_git\/url": {
       "type": "string",
       "description": "location of git repository",
       "multiple_values": false,
       "display_name": "repository url",
-      "required": true,
       "recipes": [
 
-      ]
+      ],
+      "required": true
     },
     "repo_git": {
       "type": "hash",
       "description": "hash of git attributes",
       "multiple_values": false,
       "display_name": "git hash",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     }
   },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "name": "repo_git",
   "suggestions": {
 
+  },
+  "recipes": {
+    "repo_git::test": "",
+    "repo_git::pull": "get source code from repository",
+    "repo_git": ""
   },
   "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
   "conflicting": {
 
   },
-  "version": "0.1.0",
+  "platforms": {
+
+  },
+  "description": "installs the git fast version control system",
   "providing": {
     "repo_git::test": [
 
@@ -92,6 +93,5 @@
     "repo_git": [
 
     ]
-  },
-  "description": "installs the git fast version control system"
+  }
 }

@@ -8,6 +8,12 @@ set_unless[:db_mysql][:dns][:master_name] = nil
 
 set_unless[:db_mysql][:backup][:prefix] = nil
 
+set_unless[:db_mysql][:admin_user] = nil
+set_unless[:db_mysql][:admin_password] = nil
+
+set_unless[:db_mysql][:replication_user] = nil
+set_unless[:db_mysql][:replication_password] = nil
+
 
 #
 # Recommended

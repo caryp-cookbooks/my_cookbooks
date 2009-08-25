@@ -1,7 +1,12 @@
-# Copyright (c) 2007-2009 by RightScale Inc., all rights reserved
+# Cookbook Name:: db_mysql
+# Recipe:: backup
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 
 # Do the backup (ensure we do it if we are either master or slave)
-
 max_snaps = @node[:db_mysql][:backup][:maximum_snapshots]
 keep_daily=@node[:db_mysql][:backup][:keep_daily]
 keep_weekly=@node[:db_mysql][:backup][:keep_daily]

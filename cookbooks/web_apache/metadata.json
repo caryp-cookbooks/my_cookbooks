@@ -4,8 +4,8 @@
   },
   "long_description": "",
   "recipes": {
-    "web_apache": "",
-    "repo_git::pull": "get source code from repository"
+    "repo_git::pull": "get source code from repository",
+    "web_apache": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
@@ -14,11 +14,7 @@
   "dependencies": {
 
   },
-  "platforms": {
-
-  },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "name": "web_apache",
+  "version": "0.1.0",
   "attributes": {
     "web_apache\/mpm": {
       "default": [
@@ -29,10 +25,10 @@
       "description": "setting for MPM, ",
       "multiple_values": true,
       "display_name": "Multi-Processing Module",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "web_apache\/contact": {
       "default": "root@localhost",
@@ -40,34 +36,42 @@
       "description": "contact email address for web admin",
       "multiple_values": false,
       "display_name": "contact email ",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "web_apache": {
       "type": "hash",
       "description": "hash of attributes",
       "multiple_values": false,
       "display_name": "apache hash",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     }
   },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "name": "web_apache",
   "suggestions": {
 
+  },
+  "recipes": {
+    "repo_git::pull": "get source code from repository",
+    "web_apache": ""
   },
   "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
   "conflicting": {
 
   },
-  "version": "0.1.0",
+  "platforms": {
+
+  },
+  "description": "installs the apache2 webserver",
   "providing": {
     "web_apache": [
 
     ]
-  },
-  "description": "installs the apache2 webserver"
+  }
 }

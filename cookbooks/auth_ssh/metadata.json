@@ -3,11 +3,6 @@
 
   },
   "long_description": "",
-  "recipes": {
-    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
-    "auth_ssh": "",
-    "auth_ssh::test": ""
-  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -15,21 +10,17 @@
   "dependencies": {
 
   },
-  "platforms": {
-
-  },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "name": "auth_ssh",
+  "version": "0.1.0",
   "attributes": {
     "auth_ssh\/keyfile": {
       "type": "string",
       "description": "private ssh key to use",
       "multiple_values": false,
       "display_name": "ssh private key",
-      "required": true,
       "recipes": [
 
-      ]
+      ],
+      "required": true
     },
     "auth_ssh\/config_dir": {
       "default": "\/root\/.ssh\/config.d",
@@ -37,10 +28,10 @@
       "description": "where should we place each host's config.d file? (NOTE: all entries in .ssh\/config must have a config.d file)",
       "multiple_values": false,
       "display_name": "ssh config.d directory",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "auth_ssh\/dir": {
       "default": "\/root\/.ssh",
@@ -48,30 +39,40 @@
       "description": "location of user's ssh directory",
       "multiple_values": false,
       "display_name": "ssh directory",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     },
     "auth_ssh": {
       "type": "hash",
       "description": "hash of ssh attributes",
       "multiple_values": false,
       "display_name": "ssh hash",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": false
     }
   },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "name": "auth_ssh",
   "suggestions": {
 
+  },
+  "recipes": {
+    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
+    "auth_ssh": "",
+    "auth_ssh::test": ""
   },
   "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
   "conflicting": {
 
   },
-  "version": "0.1.0",
+  "platforms": {
+
+  },
+  "description": "installs the openssh connectivity tools",
   "providing": {
     "auth_ssh::add_cred": [
 
@@ -82,6 +83,5 @@
     "auth_ssh": [
 
     ]
-  },
-  "description": "installs the openssh connectivity tools"
+  }
 }

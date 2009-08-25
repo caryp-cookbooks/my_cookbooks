@@ -1,8 +1,29 @@
 = DESCRIPTION:
 
+Configures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.
+
 = REQUIREMENTS:
+
+* The Opscode's public cookbooks must be in your cookbook path -- mysql cookbook used for client install.
+* Due to the EBS dependency, this currently only runs on EC2 clouds.
+* Requires a DNSMadeEasy.com account.
 
 = ATTRIBUTES: 
 
+See metadata.rb 
+
 = USAGE:
+
+Designed to be run within a RightScale server template with the following run order:
+
+Boot Scripts
+  * server - performs base server install and configuration. (default)
+  * continuous_backups - updates the crontab for DB Backups using EBS-style calls.
+
+Operational Scripts
+  * restore_and_become_master - restores the database from the most recent snapshot and sets master DNS.
+  * backup - backs up the binary DB contents to an EBS snapshot.
+  
+Decommission Scripts
+  * decommission - stops the database and detaches EBS volume.
 
