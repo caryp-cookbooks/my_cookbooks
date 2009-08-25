@@ -18,8 +18,7 @@ ruby "decommision database" do
 
     runlevel=`runlevel`.split(" ")[1].to_i
 
-    # https://tickets.opscode.com/browse/CHEF-517
-    # puts "Runlevel detected : #[runlevel]"
+    puts "Runlevel detected : \#{runlevel}"
 
     if runlevel!=0
       puts "Machine will be rebooting...skipping the termination of the DB volume..."
@@ -41,13 +40,11 @@ ruby "decommision database" do
     db.db_service_stop(nil)
     puts "Database service stopped"
 
-    # string substitution does not work in Chef ruby resources
-    # https://tickets.opscode.com/browse/CHEF-517
-    #  vol=ebs.terminate_volume
-    #  puts "Volume #[vol] terminated."
     vol=ebs.terminate_volume
+    puts "Volume \#{vol} terminated."
 
     puts "EBS volume termination completed successfully"
     exit 0
   EOH
 end
+

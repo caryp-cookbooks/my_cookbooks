@@ -20,6 +20,7 @@ define :rs_tools, :action => :install do
   if params[ :action ] == :install
     remote_file "/opt/rightscale/#{toolname}" do
       source "#{toolname}"
+      cookbook "rs_tools"
     end
 
     bash "unpack #{toolname}" do

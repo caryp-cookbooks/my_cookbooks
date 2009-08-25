@@ -22,8 +22,7 @@ bash "check dynamic dns ttl" do
   EOH
 end
 
-#todo: use the log resource here
-puts "#{@node[:db_mysql][:server_usage]}-#{@node[:ec2][:instance_type]}"
+log "EC2 Instance type detected: #{@node[:db_mysql][:server_usage]}-#{@node[:ec2][:instance_type]}" if @node[:ec2]
 
 case node[:platform]
 when "debian","ubuntu"
@@ -60,14 +59,14 @@ end
 # install other packages we require
 @node[:db_mysql][:packages_install].each do |p| 
   package p 
-end unless @node[:db_mysql][:packages_install] == nil
+end unless @node[:db_mysql][:packages_install] == ""
 
 # uninstall other packages we don't
 @node[:db_mysql][:packages_uninstall].each do |p| 
    package p do
      action :remove
    end
-end unless @node[:db_mysql][:packages_uninstall] == nil
+end unless @node[:db_mysql][:packages_uninstall] == ""
 
 service "mysql" do
   service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")  

@@ -15,7 +15,6 @@ ENV['RS_DISTRO'] = `lsb_release -is`.chomp.downcase
 
 runfile="<%= @run_file %>"
 lockfile="<%= @lock_file %>"
-#warning_file="@@WARNING_FILE@@"
 max_lag=<%= @max_lag %>
 
 # Required inputs: (must be substituted before installing this template)
@@ -110,7 +109,6 @@ end
 # 1- Prepare the backup parameters differently depending on being a slave or a master
 cmd_params=""
 keep_params = "-D #{options[:keep_daily]} -W #{options[:keep_weekly]} -M #{options[:keep_monthly]} -Y #{options[:keep_yearly]}"
-#puts "#{keep_params}"
 backupfile_date=`date +%Y%m%d%H%M`.strip
 if we_are_a_master
   #We're the master...finish right here if we're not required to run in master mode

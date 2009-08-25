@@ -1,5 +1,5 @@
 # Cookbook Name:: db_mysql
-# Recipe:: restore_and_become_master
+# Recipe:: restore_master
 #
 # Copyright 2009, RightScale, Inc.
 #
@@ -35,13 +35,11 @@ ruby "set admin credentials" do
   EOH
 end
 
-ruby "configure master DB DNS" do
-  environment 'DNSMADEEASY_USER' => @node[:db_mysql][:dns][:user], 'DNSMADEEASY_PASSWORD' => @node[:db_mysql][:dns][:password], 'EC2_LOCAL_IPV4' => @node[:cloud][:private_ip], 'EC2_PUBLIC_IPV4' => @node[:cloud][:public_ip]
-  code <<-EOH
-    puts "Configuring DNS for ID: #{@node[:db_mysql][:dns][:master_id]}"
-    10.times {puts `/opt/rightscale/dns/dnsmadeeasy_set.rb -i #{@node[:db_mysql][:dns][:master_id]}`;break if $? == 0;sleep 1} 
-    (puts "Could not update DNS for ID: #{@node[:db_mysql][:dns][:master_id]}\nExiting!!!";exit(1)) unless $? == 0
-  EOH
+# configure master DB DNS record 
+dns @node[:db_mysql][:dns][:master_id] do
+  user @node[:db_mysql][:dns][:user]
+  passwd @node[:db_mysql][:dns][:password]
+  ip_address @node[:cloud][:private_ip]
 end
 
 # # configure master DB DNS record 

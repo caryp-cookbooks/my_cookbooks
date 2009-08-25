@@ -7,3 +7,4 @@
 #
 
 include_recipe "db_mysql::server"
+include_recipe "db_mysql::continuous_backups"

@@ -3,6 +3,11 @@
 
   },
   "long_description": "",
+  "recipes": {
+    "app_rails": "",
+    "app_rails::update_code": "",
+    "app_rails::test": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -10,7 +15,11 @@
   "dependencies": {
 
   },
-  "version": "0.1.0",
+  "platforms": {
+
+  },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "name": "app_rails",
   "attributes": {
     "rails\/spawn_method": {
       "default": "conservative",
@@ -18,10 +27,10 @@
       "description": "what spawn method should we use?",
       "multiple_values": false,
       "display_name": "spawn method",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/application_port": {
       "default": "8000",
@@ -29,30 +38,30 @@
       "description": "the port your rails application will listen on",
       "multiple_values": false,
       "display_name": "application port",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails": {
       "type": "hash",
       "description": "hash of rails attributes",
       "multiple_values": false,
       "display_name": "rails hash",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/opt_gems_list": {
       "type": "array",
       "description": "list of gems required by your application",
       "multiple_values": false,
       "display_name": "opt_gems_list",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/code\/branch": {
       "default": "master",
@@ -60,10 +69,10 @@
       "description": "branch to pull source from",
       "multiple_values": false,
       "display_name": "repository branch",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/code\/destination": {
       "default": "\/home\/webapp\/<app_name>",
@@ -71,40 +80,40 @@
       "description": "what directory do you want your application to live in?",
       "multiple_values": false,
       "display_name": "application home",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/db_schema_name": {
       "type": "string",
       "description": "database schema to use",
       "multiple_values": false,
       "display_name": "database schema name",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/db_app_passwd": {
       "type": "string",
       "description": "password for database access",
       "multiple_values": false,
       "display_name": "database password",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/code\/creditials": {
       "type": "string",
       "description": "credentials for code repository",
       "multiple_values": false,
       "display_name": "repository credentials",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/server_name": {
       "default": "myserver",
@@ -112,10 +121,10 @@
       "description": "FQDN for the server",
       "multiple_values": false,
       "display_name": "server name",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/application_name": {
       "default": "myapp",
@@ -123,10 +132,10 @@
       "description": "give a name to your application",
       "multiple_values": false,
       "display_name": "application name",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/env": {
       "default": "production",
@@ -134,80 +143,70 @@
       "description": "production, test, staging, etc.",
       "multiple_values": false,
       "display_name": "rails environment",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/code\/user": {
       "type": "string",
       "description": "username for code repository",
       "multiple_values": false,
       "display_name": "repository username",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/code\/url": {
       "type": "string",
       "description": "location of application code repository",
       "multiple_values": false,
       "display_name": "repository url",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/db_dns_name": {
       "type": "string",
       "description": "FQDN of the database server",
       "multiple_values": false,
       "display_name": "database dns name",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     },
     "rails\/code": {
       "type": "hash",
       "description": "hash of rails code attributes",
       "multiple_values": false,
       "display_name": "rails application code hash",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     },
     "rails\/db_app_user": {
       "type": "string",
       "description": "username for database access",
       "multiple_values": false,
       "display_name": "database user",
+      "required": true,
       "recipes": [
 
-      ],
-      "required": true
+      ]
     }
   },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "name": "app_rails",
   "suggestions": {
 
-  },
-  "recipes": {
-    "app_rails": "",
-    "app_rails::update_code": "",
-    "app_rails::test": ""
   },
   "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
   "conflicting": {
 
   },
-  "platforms": {
-
-  },
-  "description": "installs the pasenger version of rails",
+  "version": "0.1.0",
   "providing": {
     "app_rails": [
 
@@ -218,5 +217,6 @@
     "app_rails::test": [
 
     ]
-  }
+  },
+  "description": "installs the pasenger version of rails"
 }

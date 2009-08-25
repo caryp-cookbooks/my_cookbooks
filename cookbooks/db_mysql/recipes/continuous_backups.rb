@@ -10,7 +10,7 @@ rs_tools "dbtools-0.18.12.tgz"
 
 package "xfsprogs" # needed for xfs freeze
 
-#MySQL database cron task log file
+# MySQL database cron task log file
 db_log = "/var/log/mysql_database_cron.log"
 db_basedir="/opt/rightscale/db"
 
@@ -29,10 +29,10 @@ ruby do puts "Template reconfiguration complete." end #FIXME: use log resource t
 
 # setup backup options
 max_snaps = @node[:db_mysql][:backup][:maximum_snapshots]
-keep_daily=@node[:db_mysql][:backup][:keep_daily]
-keep_weekly=@node[:db_mysql][:backup][:keep_daily]
-keep_monthly=@node[:db_mysql][:backup][:keep_daily]
-keep_yearly=@node[:db_mysql][:backup][:keep_daily]
+keep_daily = @node[:db_mysql][:backup][:keep_daily]
+keep_weekly = @node[:db_mysql][:backup][:keep_daily]
+keep_monthly = @node[:db_mysql][:backup][:keep_daily]
+keep_yearly = @node[:db_mysql][:backup][:keep_daily]
 backup_options = "--max-snapshots #{max_snaps} -D #{keep_daily} -W #{keep_weekly} -M #{keep_monthly} -Y #{keep_yearly}"
 
 # install the same backup script to run at the slave and master frequency
