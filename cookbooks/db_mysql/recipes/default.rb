@@ -5,6 +5,5 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-
 include_recipe "db_mysql::server"
-include_recipe "db_mysql::continuous_backups"
+

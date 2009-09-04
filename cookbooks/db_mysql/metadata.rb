@@ -17,10 +17,8 @@ recipe  "db_mysql::restore_master", "Restores the database from the most recent 
 recipe  "db_mysql::server", "Installs packages required for mysql servers w/o manual intervention"
 
 #
-# required
+# required attributes
 #
-
-# general options
 attribute "db_mysql/dns",
   :display_name => "General database options",
   :type => "hash"
@@ -44,8 +42,8 @@ attribute "db_mysql/replication_password",
   :display_name => "Replication Password",
   :description => "The password that's used for replication between master and slave databases.",
   :required => true
-
-# dns options
+  
+# dns 
 attribute "db_mysql/dns",
   :display_name => "Database DNS options",
   :type => "hash"
@@ -70,7 +68,7 @@ attribute "db_mysql/dns/password",
   :description => "The password of your DNSMadeEasy account.",
   :required => true
 
-# backup options
+# backup 
 attribute "db_mysql/backup",
   :display_name => "Database backup options",
   :type => "hash"  
@@ -83,14 +81,12 @@ attribute "db_mysql/backup/prefix",
 #
 # recommended
 #
-
-# general options
 attribute "db_mysql/server_usage",
   :display_name => "Server Usage",
   :description => "* dedicated (where the mysql config allocates all existing resources of the machine)\n* shared (where the mysql is configured to use less resources so that it can be run concurrently with other apps like apache and rails for example)",
   :default => "dedicated"
 
-# backup options 
+# backup  
 attribute "db_mysql/backup/maximum_snapshots",
   :display_name => "Maximum snapshots ",
   :description => "The total number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded.",
@@ -119,8 +115,6 @@ attribute "db_mysql/backup/keep_yearly",
 #
 # optional
 #
-
-# general options
 attribute "db_mysql/dns_ttl_limit",
   :display_name => "Maximum allowable DNS TTL limit",
   :description => "Verification that master database DNS TTL is low enough",

@@ -1,4 +1,4 @@
-# Automatically overwritten by Chef
+# Automatically overwritten by RightScale
 [client]
 host     = localhost
 user     = root

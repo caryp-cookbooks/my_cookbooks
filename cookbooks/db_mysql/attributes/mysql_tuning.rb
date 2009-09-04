@@ -1,4 +1,11 @@
-set_unless[:db_mysql][:tunable][:thread_cache_size] = 50
+# Cookbook Name:: db_mysql
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
+
+set_unless[:db_mysql][:tunable][:thread_cache_size] = "50"
 set_unless[:db_mysql][:tunable][:max_connections]     = "800" 
 set_unless[:db_mysql][:tunable][:net_read_timeout]    = "30" 
 set_unless[:db_mysql][:tunable][:net_write_timeout]   = "30" 
@@ -30,17 +37,17 @@ else
   # Override the init timeout value for EC2 instance types
   case ec2[:instance_type]
   when "m1.small"
-     set_unless[:db_mysql][:init_timeout] = 600     
+     set_unless[:db_mysql][:init_timeout] = "600"     
   when "c1.medium"
-     set_unless[:db_mysql][:init_timeout] = 1200
+     set_unless[:db_mysql][:init_timeout] = "1200"
   when "m1.large"
-     set_unless[:db_mysql][:init_timeout] = 1800
+     set_unless[:db_mysql][:init_timeout] = "1800"
   when "c1.xlarge"
-     set_unless[:db_mysql][:init_timeout] = 1800
+     set_unless[:db_mysql][:init_timeout] = "1800"
   when "m1.xlarge"
-     set_unless[:db_mysql][:init_timeout] = 1800
+     set_unless[:db_mysql][:init_timeout] = "1800"
   else 
-     set_unless[:db_mysql][:init_timeout] = 1200
+     set_unless[:db_mysql][:init_timeout] = "1200"
   end
   
   # tune the database for dedicated vs. shared and instance type

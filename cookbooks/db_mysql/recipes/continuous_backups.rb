@@ -25,7 +25,7 @@ template "/usr/local/bin/mysql-binary-backup.rb" do
     )
 end
 
-ruby do puts "Template reconfiguration complete." end #FIXME: use log resource to send this to the audit logs 
+log "Template reconfiguration complete."
 
 # setup backup options
 max_snaps = @node[:db_mysql][:backup][:maximum_snapshots]

@@ -4,7 +4,7 @@ Configures MySQL database servers that act as a Master-DB. Specifically designed
 
 = REQUIREMENTS:
 
-* The Opscode's public cookbooks must be in your cookbook path -- mysql cookbook used for client install.
+* The Opscode's public cookbooks must be in your cookbook path -- the 'mysql' cookbook is used for client install.
 * Due to the EBS dependency, this currently only runs on EC2 clouds.
 * Requires a DNSMadeEasy.com account.
 
@@ -17,11 +17,13 @@ See metadata.rb
 Designed to be run within a RightScale server template with the following run order:
 
 Boot Scripts
-  * default - performs base server install and configuration. && updates the crontab for DB Backups using EBS-style calls.
+  * server - performs base server install and configuration.
+  * continuous_backups - Schedule continuous backups of the database.
 
 Operational Scripts
   * restore_master - restores the database from the most recent snapshot and sets master DNS.
   * backup - backs up the binary DB contents to an EBS snapshot.
+  * register_public_ip - Registers the public IP of the current instance to dns madeeasy.
   
 Decommission Scripts
   * decommission - stops the database and detaches EBS volume.
