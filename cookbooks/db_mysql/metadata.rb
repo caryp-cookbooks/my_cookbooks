@@ -87,8 +87,13 @@ attribute "db_mysql/server_usage",
   :default => "dedicated"
 
 # backup  
+attribute "db_mysql/backup/prefix_override",
+  :display_name => "Backup prfix override",
+  :description => "Override prefix to restore from a specific snapshot.",
+  :default => ""
+
 attribute "db_mysql/backup/maximum_snapshots",
-  :display_name => "Maximum snapshots ",
+  :display_name => "Maximum snapshots",
   :description => "The total number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded.",
   :default => "60"
  

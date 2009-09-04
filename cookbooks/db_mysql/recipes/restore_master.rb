@@ -8,25 +8,26 @@
 
 rs_tools "dbtools-0.18.12.tgz"
 
+# restore the db from EBS volume. Override prefix to restore from a specific snapshot.
 ruby "do dbtool EBS restore" do
   environment 'DBREPLICATION_USER' => @node[:db_mysql][:replication_user], 'DBREPLICATION_PASSWORD' => @node[:db_mysql][:replication_password], 'RS_API_URL' => @node[:rightscale][:api_url], 'RS_DISTRO' => @node[:platform], 'EC2_INSTANCE_ID' => @node[:ec2][:instance_id]  
   code <<-EOH
-    #puts "DB name of the DB to be restore has been overridden with 'DB_RESTORE_OVERRIDE'=#{ENV['DB_RESTORE_PREFIX_OVERRIDE']}"
-    #db_prefix_name= ( ENV['DB_RESTORE_PREFIX_OVERRIDE']  ? ENV['DB_RESTORE_PREFIX_OVERRIDE'] : ENV['DB_EBS_PREFIX'] )
-    
-    puts "DB PREFIX to restore: #{@node[:db_mysql][:backup][:prefix]}"
-    puts `/opt/rightscale/db/ec2_ebs/restoreDB.rb -n #{@node[:db_mysql][:backup][:prefix]}`
+    puts "DB name of the DB to be restore has been overridden with 'prefix_override'=#{@node[:db_mysql][:backup][:prefix_override]}"
+    db_prefix_name = ("#{@node[:db_mysql][:backup][:prefix_override]}" != "") ? "#{@node[:db_mysql][:backup][:prefix_override]}" : "#{@node[:db_mysql][:backup][:prefix]}"    
+
+    puts "DB PREFIX to restore: \#{db_prefix_name}"
+    puts `/opt/rightscale/db/ec2_ebs/restoreDB.rb -n \#{db_prefix_name}`
     exit(-1) if $? != 0
   EOH
 end
 
+# Ensure admin credentials match our inputs.
 ruby "set admin credentials" do
   environment 'DBADMIN_USER' => @node[:db_mysql][:admin_user], 'DBADMIN_PASSWORD' => @node[:db_mysql][:admin_password]
   code <<-EOH
     require 'rubygems'
     require 'mysql'
     
-    # Ensure admin credentials match our inputs..
     con = Mysql.new("", "root" )
     con.query("GRANT ALL PRIVILEGES on *.* TO '#{@node[:db_mysql][:admin_user]}'@'%' IDENTIFIED BY '#{@node[:db_mysql][:admin_password]}' WITH GRANT OPTION")
     con.query("GRANT ALL PRIVILEGES on *.* TO '#{@node[:db_mysql][:admin_user]}'@'localhost' IDENTIFIED BY '#{@node[:db_mysql][:admin_password]}' WITH GRANT OPTION")
@@ -41,13 +42,6 @@ dns @node[:db_mysql][:dns][:master_id] do
   passwd @node[:db_mysql][:dns][:password]
   ip_address @node[:cloud][:private_ip]
 end
-
-# # configure master DB DNS record 
-# dns @node[:db_mysql][:dns][:master_id] do
-#   user @node[:db_mysql][:dns][:user]
-#   passwd @node[:db_mysql][:dns][:password]
-#   ip_address @node[:cloud][:public_ip]
-# end
 
 ruby "wait for db" do
   code <<-EOH

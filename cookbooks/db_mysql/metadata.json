@@ -159,6 +159,17 @@
 
       ]
     },
+    "db_mysql\/backup\/prefix_override": {
+      "default": "",
+      "type": "string",
+      "description": "Override prefix to restore from a specific snapshot.",
+      "multiple_values": false,
+      "display_name": "Backup prfix override",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
     "db_mysql\/dns\/master_id": {
       "type": "string",
       "description": "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the servers EIP.  Ex: 4404922",
@@ -223,7 +234,7 @@
       "type": "string",
       "description": "The total number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded.",
       "multiple_values": false,
-      "display_name": "Maximum snapshots ",
+      "display_name": "Maximum snapshots",
       "required": false,
       "recipes": [
 
