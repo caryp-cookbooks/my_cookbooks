@@ -8,22 +8,6 @@ link "/usr/share/zoneinfo/#{@node[:rs_utils][:timezone]}" do
   to "/etc/localtime"
 end
 
-#configure mail
-package "postfix"
-
-bash "configure_postfix" do 
-  code <<-EOH
-    sed -i 's/inet_interfaces = localhost/#inet_interfaces = localhost/' /etc/postfix/main.cf
-    sed -i 's/#inet_interfaces = all/inet_interfaces = all/' /etc/postfix/main.cf 
-    sed -i "s/mydestination = \$myhostname\, localhost\.\$mydomain\, localhost/mydestination = \$myhostname, localhost\.\$mydomain\, localhost\, $EC2_LOCAL_HOSTNAME/" /etc/postfix/main.cf 
-  EOH
-end
-
-service "postfix" do 
-  supports :start => true, :stop => true, :restart => true
-  action [ :enable, :restart ]
-end
-
 #configure syslog
 if @node[:rightscale][:lumberjack] 
   package "syslog-ng" 
@@ -107,14 +91,14 @@ service "collectd" do
 end
 
 #install private key
-if @node[:rs_utils][:private_ssh_key]
+if "@node[:rs_utils][:private_ssh_key]" != ""
   execute "add_ssh_key" do 
     command "echo #{@node[:rs_utils][:private_ssh_key]} >> /root/.ssh/id_rsa && chmod 700 /root/.ssh/id_rsa"
   end
 end
 
 #set hostname
-if @node[:rs_utils][:hostname]
+if "@node[:rs_utils][:hostname]" != "" 
   execute "set_hostname" do
     command "hostname #{@node[:rs_utils][:hostname]}" 
   end
