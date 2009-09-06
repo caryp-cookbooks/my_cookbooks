@@ -5,12 +5,15 @@ include_recipe "mysql::client"
 include_recipe "repo_git"
 
 # install optional gems required for the application
-@node[:rails][:opt_gems_list].each { |gem| gem_package gem }
+@node[:rails][:opt_gems_list].each { |gem| gem_package gem } unless "#{@node[:rails][:opt_gems_list]}" == ""
 
 # grab application source from remote repository
 include_recipe "app_rails::update_code"
 
 # insert database.yaml
+directory "#{@node[:rails][:code][:destination]}/config" do
+  recursive true
+end
 template "#{@node[:rails][:code][:destination]}/config/database.yaml" do
   source "database.yaml.erb"
 end
