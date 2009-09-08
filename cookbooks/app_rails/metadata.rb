@@ -94,8 +94,8 @@ attribute "rails/spawn_method",
   :description => "what spawn method should we use?",
   :default => "conservative"
 
-attribute "rails/opt_gems_list",
-  :display_name => "opt_gems_list",
+attribute "rails/gems_list",
+  :display_name => "gems_list",
   :description => "list of gems required by your application",
   :type => "array",
   :required => false

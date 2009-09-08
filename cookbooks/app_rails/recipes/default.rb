@@ -5,7 +5,7 @@ include_recipe "mysql::client"
 include_recipe "repo_git"
 
 # install optional gems required for the application
-@node[:rails][:opt_gems_list].each { |gem| gem_package gem } unless "#{@node[:rails][:opt_gems_list]}" == ""
+@node[:rails][:gems_list].each { |gem| gem_package gem } unless "#{@node[:rails][:gems_list]}" == ""
 
 # grab application source from remote repository
 include_recipe "app_rails::update_code"

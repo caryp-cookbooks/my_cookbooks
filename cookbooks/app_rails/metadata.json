@@ -53,11 +53,11 @@
 
       ]
     },
-    "rails\/opt_gems_list": {
+    "rails\/gems_list": {
       "type": "array",
       "description": "list of gems required by your application",
       "multiple_values": false,
-      "display_name": "opt_gems_list",
+      "display_name": "gems_list",
       "required": false,
       "recipes": [
 

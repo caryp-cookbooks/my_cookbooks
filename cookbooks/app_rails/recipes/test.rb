@@ -1,4 +1,4 @@
-@node[:rails][:opt_gems_list] = "right_aws"
+@node[:rails][:gems_list] = "right_aws"
 
 @node[:rails][:db_dns_name] = "reg-rails-db1.test.rightscale.com"
 @node[:rails][:db_schema_name] = "photo_demo_production"

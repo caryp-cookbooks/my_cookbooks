@@ -27,7 +27,7 @@ rails[:code][:destination] = "/home/webapp/#{rails[:application_name]}" unless r
 rails[:code][:branch] = "master" unless rails[:code].has_key?(:branch)
 rails[:application_port] = "8000"      unless rails.has_key?(:application_port)
 rails[:spawn_method] = "conservative"  unless rails.has_key?(:spawn_method)
-rails[:opt_gems_list] = [""]  unless rails.has_key?(:opt_gems_list)
+rails[:gems_list] = [""]  unless rails.has_key?(:gems_list)
 
 #
 # Overrides
