@@ -12,9 +12,12 @@ rs_tools "dbtools-0.18.12.tgz"
 ruby "do dbtool EBS restore" do
   environment 'DBREPLICATION_USER' => @node[:db_mysql][:replication_user], 'DBREPLICATION_PASSWORD' => @node[:db_mysql][:replication_password], 'RS_API_URL' => @node[:rightscale][:api_url], 'RS_DISTRO' => @node[:platform], 'EC2_INSTANCE_ID' => @node[:ec2][:instance_id]  
   code <<-EOH
-    puts "DB name of the DB to be restore has been overridden with 'prefix_override'=#{@node[:db_mysql][:backup][:prefix_override]}"
-    db_prefix_name = ("#{@node[:db_mysql][:backup][:prefix_override]}" != "") ? "#{@node[:db_mysql][:backup][:prefix_override]}" : "#{@node[:db_mysql][:backup][:prefix]}"    
-
+  # if "#{@node[:db_mysql][:backup][:prefix_override]}" == "" then
+      db_prefix_name = "#{@node[:db_mysql][:backup][:prefix]}"    
+  #  else
+  #    puts "DB name of the DB to be restore has been overridden with 'prefix_override'=#{@node[:db_mysql][:backup][:prefix_override]}"
+  #    db_prefix_name = "#{@node[:db_mysql][:backup][:prefix_override]}"   
+  #  end
     puts "DB PREFIX to restore: \#{db_prefix_name}"
     puts `/opt/rightscale/db/ec2_ebs/restoreDB.rb -n \#{db_prefix_name}`
     exit(-1) if $? != 0
