@@ -45,7 +45,7 @@ attribute "rails/code/user",
   :description => "username for code repository",
   :required => true
 
-attribute "rails/code/creditials",
+attribute "rails/code/credentials",
   :display_name => "repository credentials",
   :description => "credentials for code repository",
   :required => true

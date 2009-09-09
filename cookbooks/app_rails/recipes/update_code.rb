@@ -6,6 +6,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
+log "URL: #{@node[:rails][:code][:url]}"
+log "BRANCH: #{@node[:rails][:code][:branch]}"
+log "USER: #{@node[:rails][:code][:user]}"
+log "DESTINATION: #{@node[:rails][:code][:destination]}"
+log "CREDENTIALS: #{@node[:rails][:code][:credentials]}"
+
 # Check that we have the required attributes set
 raise "You must provide a URL to your application code repository" if ("#{@node[:rails][:code][:url]}" == "") 
 raise "You must provide a destination for your application code." if ("#{@node[:rails][:code][:destination]}" == "") 
