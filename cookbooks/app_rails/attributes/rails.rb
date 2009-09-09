@@ -1,40 +1,47 @@
-rails Mash.new unless attribute?("rails")
-rails[:code] = Mash.new unless rails.has_key?("code")
+# Cookbook Name:: app_rails
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 
 #
-# Required
+# Required attributes
 #
-rails[:code][:url] = false            unless rails[:code].has_key?(:url)
-rails[:code][:user] =  false          unless rails[:code].has_key?(:user)
-rails[:code][:credentials] = false    unless rails[:code].has_key?(:credentials)
+set_unless[:rails][:code][:url] = ""
+set_unless[:rails][:code][:user] =  ""
+set_unless[:rails][:code][:credentials] = ""
 
-rails[:db_app_user] = nil   	      unless rails.has_key?(:db_app_user)
-rails[:db_app_passwd] = nil           unless rails.has_key?(:db_app_passwd)
-rails[:db_schema_name] = nil          unless rails.has_key?(:db_schema_name)
-rails[:db_dns_name] = nil             unless rails.has_key?(:db_dns_name)
-
-#
-# Recommended
-#
-rails[:server_name] = "myserver"       unless rails.has_key?(:server_name)
-rails[:application_name] = "myapp"     unless rails.has_key?(:application_name)
-rails[:env] = "production"             unless rails.has_key?(:env)
+set_unless[:rails][:db_app_user] = ""   	     
+set_unless[:rails][:db_app_passwd] = ""       
+set_unless[:rails][:db_schema_name] = ""      
+set_unless[:rails][:db_dns_name] = ""         
 
 #
-# Optional
+# Recommended attributes
 #
-rails[:code][:destination] = "/home/webapp/#{rails[:application_name]}" unless rails[:code].has_key?(:dest)
-rails[:code][:branch] = "master" unless rails[:code].has_key?(:branch)
-rails[:application_port] = "8000"      unless rails.has_key?(:application_port)
-rails[:spawn_method] = "conservative"  unless rails.has_key?(:spawn_method)
-rails[:gems_list] = [""]  unless rails.has_key?(:gems_list)
+set_unless[:rails][:server_name] = "myserver"  
+set_unless[:rails][:application_name] = "myapp"
+set_unless[:rails][:env] = "production"       
 
 #
-# Overrides
+# Optional attributes
+#
+set_unless[:rails][:code][:branch] = "master" 
+set_unless[:rails][:application_port] = "8000"    
+set_unless[:rails][:spawn_method] = "conservative"
+set_unless[:rails][:gems_list] = "" 
+
+#
+# Calculated attributes
+#
+set[:rails][:code][:destination] = "/home/webapp/#{rails[:application_name]}"
+
+#
+# Override attributes
 #
 # default apache is worker model -- use prefork for single thread
-apache Mash.new unless attribute?("apache")
-apache[:mpm] = "prefork"             unless apache.has_key?(:mpm)
+set_unless[:apache][:mpm] = "prefork" 
 
 if apache.has_key?(:listen_ports)
      apache[:listen_ports] << rails[:application_port]

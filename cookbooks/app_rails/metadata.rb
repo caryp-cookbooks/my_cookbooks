@@ -5,17 +5,11 @@ description       "installs the pasenger version of rails"
 version           "0.1"
 
 attribute "rails",
-  :display_name => "rails hash",
-  :description => "hash of rails attributes",
+  :display_name => "Rails Passenger Settings",
   :type => "hash"
   
-attribute "rails/code",
-  :display_name => "rails application code hash",
-  :description => "hash of rails code attributes",
-  :type => "hash"
-
 #
-# required
+# required attributes
 #
 attribute "rails/db_app_user",
   :display_name => "database user",
@@ -37,7 +31,10 @@ attribute "rails/db_dns_name",
   :description => "FQDN of the database server",
   :required => true
 
-
+attribute "rails/code",
+  :display_name => "Rails Application Code",
+  :type => "hash"
+  
 attribute "rails/code/url",
   :display_name => "repository url",
   :description => "location of application code repository",
@@ -54,7 +51,7 @@ attribute "rails/code/creditials",
   :required => true
 
 #
-# recommended
+# recommended attributes
 #
 attribute "rails/server_name",
   :display_name => "server name",
@@ -72,13 +69,8 @@ attribute "rails/env",
   :default => "production"
 
 #
-# optional
+# optional attributes
 #
-attribute "rails/code/destination",
-  :display_name => "application home",
-  :description => "what directory do you want your application to live in?",
-  :default => "/home/webapp/<app_name>"
-
 attribute "rails/code/branch",
   :display_name => "repository branch",
   :description => "branch to pull source from",

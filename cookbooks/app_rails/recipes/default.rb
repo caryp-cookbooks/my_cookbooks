@@ -1,3 +1,10 @@
+# Cookbook Name:: app_rails
+# Recipe:: default
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 include_recipe "web_apache"
 include_recipe "rails"
 include_recipe "passenger_apache2::mod_rails"
