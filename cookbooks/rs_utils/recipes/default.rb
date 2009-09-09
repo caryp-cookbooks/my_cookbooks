@@ -86,8 +86,7 @@ service "cron" do
 end
 
 service "collectd" do 
-  #action :restart
-  action :nothing
+  action :restart
 end
 
 #install private key
