@@ -86,14 +86,13 @@ service "cron" do
 end
 
 service "collectd" do 
-  #action :restart
-  action :nothing
+  action :restart
 end
 
 #install private key
 if "@node[:rs_utils][:private_ssh_key]" != ""
   execute "add_ssh_key" do 
-    command "echo #{@node[:rs_utils][:private_ssh_key]} >> /root/.ssh/id_rsa && chmod 700 /root/.ssh/id_rsa"
+    command "echo '#{@node[:rs_utils][:private_ssh_key]}' >> /root/.ssh/id_rsa && chmod 700 /root/.ssh/id_rsa"
   end
 end
 

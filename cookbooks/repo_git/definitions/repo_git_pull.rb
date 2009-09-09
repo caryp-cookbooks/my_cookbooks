@@ -4,18 +4,18 @@
 #
 require 'uri'
 
-define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil do
+define :repo_git_pull, url => "", branch => "master", dest => "", cred => "" do
    
   # add repository credentials
   keyfile = nil
-  if params[:cred] != nil
+  if "#{params[:cred]}" != ""
     keyfile = "/tmp/gitkey"
     bash 'create_temp_git_ssh_key' do
       code <<-EOH
         echo -n '#{params[:cred]}' > #{keyfile}
-	chmod 700 #{keyfile}
+	      chmod 700 #{keyfile}
         echo 'exec ssh -i #{keyfile} "$@"' > #{keyfile}.sh
-	chmod +x #{keyfile}.sh
+	      chmod +x #{keyfile}.sh
       EOH
     end
   end 
@@ -40,21 +40,21 @@ define :repo_git_pull, url => nil, branch => "master", dest => nil, cred => nil 
       puts `git clone #{params[:url]} -- #{params[:dest]}`
 
       if "#{params[:branch]}" != "master" 
-	dir = "#{params[:dest]}"
+	      dir = "#{params[:dest]}"
         Dir.chdir(dir) 
         puts `git checkout --track -b #{params[:branch]} origin/#{params[:branch]}`
       end
     EOH
   end
 
-  # delete SSH key & clear GIT_SSH
-  if params[:cred] != nil
-    bash 'delete_temp_git_ssh_key' do
-      code <<-EOH
-        rm -f #{keyfile}
-        rm -f #{keyfile}.sh
-      EOH
-    end
-  end
+# delete SSH key & clear GIT_SSH
+if params[:cred] != nil
+   bash 'delete_temp_git_ssh_key' do
+     code <<-EOH
+       rm -f #{keyfile}
+       rm -f #{keyfile}.sh
+     EOH
+   end
+end
 
 end

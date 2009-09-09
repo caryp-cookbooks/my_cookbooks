@@ -1,15 +1,10 @@
 {
-  "replacing": {
-
-  },
-  "long_description": "",
   "recipes": {
-    "app_rails": "",
     "app_rails::update_code": "",
-    "app_rails::test": ""
+    "app_rails::test": "",
+    "app_rails": ""
   },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
+  "conflicting": {
 
   },
   "dependencies": {
@@ -18,8 +13,6 @@
   "platforms": {
 
   },
-  "maintainer_email": "cookbooks@rightscale.com",
-  "name": "app_rails",
   "attributes": {
     "rails\/spawn_method": {
       "default": "conservative",
@@ -43,11 +36,20 @@
 
       ]
     },
+    "rails\/code\/credentials": {
+      "type": "string",
+      "description": "credentials for code repository",
+      "multiple_values": false,
+      "display_name": "repository credentials",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
     "rails": {
       "type": "hash",
-      "description": "hash of rails attributes",
       "multiple_values": false,
-      "display_name": "rails hash",
+      "display_name": "Rails Passenger Settings",
       "required": false,
       "recipes": [
 
@@ -74,17 +76,6 @@
 
       ]
     },
-    "rails\/code\/destination": {
-      "default": "\/home\/webapp\/<app_name>",
-      "type": "string",
-      "description": "what directory do you want your application to live in?",
-      "multiple_values": false,
-      "display_name": "application home",
-      "required": false,
-      "recipes": [
-
-      ]
-    },
     "rails\/db_schema_name": {
       "type": "string",
       "description": "database schema to use",
@@ -100,16 +91,6 @@
       "description": "password for database access",
       "multiple_values": false,
       "display_name": "database password",
-      "required": true,
-      "recipes": [
-
-      ]
-    },
-    "rails\/code\/creditials": {
-      "type": "string",
-      "description": "credentials for code repository",
-      "multiple_values": false,
-      "display_name": "repository credentials",
       "required": true,
       "recipes": [
 
@@ -168,22 +149,21 @@
 
       ]
     },
+    "rails\/code": {
+      "type": "hash",
+      "multiple_values": false,
+      "display_name": "Rails Application Code",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
     "rails\/db_dns_name": {
       "type": "string",
       "description": "FQDN of the database server",
       "multiple_values": false,
       "display_name": "database dns name",
       "required": true,
-      "recipes": [
-
-      ]
-    },
-    "rails\/code": {
-      "type": "hash",
-      "description": "hash of rails code attributes",
-      "multiple_values": false,
-      "display_name": "rails application code hash",
-      "required": false,
       "recipes": [
 
       ]
@@ -199,14 +179,6 @@
       ]
     }
   },
-  "suggestions": {
-
-  },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "conflicting": {
-
-  },
-  "version": "0.1.0",
   "providing": {
     "app_rails": [
 
@@ -218,5 +190,20 @@
 
     ]
   },
-  "description": "installs the pasenger version of rails"
+  "replacing": {
+
+  },
+  "long_description": "",
+  "name": "app_rails",
+  "version": "0.1.0",
+  "maintainer": "RightScale, Inc.",
+  "description": "installs the pasenger version of rails",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cookbooks@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide."
 }
