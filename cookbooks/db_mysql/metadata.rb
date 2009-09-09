@@ -79,7 +79,7 @@ attribute "db_mysql/backup/prefix",
   :required => true
 
 #
-# recommended
+# recommended attributes
 #
 attribute "db_mysql/server_usage",
   :display_name => "Server Usage",
@@ -118,7 +118,7 @@ attribute "db_mysql/backup/keep_yearly",
   :default => "2"
 
 #
-# optional
+# optional attributes
 #
 attribute "db_mysql/dns_ttl_limit",
   :display_name => "Maximum allowable DNS TTL limit",
