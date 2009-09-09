@@ -36,7 +36,7 @@ set_unless[:db_mysql][:backup][:maximum_snapshots]= "60"
 #
 # Optional attributes
 #
-set_unless[:db_mysql][:dns_ttl_limit] = "120"      
+set_unless[:db_mysql][:dns][:ttl_limit] = "120"      
 set_unless[:db_mysql][:datadir_relocate] = "/mnt/mysql"
 set_unless[:db_mysql][:log_bin] = "/mnt/mysql-binlogs/mysql-bin"
 set_unless[:db_mysql][:tmpdir] = "/tmp"

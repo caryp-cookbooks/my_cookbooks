@@ -8,22 +8,9 @@
 
 include_recipe "mysql::client"
 
-# throw an error of the DNS TTL is too high
-bash "check dynamic dns ttl" do
-  user "root"
-  code <<-EOH
-    set -xe
-    dnsttl=`dig #{@node[:db_mysql][:dns][:master_name]} | grep ^#{@node[:db_mysql][:dns][:master_name]}| awk '{ print $2}'`
-   if [ $dnsttl -gt #{@node[:db_mysql][:dns_ttl_limit]} ]; then
-   logger -t RightScale "Master DB DNS TTL set too high.  Must be set <= #{@node[:db_mysql][:dns_ttl_limit]}" 
-     exit 1
-   fi
-   logger -t RightScale "Master DB DNS TTL: $dnsttl"
-  EOH
-end
-
 log "EC2 Instance type detected: #{@node[:db_mysql][:server_usage]}-#{@node[:ec2][:instance_type]}" if @node[:ec2]
 
+# preseeding is only required for ubuntu and debian
 case node[:platform]
 when "debian","ubuntu"
 

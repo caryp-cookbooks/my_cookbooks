@@ -24,20 +24,7 @@ ruby "do dbtool EBS restore" do
   EOH
 end
 
-# Ensure admin credentials match our inputs.
-ruby "set admin credentials" do
-  environment 'DBADMIN_USER' => @node[:db_mysql][:admin_user], 'DBADMIN_PASSWORD' => @node[:db_mysql][:admin_password]
-  code <<-EOH
-    require 'rubygems'
-    require 'mysql'
-    
-    con = Mysql.new("", "root" )
-    con.query("GRANT ALL PRIVILEGES on *.* TO '#{@node[:db_mysql][:admin_user]}'@'%' IDENTIFIED BY '#{@node[:db_mysql][:admin_password]}' WITH GRANT OPTION")
-    con.query("GRANT ALL PRIVILEGES on *.* TO '#{@node[:db_mysql][:admin_user]}'@'localhost' IDENTIFIED BY '#{@node[:db_mysql][:admin_password]}' WITH GRANT OPTION")
-    con.query("FLUSH PRIVILEGES")
-    con.close
-  EOH
-end
+include_recipe "setup_admin_privileges"
 
 # configure master DB DNS record 
 dns @node[:db_mysql][:dns][:master_id] do

@@ -4,6 +4,10 @@ license           "Copyright (c) 2009 RightScale, Inc, All Rights Reserved World
 description       "installs the pasenger version of rails"
 version           "0.1"
 
+depends "db_mysql"
+
+recipe  "app_rails::setup_db_config", "Configures the rails database.yml file"
+
 attribute "rails",
   :display_name => "Rails Passenger Settings",
   :type => "hash"
@@ -48,7 +52,7 @@ attribute "rails/code/user",
 attribute "rails/code/credentials",
   :display_name => "repository credentials",
   :description => "credentials for code repository",
-  :required => true
+  :required => true  
 
 #
 # recommended attributes
@@ -67,10 +71,30 @@ attribute "rails/env",
   :display_name => "rails environment",
   :description => "production, test, staging, etc.",
   :default => "production"
+  
+attribute "rails/db_mysqldump_file_path",
+  :display_name => "mysqldump file path",
+  :description => "Full path in git repository to mysqldump file to restore"
+
 
 #
 # optional attributes
 #
+attribute "rails/version",
+  :display_name => "Rails Version",
+  :description => "Specify the version of Rails to install",
+  :default => "false"
+
+attribute "rails/environment",
+  :display_name => "Rails Environment",
+  :description => "Specify the environment to use for Rails",
+  :default => "production"
+
+attribute "rails/max_pool_size",
+  :display_name => "Rails Max Pool Size",
+  :description => "Specify the MaxPoolSize in the Apache vhost",
+  :default => "4"
+  
 attribute "rails/code/branch",
   :display_name => "repository branch",
   :description => "branch to pull source from",

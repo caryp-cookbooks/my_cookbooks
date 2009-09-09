@@ -1,25 +1,29 @@
 maintainer       "RightScale, Inc."
 maintainer_email "support@rightscale.com"
 license          "All rights reserved"
-description      "Installs/Configures a MySQL database server with automated backups"
+description      "Installs/configures a MySQL database server with automated backups"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
 depends "mysql", "= 0.9"
 depends "rs_tools"
 
+provides "db_mysql_setup_privileges(type, username, password)"
+
 recipe  "db_mysql::backup", "Backs up the binary DB contents to an EBS snapshot."
-recipe  "db_mysql::continuous_backups", "Schedule continuous backups of the database"
-recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB"
-recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes"
+recipe  "db_mysql::continuous_backups", "Schedule continuous backups of the database."
+recipe  "db_mysql::ddns_check", "Throw an error of the DNS TTL is too high."
+recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB."
+recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes."
 recipe  "db_mysql::register_public_ip", "Registers the public IP of the current instance to dns madeeasy."
 recipe  "db_mysql::restore_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
-recipe  "db_mysql::server", "Installs packages required for mysql servers w/o manual intervention"
+recipe  "db_mysql::setup_admin_privileges", "Add username and password for user with GRANT privileges."
+recipe  "db_mysql::server", "Installs packages required for mysql servers w/o manual intervention."
 
 #
 # required attributes
 #
-attribute "db_mysql/dns",
+attribute "db_mysql",
   :display_name => "General database options",
   :type => "hash"
   
@@ -51,6 +55,7 @@ attribute "db_mysql/dns",
 attribute "db_mysql/dns/master_name",
   :display_name => "Master DNS name",
   :description => "This DNS name is the FNDQ MySQL Master used by the slave and application to connect to the MySQL server",
+  :recipes => ["db_mysql::continuous_backups", "db_mysql::ddns_check"],
   :required => true
 
 attribute "db_mysql/dns/master_id",
@@ -58,12 +63,12 @@ attribute "db_mysql/dns/master_id",
   :description => "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the servers EIP.  Ex: 4404922",
   :required => true
 
-attribute "db_mysql/dns/user",
+attribute "dns/user",
   :display_name => "DNSMadeEasy username",
   :description => "The username of your DNSMadeEasy account.",
   :required => true
 
-attribute "db_mysql/dns/password",
+attribute "dns/password",
   :display_name => "DNSMadeEasy password",
   :description => "The password of your DNSMadeEasy account.",
   :required => true
@@ -92,9 +97,9 @@ attribute "db_mysql/backup/prefix_override",
   :description => "Override prefix to restore from a specific snapshot.",
   :default => ""
 
-attribute "db_mysql/backup/maximum_snapshots",
-  :display_name => "Maximum snapshots",
-  :description => "The total number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded.",
+attribute "db_mysql/backup/keep_minimum",
+  :display_name => "Minimum backup count",
+  :description => "The minimum number of snapshots to keep. The oldest snapshot will be deleted when this is exceeded. This is overrides of the Daily, Weekly, etc. backup count.  Typically set to the total number of backups made in a day.",
   :default => "60"
  
 attribute "db_mysql/backup/keep_daily",
@@ -120,10 +125,10 @@ attribute "db_mysql/backup/keep_yearly",
 #
 # optional attributes
 #
-attribute "db_mysql/dns_ttl_limit",
+attribute "db_mysql/dns/ttl_limit",
   :display_name => "Maximum allowable DNS TTL limit",
   :description => "Verification that master database DNS TTL is low enough",
-  :recipes => ["db_mysql::default"],
+  :recipes => ["db_mysql::ddns_check"],
   :default => "120"
 
 attribute "db_mysql/log_bin",

@@ -17,13 +17,8 @@ include_recipe "repo_git"
 # grab application source from remote repository
 include_recipe "app_rails::update_code"
 
-# insert database.yaml
-directory "#{@node[:rails][:code][:destination]}/config" do
-  recursive true
-end
-template "#{@node[:rails][:code][:destination]}/config/database.yaml" do
-  source "database.yaml.erb"
-end
+# reconfigure existing database.yml, or create from scratch
+include_recipe "app_rails::setup_db_config"
 
 # this should work but chef breaks -- https://tickets.opscode.com/browse/CHEF-205
  #directory @node[:rails][:code][:destination] do
@@ -42,6 +37,12 @@ bash "chown_home" do
   EOH
 end
 
+# if port 80, disable default vhost
+if "#{@node[:rails][:application_port]}" == "80" 
+  apache_site "000-default" do
+    enable false
+  end
+end
 
 # setup the passenger vhost
 web_app @node[:rails][:application_name] do
