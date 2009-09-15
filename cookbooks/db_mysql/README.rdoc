@@ -4,7 +4,8 @@ Configures MySQL database servers that act as a Master-DB. Specifically designed
 
 = REQUIREMENTS:
 
-* The Opscode's public cookbooks must be in your cookbook path -- the 'mysql' cookbook is used for client install.
+* The RightScale public cookbooks must be in your cookbook path.
+* The Opscode public cookbooks must be in your cookbook path.
 * Due to the EBS dependency, this currently only runs on EC2 clouds.
 * Requires a DNSMadeEasy.com account.
 
@@ -17,7 +18,7 @@ See metadata.rb
 Designed to be run within a RightScale server template with the following run order:
 
 Boot Scripts
-  * server - performs base server install and configuration.
+  * install_mysql - performs base server install and configuration. (RightScale public cookbook)
   * continuous_backups - Schedule continuous backups of the database.
 
 Operational Scripts

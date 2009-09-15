@@ -7,18 +7,18 @@ version          "0.0.1"
 
 depends "mysql", "= 0.9"
 depends "rs_tools"
+depends "db_mysql"  # RightScale public cookbook
+ 
+provides "db_mysql_restore(url, branch, user, credentials, file_path, schema_name, tmp_dir)"
+provides "db_mysql_set_privileges(type, username, password)"
 
-provides "db_mysql_setup_privileges(type, username, password)"
-
+recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes."
 recipe  "db_mysql::backup", "Backs up the binary DB contents to an EBS snapshot."
 recipe  "db_mysql::continuous_backups", "Schedule continuous backups of the database."
 recipe  "db_mysql::ddns_check", "Throw an error of the DNS TTL is too high."
 recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB."
-recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes."
 recipe  "db_mysql::register_public_ip", "Registers the public IP of the current instance to dns madeeasy."
 recipe  "db_mysql::restore_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
-recipe  "db_mysql::setup_admin_privileges", "Add username and password for user with GRANT privileges."
-recipe  "db_mysql::server", "Installs packages required for mysql servers w/o manual intervention."
 
 #
 # required attributes

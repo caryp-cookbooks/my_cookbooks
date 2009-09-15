@@ -2,24 +2,25 @@
   "replacing": {
 
   },
-  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.\n\n= REQUIREMENTS:\n\n* The Opscode's public cookbooks must be in your cookbook path -- the 'mysql' cookbook is used for client install.\n* Due to the EBS dependency, this currently only runs on EC2 clouds.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nDesigned to be run within a RightScale server template with the following run order:\n\nBoot Scripts\n  * server - performs base server install and configuration.\n  * continuous_backups - Schedule continuous backups of the database.\n\nOperational Scripts\n  * restore_master - restores the database from the most recent snapshot and sets master DNS.\n  * backup - backs up the binary DB contents to an EBS snapshot.\n  * register_public_ip - Registers the public IP of the current instance to dns madeeasy.\n  \nDecommission Scripts\n  * decommission - stops the database and detaches EBS volume.\n\n",
+  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.\n\n= REQUIREMENTS:\n\n* The RightScale public cookbooks must be in your cookbook path.\n* The Opscode public cookbooks must be in your cookbook path.\n* Due to the EBS dependency, this currently only runs on EC2 clouds.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nDesigned to be run within a RightScale server template with the following run order:\n\nBoot Scripts\n  * install_mysql - performs base server install and configuration. (RightScale public cookbook)\n  * continuous_backups - Schedule continuous backups of the database.\n\nOperational Scripts\n  * restore_master - restores the database from the most recent snapshot and sets master DNS.\n  * backup - backs up the binary DB contents to an EBS snapshot.\n  * register_public_ip - Registers the public IP of the current instance to dns madeeasy.\n  \nDecommission Scripts\n  * decommission - stops the database and detaches EBS volume.\n\n",
   "recipes": {
     "db_mysql::decommission": "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB.",
+    "db_mysql": "",
     "db_mysql::backup": "Backs up the binary DB contents to an EBS snapshot.",
     "db_mysql::default": "Runs the 'server' and 'continuous_backups' recipes.",
-    "db_mysql": "",
     "db_mysql::continuous_backups": "Schedule continuous backups of the database.",
     "db_mysql::register_public_ip": "Registers the public IP of the current instance to dns madeeasy.",
     "db_mysql::ddns_check": "Throw an error of the DNS TTL is too high.",
-    "db_mysql::server": "Installs packages required for mysql servers w\/o manual intervention.",
-    "db_mysql::restore_master": "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master.",
-    "db_mysql::setup_admin_privileges": "Add username and password for user with GRANT privileges."
+    "db_mysql::restore_master": "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
   },
   "dependencies": {
+    "db_mysql": [
+
+    ],
     "mysql": [
       "= 0.9"
     ],
@@ -288,10 +289,13 @@
     "db_mysql::decommission": [
 
     ],
+    "db_mysql_restore(url, branch, user, credentials, file_path, schema_name, tmp_dir)": [
+
+    ],
     "db_mysql::backup": [
 
     ],
-    "db_mysql_setup_privileges(type, username, password)": [
+    "db_mysql_set_privileges(type, username, password)": [
 
     ],
     "db_mysql::continuous_backups": [
@@ -303,13 +307,7 @@
     "db_mysql::ddns_check": [
 
     ],
-    "db_mysql::server": [
-
-    ],
     "db_mysql::restore_master": [
-
-    ],
-    "db_mysql::setup_admin_privileges": [
 
     ]
   },
