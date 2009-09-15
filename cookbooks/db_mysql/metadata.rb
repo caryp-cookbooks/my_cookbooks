@@ -127,7 +127,7 @@ attribute "db_mysql/backup/keep_yearly",
 #
 attribute "db_mysql/dns/ttl_limit",
   :display_name => "Maximum allowable DNS TTL limit",
-  :description => "Verification that master database DNS TTL is low enough",
+  :description => "Verification that master database DNS TTL is low enough. WARNING: can produce false positives.",
   :recipes => ["db_mysql::ddns_check"],
   :default => "120"
 

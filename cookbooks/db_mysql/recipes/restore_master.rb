@@ -24,7 +24,7 @@ ruby "do dbtool EBS restore" do
   EOH
 end
 
-include_recipe "setup_admin_privileges"
+include_recipe "db_mysql::setup_admin_privileges"
 
 # configure master DB DNS record 
 dns @node[:db_mysql][:dns][:master_id] do
