@@ -7,15 +7,18 @@
 #
 
 # configure master DB DNS record 
-ruby do
+ruby "Output dns vars" do
   code <<-EOH
-  puts "user: #{@node[:db_mysql][:dns][:user]}"
-  puts "password: #{@node[:db_mysql][:dns][:password]}"
+  user = "#{@node[:dns][:user]}"
+  pass = "#{@node[:dns][:password]}"
+
+  puts "user: \#{user}"
+  puts "password: \#{pass}"
   EOH
 end
 dns @node[:db_mysql][:dns][:master_id] do
-  user "#{@node[:db_mysql][:dns][:user]}"
-  passwd "#{@node[:db_mysql][:dns][:password]}"
+  user "#{@node[:dns][:user]}"
+  passwd "#{@node[:dns][:password]}"
   ip_address @node[:cloud][:public_ip]
 end
 

@@ -11,8 +11,8 @@
 set_unless[:db_mysql][:replication_user] = nil
 set_unless[:db_mysql][:replication_password] = nil
 # dns 
-set_unless[:db_mysql][:dns][:user] = nil
-set_unless[:db_mysql][:dns][:password] = nil
+set_unless[:dns][:user] = nil
+set_unless[:dns][:password] = nil
 set_unless[:db_mysql][:dns][:master_id] = nil
 set_unless[:db_mysql][:dns][:master_name] = nil
 # backup 
