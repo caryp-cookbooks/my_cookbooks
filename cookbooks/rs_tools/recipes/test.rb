@@ -1,6 +1,3 @@
-#@node[:rs_tools][:toolname] = "dbtools-0.18.12.tgz"
-
-#include_recipe "rs_tools"
 
 rs_tools "dbtools-0.18.12.tgz"
 rs_tools "rightscale_dnstools.tgz"

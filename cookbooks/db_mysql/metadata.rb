@@ -13,12 +13,12 @@ provides "db_mysql_restore(url, branch, user, credentials, file_path, schema_nam
 provides "db_mysql_set_privileges(type, username, password)"
 
 recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes."
-recipe  "db_mysql::backup", "Backs up the binary DB contents to an EBS snapshot."
-recipe  "db_mysql::continuous_backups", "Schedule continuous backups of the database."
-recipe  "db_mysql::ddns_check", "Throw an error of the DNS TTL is too high."
+recipe  "db_mysql::do_backup", "Backs up the binary DB contents to an EBS snapshot."
+recipe  "db_mysql::setup_continuous_backups", "Schedule continuous backups of the database."
+recipe  "db_mysql::do_ddns_check", "Throw an error of the DNS TTL is too high."
 recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB."
-recipe  "db_mysql::register_public_ip", "Registers the public IP of the current instance to dns madeeasy."
-recipe  "db_mysql::restore_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
+recipe  "db_mysql::do_register_public_ip", "Registers the public IP of the current instance to dns madeeasy."
+recipe  "db_mysql::do_restore_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
 
 #
 # required attributes
@@ -59,7 +59,7 @@ attribute "db_mysql/dns/master_name",
   :required => true
 
 attribute "db_mysql/dns/master_id",
-  :display_name => "External DNS ID",
+  :display_name => "Master DB DNS ID",
   :description => "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the servers EIP.  Ex: 4404922",
   :required => true
 
