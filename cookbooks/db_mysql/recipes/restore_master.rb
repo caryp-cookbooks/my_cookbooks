@@ -28,8 +28,8 @@ include_recipe "db_mysql::setup_admin_privileges"
 
 # configure master DB DNS record 
 dns @node[:db_mysql][:dns][:master_id] do
-  user @node[:db_mysql][:dns][:user]
-  passwd @node[:db_mysql][:dns][:password]
+  user @node[:dns][:user]
+  passwd @node[:dns][:password]
   ip_address @node[:cloud][:private_ip]
 end
 
