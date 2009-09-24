@@ -191,7 +191,7 @@
       "display_name": "Maximum allowable DNS TTL limit",
       "required": false,
       "recipes": [
-        "db_mysql::ddns_check"
+        "db_mysql::do_ddns_check"
       ]
     },
     "db_mysql\/backup": {
@@ -210,8 +210,8 @@
       "display_name": "Master DNS name",
       "required": true,
       "recipes": [
-        "db_mysql::continuous_backups",
-        "db_mysql::ddns_check"
+        "db_mysql::setup_continuous_backups",
+        "db_mysql::do_ddns_check"
       ]
     },
     "db_mysql\/dns": {

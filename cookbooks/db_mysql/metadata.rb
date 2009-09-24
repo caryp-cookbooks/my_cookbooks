@@ -55,7 +55,7 @@ attribute "db_mysql/dns",
 attribute "db_mysql/dns/master_name",
   :display_name => "Master DNS name",
   :description => "This DNS name is the FNDQ MySQL Master used by the slave and application to connect to the MySQL server",
-  :recipes => ["db_mysql::continuous_backups", "db_mysql::ddns_check"],
+  :recipes => ["db_mysql::setup_continuous_backups", "db_mysql::do_ddns_check"],
   :required => true
 
 attribute "db_mysql/dns/master_id",
@@ -128,7 +128,7 @@ attribute "db_mysql/backup/keep_yearly",
 attribute "db_mysql/dns/ttl_limit",
   :display_name => "Maximum allowable DNS TTL limit",
   :description => "Verification that master database DNS TTL is low enough. WARNING: can produce false positives.",
-  :recipes => ["db_mysql::ddns_check"],
+  :recipes => ["db_mysql::do_ddns_check"],
   :default => "120"
 
 attribute "db_mysql/log_bin",
