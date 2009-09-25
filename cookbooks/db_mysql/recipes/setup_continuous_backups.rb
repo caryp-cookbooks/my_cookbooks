@@ -1,5 +1,5 @@
 # Cookbook Name:: db_mysql
-# Recipe:: continuous_backups
+# Recipe:: setup_continuous_backups
 #
 # Copyright 2009, RightScale, Inc.
 #

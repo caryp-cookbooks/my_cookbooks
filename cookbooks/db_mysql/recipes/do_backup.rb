@@ -1,5 +1,5 @@
 # Cookbook Name:: db_mysql
-# Recipe:: backup
+# Recipe:: do_backup
 #
 # Copyright 2009, RightScale, Inc.
 #

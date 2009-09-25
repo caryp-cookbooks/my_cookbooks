@@ -1,5 +1,5 @@
 = DESCRIPTION:
-UPDATE THIS DOC
+
 Configures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.
 
 = REQUIREMENTS:
@@ -18,6 +18,7 @@ See metadata.rb
 Designed to be run within a RightScale server template with the following run order:
 
 Boot Scripts
+  * do_ddns_check - throw an error of the DNS TTL is too high (WARNING: can produce false positives.)
   * install_mysql - performs base server install and configuration. (RightScale public cookbook)
   * setup_continuous_backups - Schedule continuous backups of the database.
 
@@ -27,5 +28,5 @@ Operational Scripts
   * do_register_public_ip - Registers the public IP of the current instance to dns madeeasy.
   
 Decommission Scripts
-  * decommission - stops the database and detaches EBS volume.
+  * do_decommission - stops the database and detaches EBS volume.
 

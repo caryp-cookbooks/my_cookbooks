@@ -1,5 +1,5 @@
 # Cookbook Name:: db_mysql
-# Recipe:: ddns_check
+# Recipe:: do_ddns_check
 #
 # Copyright 2009, RightScale, Inc.
 #

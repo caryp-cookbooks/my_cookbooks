@@ -1,5 +1,5 @@
 # Cookbook Name:: db_mysql
-# Recipe:: decommission
+# Recipe:: do_decommission
 #
 # Copyright 2009, RightScale, Inc.
 #
