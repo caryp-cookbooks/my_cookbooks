@@ -1,23 +1,17 @@
 {
+  "providing": {
+    "auth_ssh::add_cred": [
+
+    ],
+    "auth_ssh": [
+
+    ]
+  },
+  "long_description": "",
   "replacing": {
 
   },
-  "long_description": "",
-  "recipes": {
-    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
-    "auth_ssh": ""
-  },
   "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  },
-  "platforms": {
-
-  },
-  "maintainer_email": "cookbooks@rightscale.com",
   "name": "auth_ssh",
   "attributes": {
     "auth_ssh\/keyfile": {
@@ -63,21 +57,27 @@
       ]
     }
   },
-  "suggestions": {
+  "recommendations": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "conflicting": {
+  "platforms": {
 
   },
   "version": "0.1.0",
-  "providing": {
-    "auth_ssh::add_cred": [
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
+  "maintainer_email": "cookbooks@rightscale.com",
+  "recipes": {
+    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
+    "auth_ssh": ""
+  },
+  "suggestions": {
 
-    ],
-    "auth_ssh": [
+  },
+  "dependencies": {
 
-    ]
+  },
+  "conflicting": {
+
   },
   "description": "installs the openssh connectivity tools"
 }
