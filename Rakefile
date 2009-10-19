@@ -150,16 +150,16 @@ task :status do
     end
   end
 end
-
-desc "Update metadata for all local repos"
-task :metadata do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-			puts `rake metadata`
-			puts "======================="
-    end
-  end
-end
+# 
+# desc "Update metadata for all local repos"
+# task :metadata do
+#   projects.each do |p|
+#     dir="#{opscode}/#{p}"
+#     Dir.chdir(dir) do
+#       puts "======================="
+#       puts "Dir: #{dir}"
+#       puts `rake metadata`
+#       puts "======================="
+#     end
+#   end
+# end
