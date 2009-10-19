@@ -1,0 +1,54 @@
+{
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "name": "ping_pong",
+  "attributes": {
+
+  },
+  "providing": {
+    "ping_pong::setup_ping_reciever": [
+
+    ],
+    "ping_pong::do_ping": [
+
+    ],
+    "ping_pong::do_send_ping": [
+
+    ],
+    "ping_pong::do_pong": [
+
+    ],
+    "ping_pong": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "version": "0.1.0",
+  "maintainer": "RightScale, Inc.",
+  "description": "Installs\/Configures remote_recipe",
+  "recipes": {
+    "ping_pong::setup_ping_reciever": "",
+    "ping_pong::do_ping": "",
+    "ping_pong::do_send_ping": "",
+    "ping_pong::do_pong": "",
+    "ping_pong": ""
+  },
+  "recommendations": {
+
+  }
+}
