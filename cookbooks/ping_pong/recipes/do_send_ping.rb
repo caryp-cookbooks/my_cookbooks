@@ -10,7 +10,7 @@
 right_link_tag "test:ping=sender"
 
 # send ping to receiver
-remote_recipe "pong sender" do
+remote_recipe "ping receiver" do
   :recipe "ping_pong::do_ping"
   :recipients_tags "test:ping=reciever"
 end

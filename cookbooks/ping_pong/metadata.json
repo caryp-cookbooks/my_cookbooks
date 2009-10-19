@@ -37,10 +37,10 @@
   "replacing": {
 
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n",
   "version": "0.1.0",
   "maintainer": "RightScale, Inc.",
-  "description": "Installs\/Configures remote_recipe",
+  "description": "Runs a simple test of remote_recipe and right_link_tag resources",
   "recipes": {
     "ping_pong::setup_ping_reciever": "",
     "ping_pong::do_ping": "",
