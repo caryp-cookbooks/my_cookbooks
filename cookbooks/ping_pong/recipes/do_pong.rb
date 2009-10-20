@@ -13,8 +13,7 @@ template "/tmp/pong.log" do
   variables ( 
     :ping_type => "PONG", 
     :from => @node[:remote_recipe][:from],
-    :tags => @node[:remote_recipe][:tags]
-  )
+    :tags => @node[:remote_recipe][:tags] )
   action :create
 end
 

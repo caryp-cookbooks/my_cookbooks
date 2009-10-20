@@ -7,5 +7,5 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'do_send_ping'
+include_recipe 'ping_pong::do_send_ping'
 

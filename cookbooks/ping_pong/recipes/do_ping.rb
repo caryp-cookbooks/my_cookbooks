@@ -13,13 +13,12 @@ template "/tmp/ping.log" do
   variables ( 
     :ping_type => "PING", 
     :from => @node[:remote_recipe][:from],
-    :tags => @node[:remote_recipe][:tags]
-  )
+    :tags => @node[:remote_recipe][:tags] )
   action :create
 end
 
 # send pong to sender
 remote_recipe "pong sender" do
-  :recipe "ping_pong::do_pong"
-  :recipients @node[:remote_recipe][:from]
+  recipe "ping_pong::do_pong"
+  recipients @node[:remote_recipe][:from]
 end
