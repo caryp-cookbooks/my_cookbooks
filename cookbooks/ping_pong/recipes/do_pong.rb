@@ -9,6 +9,7 @@
 
 # touch file
 template "/tmp/pong.log" do
+  backup 100
   source "pingpong.erb"
   variables ( 
     :ping_type => "PONG", 
