@@ -1,38 +1,38 @@
 {
-  "providing": {
-    "db_mysql::do_ddns_check": [
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
-    ],
+  },
+  "maintainer_email": "support@rightscale.com",
+  "recipes": {
+    "db_mysql::do_ddns_check": "Throw an error of the DNS TTL is too high.",
+    "db_mysql::decommission": "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB.",
+    "db_mysql::do_register_public_ip": "Registers the public IP of the current instance to dns madeeasy.",
+    "db_mysql": "",
+    "db_mysql::do_decommission": "",
+    "db_mysql::do_backup": "Backs up the binary DB contents to an EBS snapshot.",
+    "db_mysql::default": "Runs the 'server' and 'continuous_backups' recipes.",
+    "db_mysql::setup_continuous_backups": "Schedule continuous backups of the database.",
+    "db_mysql::do_restore_master": "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
+  },
+  "suggestions": {
+
+  },
+  "dependencies": {
     "db_mysql": [
 
     ],
-    "db_mysql::do_register_public_ip": [
-
+    "mysql": [
+      "= 0.9"
     ],
-    "db_mysql::do_decommission": [
-
-    ],
-    "db_mysql_restore(url, branch, user, credentials, file_path, schema_name, tmp_dir)": [
-
-    ],
-    "db_mysql::do_backup": [
-
-    ],
-    "db_mysql_set_privileges(type, username, password)": [
-
-    ],
-    "db_mysql::setup_continuous_backups": [
-
-    ],
-    "db_mysql::do_restore_master": [
+    "rs_tools": [
 
     ]
   },
-  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.\n\n= REQUIREMENTS:\n\n* The RightScale public cookbooks must be in your cookbook path.\n* The Opscode public cookbooks must be in your cookbook path.\n* Due to the EBS dependency, this currently only runs on EC2 clouds.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nDesigned to be run within a RightScale server template with the following run order:\n\nBoot Scripts\n  * do_ddns_check - throw an error of the DNS TTL is too high (WARNING: can produce false positives.)\n  * install_mysql - performs base server install and configuration. (RightScale public cookbook)\n  * setup_continuous_backups - Schedule continuous backups of the database.\n\nOperational Scripts\n  * do_restore_master - restores the database from the most recent snapshot and sets master DNS.\n  * do_backup - backs up the binary DB contents to an EBS snapshot.\n  * do_register_public_ip - Registers the public IP of the current instance to dns madeeasy.\n  \nDecommission Scripts\n  * do_decommission - stops the database and detaches EBS volume.\n\n",
-  "replacing": {
+  "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n",
   "name": "db_mysql",
   "attributes": {
     "db_mysql\/backup\/keep_minimum": {
@@ -264,42 +264,42 @@
       ]
     }
   },
-  "recommendations": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.0.1",
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n",
-  "maintainer_email": "support@rightscale.com",
-  "recipes": {
-    "db_mysql::do_ddns_check": "Throw an error of the DNS TTL is too high.",
-    "db_mysql::decommission": "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB.",
-    "db_mysql::do_register_public_ip": "Registers the public IP of the current instance to dns madeeasy.",
-    "db_mysql": "",
-    "db_mysql::do_decommission": "",
-    "db_mysql::do_backup": "Backs up the binary DB contents to an EBS snapshot.",
-    "db_mysql::default": "Runs the 'server' and 'continuous_backups' recipes.",
-    "db_mysql::setup_continuous_backups": "Schedule continuous backups of the database.",
-    "db_mysql::do_restore_master": "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
-  },
-  "suggestions": {
-
-  },
-  "dependencies": {
-    "db_mysql": [
-
-    ],
-    "mysql": [
-      "= 0.9"
-    ],
-    "rs_tools": [
-
-    ]
-  },
   "conflicting": {
 
   },
+  "providing": {
+    "db_mysql::do_ddns_check": [
+
+    ],
+    "db_mysql": [
+
+    ],
+    "db_mysql::do_register_public_ip": [
+
+    ],
+    "db_mysql::do_decommission": [
+
+    ],
+    "db_mysql_restore(url, branch, user, credentials, file_path, schema_name, tmp_dir)": [
+
+    ],
+    "db_mysql::do_backup": [
+
+    ],
+    "db_mysql_set_privileges(type, username, password)": [
+
+    ],
+    "db_mysql::setup_continuous_backups": [
+
+    ],
+    "db_mysql::do_restore_master": [
+
+    ]
+  },
+  "version": "0.0.1",
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers that act as a Master-DB. Specifically designed for RightScale's Manager for MySQL-EBS. Storage of MySQL data will be done using EBS Volumes. EBS Snapshots are used for database backups.\n\n= REQUIREMENTS:\n\n* The RightScale public cookbooks must be in your cookbook path.\n* The Opscode public cookbooks must be in your cookbook path.\n* Due to the EBS dependency, this currently only runs on EC2 clouds.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nDesigned to be run within a RightScale server template with the following run order:\n\nBoot Scripts\n  * do_ddns_check - throw an error of the DNS TTL is too high (WARNING: can produce false positives.)\n  * install_mysql - performs base server install and configuration. (RightScale public cookbook)\n  * setup_continuous_backups - Schedule continuous backups of the database.\n\nOperational Scripts\n  * do_restore_master - restores the database from the most recent snapshot and sets master DNS.\n  * do_backup - backs up the binary DB contents to an EBS snapshot.\n  * do_register_public_ip - Registers the public IP of the current instance to dns madeeasy.\n  \nDecommission Scripts\n  * do_decommission - stops the database and detaches EBS volume.\n\n",
   "description": "Installs\/configures a MySQL database server with automated backups"
 }

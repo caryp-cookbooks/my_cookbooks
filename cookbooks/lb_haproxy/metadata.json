@@ -1,47 +1,38 @@
 {
-  "providing": {
-    "lb_haproxy::setup_load_balancer_vhost": [
-
-    ],
-    "lb_haproxy::test": [
-
-    ],
-    "lb_haproxy": [
-
-    ],
-    "lb_haproxy::do_app_to_HA_proxy_connect": [
-
-    ],
-    "lb_haproxy::install_lb_tools": [
-
-    ],
-    "lb_haproxy::do_HA_proxy_config_get": [
-
-    ],
-    "lb_haproxy::do_app_to_local_HA_proxy": [
-
-    ],
-    "lb_haproxy::setup_reverse_proxy_config": [
-
-    ],
-    "lb_haproxy::install_haproxy": [
-
-    ],
-    "lb_haproxy::do_app_to_HA_proxy_disconnect": [
-
-    ]
-  },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "replacing": {
-
-  },
   "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "maintainer_email": "support@rightscale.com",
+  "recipes": {
+    "lb_haproxy::setup_load_balancer_vhost": "Configures apache reverse proxy",
+    "lb_haproxy::test": "Does something",
+    "lb_haproxy::do_app_to_HA_proxy_connect": "Connects HA proxy server",
+    "lb_haproxy::install_lb_tools": "Installs Rightscale Load Balancer tools",
+    "lb_haproxy::do_HA_proxy_config_get": "Get the haproxy configuration",
+    "lb_haproxy::do_app_to_local_HA_proxy": "Connects app to local haproxy server",
+    "lb_haproxy": "",
+    "lb_haproxy::setup_reverse_proxy_config": "Configures apache reverse proxy",
+    "lb_haproxy::install_haproxy": "Installs haproxy",
+    "lb_haproxy::default": "Installs haproxy",
+    "lb_haproxy::do_app_to_HA_proxy_disconnect": "Disconnects HA proxy server"
+  },
+  "suggestions": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "license": "All rights reserved",
   "name": "lb_haproxy",
   "attributes": {
     "lb_haproxy\/bind_port": {
       "default": "85",
       "type": "string",
-      "description": "port that haproxy should bind to",
+      "description": "Port that haproxy should bind to",
       "multiple_values": false,
       "display_name": "Bind Port",
       "required": false,
@@ -62,7 +53,7 @@
     },
     "lb_haproxy": {
       "type": "hash",
-      "description": "hash of attributes",
+      "description": "Hash of attributes",
       "multiple_values": false,
       "display_name": "lb_haproxy hash",
       "required": false,
@@ -95,7 +86,7 @@
     "lb_haproxy\/template_name": {
       "default": "haproxy_http",
       "type": "string",
-      "description": "template that haproxy config should use (e.g. haproxy_http)",
+      "description": "Template that haproxy config should use (e.g. haproxy_http)",
       "multiple_values": false,
       "display_name": "Haproxy Config Template",
       "required": false,
@@ -106,7 +97,7 @@
     "lb_haproxy\/applistener_name": {
       "default": null,
       "type": "string",
-      "description": "Logical name for the application (balancing group) to use",
+      "description": "Logical name for the application (balancing group) to use (e.g. mylistener)",
       "multiple_values": false,
       "display_name": "Applistener Name",
       "required": true,
@@ -128,7 +119,7 @@
     "lb_haproxy\/backend_name": {
       "default": null,
       "type": "string",
-      "description": "Unique name for backend",
+      "description": "Unique name for backend (e.g. cloud uuid)",
       "multiple_values": false,
       "display_name": "Backend Name",
       "required": true,
@@ -150,7 +141,7 @@
     "lb_haproxy\/bind_address": {
       "default": "127.0.0.1",
       "type": "string",
-      "description": " address that haproxy should bind to",
+      "description": " Address that haproxy should bind to",
       "multiple_values": false,
       "display_name": "Bind Address",
       "required": false,
@@ -159,36 +150,45 @@
       ]
     }
   },
-  "recommendations": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.1.0",
-  "license": "All rights reserved",
-  "maintainer_email": "support@rightscale.com",
-  "recipes": {
-    "lb_haproxy::setup_load_balancer_vhost": "Configures apache reverse proxy",
-    "lb_haproxy": "",
-    "lb_haproxy::test": "Does something",
-    "lb_haproxy::do_app_to_HA_proxy_connect": "Connects HA proxy server",
-    "lb_haproxy::install_lb_tools": "Installs Rightscale Load Balancer tools",
-    "lb_haproxy::do_HA_proxy_config_get": "Get the haproxy configuration",
-    "lb_haproxy::do_app_to_local_HA_proxy": "Connects app to local haproxy server",
-    "lb_haproxy::setup_reverse_proxy_config": "Configures apache reverse proxy",
-    "lb_haproxy::install_haproxy": "Installs haproxy",
-    "lb_haproxy::default": "Installs haproxy",
-    "lb_haproxy::do_app_to_HA_proxy_disconnect": "Disconnects HA proxy server"
-  },
-  "suggestions": {
-
-  },
-  "dependencies": {
-
-  },
   "conflicting": {
 
   },
+  "providing": {
+    "lb_haproxy::setup_load_balancer_vhost": [
+
+    ],
+    "lb_haproxy::test": [
+
+    ],
+    "lb_haproxy": [
+
+    ],
+    "lb_haproxy::do_app_to_HA_proxy_connect": [
+
+    ],
+    "lb_haproxy::install_lb_tools": [
+
+    ],
+    "lb_haproxy::do_HA_proxy_config_get": [
+
+    ],
+    "lb_haproxy::do_app_to_local_HA_proxy": [
+
+    ],
+    "lb_haproxy::setup_reverse_proxy_config": [
+
+    ],
+    "lb_haproxy::install_haproxy": [
+
+    ],
+    "lb_haproxy::do_app_to_HA_proxy_disconnect": [
+
+    ]
+  },
+  "version": "0.1.0",
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
   "description": "Installs\/Configures lb_haproxy"
 }

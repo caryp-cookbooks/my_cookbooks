@@ -25,60 +25,60 @@ attribute "lb_haproxy",
 attribute "lb_haproxy/applistener_name",
   :display_name => "Applistener Name",
   :description => "Logical name for the application (balancing group) to use (e.g. mylistener)",
-  :required => "required",
+  :required => true,
   :default => nil
 
 attribute "lb_haproxy/backend_name",
   :display_name => "Backend Name",
   :description => "Unique name for backend (e.g. cloud uuid)",
-  :required => "required",
+  :required => true,
   :default => nil
 
 attribute "lb_haproxy/host",
   :display_name => "LB Host",
   :description => "The hostname where haproxy is installed",
-  :required => "required",
+  :required => true,
   :default => nil
 
 attribute "lb_haproxy/template_name",
   :display_name => "Haproxy Config Template",
   :description => "Template that haproxy config should use (e.g. haproxy_http)",
-  :required => "recommended",
+  :required => false,
   :default => "haproxy_http"
 
 attribute "lb_haproxy/bind_address",
   :display_name => "Bind Address",
   :description => " Address that haproxy should bind to",
-  :required => "recommended",
+  :required => false,
   :default => "127.0.0.1"
 
 attribute "lb_haproxy/bind_port",
   :display_name => "Bind Port",
   :description => "Port that haproxy should bind to",
-  :required => "recommended",
+  :required => false,
   :default => "85"
 
 attribute "lb_haproxy/stats_uri",
   :display_name => "Status URI",
   :description => "URI that the load balancer uses to publish its status",
-  :required => "optional",
+  :required => false,
   :default => "/haproxy-status"
 
 attribute "lb_haproxy/stats_user",
   :display_name => "Status Page Username",
   :description => "Username required to access to the haproxy stats page",
-  :required => "optional",
+  :required => false,
   :default => ""
 
 attribute "lb_haproxy/stats_password",
   :display_name => "Status Page Password",
   :description => "Password required to access to the haproxy stats page",
-  :required => "optional",
+  :required => false,
   :default => ""
 
 attribute "lb_haproxy/health_check_uri",
   :display_name => "Health Check URI",
   :description => " URI for the load balancer to use to check the health of a server (only used when using http templates)",
-  :required => "optional",
+  :required => false,
   :default => ""
 

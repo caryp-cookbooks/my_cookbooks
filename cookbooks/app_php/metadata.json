@@ -1,9 +1,39 @@
 {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "maintainer_email": "support@rightscale.com",
+  "recipes": {
+    "app_php::do_update_code": "Update application source files from remote repository.",
+    "app_php::default": "Runs app_php::install_php.",
+    "app_php::install_php": "Installs the php application server.",
+    "app_php": ""
+  },
+  "suggestions": {
+
+  },
+  "dependencies": {
+    "repo_git_pull(url, branch, user, dest, cred)": [
+
+    ],
+    "web_apache": [
+
+    ],
+    "repo_git": [
+
+    ]
+  },
+  "platforms": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n",
+  "name": "app_php",
   "attributes": {
     "php\/db_dns_name": {
       "type": "string",
-      "multiple_values": false,
       "description": "FQDN of the database server",
+      "multiple_values": false,
       "display_name": "database dns name",
       "required": true,
       "recipes": [
@@ -12,8 +42,8 @@
     },
     "php\/db_app_user": {
       "type": "string",
-      "multiple_values": false,
       "description": "username for database access",
+      "multiple_values": false,
       "display_name": "database user",
       "required": true,
       "recipes": [
@@ -23,8 +53,8 @@
     "php\/code\/branch": {
       "default": "master",
       "type": "string",
-      "multiple_values": false,
       "description": "branch to pull source from",
+      "multiple_values": false,
       "display_name": "repository branch",
       "required": false,
       "recipes": [
@@ -42,8 +72,8 @@
     },
     "php\/code\/user": {
       "type": "string",
-      "multiple_values": false,
       "description": "username for code repository",
+      "multiple_values": false,
       "display_name": "repository username",
       "required": true,
       "recipes": [
@@ -52,8 +82,8 @@
     },
     "php\/code\/credentials": {
       "type": "string",
-      "multiple_values": false,
       "description": "credentials for code repository",
+      "multiple_values": false,
       "display_name": "repository credentials",
       "required": true,
       "recipes": [
@@ -62,8 +92,8 @@
     },
     "php\/db_app_passwd": {
       "type": "string",
-      "multiple_values": false,
       "description": "password for database access",
+      "multiple_values": false,
       "display_name": "database password",
       "required": true,
       "recipes": [
@@ -73,8 +103,8 @@
     "php\/application_port": {
       "default": "8000",
       "type": "string",
-      "multiple_values": false,
       "description": "the port your php application will listen on",
+      "multiple_values": false,
       "display_name": "application port",
       "required": false,
       "recipes": [
@@ -83,8 +113,8 @@
     },
     "php\/code\/url": {
       "type": "string",
-      "multiple_values": false,
       "description": "location of application code repository",
+      "multiple_values": false,
       "display_name": "repository url",
       "required": true,
       "recipes": [
@@ -103,8 +133,8 @@
     "php\/server_name": {
       "default": "myserver",
       "type": "string",
-      "multiple_values": false,
       "description": "FQDN for the server",
+      "multiple_values": false,
       "display_name": "server name",
       "required": false,
       "recipes": [
@@ -113,8 +143,8 @@
     },
     "php\/db_schema_name": {
       "type": "string",
-      "multiple_values": false,
       "description": "database schema to use",
+      "multiple_values": false,
       "display_name": "database schema name",
       "required": true,
       "recipes": [
@@ -124,14 +154,17 @@
     "php\/application_name": {
       "default": "myapp",
       "type": "string",
-      "multiple_values": false,
       "description": "give a name to your application",
+      "multiple_values": false,
       "display_name": "application name",
       "required": false,
       "recipes": [
 
       ]
     }
+  },
+  "conflicting": {
+
   },
   "providing": {
     "app_php::do_update_code": [
@@ -144,43 +177,10 @@
 
     ]
   },
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n",
-  "long_description": "",
+  "version": "0.0.1",
   "replacing": {
 
   },
-  "dependencies": {
-    "repo_git_pull(url, branch, user, dest, cred)": [
-
-    ],
-    "web_apache": [
-
-    ],
-    "repo_git": [
-
-    ]
-  },
-  "recipes": {
-    "app_php": "",
-    "app_php::do_update_code": "Update application source files from remote repository.",
-    "app_php::default": "Runs app_php::install_php.",
-    "app_php::install_php": "Installs the php application server."
-  },
-  "name": "app_php",
-  "maintainer": "RightScale, Inc.",
-  "description": "Installs the php application server.",
-  "recommendations": {
-
-  },
-  "maintainer_email": "support@rightscale.com",
-  "suggestions": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.0.1",
-  "conflicting": {
-
-  }
+  "long_description": "",
+  "description": "Installs the php application server."
 }
