@@ -1,0 +1,45 @@
+{
+  "replacing": {
+
+  },
+  "groupings": {
+
+  },
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "name": "core_env",
+  "attributes": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "suggestions": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "conflicting": {
+
+  },
+  "version": "0.1.0",
+  "license": "All rights reserved",
+  "description": "Installs\/Configures core_env",
+  "recipes": {
+    "core_env": "",
+    "core_env::do_write_to_file": ""
+  },
+  "providing": {
+    "core_env": [
+
+    ],
+    "core_env::do_write_to_file": [
+
+    ]
+  }
+}
