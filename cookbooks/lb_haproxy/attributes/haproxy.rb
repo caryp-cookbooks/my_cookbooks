@@ -34,8 +34,9 @@ set_unless[:lb_haproxy][:max_conn_per_server] = "500"
 #
 # Overrides
 #
-# default apache is worker model -- use prefork for single thread
+set_unless[:lb_haproxy][:cfg_file] = "/home/haproxy/rightscale_lb.cfg"
 
+# default apache is worker model -- use prefork for single thread
 case platform
 when "redhat","centos","fedora","suse"
   set_unless[:lb_haproxy][:apache_name] = "httpd"

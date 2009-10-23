@@ -7,8 +7,12 @@
   "recipes": {
     "lb_haproxy::setup_load_balancer_vhost": "Configures apache reverse proxy",
     "lb_haproxy::test": "Does something",
+    "lb_haproxy::do_app_lb_detach": "",
     "lb_haproxy::do_app_to_HA_proxy_connect": "Connects HA proxy server",
+    "lb_haproxy::do_backend_attach": "",
+    "lb_haproxy::do_backend_detach": "",
     "lb_haproxy::install_lb_tools": "Installs Rightscale Load Balancer tools",
+    "lb_haproxy::do_app_lb_attach": "",
     "lb_haproxy::do_HA_proxy_config_get": "Get the haproxy configuration",
     "lb_haproxy::do_app_to_local_HA_proxy": "Connects app to local haproxy server",
     "lb_haproxy": "",
@@ -163,10 +167,19 @@
     "lb_haproxy": [
 
     ],
-    "lb_haproxy::do_app_to_HA_proxy_connect": [
+    "lb_haproxy::do_app_lb_detach": [
+
+    ],
+    "lb_haproxy::do_backend_attach": [
+
+    ],
+    "lb_haproxy::do_backend_detach": [
 
     ],
     "lb_haproxy::install_lb_tools": [
+
+    ],
+    "lb_haproxy::do_app_lb_attach": [
 
     ],
     "lb_haproxy::do_HA_proxy_config_get": [

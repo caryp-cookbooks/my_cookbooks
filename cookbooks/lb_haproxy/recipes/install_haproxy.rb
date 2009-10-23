@@ -56,3 +56,5 @@ end
 #  EOH
 #end
 log "RightScale LB installation and configuration complete"
+
+right_link_tag "rs_loadbal:state=active"
