@@ -7,4 +7,4 @@
 # All rights reserved - Do Not Redistribute
 #
 
-rs_tools "rightscale_lbtools-0.13.6.tgz"
+rs_tools "rightscale_lbtools-0.13.7.tgz"
