@@ -8,3 +8,4 @@
 #
 
 include_recipe 'do_write_to_file'
+include_recipe 'do_test_values'
