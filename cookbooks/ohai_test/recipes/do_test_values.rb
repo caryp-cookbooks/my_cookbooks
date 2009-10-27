@@ -7,8 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
-test_pass = (@node[:languages][:ruby][:ruby_bin] == '/usr/bin/ruby1.8')
-raise "ERROR: ohai ruby_bin value: #{@node[:languages][:ruby][:ruby_bin]} != '/usr/bin/ruby1.8'" unless test_pass
+test_failed = ( @node[:languages][:ruby][:ruby_bin] =~ /sandbox/ )
+raise "ERROR: ohai ruby plugin: 'ruby_bin' value points to sandbox: #{@node[:languages][:ruby][:ruby_bin]}" if test_failed
 
-test_pass = (@node[:languages][:ruby][:gems_dir] == '/usr/lib/ruby/gems/1.8')
-raise "ERROR: ohai gems_dir value: #{@node[:languages][:ruby][:gems_dir]} != '/usr/lib/ruby/gems/1.8'" unless test_pass
+test_failed = ( @node[:languages][:ruby][:gems_dir] =~ /sandbox/ )
+raise "ERROR: ohai ruby plugin: 'gems_dir' value points to sandbox: #{@node[:languages][:ruby][:gems_dir]}" if test_failed

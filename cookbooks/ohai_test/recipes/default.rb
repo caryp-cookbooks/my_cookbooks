@@ -7,5 +7,5 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'do_write_to_file'
-include_recipe 'do_test_values'
+include_recipe 'ohai_test::do_write_to_file'
+include_recipe 'ohai_test::do_test_values'
