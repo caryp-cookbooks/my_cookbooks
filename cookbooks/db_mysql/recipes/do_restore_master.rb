@@ -25,7 +25,7 @@ include_recipe "db_mysql::setup_admin_privileges"
 dns @node[:db_mysql][:dns][:master_id] do
   user @node[:dns][:user]
   passwd @node[:dns][:password]
-  ip_address @node[:cloud][:private_ip]
+  ip_address @node[:cloud][:private_ip][0]
 end
 
 ruby "wait for db" do
