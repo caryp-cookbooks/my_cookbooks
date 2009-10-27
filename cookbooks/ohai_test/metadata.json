@@ -1,5 +1,8 @@
 {
   "providing": {
+    "ohai_test::do_test_values": [
+
+    ],
     "ohai_test": [
 
     ],
@@ -32,6 +35,7 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
+    "ohai_test::do_test_values": "",
     "ohai_test": "",
     "ohai_test::do_write_to_file": ""
   },
