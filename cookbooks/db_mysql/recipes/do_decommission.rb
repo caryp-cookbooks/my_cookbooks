@@ -32,7 +32,7 @@ ruby "decommision database" do
 
     ebs=RightScale::Ec2EbsUtils.new(
                         :mount_point => RightScale::DBUtils::DBMountPoint,
-                        :rs_api_url => "#{@node[:rightscale][:api_url]}"
+                        :rs_api_url => "#{@node[:rightscale_depricated][:api_url]}"
     )
 
     puts "Machine is terminating...we'll unmount, detach and delete the current DB volume."
