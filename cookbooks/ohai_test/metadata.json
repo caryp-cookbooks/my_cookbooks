@@ -1,9 +1,9 @@
 {
   "providing": {
-    "core_env": [
+    "ohai_test": [
 
     ],
-    "core_env::do_write_to_file": [
+    "ohai_test::do_write_to_file": [
 
     ]
   },
@@ -18,7 +18,7 @@
 
   },
   "maintainer": "RightScale, Inc.",
-  "name": "core_env",
+  "name": "ohai_test",
   "attributes": {
 
   },
@@ -32,11 +32,11 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
-    "core_env": "",
-    "core_env::do_write_to_file": ""
+    "ohai_test": "",
+    "ohai_test::do_write_to_file": ""
   },
   "conflicting": {
 
   },
-  "description": "Installs\/Configures core_env"
+  "description": "Installs\/Configures ohai_test"
 }
