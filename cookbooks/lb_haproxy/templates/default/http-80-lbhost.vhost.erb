@@ -1,4 +1,8 @@
 # HTTP-only virtual host template
+#
+# File created by RightScale
+# DO NOT EDIT
+#
 Listen 80
 NameVirtualHost *:80
 
@@ -24,31 +28,14 @@ NameVirtualHost *:80
      #RewriteLog /var/log/httpd/http_rewrite_log
      #RewriteLogLevel 9
 
-     # <CUSTOM RULES BEFORE ANYTHING BEGIN>
-
-     # <CUSTOM RULES BEFORE ANYTHING END>
-
      # Enable status page for monitoring purposes 
      RewriteCond %{REMOTE_ADDR} ^(127.0.0.1)
      RewriteRule ^(/server-status) $1 [H=server-status,L]
 
-     # Redirects to a maintenance page if the specified file below exists
-     # ...but it still allows images to be served
-#TODO FIX THESE
-#    RewriteCond %{DOCUMENT_ROOT}/MAINTPAGE -f
-#     RewriteCond %{SCRIPT_FILENAME} !/HEALTHURI
-#     RewriteCond %{SCRIPT_FILENAME} !^(.+).(gif|png|jpg|css|js|swf)$
-#     RewriteRule ^.*$ / HEALTHURI  [L]
-#
      # Serve any existing local files directly (except actionable ones)
      RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -fd
      RewriteCond %{REQUEST_FILENAME} !\.php|\.jsp|\.do|\.action$ [NC]
      RewriteRule ^/(.*)$ /$1 [QSA,L]
-
-
-     # <CUSTOM RULES BEFORE FORWARDING BEGIN>
-
-     # <CUSTOM RULES BEFORE FORWARDING END>
 
      # Proxy the rest to the load balancer 
      RewriteRule ^/(.*)$ http://127.0.0.1:<%= @node[:lb_haproxy][:bind_port] %>%{REQUEST_URI} [P,QSA,L]

@@ -1,4 +1,4 @@
-#Copyright (c) 2007 RightScale, Inc, All Rights Reserved Worldwide.
+# Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.
 #
 # THIS PROGRAM IS CONFIDENTIAL AND PROPRIETARY TO RIGHTSCALE
 # AND CONSTITUTES A VALUABLE TRADE SECRET.  Any unauthorized use,
@@ -8,13 +8,15 @@
 # including confidentiality obligations, set forth in the applicable
 # License Agreement between RightScale.com, Inc. and
 # the licensee.
+#
+# File created by RightScale
+# DO NOT EDIT
+#
 
 global
 	log 127.0.0.1	syslog info
-#	log 127.0.0.1	local5 info 
 	maxconn 4096
  	ulimit-n 8250
-        # typically: /home/haproxy
 	chroot /home/haproxy
 	user haproxy
 	group haproxy

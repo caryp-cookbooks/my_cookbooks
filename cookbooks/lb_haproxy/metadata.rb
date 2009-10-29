@@ -7,30 +7,16 @@ version          "0.1"
 
 recipe "lb_haproxy::default", "Installs haproxy"
 recipe "lb_haproxy::install_haproxy", "Installs haproxy"
-recipe "lb_haproxy::do_app_to_HA_proxy_connect", "Connects HA proxy server"
-recipe "lb_haproxy::do_app_to_HA_proxy_disconnect", "Disconnects HA proxy server"
-recipe "lb_haproxy::do_app_to_local_HA_proxy", "Connects app to local haproxy server"
-recipe "lb_haproxy::do_HA_proxy_config_get", "Get the haproxy configuration"
+recipe "lb_haproxy::do_attach_request", "Attaches an application server to the load balancer"
+recipe "lb_haproxy::do_detach_request", "Detaches an application server from the load balancer"
+recipe "lb_haproxy::do_attach", "Adds listener line to config"
+recipe "lb_haproxy::do_detach", "Removes listener line to config"
 recipe "lb_haproxy::setup_reverse_proxy_config", "Configures apache reverse proxy"
 recipe "lb_haproxy::setup_load_balancer_vhost", "Configures apache reverse proxy"
-recipe "lb_haproxy::install_lb_tools", "Installs Rightscale Load Balancer tools"
-recipe "lb_haproxy::test", "Does something"
-
-
-attribute "lb_haproxy",
-  :display_name => "lb_haproxy hash",
-  :description => "Hash of attributes",
-  :type => "hash"
 
 attribute "lb_haproxy/applistener_name",
   :display_name => "Applistener Name",
   :description => "Logical name for the application (balancing group) to use (e.g. mylistener)",
-  :required => true,
-  :default => nil
-
-attribute "lb_haproxy/backend_name",
-  :display_name => "Backend Name",
-  :description => "Unique name for backend (e.g. cloud uuid)",
   :required => true,
   :default => nil
 
@@ -62,7 +48,7 @@ attribute "lb_haproxy/stats_uri",
   :display_name => "Status URI",
   :description => "URI that the load balancer uses to publish its status",
   :required => false,
-  :default => "/haproxy-status"
+  :default => ""
 
 attribute "lb_haproxy/stats_user",
   :display_name => "Status Page Username",

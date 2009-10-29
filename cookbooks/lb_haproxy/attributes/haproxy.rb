@@ -1,10 +1,16 @@
+# Cookbook Name:: lb_haproxy
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
+
 #
 # Required
 #
 #  logical name for the application (balancing group) to use in 
 set_unless[:lb_haproxy][:applistener_name] = nil
 set_unless[:lb_haproxy][:host]= nil
-set_unless[:lb_haproxy][:backend_name]= nil
 #
 # Recommended
 #
@@ -22,7 +28,7 @@ set_unless[:lb_haproxy][:bind_port] = 85
 #  URI for the load balancer to use to check the health of a server (only used when using http templates)
 set_unless[:lb_haproxy][:health_check_uri] = ""
 #  URI that the load balancer uses to publish its status 
-set_unless[:lb_haproxy][:stats_uri] = "/haproxy-status"
+set_unless[:lb_haproxy][:stats_uri] = ""
 #  Username required to access to the haproxy stats page
 set_unless[:lb_haproxy][:stats_user] = ""
 #  Password required to access to the haproxy stats page
@@ -34,9 +40,9 @@ set_unless[:lb_haproxy][:max_conn_per_server] = "500"
 #
 # Overrides
 #
+
 set_unless[:lb_haproxy][:cfg_file] = "/home/haproxy/rightscale_lb.cfg"
 
-# default apache is worker model -- use prefork for single thread
 case platform
 when "redhat","centos","fedora","suse"
   set_unless[:lb_haproxy][:apache_name] = "httpd"
