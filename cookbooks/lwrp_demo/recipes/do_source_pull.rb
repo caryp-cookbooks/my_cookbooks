@@ -12,6 +12,8 @@ Chef::Log.info("do some stuff here")
 repo "get source code" do
   destination "/tmp/demo"
   action :pull
+  
+  provider "repo_git"
 end
 
 Chef::Log.info("do some other stuff here")
