@@ -12,7 +12,7 @@ Chef::Log.info("do some stuff here")
 repo "get source code" do
   destination "/tmp/demo"
   action :pull
-  provider node[:lwrp_demo][:provider]
+  provider @node[:lwrp_demo][:provider]
 end
 
 Chef::Log.info("do some other stuff here")
