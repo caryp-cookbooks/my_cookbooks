@@ -20,7 +20,7 @@
       "type": "string",
       "description": "",
       "multiple_values": false,
-      "display_name": "Remote  (Git only)",
+      "display_name": "Remote",
       "recipes": [
 
       ],
@@ -41,7 +41,7 @@
       "type": "string",
       "description": "",
       "multiple_values": false,
-      "display_name": "SSH Key  (Git only)",
+      "display_name": "SSH Key",
       "recipes": [
 
       ],
@@ -52,7 +52,7 @@
       "type": "string",
       "description": "",
       "multiple_values": false,
-      "display_name": "Depth (Git only)",
+      "display_name": "Depth",
       "recipes": [
 
       ],
@@ -73,7 +73,7 @@
       "type": "string",
       "description": "",
       "multiple_values": false,
-      "display_name": "Enable Submodules  (Git only)",
+      "display_name": "Enable Submodules",
       "recipes": [
 
       ],
