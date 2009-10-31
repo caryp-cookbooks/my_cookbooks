@@ -1,15 +1,18 @@
 maintainer       "RightScale, Inc."
 maintainer_email "support@rightscale.com"
-license          "All rights reserved"
-description      "Installs/Configures repo_svn"
-long_description  "Installs the Subversion version control system"
-version          "0.1"
+license          IO.read(File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'LICENSE')))
+description      "Manages the Subversion version control system"
+version          "0.0.1"
 
-recipe  "repo_svn::do_pull", "Pulls from a Subversion repository."
+provides "provider:repo" # not really in metadata spec yet. Format TBD.
+
+recipe  "repo_svn::default", "Runs recipe 'repo_svn::install_prerequisites'"
 recipe  "repo_svn::install_prerequisites", "Install Subversion."
+recipe  "repo_svn::do_pull", "Pulls from a Subversion repository."
 
 # grouping "repo/svn",
-#   :display_name => "Subversion"
+#   :display_name => "Subversion Source Control",
+#   :description => "Settings for managing a Subversion source repository"
 
 attribute "svn/repository",
   :display_name => "Repository Url",

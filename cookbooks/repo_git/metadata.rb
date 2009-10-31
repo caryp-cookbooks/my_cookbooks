@@ -1,15 +1,18 @@
 maintainer       "RightScale, Inc."
 maintainer_email "support@rightscale.com"
 license          IO.read(File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'LICENSE')))
-description      "Installs the git fast version control system"
+description      "Manages the Git fast version control system"
 version          "0.0.1"
 
-recipe  "repo_git::do_pull", "Pulls from a Git repository."
-recipe  "repo_git::install_prerequisites", "Install Git."
+provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
-# grouping "repo/Git",
+recipe  "repo_git::default", "Runs recipe 'repo_git::install_prerequisites'"
+recipe  "repo_git::install_prerequisites", "Installs Git."
+recipe  "repo_git::do_pull", "Pulls from a Git repository."
+
+# grouping "repo/git",
 #   :display_name => "Git Version Control",
-#   :description => "Setting for managing a Git source repository"
+#   :description => "Settings for managing a Git source repository"
 
 attribute "git/repository",
   :display_name => "Repository Url",

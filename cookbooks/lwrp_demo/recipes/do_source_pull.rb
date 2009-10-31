@@ -7,12 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.info("do some stuff here")
+Chef::Log.info("...do some stuff here...")
 
 repo "get source code" do
-  destination "/tmp/demo"
+  destination @node[:lwrp_demo][:destination]
   action :pull
   provider @node[:lwrp_demo][:provider]
 end
 
-Chef::Log.info("do some other stuff here")
+Chef::Log.info("...do some other stuff here...")
