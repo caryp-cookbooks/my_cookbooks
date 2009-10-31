@@ -1,0 +1,40 @@
+{
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "dependencies": {
+    "resource:repo": [
+
+    ]
+  },
+  "platforms": {
+
+  },
+  "name": "lwrp_demo",
+  "attributes": {
+
+  },
+  "license": "All rights reserved",
+  "conflicting": {
+
+  },
+  "providing": {
+    "lwrp_demo::do_source_pull": [
+
+    ]
+  },
+  "version": "0.1.0",
+  "description": "Installs\/Configures lwrp_demo",
+  "recipes": {
+    "lwrp_demo::do_source_pull": ""
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n"
+}

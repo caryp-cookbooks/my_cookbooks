@@ -95,9 +95,9 @@
   "version": "0.1.0",
   "description": "Installs\/Configures repo_svn",
   "recipes": {
-    "repo_svn": "",
     "repo_svn::install_prerequisites": "Install Subversion.",
-    "repo_svn::do_pull": "Pulls from a Subversion repository."
+    "repo_svn::do_pull": "Pulls from a Subversion repository.",
+    "repo_svn": ""
   },
   "replacing": {
 

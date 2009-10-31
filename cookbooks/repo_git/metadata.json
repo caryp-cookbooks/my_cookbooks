@@ -109,8 +109,8 @@
   "version": "0.0.1",
   "description": "Installs the git fast version control system",
   "recipes": {
-    "repo_git": "",
     "repo_git::do_pull": "Pulls from a Git repository.",
+    "repo_git": "",
     "repo_git::install_prerequisites": "Install Git."
   },
   "replacing": {
