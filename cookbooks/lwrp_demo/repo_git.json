@@ -1,0 +1,13 @@
+{
+	"lwrp_demo": {
+		"provider": "repo_git"
+	},
+	  
+	"git": {
+    	"remote": "origin", 
+	    "branch": "mephisto", 
+	    "destination": "/tmp/git", 
+	    "enable_submodules": "false", 
+	    "repository": "git://github.com/rightscale/examples.git"
+    }
+}
