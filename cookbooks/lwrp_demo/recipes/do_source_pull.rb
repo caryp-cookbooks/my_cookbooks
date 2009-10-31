@@ -16,3 +16,7 @@ repo "get source code" do
 end
 
 Chef::Log.info("...do some other stuff here...")
+
+bash "show repo contents" do
+  code "echo `#{@node[:lwrp_demo][:destination]}"
+end
