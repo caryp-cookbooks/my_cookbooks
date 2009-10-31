@@ -1,0 +1,106 @@
+{
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "maintainer_email": "support@rightscale.com",
+  "suggestions": {
+
+  },
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "name": "repo_svn",
+  "attributes": {
+    "svn\/arguments": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Arguments",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "svn\/password": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Password",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "svn\/destination": {
+      "default": "\/tmp",
+      "type": "string",
+      "description": "Where should I put the files?",
+      "multiple_values": false,
+      "display_name": "Repository Destination",
+      "recipes": [
+        "repo_svn::do_pull"
+      ],
+      "required": true
+    },
+    "svn\/username": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "User Name",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "svn\/repository": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Repository Url",
+      "recipes": [
+
+      ],
+      "required": true
+    },
+    "svn\/revision": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Revision\/Branch\/Tag",
+      "recipes": [
+
+      ],
+      "required": false
+    }
+  },
+  "license": "All rights reserved",
+  "conflicting": {
+
+  },
+  "providing": {
+    "repo_svn": [
+
+    ],
+    "repo_svn::install_prerequisites": [
+
+    ],
+    "repo_svn::do_pull": [
+
+    ]
+  },
+  "version": "0.1.0",
+  "description": "Installs\/Configures repo_svn",
+  "recipes": {
+    "repo_svn": "",
+    "repo_svn::install_prerequisites": "Install Subversion.",
+    "repo_svn::do_pull": "Pulls from a Subversion repository."
+  },
+  "replacing": {
+
+  },
+  "long_description": "Installs the Subversion version control system"
+}

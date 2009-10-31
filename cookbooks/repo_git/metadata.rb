@@ -7,9 +7,9 @@ version          "0.0.1"
 recipe  "repo_git::do_pull", "Pulls from a Git repository."
 recipe  "repo_git::install_prerequisites", "Install Git."
 
-grouping "repo/Git",
-  :display_name => "Git Version Control",
-  :description => "Setting for managing a Git source repository"
+# grouping "repo/Git",
+#   :display_name => "Git Version Control",
+#   :description => "Setting for managing a Git source repository"
 
 attribute "git/repository",
   :display_name => "Repository Url",
@@ -21,7 +21,7 @@ attribute "git/destination",
   :description => "Where should I put the files?",
   :default => "/tmp",
   :required => true,
-  :recipes => [ "do_pull" ]
+  :recipes => [ "repo_git::do_pull" ]
   
 attribute "git/branch",
   :display_name => "Branch/Tag",
@@ -45,6 +45,7 @@ attribute "/git/remote",
   :description => "",
   :default => "origin",
   :required => false
+  
 attribute "git/ssh_key",
   :display_name => "SSH Key  (Git only)",
   :description => "",

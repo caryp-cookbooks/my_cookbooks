@@ -1,0 +1,1 @@
+include_recipe "repo_svn::install_prerequisites"
