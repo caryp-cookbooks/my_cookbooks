@@ -32,25 +32,25 @@ attribute "git/branch",
   :required => false
 
 attribute "git/depth",
-  :display_name => "Depth (Git only)",
+  :display_name => "Depth",
   :description => "",
   :default => nil,
   :required => false
 
 attribute "git/enable_submodules",
-  :display_name => "Enable Submodules  (Git only)",
+  :display_name => "Enable Submodules",
   :description => "",
   :default => "false",
   :required => false
 
 attribute "/git/remote",
-  :display_name => "Remote  (Git only)",
+  :display_name => "Remote",
   :description => "",
   :default => "origin",
   :required => false
   
 attribute "git/ssh_key",
-  :display_name => "SSH Key  (Git only)",
+  :display_name => "SSH Key",
   :description => "",
   :default => nil,
   :required => false
