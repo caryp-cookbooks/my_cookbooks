@@ -5,6 +5,7 @@ description      "Installs the git fast version control system"
 version          "0.0.1"
 
 recipe  "repo_git::do_pull", "Pulls from a Git repository."
+recipe  "repo_git::install_prerequisites", "Install Git."
 
 grouping "repo/Git",
   :display_name => "Git Version Control",

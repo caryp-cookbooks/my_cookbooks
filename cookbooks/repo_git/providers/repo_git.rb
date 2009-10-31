@@ -19,7 +19,7 @@ action :pull do
   # pull repo (if exist)
   ruby "pull-exsiting-local-repo" do
     cwd new_resource.destination
-    only_if do File.directory?(new_resource.destination) end
+    only_if do ::File.directory?(new_resource.destination) end
     code <<-EOH
       puts "Updateing existing repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
@@ -29,7 +29,7 @@ action :pull do
 
   # clone repo (if not exist)
   ruby "create-new-local-repo" do
-    not_if do File.directory?(new_resource.destination) end
+    not_if do ::File.directory?(new_resource.destination) end
     code <<-EOH
       puts "Creating new repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
