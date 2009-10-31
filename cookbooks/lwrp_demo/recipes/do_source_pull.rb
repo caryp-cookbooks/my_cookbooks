@@ -17,6 +17,4 @@ end
 
 Chef::Log.info("...do some other stuff here...")
 
-bash "show repo contents" do
-  code "echo `ls #{@node[:lwrp_demo][:destination]}`"
-end
+execute "ls #{@node[:lwrp_demo][:destination]}"
