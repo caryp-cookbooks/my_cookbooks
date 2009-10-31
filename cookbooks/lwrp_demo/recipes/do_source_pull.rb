@@ -17,4 +17,3 @@ end
 
 Chef::Log.info("...do some other stuff here...")
 
-Chef::Log.info("Repo Contents: " << `ls #{@node[:lwrp_demo][:destination]}`)
