@@ -17,4 +17,4 @@ end
 
 Chef::Log.info("...do some other stuff here...")
 
-execute "ls #{@node[:lwrp_demo][:destination]}"
+Chef::Log.info(`ls #{@node[:lwrp_demo][:destination]}`)
