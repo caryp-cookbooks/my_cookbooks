@@ -22,7 +22,7 @@ Run the lwrp_demo::do_source_pull recipe with a json file containing:
  2. all the static attributes for that provider, and 
  3. the run-time attribute 'destination' that is defined above.
 
-This JSON ball simulates the type of values the UI could automatically
+This JSON ball is an example of the type of values the UI could automatically
 generate based on the user choices.
 
 The two valid providers for this demo are 'repo_git' and 'repo_svn'.
