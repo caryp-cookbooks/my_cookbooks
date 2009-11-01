@@ -12,13 +12,18 @@ Chef Version >= 0.7.14
 
 = ATTRIBUTES: 
 
-[:lwrp_demo][:destination] - where to put the repo locally (ex. /tmp/myrepo )
-[:lwrp_demo][:provider] - which lightwight 'repo' provider to use. 
+destination - where to put the repo locally (ex. /tmp/myrepo )
+provider - which lightweight 'repo' provider to use. 
 
 = USAGE:
 
-Run the lwrp_demo::do_source_pull recipe with a json file containing all the 
-attributes for the selected provider and the two attribute defined above.
+Run the lwrp_demo::do_source_pull recipe with a json file containing: 
+1) the provider name 
+2) all the static attributes for that provider, and 
+3) the run-time attribute 'destination' that is defined above.
+
+This JSON ball simulates the type of values the UI could automatically
+generate based on the user choices.
 
 The two valid providers for this demo are 'repo_git' and 'repo_svn'.
 
@@ -49,8 +54,8 @@ Example json file used to pull from a Subversion repository:
 	
 	"svn": {
 		"destination": "/tmp/svn", 
-		"repository": "https://wush.net/svn/rightscale/cookbooks_test/", 
-		"password": "u_wish", 		
-		"username": "someone"
+		"repository": "https://myserver.com/svn/rightscale/cookbooks_test/", 
+		"password": "mypasswd", 		
+		"username": "me"
 	}
 }
