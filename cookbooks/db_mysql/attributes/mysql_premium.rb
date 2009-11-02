@@ -34,4 +34,4 @@ set_unless[:db_mysql][:backup][:maximum_snapshots]= "60"
 # Optional attributes
 #
 set_unless[:db_mysql][:dns][:ttl_limit] = "120"      
-
+set_unless[:db_mysql][:backup][:prefix_override] = ""
