@@ -1,0 +1,59 @@
+# Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.
+#
+# THIS PROGRAM IS CONFIDENTIAL AND PROPRIETARY TO RIGHTSCALE
+# AND CONSTITUTES A VALUABLE TRADE SECRET.  Any unauthorized use,
+# reproduction, modification, or disclosure of this program is
+# strictly prohibited.  Any use of this program by an authorized
+# licensee is strictly subject to the terms and conditions,
+# including confidentiality obligations, set forth in the applicable
+# License Agreement between RightScale.com, Inc. and
+# the licensee.
+#
+# File created by RightScale
+# DO NOT EDIT
+#
+
+global
+	log 127.0.0.1	syslog info
+	maxconn 4096
+ 	ulimit-n 8250
+	chroot /home/haproxy
+	user haproxy
+	group haproxy
+	daemon
+	quiet
+	pidfile haproxy.pid
+
+defaults
+	log	global
+	mode	http
+	option	httplog
+	option	dontlognull
+	retries	3
+	redispatch
+	maxconn	2000
+	contimeout	5000
+	clitimeout	60000
+	srvtimeout	60000
+
+# Configuration for one application:
+# Example: listen myapp 0.0.0.0:80
+listen  <%= @node[:lb_haproxy][:applistener_name] %> <%= @node[:lb_haproxy][:bind_address] %>:<%= @node[:lb_haproxy][:bind_port] %> 
+       	mode http
+      	balance roundrobin
+        # When acting in a reverse-proxy mode, mod_proxy from Apache adds X-Forwarded-For,
+        # X-Forwarded-Host, and X-Forwarded-Server request headers in order to pass information to
+        # the origin server; therefore, the following option is commented out
+      	#option forwardfor
+        # Haproxy status page
+        <%= @stats_uri_line %> 
+        <%= @stats_auth_line %> 
+	# when cookie persistence is required
+       	cookie SERVERID insert indirect nocache
+
+	# When internal servers support a status page
+        <%= @health_uri_line %> 
+
+	# Example server line (with optional cookie and check included)
+	# server	srv3.0 10.253.43.224:8000 cookie srv03.0 check inter 2000 rise 2 fall 3
+

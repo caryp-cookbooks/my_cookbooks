@@ -1,0 +1,22 @@
+# Copyright (c) 2007 RightScale, Inc, All Rights Reserved Worldwide.
+#
+# THIS PROGRAM IS CONFIDENTIAL AND PROPRIETARY TO RIGHTSCALE
+# AND CONSTITUTES A VALUABLE TRADE SECRET.  Any unauthorized use,
+# reproduction, modification, or disclosure of this program is
+# strictly prohibited.  Any use of this program by an authorized
+# licensee is strictly subject to the terms and conditions,
+# including confidentiality obligations, set forth in the applicable
+# License Agreement between RightScale.com, Inc. and
+# the licensee.
+#
+# File created by RightScale
+# DO NOT EDIT
+#
+
+#Configure for reverse proxying
+ProxyRequests Off
+ProxyPreserveHost On
+<Proxy *>
+Order deny,allow
+Allow from all
+</Proxy>
