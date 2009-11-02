@@ -12,7 +12,7 @@ attribute "auth_ssh",
   :type => "hash"
 
 attribute "auth_ssh/keyfile",
-  :display_name => "SSH Private Key",
+  :display_name => "Private SSH Key",
   :description => "The private SSH key of another instance that gets installed on this instance.  It allows this instance to SSH into another instance to update the configuration files. Select input type 'key' from the dropdown and then select an SSH key that is installed on the other instance.",
   :required => true  
   
@@ -23,7 +23,7 @@ attribute "auth_ssh/dir",
 
 attribute "auth_ssh/config_dir",
   :display_name => "SSH config.d Directory",
-  :description => "The location where each host's config.d file should be stored. (NOTE: all entries in .ssh/config must have a config.d file)",
+  :description => "The location where each host's config.d file should be stored. (NOTE: All entries in .ssh/config must have a config.d file.)",
   :default => "/root/.ssh/config.d"
   
 
