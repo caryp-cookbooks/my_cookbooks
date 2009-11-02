@@ -15,9 +15,9 @@ provides "db_mysql_set_privileges(type, username, password)"
 recipe  "db_mysql::default", "Runs the 'server' and 'continuous_backups' recipes."
 recipe  "db_mysql::do_backup", "Backs up the binary DB contents to an EBS snapshot."
 recipe  "db_mysql::setup_continuous_backups", "Schedule continuous backups of the database."
-recipe  "db_mysql::do_ddns_check", "Throw an error of the DNS TTL is too high."
-recipe  "db_mysql::decommission", "Stop DB, Unmount, detach and delete the current volume mounted for mysql DB."
-recipe  "db_mysql::do_register_public_ip", "Registers the public IP of the current instance to dns madeeasy."
+recipe  "db_mysql::do_ddns_check", "Throw an error if the DNS TTL is too high."
+recipe  "db_mysql::decommission", "Stop DB, unmount, detach, and delete the current volume that was mounted for the MySQL database."
+recipe  "db_mysql::do_register_public_ip", "Registers the public IP of the current instance to DNSMadeEasy."
 recipe  "db_mysql::do_restore_master", "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
 
 #
@@ -29,22 +29,22 @@ attribute "db_mysql",
   
 attribute "db_mysql/admin_user",
   :display_name => "Database Admin Username",
-  :description => "The username of the database user that has 'admin' privilages.",
+  :description => "The username of the database user that has 'admin' privileges.",
   :required => true
 
 attribute "db_mysql/admin_password",
   :display_name => "Database Admin Password",
-  :description => "The password of the database user that has 'admin' privilages.",
+  :description => "The password of the database user that has 'admin' privileges.",
   :required => true
   
 attribute "db_mysql/replication_user",
   :display_name => "Replication Username",
-  :description => "The username that's used for replication between master and slave databases.",
+  :description => "The username that's used for replication between the master and slave databases.",
   :required => true
 
 attribute "db_mysql/replication_password",
   :display_name => "Replication Password",
-  :description => "The password that's used for replication between master and slave databases.",
+  :description => "The password that's used for replication between the master and slave databases.",
   :required => true
   
 # dns 
@@ -54,13 +54,13 @@ attribute "db_mysql/dns",
   
 attribute "db_mysql/dns/master_name",
   :display_name => "Master DNS Name",
-  :description => "This DNS name is the FNDQ MySQL Master used by the slave and application to connect to the MySQL server",
+  :description => "This DNS name is the FNDQ MySQL Master used by the slave and application to connect to the MySQL server.",
   :recipes => ["db_mysql::setup_continuous_backups", "db_mysql::do_ddns_check"],
   :required => true
 
 attribute "db_mysql/dns/master_id",
   :display_name => "Master DNS ID",
-  :description => "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the servers EIP.  Ex: 4404922",
+  :description => "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the server's Elastic IP.  Ex: 4404922",
   :required => true
 
 attribute "dns/user",
@@ -88,7 +88,7 @@ attribute "db_mysql/backup/prefix",
 #
 attribute "db_mysql/server_usage",
   :display_name => "Server Usage",
-  :description => "* dedicated (where the mysql config allocates all existing resources of the machine)\n* shared (where the mysql is configured to use less resources so that it can be run concurrently with other apps like apache and rails for example)",
+  :description => "* dedicated (where the mysql config file allocates all existing resources of the machine)\n* shared (where the mysql config file is configured to use less resources so that it can be run concurrently with other apps like apache and rails for example)",
   :default => "dedicated"
 
 # backup  
@@ -128,16 +128,16 @@ attribute "db_mysql/dns/ttl_limit",
 
 attribute "db_mysql/log_bin",
   :display_name => "MySQL Binlog Destination",
-  :description => "Defines the filename and location of your MySQL stored binlog files.  This sets the log-bin variable in MySQL config file.  If you do not specify an absolute path, it will be relative to the data directory.",
+  :description => "Defines the filename and location of your MySQL stored binlog files.  This sets the log-bin variable in the MySQL config file.  If you do not specify an absolute path, it will be relative to the data directory.",
   :default => "/mnt/mysql-binlogs/mysql-bin"
   
 attribute "db_mysql/datadir_relocate",
   :display_name => "MySQL Data-Directory Destination",
-  :description => "This sets final destination of the MySQL data directory. (i.e. an LVM or EBS volume)",
+  :description => "Sets the final destination of the MySQL data directory. (i.e. an LVM or EBS volume)",
   :default => "/mnt/mysql"
 
 attribute "db_mysql/tmpdir",
   :display_name => "MySQL Tmp Directory",
-  :description => "This sets the tmp variable in MySQL config file.",
+  :description => "Sets the tmp variable in the MySQL config file.",
   :default => "/tmp"
   

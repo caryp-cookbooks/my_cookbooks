@@ -15,18 +15,18 @@ See metadata.rb
 
 = USAGE:
 
-Designed to be run within a RightScale server template with the following run order:
+Designed to be run within a RightScale ServerTemplate with the following run order:
 
 Boot Scripts
-  * do_ddns_check - throw an error of the DNS TTL is too high (WARNING: can produce false positives.)
-  * install_mysql - performs base server install and configuration. (RightScale public cookbook)
-  * setup_continuous_backups - Schedule continuous backups of the database.
+  * do_ddns_check - Throw an error if the DNS TTL is too high (WARNING: can produce false positives.)
+  * install_mysql - Performs base server install and configuration. (RightScale public cookbook)
+  * setup_continuous_backups - Schedule continuous backups (EBS snapshots) of the database.
 
 Operational Scripts
-  * do_restore_master - restores the database from the most recent snapshot and sets master DNS.
-  * do_backup - backs up the binary DB contents to an EBS snapshot.
-  * do_register_public_ip - Registers the public IP of the current instance to dns madeeasy.
+  * do_restore_master - Restores the database from the most recent backup (EBS snapshot) and sets master DNS.
+  * do_backup - Backs up the binary DB contents to an EBS snapshot.
+  * do_register_public_ip - Registers the public IP of the current instance to DNSMadeEasy.
   
 Decommission Scripts
-  * do_decommission - stops the database and detaches EBS volume.
+  * do_decommission - Stops the database and detaches EBS volume.
 
