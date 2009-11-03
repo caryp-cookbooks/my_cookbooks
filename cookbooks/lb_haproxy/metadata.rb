@@ -3,7 +3,7 @@ maintainer_email "support@rightscale.com"
 license          "All rights reserved"
 description      "Installs/Configures lb_haproxy"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.1"
+version          "0.0.1"
 
 recipe "lb_haproxy::default", "Installs haproxy"
 recipe "lb_haproxy::install_haproxy", "Installs haproxy"

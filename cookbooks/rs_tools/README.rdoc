@@ -1,5 +1,5 @@
 = DESCRIPTION:
-Chef definition for RightScale tools installer
+Chef definitions for RightScale tools installer
 
 = REQUIREMENTS:
 None

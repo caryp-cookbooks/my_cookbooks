@@ -5,7 +5,6 @@
   },
   "maintainer_email": "support@rightscale.com",
   "recipes": {
-    "db_mysql": "",
     "db_mysql::do_ddns_check": "Throw an error if the DNS TTL is too high.",
     "db_mysql::decommission": "Stop DB, unmount, detach, and delete the current volume that was mounted for the MySQL database.",
     "db_mysql::do_register_public_ip": "Registers the public IP of the current instance to DNSMadeEasy.",
@@ -13,6 +12,7 @@
     "db_mysql::do_backup": "Backs up the binary DB contents to an EBS snapshot.",
     "db_mysql::default": "Runs the 'server' and 'continuous_backups' recipes.",
     "db_mysql::setup_continuous_backups": "Schedule continuous backups of the database.",
+    "db_mysql": "",
     "db_mysql::do_restore_master": "Restores the database from the most recent EBS snapshot and updates DNS to point to the new master."
   },
   "suggestions": {

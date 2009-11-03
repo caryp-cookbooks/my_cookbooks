@@ -1,21 +1,32 @@
-Welcome to the RightScale cookbook repository!  
+= RightScale Premium Cookbooks
 
-Let's git cookin'
+= DESCRIPTION
 
-To begin developing, create a new branch and add it to your local repository. For example, to create a branch foo, do:
+== Synopsis
 
-  git clone git@github.com:rightscale/cookbooks.git
-  cd cookbooks/
-  git push origin origin:refs/heads/foo
-  git checkout --track -b foo origin/foo
+RightScale now supports server configuration using the open source integration 
+framework called Chef[1].
 
-Only commit cookbooks here that are complete, documented, and ready for QA testing.
+Please contact support@rightscale.com to report any issues.
 
-In the repository, you'll find:
+== Supported Configuration
 
-  config/         - usage is TBD.
-  cookbooks/      - The RightScale cookbooks. <<<< Place your cookbooks here!
-  Rakefile        - use 'rake metadata' to add metadata to your cookbooks.
-  roles/          - usage is TBD.
-  site-cookbooks/ - usage is TBD.
+These cookbooks have been tested on EC2 and Rackspace clouds using the RightScale 
+platform ServerTemplates.
 
+== Work in Progress
+
+RightScale cookbooks are a work in progress, expect more documentation and examples in the near
+future. 
+
+= ADDITIONAL RESOURCES
+
+* [1] Chef is http://wiki.opscode.com/display/chef/Home
+
+= LICENSE
+
+<b>RightScale Premium Cookbooks</b>
+
+Copyright:: Copyright (c) 2009 RightScale, Inc.
+
+All rights reserved - Do Not Redistribute

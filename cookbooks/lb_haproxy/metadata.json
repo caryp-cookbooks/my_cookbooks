@@ -6,10 +6,10 @@
   "maintainer_email": "support@rightscale.com",
   "recipes": {
     "lb_haproxy::do_attach_request": "Attaches an application server to the load balancer",
+    "lb_haproxy": "",
     "lb_haproxy::setup_load_balancer_vhost": "Configures apache reverse proxy",
     "lb_haproxy::do_attach": "Adds the new application server to the haproxy configuration file",
     "lb_haproxy::do_detach_request": "Detaches an application server from the load balancer",
-    "lb_haproxy": "",
     "lb_haproxy::setup_reverse_proxy_config": "Configures apache reverse proxy",
     "lb_haproxy::do_detach": "Removes the new application server to the haproxy configuration file",
     "lb_haproxy::install_haproxy": "Installs haproxy",
@@ -156,7 +156,7 @@
 
     ]
   },
-  "version": "0.1.0",
+  "version": "0.0.1",
   "replacing": {
 
   },

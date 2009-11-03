@@ -1,3 +1,0 @@
-{ 
-  "recipes": [ "db_mysql::test", "app_rails::test", "rs_utils::default" ]
-}
