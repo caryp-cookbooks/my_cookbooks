@@ -1,13 +1,68 @@
 {
-  "recipes": {
-    "auth_ssh": "",
-    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)"
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
   },
   "maintainer_email": "cookbooks@rightscale.com",
+  "recipes": {
+    "auth_ssh::add_cred": "add ssh private key and config for use with a given host (if host specified)",
+    "auth_ssh": ""
+  },
   "suggestions": {
 
   },
-  "description": "installs the openssh connectivity tools",
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
+  "name": "auth_ssh",
+  "attributes": {
+    "auth_ssh\/keyfile": {
+      "type": "string",
+      "description": "The private SSH key of another instance that gets installed on this instance.  It allows this instance to SSH into another instance to update the configuration files. Select input type 'key' from the dropdown and then select an SSH key that is installed on the other instance.",
+      "multiple_values": false,
+      "display_name": "Private SSH Key",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "auth_ssh\/config_dir": {
+      "default": "\/root\/.ssh\/config.d",
+      "type": "string",
+      "description": "The location where each host's config.d file should be stored. (NOTE: All entries in .ssh\/config must have a config.d file.)",
+      "multiple_values": false,
+      "display_name": "SSH config.d Directory",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
+    "auth_ssh\/dir": {
+      "default": "\/root\/.ssh",
+      "type": "string",
+      "description": "location of user's ssh directory",
+      "multiple_values": false,
+      "display_name": "SSH Directory",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
+    "auth_ssh": {
+      "type": "hash",
+      "description": "hash of ssh attributes",
+      "multiple_values": false,
+      "display_name": "SSH Hash",
+      "required": false,
+      "recipes": [
+
+      ]
+    }
+  },
   "conflicting": {
 
   },
@@ -19,65 +74,10 @@
 
     ]
   },
-  "platforms": {
-
-  },
-  "long_description": "",
-  "attributes": {
-    "auth_ssh\/keyfile": {
-      "required": true,
-      "type": "string",
-      "recipes": [
-
-      ],
-      "display_name": "Private SSH Key",
-      "description": "The private SSH key of another instance that gets installed on this instance.  It allows this instance to SSH into another instance to update the configuration files. Select input type 'key' from the dropdown and then select an SSH key that is installed on the other instance.",
-      "multiple_values": false
-    },
-    "auth_ssh\/config_dir": {
-      "required": false,
-      "default": "\/root\/.ssh\/config.d",
-      "type": "string",
-      "recipes": [
-
-      ],
-      "display_name": "SSH config.d Directory",
-      "description": "The location where each host's config.d file should be stored. (NOTE: All entries in .ssh\/config must have a config.d file.)",
-      "multiple_values": false
-    },
-    "auth_ssh\/dir": {
-      "required": false,
-      "default": "\/root\/.ssh",
-      "type": "string",
-      "recipes": [
-
-      ],
-      "display_name": "SSH Directory",
-      "description": "location of user's ssh directory",
-      "multiple_values": false
-    },
-    "auth_ssh": {
-      "required": false,
-      "type": "hash",
-      "recipes": [
-
-      ],
-      "display_name": "SSH Hash",
-      "description": "hash of ssh attributes",
-      "multiple_values": false
-    }
-  },
+  "version": "0.1.0",
   "replacing": {
 
   },
-  "version": "0.1.0",
-  "license": "Copyright (c) 2009 RightScale, Inc, All Rights Reserved Worldwide.",
-  "name": "auth_ssh",
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  }
+  "long_description": "",
+  "description": "installs the openssh connectivity tools"
 }

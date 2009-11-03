@@ -1,12 +1,26 @@
 {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "maintainer_email": "support@rightscale.com",
   "recipes": {
     "rs_tools::test": ""
   },
-  "maintainer_email": "support@rightscale.com",
   "suggestions": {
 
   },
-  "description": "Installs\/configures RightScale premium tools",
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "license": "All rights reserved",
+  "name": "rs_tools",
+  "attributes": {
+
+  },
   "conflicting": {
 
   },
@@ -18,24 +32,10 @@
 
     ]
   },
-  "platforms": {
-
-  },
-  "long_description": "= DESCRIPTION:\nChef definition for RightScale tools installer\n\n= REQUIREMENTS:\nNone\n\n= ATTRIBUTES: \nNone\n\n= USAGE:\nrs_tools \"dbtools-0.18.12.tgz\"\nrs_tools \"rightscale_dnstools.tgz\"\nrs_tools \"rightscale_ebstools-0.1.3.tgz\"\nrs_tools \"rightscale_lbtools-0.13.4.tgz\"\nrs_tools \"rightscale_s3tools-1.0.1.tgz\"\n",
-  "attributes": {
-
-  },
+  "version": "0.1.0",
   "replacing": {
 
   },
-  "version": "0.1.0",
-  "license": "All rights reserved",
-  "name": "rs_tools",
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  }
+  "long_description": "= DESCRIPTION:\nChef definition for RightScale tools installer\n\n= REQUIREMENTS:\nNone\n\n= ATTRIBUTES: \nNone\n\n= USAGE:\nrs_tools \"dbtools-0.18.12.tgz\"\nrs_tools \"rightscale_dnstools.tgz\"\nrs_tools \"rightscale_ebstools-0.1.3.tgz\"\nrs_tools \"rightscale_lbtools-0.13.4.tgz\"\nrs_tools \"rightscale_s3tools-1.0.1.tgz\"\n",
+  "description": "Installs\/configures RightScale premium tools"
 }

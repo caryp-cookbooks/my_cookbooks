@@ -143,7 +143,7 @@ attribute "db_mysql/tmpdir",
  
  attribute "db_mysql/backup/prefix_override",
   :display_name => "Backup Prefix Override",
-  :description => "If this parameter is specified, this value will be used to determine which snapshot to load, but backups will still be taken with the db_mysql/backup/prefix value."
+  :description => "If this parameter is specified, this value will be used to determine which snapshot to load, but backups will still be taken with the db_mysql/backup/prefix value.",
   :required => false
 
  
