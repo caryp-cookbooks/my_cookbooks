@@ -12,7 +12,7 @@ recipe "lb_haproxy::do_detach_request", "Detaches an application server from the
 recipe "lb_haproxy::do_attach", "Adds the new application server to the haproxy configuration file"
 recipe "lb_haproxy::do_detach", "Removes the new application server to the haproxy configuration file"
 recipe "lb_haproxy::setup_reverse_proxy_config", "Configures apache reverse proxy"
-recipe "lb_haproxy::setup_load_balancer_vhost", "Configures apache reverse proxy"
+recipe "lb_haproxy::setup_load_balancer_vhost", "Configures load balancer vhost"
 
 attribute "lb_haproxy/applistener_name",
   :display_name => "Applistener Name",
@@ -22,7 +22,7 @@ attribute "lb_haproxy/applistener_name",
 
 attribute "lb_haproxy/host",
   :display_name => "LB Host",
-  :description => "This is the fully qualified hostname of all the servers that have HAProxy installed on them.  For example, if www.domain.com has two FEs with EIPs and HAProxy installed on them, you would enter www.domain.com as the LB_HOSTNAME.  It is necessary that these hosts be registered with DNS so that the connect script can find all the HAProxy servers and update their configuration files.",
+  :description => "This is the fully qualified hostname of all the servers that have HAProxy installed on them.  For example, if www.domain.com has two FEs with EIPs and HAProxy installed on them, you would enter 'www.domain.com'.",
   :required => true,
   :default => nil
 
