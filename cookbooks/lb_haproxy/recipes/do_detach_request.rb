@@ -6,9 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-right_link_tag "loadbalancer:app=#{@node[:lb_haproxy][:applistener_name]}" do
-  action :remove
-end
 remote_recipe "Detach me from load ballancer" do
   recipe "lb_haproxy::do_detach"
   attributes :remote_recipe => { 
