@@ -45,7 +45,7 @@ template  "/home/haproxy/rightscale_lb.cfg" do
   notifies :restart, resources(:service => "haproxy")
 end
 
-right_link_tag "rs_loadbal:state=active"
+right_link_tag "loadbalancer:lb=#{@node[:lb_haproxy][:applistener_name]}"
 
 log "RightScale LB installation and configuration complete"
 

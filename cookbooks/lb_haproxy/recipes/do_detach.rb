@@ -7,11 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-service "haproxy" do
-  supports :restart => true, :status => true
-   action [ :enable ]
-end
-
 ruby_block "Remove from config, if in config file" do
   block do
     applistener  = "#{@node[:lb_haproxy][:applistener_name]}"
@@ -23,7 +18,6 @@ ruby_block "Remove from config, if in config file" do
     cfg_cmd="/opt/rightscale/lb/bin/haproxy_config_server.rb"
     res=`#{cfg_cmd} #{args}`
   end
-  notifies :restart, resources(:service => "haproxy"), :immediately
 end
 
 service "haproxy" do

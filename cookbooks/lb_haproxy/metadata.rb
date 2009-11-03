@@ -17,6 +17,7 @@ recipe "lb_haproxy::setup_load_balancer_vhost", "Configures load balancer vhost"
 attribute "lb_haproxy/applistener_name",
   :display_name => "Applistener Name",
   :description => "Sets the name of the HAProxy load balance pool on frontends in /home/haproxy/rightscale_lb.cfg. Application severs will join this load balance pool by using this name.  Ex: www",
+  :recipes => [ 'lb_haproxy::do_attach', 'lb_haproxy::do_attach_request', 'lb_haproxy::do_detach', 'lb_haproxy::do_detach_request', 'lb_haproxy::install_haproxy' ],
   :required => true,
   :default => nil
 
@@ -35,36 +36,42 @@ attribute "lb_haproxy/template_name",
 attribute "lb_haproxy/bind_address",
   :display_name => "Bind Address",
   :description => "The IP address that HAProxy will be listening on.  Normally, it should be set to localhost.  Ex: 127.0.0.1",
+  :recipes => [ 'lbhaproxy::setup_load_balancer_vhost' ],
   :required => false,
   :default => "127.0.0.1"
 
 attribute "lb_haproxy/bind_port",
   :display_name => "Bind Port",
   :description => "The port number that HAProxy will be listening on.  Normally, it's set to 85. If you have multiple load balance pools, each pool must be assigned to a different port.  Ex: 85",
+  :recipes => [ 'lbhaproxy::install_haproxy' ],
   :required => false,
   :default => "85"
 
 attribute "lb_haproxy/stats_uri",
   :display_name => "Status URI",
   :description => "The URI for the HAProxy statistic report page, which lists the current session, queued session, response error, health check error, server status, etc., for each HAProxy group.  Ex: /haproxy-status",
+  :recipes => [ 'lbhaproxy::install_haproxy' ],
   :required => false,
   :default => ""
 
 attribute "lb_haproxy/stats_user",
   :display_name => "Status Page Username",
   :description => "The username that's required to access the HAProxy statistic report page.",
+  :recipes => [ 'lbhaproxy::install_haproxy' ],
   :required => false,
   :default => ""
 
 attribute "lb_haproxy/stats_password",
   :display_name => "Status Page Password",
   :description => "The password that's required to access the HAProxy statistic report page.",
+  :recipes => [ 'lbhaproxy::install_haproxy' ],
   :required => false,
   :default => ""
 
 attribute "lb_haproxy/health_check_uri",
   :display_name => "Health Check URI",
   :description => " URI for the load balancer to use to check the health of a server (only used when using http templates)",
+  :recipes => [ 'lbhaproxy::install_haproxy' ],
   :required => false,
   :default => ""
 
