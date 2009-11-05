@@ -24,10 +24,7 @@ ruby_block "add to config, if not in config file" do
     args += " -k on " if "#{@node[:lb_haproxy][:health_check_uri]}" != ""
     cfg_cmd="/opt/rightscale/lb/bin/haproxy_config_server.rb"
     res=`#{cfg_cmd} #{args}`
+    `service haproxy restart`
   end
 end
 
-service "haproxy" do
-  supports :restart => true, :status => true
-  action [ :enable, :restart ]
-end

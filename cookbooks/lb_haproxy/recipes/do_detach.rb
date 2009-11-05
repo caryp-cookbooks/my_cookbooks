@@ -17,10 +17,7 @@ ruby_block "Remove from config, if in config file" do
     args= "-a del -w -l \"#{applistener}\" -s \"#{backend_name}\" -t \"#{target}\" "
     cfg_cmd="/opt/rightscale/lb/bin/haproxy_config_server.rb"
     res=`#{cfg_cmd} #{args}`
+    `service haproxy restart`
   end
 end
 
-service "haproxy" do
-  supports :restart => true, :status => true
-  action [ :enable, :restart ]
-end
