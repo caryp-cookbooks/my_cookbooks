@@ -35,7 +35,8 @@
       "display_name": "Bind Port",
       "required": false,
       "recipes": [
-        "lb_haproxy::install_haproxy"
+        "lb_haproxy::install_haproxy",
+        "lb_haproxy::setup_load_balancer_vhost"
       ]
     },
     "lb_haproxy\/stats_password": {
@@ -57,7 +58,8 @@
       "display_name": "Health Check URI",
       "required": false,
       "recipes": [
-        "lb_haproxy::install_haproxy"
+        "lb_haproxy::install_haproxy",
+        "lb_haproxy::do_attach"
       ]
     },
     "lb_haproxy\/host": {

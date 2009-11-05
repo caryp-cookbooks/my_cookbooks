@@ -43,7 +43,7 @@ attribute "lb_haproxy/bind_address",
 attribute "lb_haproxy/bind_port",
   :display_name => "Bind Port",
   :description => "The port number that HAProxy will be listening on.  Normally, it's set to 85. If you have multiple load balance pools, each pool must be assigned to a different port.  Ex: 85",
-  :recipes => [ 'lb_haproxy::install_haproxy' ],
+  :recipes => [ 'lb_haproxy::install_haproxy', 'lb_haproxy::setup_load_balancer_vhost' ],
   :required => false,
   :default => "85"
 
@@ -71,7 +71,7 @@ attribute "lb_haproxy/stats_password",
 attribute "lb_haproxy/health_check_uri",
   :display_name => "Health Check URI",
   :description => " URI for the load balancer to use to check the health of a server (only used when using http templates)",
-  :recipes => [ 'lb_haproxy::install_haproxy' ],
+  :recipes => [ 'lb_haproxy::install_haproxy', 'lb_haproxy::do_attach' ],
   :required => false,
   :default => ""
 
