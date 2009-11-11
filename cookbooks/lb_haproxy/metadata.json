@@ -1,37 +1,44 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "maintainer_email": "support@rightscale.com",
   "recipes": {
     "lb_haproxy::do_attach_request": "Attaches an application server to the load balancer",
-    "lb_haproxy": "",
     "lb_haproxy::setup_load_balancer_vhost": "Configures load balancer vhost",
     "lb_haproxy::do_attach": "Adds the new application server to the haproxy configuration file",
+    "lb_haproxy": "",
     "lb_haproxy::do_detach_request": "Detaches an application server from the load balancer",
     "lb_haproxy::setup_reverse_proxy_config": "Configures apache reverse proxy",
     "lb_haproxy::do_detach": "Removes the new application server to the haproxy configuration file",
     "lb_haproxy::install_haproxy": "Installs haproxy",
     "lb_haproxy::default": "Installs haproxy"
   },
-  "suggestions": {
+  "replacing": {
 
   },
   "dependencies": {
 
   },
+  "maintainer": "RightScale, Inc.",
+  "description": "Installs\/Configures lb_haproxy",
+  "recommendations": {
+
+  },
+  "name": "lb_haproxy",
+  "maintainer_email": "support@rightscale.com",
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
   "platforms": {
 
   },
-  "license": "All rights reserved",
-  "name": "lb_haproxy",
+  "version": "0.0.1",
   "attributes": {
     "lb_haproxy\/bind_port": {
       "default": "85",
       "type": "string",
-      "description": "The port number that HAProxy will be listening on.  Normally, it's set to 85. If you have multiple load balance pools, each pool must be assigned to a different port.  Ex: 85",
       "multiple_values": false,
+      "description": "The port number that HAProxy will be listening on.  Normally, it's set to 85. If you have multiple load balance pools, each pool must be assigned to a different port.  Ex: 85",
       "display_name": "Bind Port",
       "required": false,
       "recipes": [
@@ -42,8 +49,8 @@
     "lb_haproxy\/stats_password": {
       "default": "",
       "type": "string",
-      "description": "The password that's required to access the HAProxy statistic report page.",
       "multiple_values": false,
+      "description": "The password that's required to access the HAProxy statistic report page.",
       "display_name": "Status Page Password",
       "required": false,
       "recipes": [
@@ -53,8 +60,8 @@
     "lb_haproxy\/health_check_uri": {
       "default": "",
       "type": "string",
-      "description": " URI for the load balancer to use to check the health of a server (only used when using http templates)",
       "multiple_values": false,
+      "description": " URI for the load balancer to use to check the health of a server (only used when using http templates)",
       "display_name": "Health Check URI",
       "required": false,
       "recipes": [
@@ -65,8 +72,8 @@
     "lb_haproxy\/host": {
       "default": null,
       "type": "string",
-      "description": "This is the fully qualified hostname of all the servers that have HAProxy installed on them.  For example, if www.domain.com has two FEs with EIPs and HAProxy installed on them, you would enter 'www.domain.com'.",
       "multiple_values": false,
+      "description": "This is the fully qualified hostname of all the servers that have HAProxy installed on them.  For example, if www.domain.com has two FEs with EIPs and HAProxy installed on them, you would enter 'www.domain.com'.",
       "display_name": "LB Host",
       "required": true,
       "recipes": [
@@ -76,8 +83,8 @@
     "lb_haproxy\/template_name": {
       "default": "haproxy_http",
       "type": "string",
-      "description": "This is the name of the base HAProxy configuration file that will be used.  This file gets modified according to the defined inputs.  The current values are: haproxy_http and haproxy_tcp.  Ex: haproxy_http",
       "multiple_values": false,
+      "description": "This is the name of the base HAProxy configuration file that will be used.  This file gets modified according to the defined inputs.  The current values are: haproxy_http and haproxy_tcp.  Ex: haproxy_http",
       "display_name": "Haproxy Config Template",
       "required": false,
       "recipes": [
@@ -87,8 +94,8 @@
     "lb_haproxy\/applistener_name": {
       "default": null,
       "type": "string",
-      "description": "Sets the name of the HAProxy load balance pool on frontends in \/home\/haproxy\/rightscale_lb.cfg. Application severs will join this load balance pool by using this name.  Ex: www",
       "multiple_values": false,
+      "description": "Sets the name of the HAProxy load balance pool on frontends in \/home\/haproxy\/rightscale_lb.cfg. Application severs will join this load balance pool by using this name.  Ex: www",
       "display_name": "Applistener Name",
       "required": true,
       "recipes": [
@@ -102,8 +109,8 @@
     "lb_haproxy\/stats_user": {
       "default": "",
       "type": "string",
-      "description": "The username that's required to access the HAProxy statistic report page.",
       "multiple_values": false,
+      "description": "The username that's required to access the HAProxy statistic report page.",
       "display_name": "Status Page Username",
       "required": false,
       "recipes": [
@@ -113,8 +120,8 @@
     "lb_haproxy\/stats_uri": {
       "default": "",
       "type": "string",
-      "description": "The URI for the HAProxy statistic report page, which lists the current session, queued session, response error, health check error, server status, etc., for each HAProxy group.  Ex: \/haproxy-status",
       "multiple_values": false,
+      "description": "The URI for the HAProxy statistic report page, which lists the current session, queued session, response error, health check error, server status, etc., for each HAProxy group.  Ex: \/haproxy-status",
       "display_name": "Status URI",
       "required": false,
       "recipes": [
@@ -124,17 +131,14 @@
     "lb_haproxy\/bind_address": {
       "default": "127.0.0.1",
       "type": "string",
-      "description": "The IP address that HAProxy will be listening on.  Normally, it should be set to localhost.  Ex: 127.0.0.1",
       "multiple_values": false,
+      "description": "The IP address that HAProxy will be listening on.  Normally, it should be set to localhost.  Ex: 127.0.0.1",
       "display_name": "Bind Address",
       "required": false,
       "recipes": [
         "lb_haproxy::setup_load_balancer_vhost"
       ]
     }
-  },
-  "conflicting": {
-
   },
   "providing": {
     "lb_haproxy::do_attach_request": [
@@ -162,10 +166,6 @@
 
     ]
   },
-  "version": "0.0.1",
-  "replacing": {
-
-  },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "Installs\/Configures lb_haproxy"
+  "license": "All rights reserved",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n"
 }

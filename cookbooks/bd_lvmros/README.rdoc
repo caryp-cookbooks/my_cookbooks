@@ -1,0 +1,17 @@
+= DESCRIPTION:
+
+Installs, creates, and configures an LVMROS block_device resource and 
+supporting resources.  The LVMROS block_device resource uses the combination 
+of LVM to snapshot the file system.  It also uses a Remote Object Store 
+(ROS) such as Amazon's S3 or Rackspace's CloudFiles to upload/download 
+snapshots to/from.
+
+= REQUIREMENTS:
+
+A Remote Object Store (ROS) account (i.e. Amazon S3, RackSpace Cloudfiles)
+
+= USAGE:
+
+Currently, only a single lvmros block_device named "default" is created.
+Use this name to identify the block_device in other cookbooks (e.g. db_mysql)
+that require a block_device.

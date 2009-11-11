@@ -5,33 +5,42 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#
-# Required attributes
-#
-set_unless[:db_mysql][:replication_user] = nil
-set_unless[:db_mysql][:replication_password] = nil
-# dns 
+set_unless[:db][:replication][:user] = nil
+set_unless[:db][:replication][:password] = nil
+
+set_unless[:db][:admin][:user] = 'root'
+set_unless[:db][:admin][:password] = nil
+
+set_unless[:db][:backup][:lineage] = nil
+set_unless[:db][:backup][:lineage_override] = nil 
+set_unless[:db][:backup][:block_device_resource] = "default" # hardcoded for now 
+
+# calculate recommended backup times for master/slave
+
+set_unless[:db][:backup][:master][:minute] = 5 + rand(54) # backup starts random time between 5-59
+set_unless[:db][:backup][:master_hour] = rand(23) #once a day, random hour
+
+# TBD: do we want to override the user setting? Disabled for now for testing purposes
+#user_set = true if node[:db][:backup][:slave][:minute]
+set_unless[:db][:backup][:slave][:minute] = 5 + rand(54) # backup starts random time between 5-59
+
+if db[:backup][:slave][:minute] == db[:backup][:master][:minute]
+  log_msg = "WARNING: detected master and slave backups collision."
+#  unless user_set
+    db[:backup][:slave][:minute] = db[:backup][:slave][:minute].to_i / 2 
+    log_msg += "  Changing slave minute to avoid collision: #{db[:backup][:slave][:minute]}"
+#  end
+  Chef::Log.info log_msg
+end
+
+set_unless[:db][:backup][:slave_hour] = "*" # every hour
+
+set_unless[:db][:dns][:master_id] = nil
+
+set_unless[:db][:backup][:mount_point] = "/mnt"
+set_unless[:db][:backup][:slave][:max_allowed_lag] = 60
+set_unless[:db][:backup][:force] = false
+set_unless[:db][:restore][:force] = false # for skipping pristine check
+
 set_unless[:dns][:user] = nil
 set_unless[:dns][:password] = nil
-set_unless[:db_mysql][:dns][:master_id] = nil
-set_unless[:db_mysql][:dns][:master_name] = nil
-# backup 
-set_unless[:db_mysql][:backup][:prefix] = nil
-
-#
-# Recommended attributes
-#
-# backup 
-set_unless[:db_mysql][:backup][:frequency][:master] = 5 + rand(24) # master done between 5-29
-set_unless[:db_mysql][:backup][:frequency][:slave] = 30 + rand(29) # slave done between 30-59
-set_unless[:db_mysql][:backup][:keep_daily] = "14"
-set_unless[:db_mysql][:backup][:keep_weekly] = "6"
-set_unless[:db_mysql][:backup][:keep_monthly] = "12"
-set_unless[:db_mysql][:backup][:keep_yearly] = "2"
-set_unless[:db_mysql][:backup][:maximum_snapshots]= "60"
-
-#
-# Optional attributes
-#
-set_unless[:db_mysql][:dns][:ttl_limit] = "120"      
-set_unless[:db_mysql][:backup][:prefix_override] = ""

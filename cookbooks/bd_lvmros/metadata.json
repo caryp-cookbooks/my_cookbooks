@@ -1,0 +1,78 @@
+{
+  "recipes": {
+    "bd_lvmros::install": "Installs LVM and kernel modules.",
+    "bd_lvmros::default": "Installs LVM and create LVMROS resources.",
+    "bd_lvmros::setup_remote_storage": "Setup all remote_storage resources that have attributes in the node.",
+    "bd_lvmros::setup_lvm": "Setup all lvmros resources that have attributes in the node.",
+    "bd_lvmros": ""
+  },
+  "replacing": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "description": "Installs\/Configures lvmros block device that can snapshot, backup, and restore itself",
+  "recommendations": {
+
+  },
+  "name": "bd_lvmros",
+  "maintainer_email": "support@rightscale.com",
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+    "remote_storage\/default\/container": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Location, directory, or bucket on the remote storage service in which to store files.",
+      "display_name": "Remote Storage Container",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "remote_storage\/default\/account\/id": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Remote Storage Account ID",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "remote_storage\/default\/account\/credentials": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Remote Storage Account Key",
+      "required": true,
+      "recipes": [
+
+      ]
+    }
+  },
+  "providing": {
+    "bd_lvmros::install": [
+
+    ],
+    "bd_lvmros::setup_remote_storage": [
+
+    ],
+    "bd_lvmros": [
+
+    ],
+    "bd_lvmros::setup_lvm": [
+
+    ]
+  },
+  "license": "All rights reserved",
+  "long_description": "= DESCRIPTION:\n\nInstalls, creates, and configures an LVMROS block_device resource and \nsupporting resources.  The LVMROS block_device resource uses the combination \nof LVM to snapshot the file system.  It also uses a Remote Object Store \n(ROS) such as Amazon's S3 or Rackspace's CloudFiles to upload\/download \nsnapshots to\/from.\n\n= REQUIREMENTS:\n\nA Remote Object Store (ROS) account (i.e. Amazon S3, RackSpace Cloudfiles)\n\n= USAGE:\n\nCurrently, only a single lvmros block_device named \"default\" is created.\nUse this name to identify the block_device in other cookbooks (e.g. db_mysql)\nthat require a block_device.\n"
+}
