@@ -14,6 +14,9 @@
     ],
     "ping_pong": [
 
+    ],
+    "ping_pong::do_tag_test": [
+
     ]
   },
   "replacing": {
@@ -45,7 +48,8 @@
     "ping_pong::do_ping": "",
     "ping_pong::do_send_ping": "",
     "ping_pong::do_pong": "",
-    "ping_pong": ""
+    "ping_pong": "",
+    "ping_pong::do_tag_test": ""
   },
   "conflicting": {
 
