@@ -1,6 +1,6 @@
 {
   "providing": {
-    "storage_test": [
+    "storage_test::get_file": [
 
     ]
   },
@@ -29,7 +29,7 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
-    "storage_test": ""
+    "storage_test::get_file": ""
   },
   "conflicting": {
 
