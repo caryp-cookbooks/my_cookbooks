@@ -1,0 +1,38 @@
+{
+  "providing": {
+    "storage_test": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "name": "storage_test",
+  "attributes": {
+
+  },
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved",
+  "version": "0.1.0",
+  "recipes": {
+    "storage_test": ""
+  },
+  "conflicting": {
+
+  },
+  "description": "Installs\/Configures storage_test"
+}
