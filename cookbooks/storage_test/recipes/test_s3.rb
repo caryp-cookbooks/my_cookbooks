@@ -8,9 +8,9 @@ STORAGE_TEST_FILE_PATH = "/tmp/storage_test"
 template "#{STORAGE_TEST_FILE_PATH}.orig" do
   source "test_file.erb"
   variables {
-    provider => STORAGE_TEST_PROVIDER,
-    container => STORAGE_TEST_CONTAINER,
-    object_name => STORAGE_TEST_OBJECT_NAME
+    :provider => STORAGE_TEST_PROVIDER,
+    :container => STORAGE_TEST_CONTAINER,
+    :object_name => STORAGE_TEST_OBJECT_NAME
   }
 end
 
