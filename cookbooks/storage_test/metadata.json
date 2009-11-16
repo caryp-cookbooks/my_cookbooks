@@ -1,6 +1,6 @@
 {
   "providing": {
-    "storage_test::get_file": [
+    "storage_test::test_s3": [
 
     ]
   },
@@ -17,7 +17,24 @@
   "maintainer": "RightScale, Inc.",
   "name": "storage_test",
   "attributes": {
+    "storage_test\/s3\/user": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "S3 ACCESS_KEY_ID",
+      "recipes": [
 
+      ],
+      "required": true
+    },
+    "storage_test\/s3\/key": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "S3 SECRET_ACCESS_KEY",
+      "recipes": [
+
+      ],
+      "required": true
+    }
   },
   "recommendations": {
 
@@ -29,7 +46,7 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
-    "storage_test::get_file": ""
+    "storage_test::test_s3": ""
   },
   "conflicting": {
 
