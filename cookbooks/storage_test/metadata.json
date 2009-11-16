@@ -2,6 +2,9 @@
   "providing": {
     "storage_test::test_s3": [
 
+    ],
+    "storage_test::get_file": [
+
     ]
   },
   "replacing": {
@@ -46,7 +49,8 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
-    "storage_test::test_s3": ""
+    "storage_test::test_s3": "",
+    "storage_test::get_file": ""
   },
   "conflicting": {
 
