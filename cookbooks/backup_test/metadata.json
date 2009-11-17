@@ -1,0 +1,42 @@
+{
+  "providing": {
+    "backup_test": [
+
+    ],
+    "backup_test::test_backup_to_s3": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+
+  },
+  "platforms": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "name": "backup_test",
+  "attributes": {
+
+  },
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved",
+  "version": "0.1.0",
+  "recipes": {
+    "backup_test": "",
+    "backup_test::test_backup_to_s3": ""
+  },
+  "conflicting": {
+
+  },
+  "description": "Installs\/Configures backup_test"
+}
