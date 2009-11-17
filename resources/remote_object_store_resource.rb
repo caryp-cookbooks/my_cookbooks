@@ -74,7 +74,7 @@ class Chef
             arg,
           { :equal_to => [ "S3", "CloudFiles" ], :required => true }
         )
-      	ptypes = { "S3" => Chef::Provider::RemoteObjectStoreS3, "CloudFiles" => RemoteObjectStoreCloudFiles}
+      	ptypes = { "S3" => Chef::Provider::RemoteObjectStoreS3, "CloudFiles" => Chef::Provider::RemoteObjectStoreCloudFiles}
       	provider ptypes[@provider_type]
       end
 
