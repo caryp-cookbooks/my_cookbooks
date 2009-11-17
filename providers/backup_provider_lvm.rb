@@ -23,6 +23,8 @@
 require "rubygems"
 require "right_aws"
 
+require "/opt/rightscale/fs/lvm.rb"
+
 class Chef
   class Provider
     class Backup
@@ -66,7 +68,7 @@ class Chef
           type = ros.provider_type
           container = ros.container
           lineage = @new_resource.lineage
-          ros_param = (type == "S3") : "--cloud ec2" ? "--cloud rackspace"
+          ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
           
           datadir_canonicalized = lvm.get_datadir_canonicalized(@new_resource.data_dir)
           backup_root = "/#{backup_mounted_on}/#{datadir_canonicalized}".gsub(/\/\//,"/")
@@ -99,13 +101,13 @@ class Chef
           ros = ObjectRegistry.lookup(@node, @new_resource.backup_resource_name)
           raise "ERROR: Remote object store #{@new_resource.backup_resource_name} not found!"
           
-          # do upload
+          # do download
           user = ros.user
           key = ros.key
           type = ros.provider_type
           container = ros.container
           lineage = @new_resource.lineage
-          ros_param = (type == "S3") : "--cloud ec2" ? "--cloud rackspace"
+          ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
   
           gzip_flag = "z" if lineage =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
           tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.mount_point}"
@@ -120,7 +122,7 @@ class Chef
           full_cmd = remote_env_cmd << " ; " << splitter_cmd << " | " << tar_cmd << " ; " << return_value
           STDERR.write("FULL CMD: #{full_cmd}")
           system("#{prefix} #{full_cmd}")
-          raise "Error restoring backup. Returned:#{$?}\n") if $? != 0
+          raise "Error restoring backup. Returned:#{$?}\n" if $? != 0
         end
                 
       end

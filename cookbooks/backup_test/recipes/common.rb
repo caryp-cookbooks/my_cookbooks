@@ -1,4 +1,4 @@
-rs_tools "rightscale_dbtools-0.19.0.tgz"
+#rs_tools "rightscale_dbtools-0.19.0.tgz"
 
 STORAGE_TEST_PROVIDER = node[:test][:provider]
 USER_NAME = node[:test][:username]
