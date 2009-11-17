@@ -88,7 +88,7 @@ class Chef
       end
           
       def put_file(interface, container, object_name, source_file)
-        interface.put_object(container, object_name,  ::File.open(source_file))
+        interface.put_object(container, object_name,  ::IO.read(source_file))
       end
       
       def delete_file(interface, container, object_name)
