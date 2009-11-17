@@ -28,12 +28,12 @@ backup "BackupTest" do
   mount_point BACKUP_TEST_MOUNT_POINT
   provider_type BACKUP_TEST_PROVIDER
   data_dir BACKUP_TEST_DATA_DIR
+  backup_lineage BACKUP_TEST_LINEAGE
   storage_resource_name "RemoteObjectStore"
   action :prepare_backup
 end
 
 backup "BackupTest" do
-  backup_lineage BACKUP_TEST_LINEAGE
   action :backup
 end
 
