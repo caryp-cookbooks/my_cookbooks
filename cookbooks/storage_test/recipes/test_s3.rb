@@ -20,7 +20,7 @@ remote_object_store "#{STORAGE_TEST_FILE_PATH}.orig" do
   key node[:storage_test][:s3][:key]
   container "#{STORAGE_TEST_CONTAINER}"
   object_name "#{STORAGE_TEST_OBJECT_NAME}" 
-  #provider "#{STORAGE_TEST_PROVIDER}"
+  provider_type "#{STORAGE_TEST_PROVIDER}"
   action :put
 end
 
@@ -30,7 +30,7 @@ remote_object_store "#{STORAGE_TEST_FILE_PATH}.new" do
   key node[:storage_test][:s3][:key]
   container STORAGE_TEST_CONTAINER
   object_name STORAGE_TEST_OBJECT_NAME  
-#  provider STORAGE_TEST_PROVIDER
+  provider_type STORAGE_TEST_PROVIDER
   action :get
 end
 
@@ -40,7 +40,7 @@ remote_object_store "remove file" do
   key node[:storage_test][:s3][:key]
   container STORAGE_TEST_CONTAINER
   object_name STORAGE_TEST_OBJECT_NAME  
-#  provider STORAGE_TEST_PROVIDER
+  provider_type STORAGE_TEST_PROVIDER
   action :delete
 end
 
