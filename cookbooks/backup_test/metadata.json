@@ -1,9 +1,12 @@
 {
   "providing": {
+    "backup_test::test_s3": [
+
+    ],
     "backup_test": [
 
     ],
-    "backup_test::test_backup_to_s3": [
+    "backup_test::common": [
 
     ]
   },
@@ -20,7 +23,42 @@
   "maintainer": "RightScale, Inc.",
   "name": "backup_test",
   "attributes": {
-
+    "test\/cloudfiles\/user": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Rackspace Username",
+      "recipes": [
+        "backup_test::test_cloudfiles"
+      ],
+      "required": true
+    },
+    "test\/s3\/key": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Amazon Secret Access Key",
+      "recipes": [
+        "backup_test::test_s3"
+      ],
+      "required": true
+    },
+    "test\/s3\/user": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Amazon Access Key ID",
+      "recipes": [
+        "backup_test::test_s3"
+      ],
+      "required": true
+    },
+    "test\/cloudfiles\/key": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Rackspace Authorization Key",
+      "recipes": [
+        "backup_test::test_cloudfiles"
+      ],
+      "required": true
+    }
   },
   "recommendations": {
 
@@ -32,8 +70,9 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
+    "backup_test::test_s3": "",
     "backup_test": "",
-    "backup_test::test_backup_to_s3": ""
+    "backup_test::common": ""
   },
   "conflicting": {
 

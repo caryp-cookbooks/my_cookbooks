@@ -26,25 +26,7 @@
   "maintainer": "RightScale, Inc.",
   "name": "storage_test",
   "attributes": {
-    "storage_test\/cloudfiles\/key": {
-      "type": "string",
-      "multiple_values": false,
-      "display_name": "Rackspace Authorization Key",
-      "recipes": [
-        "storage_test::test_cloudfiles"
-      ],
-      "required": true
-    },
-    "storage_test\/s3\/user": {
-      "type": "string",
-      "multiple_values": false,
-      "display_name": "Amazon Access Key ID",
-      "recipes": [
-        "storage_test::test_s3"
-      ],
-      "required": true
-    },
-    "storage_test\/cloudfiles\/user": {
+    "test\/cloudfiles\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Username",
@@ -53,12 +35,30 @@
       ],
       "required": true
     },
-    "storage_test\/s3\/key": {
+    "test\/s3\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Secret Access Key",
       "recipes": [
         "storage_test::test_s3"
+      ],
+      "required": true
+    },
+    "test\/s3\/user": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Amazon Access Key ID",
+      "recipes": [
+        "storage_test::test_s3"
+      ],
+      "required": true
+    },
+    "test\/cloudfiles\/key": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Rackspace Authorization Key",
+      "recipes": [
+        "storage_test::test_cloudfiles"
       ],
       "required": true
     }

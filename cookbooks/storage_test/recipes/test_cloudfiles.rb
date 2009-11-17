@@ -1,5 +1,5 @@
-node[:storage_test][:provider] = "CloudFiles"
-node[:storage_test][:username] = node[:storage_test][:cloudfiles][:user]
-node[:storage_test][:password] = node[:storage_test][:cloudfiles][:key]
+node[:test][:provider] = "CloudFiles"
+node[:test][:username] = node[:test][:cloudfiles][:user]
+node[:test][:password] = node[:test][:cloudfiles][:key]
 
 include_recipe 'storage_test::common'
