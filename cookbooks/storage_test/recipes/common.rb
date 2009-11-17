@@ -5,6 +5,15 @@ STORAGE_TEST_CONTAINER = "regression_test_area"
 STORAGE_TEST_OBJECT_NAME = "storage_test"
 STORAGE_TEST_FILE_PATH = "/tmp/storage_test"
 
+# create container
+remote_object_store "create container" do
+  user USER_NAME
+  key USER_PW
+  container STORAGE_TEST_CONTAINER
+  provider_type STORAGE_TEST_PROVIDER
+  action :create_container
+end
+
 # removed any file from previous test
 file "#{STORAGE_TEST_FILE_PATH}.new" do
   action :delete

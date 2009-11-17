@@ -56,6 +56,18 @@ class Chef
         true
       end
       
+      def action_create_container
+        Chef::Log.debug "action_create_container: #{@new_resource.container}"
+        create_container(get_or_create_interface, @new_resource.container)
+        true
+      end
+      
+      def action_delete_container
+        Chef::Log.debug "action_delete_container: #{@new_resource.container}"
+        delete_container(get_or_create_interface, @new_resource.container,)
+        true
+      end
+      
     private
           
       def get_or_create_interface
@@ -81,6 +93,14 @@ class Chef
       
       def delete_file(interface, container, object_name)
         interface.delete_object(container, object_name)
+      end
+      
+      def create_container(interface, container)
+        interface.create_container(container)
+      end
+      
+      def delete_container(interface, container)
+        interface.delete_container(container)
       end
     
     end

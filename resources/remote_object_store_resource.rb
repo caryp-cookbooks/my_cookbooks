@@ -33,7 +33,7 @@ class Chef
         @container = nil
         @object_name = nil    
         @provider_type = nil
-        @allowed_actions.push(:get, :put, :delete, :login)
+        @allowed_actions.push(:get, :put, :delete, :login, :create_container, :delete_container)
       end
 
       def user(arg=nil)
