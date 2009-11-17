@@ -1,3 +1,6 @@
+STORAGE_TEST_PROVIDER = node[:storage_test][:provider]
+USER_NAME = node[:storage_test][:username]
+USER_PW = node[:storage_test][:password]
 STORAGE_TEST_CONTAINER = "regression_test_area"
 STORAGE_TEST_OBJECT_NAME = "storage_test"
 STORAGE_TEST_FILE_PATH = "/tmp/storage_test"

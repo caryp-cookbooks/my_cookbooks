@@ -1,5 +1,5 @@
-STORAGE_TEST_PROVIDER = "CloudFiles"
-USER_NAME = node[:storage_test][:rackspace][:user]
-USER_PW = node[:storage_test][:rackspace][:key]
+node[:storage_test][:provider] = "CloudFiles"
+node[:storage_test][:username] = node[:storage_test][:rackspace][:user]
+node[:storage_test][:password] = node[:storage_test][:rackspace][:key]
 
 include_recipe 'storage_test::common'
