@@ -34,7 +34,8 @@ class Chef
       def action_login
         Chef::Log.debug "action:login #{@new_resource.name}"
         interface = Rightscale::Rackspace::CloudFilesInterface::new(@new_resource.user, @new_resource.key, {}) 
-        ObjectRegistry.register(@node, @new_resource.name, interface)
+        ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
+        ObjectRegistry.register(@node, @new_resource.name, self)
         true
       end
 
@@ -71,10 +72,10 @@ class Chef
     private
           
       def get_or_create_interface
-        interface = ObjectRegistry.lookup(@node, @new_resource.name)
+        interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         unless interface
           action_login
-          interface = ObjectRegistry.lookup(@node, @new_resource.name)
+          interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         end
         interface
       end
