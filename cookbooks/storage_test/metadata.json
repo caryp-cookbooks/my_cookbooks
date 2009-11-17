@@ -31,7 +31,7 @@
       "multiple_values": false,
       "display_name": "Rackspace Authorization Key",
       "recipes": [
-
+        "storage_test::test_cloudfiles"
       ],
       "required": true
     },
@@ -40,7 +40,7 @@
       "multiple_values": false,
       "display_name": "Amazon Access Key ID",
       "recipes": [
-
+        "storage_test::test_s3"
       ],
       "required": true
     },
@@ -49,7 +49,7 @@
       "multiple_values": false,
       "display_name": "Rackspace Username",
       "recipes": [
-
+        "storage_test::test_cloudfiles"
       ],
       "required": true
     },
@@ -58,7 +58,7 @@
       "multiple_values": false,
       "display_name": "Amazon Secret Access Key",
       "recipes": [
-
+        "storage_test::test_s3"
       ],
       "required": true
     }

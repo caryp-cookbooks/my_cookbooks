@@ -8,16 +8,20 @@ version          "0.1"
 
 attribute "storage_test/s3/user",
   :display_name => "Amazon Access Key ID",
-  :required => true
+  :required => true,
+  :recipes => [ "storage_test::test_s3" ]
 
 attribute "storage_test/s3/key",
   :display_name => "Amazon Secret Access Key",
-  :required => true
+  :required => true,
+  :recipes => [ "storage_test::test_s3" ]
   
 attribute "storage_test/cloudfiles/user",
   :display_name => "Rackspace Username",
-  :required => true
+  :required => true,
+  :recipes => [ "storage_test::test_cloudfiles" ]
 
 attribute "storage_test/cloudfiles/key",
   :display_name => "Rackspace Authorization Key",
-  :required => true
+  :required => true,
+  :recipes => [ "storage_test::test_cloudfiles" ]
