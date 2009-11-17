@@ -64,7 +64,7 @@ class Chef
       
       def action_delete_container
         Chef::Log.debug "action_delete_container: #{@new_resource.container}"
-        delete_container(get_or_create_interface, @new_resource.container,)
+        delete_container(get_or_create_interface, @new_resource.container)
         true
       end
       
