@@ -46,8 +46,8 @@ class Chef
         end
         
         def action_backup
-          ros = ObjectRegistry.lookup(@node, @new_resource.backup_resource_name)
-          raise "ERROR: Remote object store #{@new_resource.backup_resource_name} not found!"
+          ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
+          raise "ERROR: Remote object store #{@new_resource.storage_resource_name} not found!"
           
           backup_mounted_on = @new_resource.backup_lineage              
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
@@ -98,8 +98,8 @@ class Chef
         end
         
         def action_restore
-          ros = ObjectRegistry.lookup(@node, @new_resource.backup_resource_name)
-          raise "ERROR: Remote object store #{@new_resource.backup_resource_name} not found!"
+          ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
+          raise "ERROR: Remote object store #{@new_resource.storage_resource_name} not found!"
           
           # do download
           user = ros.user
