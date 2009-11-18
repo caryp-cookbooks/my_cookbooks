@@ -39,7 +39,7 @@ class Chef
 
         def action_prepare_backup
           # create snapshot to dir X
-          snapshot_name = @new_resource.backup_lineage
+          snapshot_name = @new_resource.lineage
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
           lvm.create_lvm_snapshot(nil, snapshot_name)
           true
@@ -49,7 +49,7 @@ class Chef
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
           
-          backup_mounted_on = @new_resource.backup_lineage              
+          backup_mounted_on = @new_resource.lineage              
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
           file_list = lvm.get_filelist_from_snapshot(backup_mounted_on, @new_resource.data_dir, @new_resource.file_list)
 
@@ -92,7 +92,7 @@ class Chef
         end
         
         def action_cleanup_backup
-          snapshot_name = @new_resource.backup_lineage
+          snapshot_name = @new_resource.lineage
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)          
           lvm.delete_snapshot(nil, snapshot_name)
         end
