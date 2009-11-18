@@ -110,7 +110,7 @@ class Chef
   
 					# TODO: what's up with the compress flag, do we want or need it?!?
           gzip_flag = "z" #if lineage =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
-          tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.mount_point}"
+          tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.restore_dir}"
           if (type == "S3")
             remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
           else
