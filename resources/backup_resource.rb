@@ -34,6 +34,8 @@ class Chef
         @file_list = []
         @storage_resource_name = nil
         @lineage = nil
+        @snapshot_mount_point = nil
+        @fs_object = nil
         @allowed_actions.push(:prepare_backup, :backup, :cleanup_backup, :restore)
       end
 
@@ -45,15 +47,7 @@ class Chef
         )
       end
      
-      def data_dir(arg=nil)
-        set_or_return(
-          :data_dir,
-          arg,
-          :kind_of => [ String ]
-        )
-      end
-      
-      def restore_dir(arg=nil)
+      def restore_root(arg=nil)
         set_or_return(
           :restore_dir,
           arg,
@@ -65,7 +59,7 @@ class Chef
         set_or_return(
           :file_list,
           arg,
-          :kind_of => [ String ]
+          :kind_of => [ Array ]
         )
       end
             
@@ -89,9 +83,9 @@ class Chef
         set_or_return(
             :provider_type,
             arg,
-          { :equal_to => [ "LVM" ], :required => true }
+          { :equal_to => [ "LVMROS" ], :required => true }
         )
-      	ptypes = { "LVM" => Chef::Provider::Backup::LVMROS }
+      	ptypes = { "LVMROS" => Chef::Provider::Backup::LVMROS }
       	provider ptypes[@provider_type]
       end
 
