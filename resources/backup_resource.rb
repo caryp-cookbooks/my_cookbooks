@@ -30,6 +30,7 @@ class Chef
         @provider_type = nil
         @mount_point = nil
         @data_dir = nil
+        @restore_dir = nil
         @file_list = []
         @storage_resource_name = nil
         @lineage = nil
@@ -47,6 +48,14 @@ class Chef
       def data_dir(arg=nil)
         set_or_return(
           :data_dir,
+          arg,
+          :kind_of => [ String ]
+        )
+      end
+      
+      def restore_dir(arg=nil)
+        set_or_return(
+          :restore_dir,
           arg,
           :kind_of => [ String ]
         )
