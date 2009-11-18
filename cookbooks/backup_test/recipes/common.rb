@@ -45,7 +45,7 @@ end
 # FIXME: the backup and restore dirs are different!!
 ruby "test for identical dirs" do
   code <<-EOH
-    `diff -r "#{BACKUP_TEST_MOUNT_POINT}/#{BACKUP_TEST_DATA_DIR}" "#{BACKUP_TEST_MOUNT_POINT}_new"`
+    `diff -r "#{BACKUP_TEST_DATA_DIR}" "#{BACKUP_TEST_MOUNT_POINT}_new"`
     raise "ERROR: directories do not match!!" if $? != 0
   EOH
 end
