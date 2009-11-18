@@ -35,7 +35,7 @@ class Chef
         Chef::Log.debug "action:login #{@new_resource.name}"
         interface = Rightscale::Rackspace::CloudFilesInterface::new(@new_resource.user, @new_resource.key, {}) 
         ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
-        ObjectRegistry.register(@node, @new_resource.name, self)
+        ObjectRegistry.register(@node, @new_resource.name, @new_resource)
         true
       end
 
