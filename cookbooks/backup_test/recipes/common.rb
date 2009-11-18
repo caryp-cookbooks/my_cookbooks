@@ -48,16 +48,19 @@ backup "BackupTest" do
   action :cleanup_backup
 end
 
+# Create a palce to put our restore
 directory BACKUP_TEST_RESTORE_DIR do
   action :create
 end
 
+# Do the restore.
 backup "BackupTest" do
   restore_dir BACKUP_TEST_RESTORE_DIR
   action :restore
 end
 
-# compare directories
+# Compare directories.
+# Raise an exception if they are different.
 ruby "test for identical dirs" do
   code <<-EOH
     `diff -r "#{BACKUP_TEST_DATA_DIR}" "#{BACKUP_TEST_RESTORE_DIR}"`
