@@ -1,22 +1,13 @@
-#rs_tools "rightscale_dbtools-0.19.0.tgz"
-
-STORAGE_TEST_PROVIDER = node[:test][:provider]
-USER_NAME = node[:test][:username]
-USER_PW = node[:test][:password]
-STORAGE_TEST_CONTAINER = "regression_test_area"
-STORAGE_TEST_OBJECT_NAME = "storage_test"
-STORAGE_TEST_FILE_PATH = "/tmp/storage_test"
+rs_tools "rightscale_dbtools-0.19.0.tgz"
 
 BACKUP_TEST_DATA_DIR = "/mnt/backup_test"
 BACKUP_TEST_MOUNT_POINT = "/mnt"
-BACKUP_TEST_PROVIDER = "LVM"
-BACKUP_TEST_LINEAGE = "backup-test"
 
 remote_object_store "RemoteObjectStore" do
-  user USER_NAME
-  key USER_PW
-  container STORAGE_TEST_CONTAINER
-  provider_type STORAGE_TEST_PROVIDER
+  user node[:test][:username]
+  key node[:test][:password]
+  container "regression_test_area"
+  provider_type node[:test][:provider]
   action :create_container
 end
 
@@ -26,9 +17,9 @@ end
 
 backup "BackupTest" do
   mount_point BACKUP_TEST_MOUNT_POINT
-  provider_type BACKUP_TEST_PROVIDER
+  provider_type "LVM"
   data_dir BACKUP_TEST_DATA_DIR
-  lineage BACKUP_TEST_LINEAGE
+  lineage "backup-test"
   storage_resource_name "RemoteObjectStore"
   action :prepare_backup
 end
@@ -51,9 +42,10 @@ backup "BackupTest" do
 end
 
 # compare directories
+# FIXME: the backup and restore dirs are different!!
 ruby "test for identical dirs" do
   code <<-EOH
-    `diff -R "#{BACKUP_TEST_MOUNT_POINT}" "#{BACKUP_TEST_MOUNT_POINT}_new"`
+    `diff -r "#{BACKUP_TEST_MOUNT_POINT}/#{BACKUP_TEST_DATA_DIR}" "#{BACKUP_TEST_MOUNT_POINT}_new"`
     raise "ERROR: directories do not match!!" if $? != 0
   EOH
 end
