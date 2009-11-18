@@ -32,7 +32,7 @@ class Chef
         @data_dir = nil
         @file_list = []
         @storage_resource_name = nil
-        @backup_lineage = nil
+        @lineage = nil
         @allowed_actions.push(:prepare_backup, :backup, :cleanup_backup, :restore)
       end
 
@@ -68,9 +68,9 @@ class Chef
         )
       end
       
-      def backup_lineage(arg=nil)
+      def lineage(arg=nil)
         set_or_return(
-          :backup_lineage,
+          :lineage,
           arg,
           :kind_of => [ String ]
         )
