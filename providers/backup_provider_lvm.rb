@@ -30,8 +30,6 @@ class Chef
     class Backup
       class LVMROS < Chef::Provider
         
-        @compress_opt = true
-        @parallelism = 3
 
         def load_current_resource
           true
@@ -46,6 +44,7 @@ class Chef
         end
         
         def action_backup
+        	@compress_opt = true
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
           
@@ -65,28 +64,28 @@ class Chef
           # do upload
           user = ros.user
           key = ros.key
-          type = ros.provider_type
+          provider_type = ros.provider_type
           container = ros.container
           lineage = @new_resource.lineage
-          ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
+          ros_param = (provider_type == "S3") ? "--cloud ec2" : "--cloud rackspace"
           
           datadir_canonicalized = lvm.get_datadir_canonicalized(@new_resource.data_dir)
           backup_root = "/#{backup_mounted_on}/#{datadir_canonicalized}".gsub(/\/\//,"/")
           puts "Rooting tar at: #{backup_root}"
           compress_flag = (@compress_opt ? "z":"") #Add the compression flag if specified
           tar_cmd = "cd #{backup_root}; nice tar c#{compress_flag}f - --files-from #{file_list_filename}"
-          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --upload -b #{container} -f #{lineage} -p #{@parallelism}" 
-          if (type == "S3")
+          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --upload -b #{container} -f #{lineage}" 
+          if (provider_type == "S3")
             remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
           else
             remote_env_cmd = "export RACKSPACE_USER='#{user}'; export RACKSPACE_SECRET='#{key}'"
           end
           
           full_cmd = remote_env_cmd << " ; " << tar_cmd << " | " << splitter_cmd
-                    
-          puts "EXEC CMD: #{full_cmd}"
           result = `#{full_cmd}`
-          raise "Returned: "+result if $? != 0   
+					Chef::Log.info result
+
+          raise "ERROR running cmd: #{full_cmd}, Returned: "+result if $? != 0   
         
           true
         end
@@ -99,7 +98,7 @@ class Chef
         
         def action_restore
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
-          raise "ERROR: Remote object store #{@new_resource.storage_resource_name} not found!"
+          raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
           
           # do download
           user = ros.user
@@ -109,20 +108,23 @@ class Chef
           lineage = @new_resource.lineage
           ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
   
-          gzip_flag = "z" if lineage =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
+					# TODO: what's up with the compress flag, do we want or need it?!?
+          gzip_flag = "z" #if lineage =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
           tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.mount_point}"
           if (type == "S3")
             remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
           else
             remote_env_cmd = "export RACKSPACE_USER='#{user}'; export RACKSPACE_SECRET='#{key}'"
           end
-          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --download -b #{container} -k #{lineage}"
-          return_value = "(( excode = $(echo ${PIPESTATUS[*]} | sed 's/0//;s/ //g') == 0 ? 0:-1 )) ; exit $excode"
+          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --download -b #{container} -f #{lineage}"
   
-          full_cmd = remote_env_cmd << " ; " << splitter_cmd << " | " << tar_cmd << " ; " << return_value
-          STDERR.write("FULL CMD: #{full_cmd}")
-          system("#{prefix} #{full_cmd}")
-          raise "Error restoring backup. Returned:#{$?}\n" if $? != 0
+          full_cmd = remote_env_cmd << " ; " << splitter_cmd << " | " << tar_cmd << " ; "
+          result = `#{full_cmd}`
+					Chef::Log.info result
+
+					# this pipestatus+sed cmd replaces all zeros with nothing, so success is indicated by no-value
+					pipestatus = `echo ${PIPESTATUS[*]} | sed 's/0//;s/ //g'`.chomp
+          raise "Error restoring backup. Cmd was #{full_cmd}, Returned:#{pipestatus}\n" unless pipestatus == ""
         end
                 
       end

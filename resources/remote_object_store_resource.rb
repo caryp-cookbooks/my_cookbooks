@@ -76,6 +76,7 @@ class Chef
         )
       	ptypes = { "S3" => Chef::Provider::RemoteObjectStoreS3, "CloudFiles" => Chef::Provider::RemoteObjectStoreCloudFiles}
       	provider ptypes[@provider_type]
+				@provider_type
       end
 
     end
