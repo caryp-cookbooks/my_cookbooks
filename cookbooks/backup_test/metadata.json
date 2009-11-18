@@ -1,5 +1,8 @@
 {
   "providing": {
+    "backup_test::test_cloudfiles": [
+
+    ],
     "backup_test::test_s3": [
 
     ],
@@ -70,6 +73,7 @@
   "license": "All rights reserved",
   "version": "0.1.0",
   "recipes": {
+    "backup_test::test_cloudfiles": "",
     "backup_test::test_s3": "",
     "backup_test": "",
     "backup_test::common": ""
