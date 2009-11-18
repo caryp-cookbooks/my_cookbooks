@@ -31,15 +31,15 @@ end
 # This will trigger the LVM snaphot.
 backup "BackupTest" do
   mount_point BACKUP_TEST_MOUNT_POINT
-  data_dir BACKUP_TEST_DATA_DIR
   provider_type "LVM"
-  lineage "backup-test"
   storage_resource_name "RemoteObjectStore"
   action :prepare_backup
 end
 
 # Do the actual backup to our remote storage.
 backup "BackupTest" do
+  lineage "backup-test"
+  file_list [ "backup_test" ]
   action :backup
 end
 
