@@ -55,7 +55,7 @@ class Chef
 
           file_list_filename = "/tmp/lvm_backup_file_list"      
           puts "Backup tree:"
-          File.open(file_list_filename, File::WRONLY|File::TRUNC|File::CREAT, 0660) do |file|
+          ::File.open(file_list_filename, ::File::WRONLY|::File::TRUNC|::File::CREAT, 0660) do |file|
             file_list.each do |fname|
               file.puts fname
               puts "#{fname}"
