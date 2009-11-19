@@ -5,9 +5,16 @@ BACKUP_TEST_MOUNT_POINT = "/mnt"
 BACKUP_TEST_RESTORE_DIR = "/tmp/restore_test"
  
 # Remove any restore directory from previous runs.
-# TODO: this fails if the directory doesn't exist?
 directory BACKUP_TEST_RESTORE_DIR do
   action :delete
+  recursive true
+end
+
+# clean up extra good for developer testing
+Dir.glob("/tmp/lvm_backup_file_list*").each do |tmpfile|
+  file tmpfile do
+    action :delete
+  end
 end
 
 # Setup remote storage object. 
