@@ -67,7 +67,7 @@ class Chef
         file_prefix += override unless override.nil?
         all_bucket_keys = []
         interface = get_or_create_interface
-        interface.incrementally_list_bucket(s3bucket, { :marker => "", :prefix => file_prefix }) do |res|
+        interface.incrementally_list_bucket(bucket, { :marker => "", :prefix => file_prefix }) do |res|
           all_bucket_keys += res[:contents]
         end
 
@@ -75,7 +75,9 @@ class Chef
         selected_keys = all_bucket_keys.select { |hsh| hsh[:key] =~ /\.info$/ }
         selected_keys.sort! { |a,b| b[:last_modified] <=> a[:last_modified] }
         latest_key = selected_keys[0]
-        latest_key.gsub!(/\.info$/,'')
+        found = latest_key[:key].gsub!(/\.info$/,'')
+        Chef::Log.info "Found Latest Backup: #{found}"
+        return found
       end
 
       def login

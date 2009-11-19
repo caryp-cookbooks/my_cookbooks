@@ -30,21 +30,11 @@ class Chef
         @provider_type = nil
         @mount_point = nil
         @data_dir = nil
-        @restore_dir = nil
+        @restore_root = nil
         @file_list = []
         @storage_resource_name = nil
         @lineage = nil
-        @snapshot_mount_point = nil
-        @disk = nil
         @allowed_actions.push(:prepare_backup, :backup, :cleanup_backup, :restore)
-      end
-
-      def disk(arg=nil)
-        set_or_return(
-          :disk,
-          arg,
-          :kind_of => [ RightScaleHelper::LVM ]
-        )
       end
 
       def mount_point(arg=nil)
@@ -57,7 +47,7 @@ class Chef
      
       def restore_root(arg=nil)
         set_or_return(
-          :restore_dir,
+          :restore_root,
           arg,
           :kind_of => [ String ]
         )
