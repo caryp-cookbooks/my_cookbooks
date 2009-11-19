@@ -31,14 +31,6 @@ class Chef
         true
       end
 
-      def action_login
-        Chef::Log.debug "action:login #{@new_resource.name}"
-        interface = Rightscale::Rackspace::CloudFilesInterface::new(@new_resource.user, @new_resource.key, {}) 
-        ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
-        ObjectRegistry.register(@node, @new_resource.name, @new_resource)
-        true
-      end
-
       def action_get
         Chef::Log.debug "action_get: get #{@new_resource.object_name} from #{@new_resource.container} to the file #{@new_resource.name}"
         get_file(get_or_create_interface, @new_resource.container, @new_resource.object_name, @new_resource.name)
@@ -68,13 +60,35 @@ class Chef
         delete_container(get_or_create_interface, @new_resource.container)
         true
       end
+
+      def login
+        Chef::Log.debug "action:login #{@new_resource.name}"
+        interface = Rightscale::Rackspace::CloudFilesInterface::new(@new_resource.user, @new_resource.key, {}) 
+        ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
+        ObjectRegistry.register(@node, @new_resource.name, @new_resource)
+        ObjectRegistry.register(@node, "#{@new_resource.name}_provider", self)
+        true
+      end
+
+      def find_latest_backup(container, file_prefix, override=nil)
+        file_prefix += override unless override.nil?
+        all_result = get_or_create_interface.incrementally_list_objects(container)
+# prefix is not supported by rackspace. need to sort by hand or use rackspaces 'directories' support
+        result = all_result.select { |r| r['name'] =~ /^#{file_prefix}.*\.info/ }
+        result.sort! { |a,b| b['last_modified'] <=> a['last_modified'] }
+        latest_key = result[0]
+        found_name = latest_key['name'].gsub(/\.info$/,'')
+        Chef::Log.info "Found Latest Backup: #{found_name}"
+        return found_name
+      end
       
+     
     private
           
       def get_or_create_interface
         interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         unless interface
-          action_login
+          login
           interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         end
         interface
