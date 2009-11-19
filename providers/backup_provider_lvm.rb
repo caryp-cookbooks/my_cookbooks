@@ -23,7 +23,6 @@
 require "rubygems"
 require "right_aws"
 
-BASE_PATH="blah"
 require "../lib/fs/lvm.rb"
 
 class Chef
@@ -40,16 +39,17 @@ class Chef
           # create snapshot to dir X
           snapshot_name = @new_resource.name
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
-          @new_resource.fs_object = lvm
+          @new_resource.disk = lvm
           
           @new_resource.snapshot_mount_point = "/#{snapshot_name}/#{@new_resource.mount_point}"
-          lvm.create_lvm_snapshot(nil, snapshot_name, @new_resource.snapshot_mount_point)
+          lvm.create_lvm_snapshot(snapshot_name, @new_resource.snapshot_mount_point)
           true
         end
         
         def action_backup
         	@compress_opt = true
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
+
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
           
           backup_mounted_on = @new_resource.snapshot_mount_point              
@@ -95,13 +95,15 @@ class Chef
         
         def action_cleanup_backup
           snapshot_name = @new_resource.name
-          lvm = @new_resource.fs_object
+          lvm = @new_resource.disk
           #TODO raise if lvm is nil
-          lvm.delete_snapshot(nil, snapshot_name)
+          lvm.delete_snapshot(snapshot_name)
         end
         
         def action_restore
           @compress_opt = true
+          rs_provider = ObjectRegistry.lookup(@node, "#{@new_resource.name}_provider")
+
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
           
@@ -112,12 +114,10 @@ class Chef
           container = ros.container
           lineage = @new_resource.lineage
           ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
+          latest_backup = rs_provider.find_latest_backup(container, lineage)
           
-          #TODO: allow filename override as a parameter
-          filename = last_backup_key(user, key, container, lineage, true)
-  
 					# TODO: what's up with the compress flag, do we want or need it?!?
-          gzip_flag = "z" if filename =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
+          gzip_flag = "z" if latest_backup =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
           tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.restore_dir}"
           if (type == "S3")
             remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
@@ -135,32 +135,6 @@ class Chef
           raise "Error restoring backup. Cmd was #{full_cmd}, Returned:#{pipestatus}\n" unless pipestatus == ""
         end
         
-      private  
-        # Retrieve the s3 key corresponding to the latest existing backup for a given prefix
-        # It looks at both the master backup files (with long timestamps) as well as the 10 min backup files.
-        # Based on modification time.
-        # If use_info_file true, we'll only consider .info extension files (since they're supposedly the only ones that indicate successful backups)
-        def last_backup_key(aws_access_key, aws_secret_access_key, s3bucket,file_prefix, use_info_file)
-          s3Interface = RightAws::S3Interface.new( aws_access_key, aws_secret_access_key,
-            {  :port => '80',
-              :protocol => 'http' })
-
-          all_bucket_keys = []
-          s3Interface.incrementally_list_bucket(s3bucket, { :marker => "", :prefix => file_prefix }) do |res|
-            all_bucket_keys += res[:contents]
-          end
-          if use_info_file
-            selected_keys = all_bucket_keys.select { |hsh| hsh[:key] =~ /\.info$/ }
-          else
-            selected_keys = all_bucket_keys
-          end
-          return nil if selected_keys.empty?
-          selected_keys.sort! { |a,b| b[:last_modified] <=> a[:last_modified] }
-          latest_key = selected_keys[0]
-          # WARNING: we're assuming the FRAG_SUFFIX used in the file fragmenter to be .part
-          return latest_key[:key].gsub(/\.part[0-9]+$/,'').gsub(/\.info$/,'')
-        end   
-                
       end
     end
   end

@@ -22,8 +22,7 @@
 
 class Chef
   class Resource
-
-    class RemoteObjectStore < Chef::Resource
+    class RemoteStorage < Chef::Resource
 
      def initialize(name, collection=nil, node=nil)
         super(name, collection, node)
@@ -33,7 +32,8 @@ class Chef
         @container = nil
         @object_name = nil    
         @provider_type = nil
-        @allowed_actions.push(:get, :put, :delete, :login, :create_container, :delete_container)
+        @disk = nil
+        @allowed_actions.push(:get, :put, :delete, :create_container, :delete_container)
       end
 
       def user(arg=nil)
@@ -74,7 +74,7 @@ class Chef
             arg,
           { :equal_to => [ "S3", "CloudFiles" ], :required => true }
         )
-      	ptypes = { "S3" => Chef::Provider::RemoteObjectStoreS3, "CloudFiles" => Chef::Provider::RemoteObjectStoreCloudFiles}
+      	ptypes = { "S3" => Chef::Provider::RemoteStorageS3, "CloudFiles" => Chef::Provider::RemoteStorageCloudFiles}
       	provider ptypes[@provider_type]
 				@provider_type
       end
@@ -84,5 +84,5 @@ class Chef
   end
 end
 
-Chef::Platform.platforms[:default].merge!(:remote_object_store => Chef::Provider::RemoteObjectStoreS3)
+Chef::Platform.platforms[:default].merge!(:remote_object_store => Chef::Provider::RemoteStorageS3)
 
