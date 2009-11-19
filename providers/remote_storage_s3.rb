@@ -25,19 +25,13 @@ require "right_aws"
 
 class Chef
   class Provider
-    class RemoteObjectStoreS3 < Chef::Provider
+    class RemoteStorageS3 < Chef::Provider
 
       def load_current_resource
         true
       end
 
-      def action_login
-        Chef::Log.debug "action:login #{@new_resource.name}"
-        interface = RightAws::S3Interface.new( @new_resource.user, @new_resource.key, {} )
-        ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
-        ObjectRegistry.register(@node, @new_resource.name, @new_resource)
-        true
-      end
+     
 
       def action_get
         Chef::Log.debug "action_get: get #{@new_resource.object_name} from #{@new_resource.container} to the file #{@new_resource.name}"
@@ -68,13 +62,37 @@ class Chef
         delete_container(get_or_create_interface, @new_resource.container)
         true
       end
-      
+
+      def find_latest_backup(bucket, file_prefix, override=nil)
+        file_prefix += override unless override.nil?
+        all_bucket_keys = []
+        interface = get_or_create_interface
+        interface.incrementally_list_bucket(s3bucket, { :marker => "", :prefix => file_prefix }) do |res|
+          all_bucket_keys += res[:contents]
+        end
+
+        # only use backups with .info (valid backups)
+        selected_keys = all_bucket_keys.select { |hsh| hsh[:key] =~ /\.info$/ }
+        selected_keys.sort! { |a,b| b[:last_modified] <=> a[:last_modified] }
+        latest_key = selected_keys[0]
+        latest_key.gsub!(/\.info$/,'')
+      end
+
+      def login
+        Chef::Log.debug "action:login #{@new_resource.name}"
+        interface = RightAws::S3Interface.new( @new_resource.user, @new_resource.key, {} )
+        ObjectRegistry.register(@node, "#{@new_resource.name}_interface", interface)
+        ObjectRegistry.register(@node, @new_resource.name, @new_resource)
+        ObjectRegistry.register(@node, "#{@new_resource.name}_provider", self)
+        true
+      end
+
     private
           
       def get_or_create_interface
         interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         unless interface
-          action_login
+          login
           interface = ObjectRegistry.lookup(@node, "#{@new_resource.name}_interface")
         end
         interface

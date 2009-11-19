@@ -25,7 +25,7 @@ require "right_rackspace"
 
 class Chef
   class Provider
-    class RemoteObjectStoreCloudFiles < Chef::Provider
+    class RemoteStorageCloudFiles < Chef::Provider
 
       def load_current_resource
         true

@@ -35,8 +35,16 @@ class Chef
         @storage_resource_name = nil
         @lineage = nil
         @snapshot_mount_point = nil
-        @fs_object = nil
+        @disk = nil
         @allowed_actions.push(:prepare_backup, :backup, :cleanup_backup, :restore)
+      end
+
+      def disk(arg=nil)
+        set_or_return(
+          :disk,
+          arg,
+          :kind_of => [ RightScaleHelper::LVM ]
+        )
       end
 
       def mount_point(arg=nil)
