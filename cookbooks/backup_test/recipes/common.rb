@@ -1,13 +1,14 @@
-#rs_tools "rightscale_dbtools-0.19.0.tgz"
+rs_tools "rightscale_dbtools-0.19.0.tgz"
 
 BACKUP_TEST_FILE_LIST    = [ "backup_test" ]
 BACKUP_TEST_MOUNT_POINT = "/mnt"
 BACKUP_TEST_RESTORE_DIR = "/tmp/restore_test"
  
 # Remove any restore directory from previous runs.
-#directory BACKUP_TEST_RESTORE_DIR do
-#  action :delete
-#end
+# TODO: this fails if the directory doesn't exist?
+directory BACKUP_TEST_RESTORE_DIR do
+  action :delete
+end
 
 # Setup remote storage object. 
 # Stores to Amazon S3 or Rackspace CloudFiles.
