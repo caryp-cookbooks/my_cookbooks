@@ -23,7 +23,7 @@
 require "rubygems"
 require "right_aws"
 
-require "../lib/fs/lvm.rb"
+require "/opt/rightscale/fs/lvm.rb"
 
 class Chef
   class Provider
@@ -35,14 +35,15 @@ class Chef
           true
         end
 
+        def snapshot_mount_point
+          "/#{@new_resource.name}/#{@new_resource.mount_point}".gsub(/\/\//,"/")
+
+        end
+
         def action_prepare_backup
-          # create snapshot to dir X
-          snapshot_name = @new_resource.name
           lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
-          @new_resource.disk = lvm
           
-          @new_resource.snapshot_mount_point = "/#{snapshot_name}/#{@new_resource.mount_point}"
-          lvm.create_lvm_snapshot(snapshot_name, @new_resource.snapshot_mount_point)
+          lvm.create_lvm_snapshot(@new_resource.name, snapshot_mount_point)
           true
         end
         
@@ -51,12 +52,9 @@ class Chef
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
 
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
-          
-          backup_mounted_on = @new_resource.snapshot_mount_point              
           file_list = @new_resource.file_list
-
           file_list_filename = "/tmp/lvm_backup_file_list_" << @new_resource.name      
-          puts "Backup tree:"
+
           ::File.open(file_list_filename, ::File::WRONLY|::File::TRUNC|::File::CREAT, 0660) do |file|
             file_list.each do |fname|
               file.puts fname
@@ -64,27 +62,25 @@ class Chef
             end
           end
           
-          # do upload
-          user = ros.user
-          key = ros.key
-          provider_type = ros.provider_type
-          container = ros.container
-          lineage = @new_resource.lineage
-          ros_param = (provider_type == "S3") ? "--cloud ec2" : "--cloud rackspace"
-          filename = "#{@new_resource.lineage}-$backupfile_date/$backupfile_time.tar"
+          ros_param = (ros.provider_type == "S3") ? "--cloud ec2" : "--cloud rackspace"
+
+# build the filename with date and compress suffix
+          @compress_opt ? tar_str = ".tgz" : tar_str = ".tar"
+          now_str = Time.now.strftime("%Y%m%d/%H%M%S")
+          filename = "#{@new_resource.lineage}-#{now_str}#{tar_str}"
           
-          backup_root = "#{@new_resource.snapshot_mount_point}".gsub(/\/\//,"/")
-          puts "Rooting tar at: #{backup_root}"
+          Chef::Log.debug "Rooting tar at: #{snapshot_mount_point}"
           compress_flag = (@compress_opt ? "z":"") #Add the compression flag if specified
-          tar_cmd = "cd #{backup_root}; nice tar c#{compress_flag}f - --files-from #{file_list_filename}"
-          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --upload -b #{container} -f #{lineage}" 
-          if (provider_type == "S3")
-            remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
+          tar_cmd = "cd #{snapshot_mount_point}; nice tar c#{compress_flag}f - --files-from #{file_list_filename}"
+          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --upload -b #{ros.container} -f #{filename}" 
+          if (ros.provider_type == "S3")
+            remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{ros.user}'; export AWS_SECRET_ACCESS_KEY='#{ros.key}'"
           else
-            remote_env_cmd = "export RACKSPACE_USER='#{user}'; export RACKSPACE_SECRET='#{key}'"
+            remote_env_cmd = "export RACKSPACE_USER='#{ros.user}'; export RACKSPACE_SECRET='#{ros.key}'"
           end
           
           full_cmd = remote_env_cmd << " ; " << tar_cmd << " | " << splitter_cmd
+          Chef::Log.debug "Executing: #{full_cmd}"
           result = `#{full_cmd}`
 					Chef::Log.info result
 
@@ -95,38 +91,34 @@ class Chef
         
         def action_cleanup_backup
           snapshot_name = @new_resource.name
-          lvm = @new_resource.disk
-          #TODO raise if lvm is nil
+          lvm = RightScaleHelper::LVM.new(@new_resource.mount_point)
           lvm.delete_snapshot(snapshot_name)
         end
         
         def action_restore
           @compress_opt = true
-          rs_provider = ObjectRegistry.lookup(@node, "#{@new_resource.name}_provider")
+          rs_provider = ObjectRegistry.lookup(@node, "#{@new_resource.storage_resource_name}_provider")
 
           ros = ObjectRegistry.lookup(@node, @new_resource.storage_resource_name)
           raise "ERROR: Remote object store not found! (#{@new_resource.storage_resource_name})" unless ros
+          raise "ERROR: Remote object store provider not found! (#{@new_resource.storage_resource_name}_provider)" unless rs_provider
           
           # do download
-          user = ros.user
-          key = ros.key
-          type = ros.provider_type
-          container = ros.container
-          lineage = @new_resource.lineage
-          ros_param = (type == "S3") ? "--cloud ec2" : "--cloud rackspace"
-          latest_backup = rs_provider.find_latest_backup(container, lineage)
+          ros_param = (ros.provider_type == "S3") ? "--cloud ec2" : "--cloud rackspace"
+          latest_backup = rs_provider.find_latest_backup(ros.container, @new_resource.lineage)
           
 					# TODO: what's up with the compress flag, do we want or need it?!?
-          gzip_flag = "z" if latest_backup =~ /\.tgz$|\.gz$/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
-          tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.restore_dir}"
-          if (type == "S3")
-            remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{user}'; export AWS_SECRET_ACCESS_KEY='#{key}'"
+          gzip_flag = "z" if latest_backup =~ /\.tgz|\.gz/ # We will recognize tar and gz extensions (otherwise we'll assume it's a plain tar)
+          tar_cmd = "tar x#{gzip_flag}fC - #{@new_resource.restore_root}"
+          if (ros.provider_type == "S3")
+            remote_env_cmd = "export AWS_ACCESS_KEY_ID='#{ros.user}'; export AWS_SECRET_ACCESS_KEY='#{ros.key}'"
           else
-            remote_env_cmd = "export RACKSPACE_USER='#{user}'; export RACKSPACE_SECRET='#{key}'"
+            remote_env_cmd = "export RACKSPACE_USER='#{ros.user}'; export RACKSPACE_SECRET='#{ros.key}'"
           end
-          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --download -b #{container} -f #{filename}"
+          splitter_cmd = "/opt/rightscale/db/ec2_s3/mc_stream_helper.rb #{ros_param} --download -b #{ros.container} -f #{latest_backup}"
   
           full_cmd = remote_env_cmd << " ; " << splitter_cmd << " | " << tar_cmd << " ; "
+          Chef::Log.debug "Executing: #{full_cmd}"
           result = `#{full_cmd}`
 					Chef::Log.info result
 
