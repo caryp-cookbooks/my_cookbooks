@@ -6,7 +6,7 @@ STORAGE_TEST_OBJECT_NAME = "storage_test"
 STORAGE_TEST_FILE_PATH = "/tmp/storage_test"
 
 # create container
-remote_object_store "create container" do
+remote_storage "create container" do
   user USER_NAME
   key USER_PW
   container STORAGE_TEST_CONTAINER
@@ -30,7 +30,7 @@ template "#{STORAGE_TEST_FILE_PATH}.orig" do
 end
 
 # upload to S3
-remote_object_store "#{STORAGE_TEST_FILE_PATH}.orig" do
+remote_storage "#{STORAGE_TEST_FILE_PATH}.orig" do
   user USER_NAME
   key USER_PW
   container STORAGE_TEST_CONTAINER
@@ -40,7 +40,7 @@ remote_object_store "#{STORAGE_TEST_FILE_PATH}.orig" do
 end
 
 # download from S3
-remote_object_store "#{STORAGE_TEST_FILE_PATH}.new" do
+remote_storage "#{STORAGE_TEST_FILE_PATH}.new" do
   user USER_NAME
   key USER_PW
   container STORAGE_TEST_CONTAINER
@@ -50,7 +50,7 @@ remote_object_store "#{STORAGE_TEST_FILE_PATH}.new" do
 end
 
 # remove file from S3
-remote_object_store "remove file" do
+remote_storage "remove file" do
   user USER_NAME
   key USER_PW
   container STORAGE_TEST_CONTAINER
