@@ -26,7 +26,7 @@ class Chef
 
      def initialize(name, collection=nil, node=nil)
         super(name, collection, node)
-        @resource_name = :remote_object_store
+        @resource_name = :remote_storage
         @user = nil
         @key = nil
         @container = nil
@@ -84,5 +84,5 @@ class Chef
   end
 end
 
-Chef::Platform.platforms[:default].merge!(:remote_object_store => Chef::Provider::RemoteStorageS3)
+Chef::Platform.platforms[:default].merge!(:remote_storage => Chef::Provider::RemoteStorageS3)
 
