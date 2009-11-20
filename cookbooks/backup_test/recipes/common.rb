@@ -1,5 +1,3 @@
-rs_tools "rightscale_dbtools-0.19.0.tgz"
-
 BACKUP_TEST_FILE_LIST    = [ "backup_test" ]
 BACKUP_TEST_MOUNT_POINT = "/mnt"
 BACKUP_TEST_RESTORE_DIR = "/tmp/restore_test"
