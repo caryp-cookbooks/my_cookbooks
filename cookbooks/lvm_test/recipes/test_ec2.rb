@@ -11,24 +11,24 @@ end
 # create snapshot
 lvm LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
-  action :create_snapshot
+  action :snapshot_create
 end
 
 # snapshot should exist
 lvm LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
-  action :verify_snapshot_exists
+  action :snapshot_check
 end
 
 # delete snapshot
 lvm LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
-  action :delete_snapshot
+  action :snapshot_delete
 end
 
 # snapshot should NOT exist
 lvm LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
   snapshot_exists false
-  action :verify_snapshot_exists
+  action :snapshot_check
 end
