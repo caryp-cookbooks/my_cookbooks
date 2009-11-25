@@ -9,6 +9,12 @@ lvm LVM_RESOURCE_NAME do
   action :create
 end
 
+# delete snapshot
+lvm LVM_RESOURCE_NAME do
+  snapshot_name LVM_SNAPSHOT_NAME
+  action :snapshot_delete
+end
+
 # create snapshot
 lvm LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
