@@ -7,10 +7,18 @@
 # All rights reserved - Do Not Redistribute
 #
 
-database "testdb"
+database "testdb" do
   action :lock
 end
 
-database "testdb"
+database "testdb" do
+  action :lock
+end
+
+database "testdb" do
+  action :unlock
+end
+
+database "testdb" do
   action :unlock
 end
