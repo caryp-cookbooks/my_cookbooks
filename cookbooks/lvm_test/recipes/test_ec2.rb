@@ -5,6 +5,7 @@ LVM_SNAPSHOT_NAME = "test_lvm_snapshot"
 
 # create LVM
 lvm LVM_RESOURCE_NAME do
+  mount_point "/mnt"
   action :create
 end
 
