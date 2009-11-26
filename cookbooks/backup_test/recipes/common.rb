@@ -26,18 +26,18 @@ remote_storage "RemoteObjectStore" do
   action :create_container
 end
 
-# TODO: create a new provider to set this up
-# without this the LVM must already be setup on filesystem
-#
-# lvm "create lvm" do
-#   
-# end
+# Setup filesystem for snapshoting
+filesystem "lvm_filesystem" do
+   mount_point BACKUP_TEST_MOUNT_POINT
+   snapshot_name "test_snapshot"
+   action :create
+end
 
 # Initialize the backup provider and prepair backup. 
 # This will trigger the LVM snaphot.
 backup "BackupTest" do
-  mount_point BACKUP_TEST_MOUNT_POINT
-  provider_type "LVMROS"
+  provider_type "LVMROS"   #TODO: this param should be auto-set by filesystem provider type
+  filesystem_resource_name "lvm_filesystem"
   storage_resource_name "RemoteObjectStore"
   action :prepare_backup
 end
