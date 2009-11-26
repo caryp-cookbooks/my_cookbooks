@@ -10,7 +10,7 @@ filesystem LVM_RESOURCE_NAME do
 end
 
 # delete snapshot
-lvm LVM_RESOURCE_NAME do
+filesystem LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
   action :snapshot_delete
 end
