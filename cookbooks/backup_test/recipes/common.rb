@@ -1,3 +1,13 @@
+#
+# Cookbook Name:: backup_test
+# Recipe:: common
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
+include_recipe "backup"
+
 BACKUP_TEST_FILE_LIST    = [ "backup_test" ]
 BACKUP_TEST_MOUNT_POINT = "/mnt"
 BACKUP_TEST_RESTORE_DIR = "/tmp/restore_test"
