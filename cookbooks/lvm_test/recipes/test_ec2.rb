@@ -6,6 +6,9 @@ LVM_SNAPSHOT_NAME = "test_lvm_snapshot"
 # create LVM
 filesystem LVM_RESOURCE_NAME do
   mount_point "/mnt"
+  device_list [ "/dev/sda2" ]
+  fstype "xfs"
+  format_options "-f"
   action :create
 end
 
@@ -21,7 +24,7 @@ filesystem LVM_RESOURCE_NAME do
   action :snapshot_create
 end
 
-# snapshot should exist
+# snapshot should exist 
 filesystem LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
   action :snapshot_check
@@ -38,4 +41,9 @@ filesystem LVM_RESOURCE_NAME do
   snapshot_name LVM_SNAPSHOT_NAME
   snapshot_exists false
   action :snapshot_check
+end
+
+#delete LVM
+filesystem LVM_RESOURCE_NAME do
+  action :remove
 end
