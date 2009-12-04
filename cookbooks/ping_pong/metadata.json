@@ -1,4 +1,10 @@
 {
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
   "providing": {
     "ping_pong::setup_ping_reciever": [
 
@@ -19,40 +25,34 @@
 
     ]
   },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n",
+  "description": "Runs a simple test of remote_recipe and right_link_tag resources",
+  "name": "ping_pong",
   "replacing": {
 
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n",
-  "dependencies": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
-  "name": "ping_pong",
+  "version": "0.1.0",
   "attributes": {
 
   },
-  "recommendations": {
-
-  },
   "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "license": "All rights reserved",
-  "version": "0.1.0",
   "recipes": {
     "ping_pong::setup_ping_reciever": "",
     "ping_pong::do_ping": "",
     "ping_pong::do_send_ping": "",
+    "ping_pong": "",
     "ping_pong::do_pong": "",
-    "ping_pong::do_tag_test": "",
-    "ping_pong": ""
+    "ping_pong::do_tag_test": ""
   },
-  "conflicting": {
+  "suggestions": {
 
   },
-  "description": "Runs a simple test of remote_recipe and right_link_tag resources"
+  "license": "All rights reserved"
 }

@@ -1,4 +1,12 @@
 {
+  "conflicting": {
+
+  },
+  "dependencies": {
+    "lvm": [
+
+    ]
+  },
   "providing": {
     "backup_test::test_cloudfiles": [
 
@@ -13,18 +21,20 @@
 
     ]
   },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures backup_test",
+  "name": "backup_test",
   "replacing": {
 
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "dependencies": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "platforms": {
 
   },
-  "maintainer": "RightScale, Inc.",
-  "name": "backup_test",
+  "version": "0.1.0",
   "attributes": {
     "test\/cloudfiles\/user": {
       "type": "string",
@@ -63,23 +73,15 @@
       "required": true
     }
   },
-  "recommendations": {
-
-  },
   "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "license": "All rights reserved",
-  "version": "0.1.0",
   "recipes": {
     "backup_test::test_cloudfiles": "",
     "backup_test::test_s3": "",
     "backup_test": "",
     "backup_test::common": ""
   },
-  "conflicting": {
+  "suggestions": {
 
   },
-  "description": "Installs\/Configures backup_test"
+  "license": "All rights reserved"
 }
