@@ -3,6 +3,9 @@
 
   },
   "dependencies": {
+    "backup": [
+
+    ],
     "lvm": [
 
     ]
@@ -15,6 +18,9 @@
 
     ],
     "backup_test": [
+
+    ],
+    "backup_test::test_all": [
 
     ],
     "backup_test::common": [
@@ -78,6 +84,7 @@
     "backup_test::test_cloudfiles": "",
     "backup_test::test_s3": "",
     "backup_test": "",
+    "backup_test::test_all": "",
     "backup_test::common": ""
   },
   "suggestions": {
