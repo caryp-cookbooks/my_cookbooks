@@ -6,7 +6,6 @@ LVM_SNAPSHOT_NAME = "test_lvm_snapshot"
 # create LVM
 filesystem LVM_RESOURCE_NAME do
   mount_point "/mnt"
-  device_list [ "/dev/sda2" ]
   fstype "xfs"
   format_options "-f"
   action :create
