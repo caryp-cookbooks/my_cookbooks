@@ -6,5 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe "backup::default"
 include_recipe "backup_test::test_s3"
 include_recipe "backup_test::test_cloudfiles"
