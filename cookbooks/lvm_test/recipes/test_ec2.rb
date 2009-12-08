@@ -2,8 +2,9 @@ include_recipe "lvm::default"
 
 LVM_RESOURCE_NAME = "test_lvm"
 LVM_SNAPSHOT_NAME = "test_lvm_snapshot"
+LVM_SNAPSHOT_COUNT = 2
 
-# create LVM
+# Create LVM
 filesystem LVM_RESOURCE_NAME do
   mount_point "/mnt"
   fstype "xfs"
@@ -11,38 +12,45 @@ filesystem LVM_RESOURCE_NAME do
   action :create
 end
 
-# delete snapshot
-filesystem LVM_RESOURCE_NAME do
-  snapshot_name LVM_SNAPSHOT_NAME
-  action :snapshot_delete
+# Delete snapshots
+LVM_SNAPSHOT_COUNT.times do |num|
+  filesystem LVM_RESOURCE_NAME do
+    snapshot_name "#{LVM_SNAPSHOT_NAME}_#{num}"
+    action :snapshot_delete
+  end
 end
 
-# create snapshot
-filesystem LVM_RESOURCE_NAME do
-  snapshot_name LVM_SNAPSHOT_NAME
-  action :snapshot_create
+
+LVM_SNAPSHOT_COUNT.times do |num|
+  # Create snapshots
+  filesystem LVM_RESOURCE_NAME do
+    snapshot_name "#{LVM_SNAPSHOT_NAME}_#{num}"
+    action :snapshot_create
+  end
+
+  # Snapshots should exist 
+  filesystem LVM_RESOURCE_NAME do
+    snapshot_name "#{LVM_SNAPSHOT_NAME}_#{num}"
+    action :snapshot_check
+  end
 end
 
-# snapshot should exist 
-filesystem LVM_RESOURCE_NAME do
-  snapshot_name LVM_SNAPSHOT_NAME
-  action :snapshot_check
+LVM_SNAPSHOT_COUNT.times do |num|
+  # Delete snapshots
+  filesystem LVM_RESOURCE_NAME do
+    snapshot_name "#{LVM_SNAPSHOT_NAME}_#{num}"
+    action :snapshot_delete
+  end
+
+  # Snapshot should NOT exist
+  filesystem LVM_RESOURCE_NAME do
+    snapshot_name "#{LVM_SNAPSHOT_NAME}_#{num}"
+    snapshot_exists false
+    action :snapshot_check
+  end
 end
 
-# delete snapshot
-filesystem LVM_RESOURCE_NAME do
-  snapshot_name LVM_SNAPSHOT_NAME
-  action :snapshot_delete
-end
-
-# snapshot should NOT exist
-filesystem LVM_RESOURCE_NAME do
-  snapshot_name LVM_SNAPSHOT_NAME
-  snapshot_exists false
-  action :snapshot_check
-end
-
-#delete LVM
+# Delete LVM
 filesystem LVM_RESOURCE_NAME do
   action :remove
 end
