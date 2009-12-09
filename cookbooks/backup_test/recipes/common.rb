@@ -39,9 +39,16 @@ end
 # Setup filesystem for snapshoting
 filesystem "lvm_filesystem" do
    mount_point BACKUP_TEST_MOUNT_POINT
-   snapshot_name "test_snapshot"
+   snapshot_name "backup_test_snapshot"
    action :create
 end
+
+# populate with some files
+directory "/mnt/backup_test" 
+file "/mnt/backup_test/a.txt"
+file "/mnt/backup_test/b.txt"
+directory "/mnt/backup_test/c" 
+file "/mnt/backup_test/c/c.txt"
 
 # Initialize the backup provider and prepair backup. 
 # This will trigger the LVM snaphot.
