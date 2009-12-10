@@ -6,7 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "backup"
 
 BACKUP_TEST_FILE_LIST    = [ "backup_test" ]
 BACKUP_TEST_MOUNT_POINT = "/mnt"

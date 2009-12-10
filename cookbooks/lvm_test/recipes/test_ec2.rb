@@ -2,7 +2,7 @@ include_recipe "lvm::default"
 
 LVM_RESOURCE_NAME = "test_lvm"
 LVM_SNAPSHOT_NAME = "test_lvm_snapshot"
-LVM_SNAPSHOT_COUNT = 2
+LVM_SNAPSHOT_COUNT = 1
 
 # Create LVM
 filesystem LVM_RESOURCE_NAME do
