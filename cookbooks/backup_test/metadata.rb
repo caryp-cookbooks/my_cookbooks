@@ -5,7 +5,6 @@ description      "Installs/Configures backup_test"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
-depends "backup"
 depends "lvm"
 
 attribute "test/s3/user",
