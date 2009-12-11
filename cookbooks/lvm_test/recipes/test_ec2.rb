@@ -7,8 +7,8 @@ LVM_SNAPSHOT_COUNT = 1
 # Create LVM
 filesystem LVM_RESOURCE_NAME do
   mount_point "/mnt"
-  fstype "xfs"
-  format_options "-f"
+  fstype node[:lvm][:fs][:type]
+  format_options node[:lvm][:fs][:options]
   action :create
 end
 
