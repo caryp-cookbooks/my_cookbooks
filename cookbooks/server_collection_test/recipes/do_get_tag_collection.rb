@@ -1,5 +1,5 @@
 server_collection "master_servers" do
-  tags [ "db:master*" ]
+  tags [ "db:" ]
 end
 
 ruby_block "display tags" do
