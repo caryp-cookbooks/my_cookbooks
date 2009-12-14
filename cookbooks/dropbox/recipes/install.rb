@@ -17,7 +17,7 @@ bash "install dropbox" do
   EOH
 end
 
-ruby_bock "register instance" do
+ruby_block "register instance" do
   block do
     link_line = `grep "link this machine" #{OUTPUT_FILE}`
     words = link_line.split
