@@ -25,6 +25,12 @@
   "replacing": {
 
   },
+  "recipes": {
+    "storage_test::test_s3": "",
+    "storage_test::common": "",
+    "storage_test::test_cloudfiles": "",
+    "storage_test::get_file": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -38,46 +44,40 @@
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Username",
+      "required": true,
       "recipes": [
         "storage_test::test_cloudfiles"
-      ],
-      "required": true
+      ]
     },
     "test\/s3\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Secret Access Key",
+      "required": true,
       "recipes": [
         "storage_test::test_s3"
-      ],
-      "required": true
+      ]
     },
     "test\/s3\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Access Key ID",
+      "required": true,
       "recipes": [
         "storage_test::test_s3"
-      ],
-      "required": true
+      ]
     },
     "test\/cloudfiles\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Authorization Key",
+      "required": true,
       "recipes": [
         "storage_test::test_cloudfiles"
-      ],
-      "required": true
+      ]
     }
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "storage_test::test_s3": "",
-    "storage_test::common": "",
-    "storage_test::test_cloudfiles": "",
-    "storage_test::get_file": ""
-  },
   "suggestions": {
 
   },

@@ -19,6 +19,10 @@
   "replacing": {
 
   },
+  "recipes": {
+    "lvm_test": "",
+    "lvm_test::test_ec2": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -31,10 +35,6 @@
 
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "lvm_test": "",
-    "lvm_test::test_ec2": ""
-  },
   "suggestions": {
 
   },

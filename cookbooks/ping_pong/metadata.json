@@ -31,6 +31,14 @@
   "replacing": {
 
   },
+  "recipes": {
+    "ping_pong::setup_ping_reciever": "",
+    "ping_pong::do_ping": "",
+    "ping_pong::do_send_ping": "",
+    "ping_pong::do_pong": "",
+    "ping_pong": "",
+    "ping_pong::do_tag_test": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -43,14 +51,6 @@
 
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "ping_pong::setup_ping_reciever": "",
-    "ping_pong::do_ping": "",
-    "ping_pong::do_send_ping": "",
-    "ping_pong": "",
-    "ping_pong::do_pong": "",
-    "ping_pong::do_tag_test": ""
-  },
   "suggestions": {
 
   },
