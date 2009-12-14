@@ -15,7 +15,7 @@ ruby "debug" do
         end
     
         def get_collection(collection_name)
-          raise "No server collection found with name = #{collection_name}" unless @node[:server_collection] && @node[:server_collection][collection_name]
+          raise "No server collection found with name = \#{collection_name}" unless @node[:server_collection] && @node[:server_collection][collection_name]
           return @node[:server_collection][collection_name]
         end  
 
@@ -24,7 +24,7 @@ ruby "debug" do
     
     collection = RightScale::MyServerCollection.new()
     
-    Chef::Log.info("CKP:server collection: \#{collection.get_collection(COLLECTION_NAME)}")
+    Chef::Log.info("CKP:server collection: \#{collection.get_collection(#{COLLECTION_NAME})")
   EOH
 end
 
