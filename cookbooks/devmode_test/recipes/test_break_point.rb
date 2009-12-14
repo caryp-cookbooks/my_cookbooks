@@ -9,4 +9,4 @@ class Chef::Recipe
   include RightScale::ServerCollection
 end
 
-Chef::Log.info("CKP:server collection: #{get_collection("*")}")
+Chef::Log.info("CKP:server collection: #{get_collection('*')}")
