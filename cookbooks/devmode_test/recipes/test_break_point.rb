@@ -7,11 +7,11 @@ end
 
 ruby "debug" do
   code <<-EOH
-    module RightScale
-      module ServerCollection
+    class RightScale
+      class MyServerCollection
     
-        def breakpoint_set?(instance_uuid)
-      
+        def initialize
+          super()
         end
     
         def get_collection(collection_name)
@@ -21,10 +21,10 @@ ruby "debug" do
 
       end
     end
-    class  Chef::Resource::Ruby
-      include RightScale::ServerCollection
-    end
-    Chef::Log.info("CKP:server collection: #{get_collection(COLLECTION_NAME)}")
+    
+    collection = RightScale::MyServerCollection.new()
+    
+    Chef::Log.info("CKP:server collection: #{collection.get_collection(COLLECTION_NAME)}")
   EOH
 end
 
