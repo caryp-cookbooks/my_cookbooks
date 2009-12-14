@@ -1,9 +1,5 @@
 COLLECTION_NAME = "breakpoints"
 
-class Chef::Recipe
-  include RightScale::ServerCollection
-end
-
 server_collection COLLECTION_NAME do
 #  tags "rs_agent_dev:break_point=*"
   tags "rs_agent_dev:"
