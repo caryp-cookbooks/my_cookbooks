@@ -7,27 +7,10 @@ end
 
 ruby_block "debug" do
   block do
-    class RightScale
-      class MyServerCollection
-    
-        def initialize(node)
-          super()
-          @node = node
-        end
-    
-        def get_collection(collection_name)
-          raise "No server collection found with name = #{collection_name}" unless @node[:server_collection] && @node[:server_collection].has_key?(collection_name)
-          return @node[:server_collection][collection_name]
-        end  
-
-      end
-    end
-    
     collection = RightScale::MyServerCollection.new(node)
     
-    require "chef"
+    Chef::Log.info("CKP:server collection: #{collection.get_collection('breakpoints').inspect}")
     
-    Chef::Log.info("CKP:server collection: #{collection.get_collection('breakpoints')}")
   end
 end
 
