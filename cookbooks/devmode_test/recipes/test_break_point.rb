@@ -24,7 +24,7 @@ ruby "debug" do
     
     collection = RightScale::MyServerCollection.new()
     
-    Chef::Log.info("CKP:server collection: \#{collection.get_collection(#{COLLECTION_NAME})")
+    Chef::Log.info("CKP:server collection: \#{collection.get_collection('#{COLLECTION_NAME}')")
   EOH
 end
 
