@@ -1,7 +1,8 @@
 COLLECTION_NAME = "breakpoints"
 
 server_collection COLLECTION_NAME do
-  tags "rs_agent_dev:break_point=devmode_test::test_should_never_run"
+#  tags "rs_agent_dev:break_point=devmode_test::test_should_never_run"
+  tags "rs_agent_dev:"
 end
 
 ruby_block "debug" do
@@ -25,6 +26,8 @@ ruby_block "debug" do
     collection = RightScale::MyServerCollection.new(node)
     
     Chef::Log.info("CKP:server collection: #{collection.get_collection('breakpoints').inspect}")
+    
+    #node[:devmode_test][:has_breakpoint] = collection.
     
   end
 end
