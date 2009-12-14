@@ -19,6 +19,10 @@
   "replacing": {
 
   },
+  "recipes": {
+    "core_env::do_write_to_file": "",
+    "core_env": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -31,10 +35,6 @@
 
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "core_env::do_write_to_file": "",
-    "core_env": ""
-  },
   "suggestions": {
 
   },

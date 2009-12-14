@@ -20,8 +20,8 @@
 
   },
   "recipes": {
-    "dropbox": "",
-    "dropbox::install": ""
+    "dropbox::install": "",
+    "dropbox": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {

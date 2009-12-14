@@ -22,6 +22,11 @@
   "replacing": {
 
   },
+  "recipes": {
+    "ohai_test::do_test_values": "",
+    "ohai_test": "",
+    "ohai_test::do_write_to_file": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -34,11 +39,6 @@
 
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "ohai_test::do_test_values": "",
-    "ohai_test": "",
-    "ohai_test::do_write_to_file": ""
-  },
   "suggestions": {
 
   },

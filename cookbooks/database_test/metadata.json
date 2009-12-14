@@ -16,6 +16,9 @@
   "replacing": {
 
   },
+  "recipes": {
+    "database_test": ""
+  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
@@ -28,9 +31,6 @@
 
   },
   "maintainer_email": "cary@rightscale.com",
-  "recipes": {
-    "database_test": ""
-  },
   "suggestions": {
 
   },
