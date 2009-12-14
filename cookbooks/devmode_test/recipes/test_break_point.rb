@@ -1,13 +1,15 @@
-server_collection "Get breakpoint tags" do
-  tags "rs_agent_dev:break_point=*"
-end
-
- 
-# right_link_tag "set breakpoint" do
-#   not_if 
+COLLECTION_NAME = "breakpoints"
 
 class Chef::Recipe
   include RightScale::ServerCollection
 end
 
-Chef::Log.info("CKP:server collection: #{get_collection('*')}")
+server_collection COLLECTION_NAME do
+  tags "rs_agent_dev:break_point=*"
+end
+
+Chef::Log.info("CKP:server collection: #{get_collection(COLLECTION_NAME)}")
+
+
+# right_link_tag "set breakpoint" do
+#   not_if 
