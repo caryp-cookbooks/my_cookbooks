@@ -5,8 +5,8 @@ server_collection COLLECTION_NAME do
   tags "rs_agent_dev:"
 end
 
-ruby "debug" do
-  code <<-EOH
+ruby_block "debug" do
+  block do
     class RightScale
       class MyServerCollection
     
@@ -15,7 +15,7 @@ ruby "debug" do
         end
     
         def get_collection(collection_name)
-          raise "No server collection found with name = \#{collection_name}" unless @node[:server_collection] && @node[:server_collection][collection_name]
+          raise "No server collection found with name = #{collection_name}" unless @node[:server_collection] && @node[:server_collection][collection_name]
           return @node[:server_collection][collection_name]
         end  
 
@@ -26,8 +26,8 @@ ruby "debug" do
     
     require "chef"
     
-    Chef::Log.info("CKP:server collection: \#{collection.get_collection('#{COLLECTION_NAME}')}")
-  EOH
+    Chef::Log.info("CKP:server collection: #{collection.get_collection('breakpoints')}")
+  end
 end
 
 
