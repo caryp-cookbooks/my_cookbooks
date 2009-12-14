@@ -6,7 +6,7 @@ end
 
 server_collection COLLECTION_NAME do
 #  tags "rs_agent_dev:break_point=*"
-  tags "*"
+  tags "rs_agent_dev:"
 end
 
 ruby "debug" do
