@@ -4,6 +4,9 @@
 #
 module RightScale
   module ServerCollection
+    
+    @mutex        = Mutex.new
+    @loaded_event = ConditionVariable.new
 
     def breakpoint_set?(instance_uuid)
       
