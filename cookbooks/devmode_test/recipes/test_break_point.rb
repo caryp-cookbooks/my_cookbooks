@@ -5,7 +5,7 @@
 # right_link_tag "set breakpoint" do
 #   not_if 
 
-class Chef::Node
+class Chef::Recipe
   include RightScale::ServerCollection
 end
 
