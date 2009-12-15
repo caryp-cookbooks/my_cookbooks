@@ -1,14 +1,15 @@
 COLLECTION_NAME = "breakpoints"
 BREAKPOINT_TAG = "rs_agent_dev:break_point=devmode_test::test_should_never_run"
 
+# Add our instance UUID as a tag
 right_link_tag "rs_instance:uuid=#{node[:rightscale][:instance_uuid]}"
 
+# Query servers for our breakpoint tag...
 server_collection COLLECTION_NAME do
   tags BREAKPOINT_TAG
-#  tags "rs_agent_dev:"
 end
 
-# Do we have the breakpoint set?
+# Check query results to see if we have the breakpoint set.
 ruby_block "debug" do
   block do
     uuids = [ ]
@@ -32,10 +33,12 @@ ruby_block "debug" do
   end
 end
 
-# Set breakpoint if not set
+# Set breakpoint if not set.
 right_link_tag BREAKPOINT_TAG do
   not_if node[:devmode_test][:has_breakpoint]
 end
+
+#TODO: add a reboot count check and fail if count > 3
 
 # Reboot, if not set
 ruby_block "reboot" do
