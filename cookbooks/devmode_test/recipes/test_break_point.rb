@@ -9,7 +9,7 @@ end
 
 ruby_block "debug" do
   block do
-    uuids = {}
+    uuids = [ ]
     node[:server_collection]["breakpoints"].each do |id, tags|
       uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
     end 
