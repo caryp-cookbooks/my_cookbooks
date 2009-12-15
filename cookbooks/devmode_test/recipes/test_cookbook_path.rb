@@ -1,5 +1,6 @@
 COOKBOOK_PATH = "~/my_cookbooks"
 already_run = ::File.exists?(COOKBOOK_PATH)
+Chef::Log.info "Custom cookbook path exists = #{already_run}"
 
 # Add tag to instance
 right_link_tag "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}" do

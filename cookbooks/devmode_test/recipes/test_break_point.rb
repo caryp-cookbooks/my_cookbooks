@@ -38,9 +38,9 @@ right_link_tag BREAKPOINT_TAG do
 end
 
 # Reboot, if not set
-# ruby_block "reboot" do
-#   not_if node[:devmode_test][:has_breakpoint]
-#   block do
-#     `init 6`
-#   end
-# end
+ruby_block "reboot" do
+  not_if node[:devmode_test][:has_breakpoint]
+  block do
+    `init 6`
+  end
+end
