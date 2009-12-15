@@ -1,4 +1,4 @@
-COOKBOOK_PATH = "~/my_cookbooks"
+COOKBOOK_PATH = "/root/my_cookbooks"
 already_run = ::File.directory?(COOKBOOK_PATH)
 Chef::Log.info "Custom cookbook path exists = #{already_run}"
 
