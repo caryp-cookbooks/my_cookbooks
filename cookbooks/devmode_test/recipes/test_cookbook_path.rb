@@ -10,8 +10,6 @@ end
 # Copy test cookbooks to COOKBOOK_PATH
 ruby "copy this repo" do
   not_if already_run
-  cb_root = 
-
   code <<-EOH
     `mkdir #{COOKBOOK_PATH}`
     `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}`
