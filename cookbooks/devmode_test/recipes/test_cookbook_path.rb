@@ -1,5 +1,5 @@
 COOKBOOK_PATH = "~/my_cookbooks"
-already_run = ::File.exists?(COOKBOOK_PATH)
+already_run = ::File.directory?(COOKBOOK_PATH)
 Chef::Log.info "Custom cookbook path exists = #{already_run}"
 
 # Add tag to instance
