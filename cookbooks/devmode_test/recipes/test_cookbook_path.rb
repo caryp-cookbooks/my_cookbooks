@@ -14,7 +14,7 @@ ruby "copy this repo" do
   cwd cb_root
   code <<-EOH
     `mkdir #{COOKBOOK_PATH}`
-    `cp -r \#{cb_root}/* #{COOKBOOK_PATH}`
+    `cp -r #{cb_root}/* #{COOKBOOK_PATH}`
   EOH
 end
 
