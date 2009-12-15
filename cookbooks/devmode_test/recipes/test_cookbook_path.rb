@@ -17,9 +17,9 @@ ruby "copy this repo" do
 end
 
 # reboot
-ruby_block "reboot" do
-  not_if already_run
-  block do
-    `init 6`
-  end
-end
+# ruby_block "reboot" do
+#   not_if already_run
+#   block do
+#     `init 6`
+#   end
+# end
