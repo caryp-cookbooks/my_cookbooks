@@ -35,14 +35,14 @@ end
 
 # Set breakpoint if not set.
 right_link_tag BREAKPOINT_TAG do
-  not_if node[:devmode_test][:has_breakpoint]
+  not_if do node[:devmode_test][:has_breakpoint] end
 end
 
 #TODO: add a reboot count check and fail if count > 3
 
 # Reboot, if not set
 ruby_block "reboot" do
-  not_if node[:devmode_test][:has_breakpoint]
+  not_if do node[:devmode_test][:has_breakpoint] end
   block do
     `init 6`
   end
