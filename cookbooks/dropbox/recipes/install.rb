@@ -11,7 +11,7 @@ bash "install dropbox" do
     tar zxof dropbox.tar.gz
     wget http://dl.getdropbox.com/u/6995/dbmakefakelib.py
     wget http://dl.getdropbox.com/u/6995/dbreadconfig.py
-    ~/.dropbox-dist/dropboxd > #{OUTPUT_FILE} &
+    nohup ~/.dropbox-dist/dropboxd > #{OUTPUT_FILE} &
     echo `cut & paste URL into a browser to register instance.
     sleep 10
     cat ~/dropbox-register.log
