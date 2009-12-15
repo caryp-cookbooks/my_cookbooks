@@ -11,6 +11,7 @@ ruby_block "debug" do
   block do
     uuids = [ ]
     node[:server_collection]["breakpoints"].each do |id, tags|
+      Chef::Log.info("CKP:id#{id} tags #{tags.inspect}")
       uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
     end 
     
