@@ -1,13 +1,15 @@
 COOKBOOK_PATH = "/root/my_cookbooks"
+
+# does the custom cookbook path already exist?
 already_run = ::File.directory?(COOKBOOK_PATH)
 Chef::Log.info "Custom cookbook path exists = #{already_run}"
 
-# Add tag to instance
+# if not, add tag to instance and...
 right_link_tag "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}" do
   not_if do already_run end
 end
 
-# Copy test cookbooks to COOKBOOK_PATH
+# ...copy test cookbooks to COOKBOOK_PATH, then...
 ruby "copy this repo" do
   not_if do already_run end
   code <<-EOH
@@ -16,10 +18,12 @@ ruby "copy this repo" do
   EOH
 end
 
-# reboot
-# ruby_block "reboot" do
-#  not_if do already_run end
-#   block do
-#     `init 6`
-#   end
-# end
+#TODO: add a reboot count check and fail if count > 3
+
+# ..reboot!
+ruby_block "reboot" do
+ not_if do already_run end
+  block do
+    `init 6`
+  end
+end
