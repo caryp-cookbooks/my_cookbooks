@@ -11,7 +11,7 @@ end
 ruby "copy this repo" do
   not_if already_run
   cb_root = ::File.join(File.dirname(__FILE__), "..", "..", "..")
-  cwd cb_root
+  #cwd cb_root
   code <<-EOH
     `mkdir #{COOKBOOK_PATH}`
     `cp -r #{cb_root}/* #{COOKBOOK_PATH}`
