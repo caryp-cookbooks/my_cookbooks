@@ -19,9 +19,9 @@ ruby_block "debug" do
     Chef::Log.info("CKP h: #{h.inspect}")
     tags = h[h.keys[0]]
     Chef::Log.info("CKP tags: #{tags.inspect}")
-    tag = tags.select { |s| s == TAG }
-    Chef::Log.info("CKP tag: #{tag.inspect}")
-    if tag
+    result = tags.select { |s| s == TAG }
+    Chef::Log.info("CKP result: #{tag.inspect}")
+    unless result.empty?
       Chef::Log.info("  Tag found!")
       node[:devmode_test][:loaded_custom_cookbooks] = true
     else
