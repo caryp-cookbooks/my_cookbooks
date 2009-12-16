@@ -12,24 +12,21 @@ end
 # Check query results to see if we have the breakpoint set.
 ruby_block "debug" do
   block do
+    Chef::Log.info("Checking server collection for breakpoint tag...")
     uuids = [ ]
     node[:server_collection][COLLECTION_NAME].each do |id, tags|
-      Chef::Log.info("CKP:id#{id} tags #{tags.inspect}")
       uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
     end 
-    
-    Chef::Log.info("CKP: uuids: #{uuids.inspect}")
-    
     # is our uuid in this list of tags?
     uuids.each do |tag|
       uuid = tag.split("=").last
       if uuid == node[:rightscale][:instance_uuid]
-        Chef::Log.info("Found our UUID in list of tags!!")
+        Chef::Log.info("  We have a breakpoint set!")
         node[:devmode_test][:has_breakpoint] = true
         break;
       end
     end
-    
+    Chef::Log.info("  No breakpoint tag set -- set and reboot!") unless node[:devmode_test][:has_breakpoint]
   end
 end
 
