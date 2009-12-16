@@ -1,36 +1,29 @@
 COOKBOOK_PATH = "/root/my_cookbooks"
-COOKBOOK_TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks"
-COLLECTION_NAME = "cookbooks"
+TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks"
+UUID = node[:rightscale][:instance_uuid]
+UUID_TAG = "rs_instance:uuid=#{UUID}"
 
 # Add our instance UUID as a tag
-right_link_tag "rs_instance:uuid=#{node[:rightscale][:instance_uuid]}"
+right_link_tag UUID_TAG
 
-# Query servers for our breakpoint tag...
-server_collection COLLECTION_NAME do
-  tags COOKBOOK_TAG
+# Query servers for our UUID tag...
+server_collection UUID do
+  tags UUID_TAG
 end
 
-# Check query results to see if we have the breakpoint set.
+# Check query results to see if we have our TAG set.
 ruby_block "debug" do
   block do
-    Chef::Log.info("Checking server collection for cookbooks tag...")
-    uuids = [ ]
-    Chef::Log.info("CKP: collection: #{node[:server_collection][COLLECTION_NAME].inspect}")
-    node[:server_collection][COLLECTION_NAME].each do |id, tags|
-      uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
-      Chef::Log.info("CKP: uuids: #{uuids.inspect}")
-    end 
-    # is our uuid in this list of tags?
-    uuids.each do |tag|
-      uuid = tag.split("=").last
-      Chef::Log.info("CKP: uuids: #{uuid} looking for #{node[:rightscale][:instance_uuid]}")
-      if uuid == node[:rightscale][:instance_uuid]
-        Chef::Log.info("  We have custom cookbook tag set!")
-        node[:devmode_test][:loaded_custom_cookbooks] = true
-        break;
-      end
+    Chef::Log.info("Checking server collection for tag...")
+    h = node[:server_collection][UUID]
+    tags = h[h.keys[0]]
+    tag = tags.select { |s| s == TAG }
+    if tag
+      Chef::Log.info("  Tag found!")
+      node[:devmode_test][:loaded_custom_cookbooks] = true
+    else
+      Chef::Log.info("  No tag found -- set and reboot!") 
     end
-    Chef::Log.info("  No custom cookbook tag set -- set and reboot!") unless node[:devmode_test][:loaded_custom_cookbooks]
   end
 end
 
