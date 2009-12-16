@@ -20,7 +20,7 @@ ruby_block "Query for cookbook path" do
     tags = h[h.keys[0]]
     Chef::Log.info("CKP tags: #{tags.inspect}")
     result = tags.select { |s| s == TAG }
-    Chef::Log.info("CKP result: #{tag.inspect}")
+    Chef::Log.info("CKP result: #{result.inspect}")
     unless result.empty?
       Chef::Log.info("  Tag found!")
       node[:devmode_test][:loaded_custom_cookbooks] = true
