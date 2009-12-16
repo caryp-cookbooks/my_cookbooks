@@ -16,8 +16,11 @@ ruby_block "debug" do
   block do
     Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]
+    Chef::Log.info("CKP h: #{h.inspect}")
     tags = h[h.keys[0]]
+    Chef::Log.info("CKP tags: #{tags.inspect}")
     tag = tags.select { |s| s == TAG }
+    Chef::Log.info("CKP tag: #{tag.inspect}")
     if tag
       Chef::Log.info("  Tag found!")
       node[:devmode_test][:loaded_custom_cookbooks] = true
