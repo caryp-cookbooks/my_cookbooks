@@ -14,7 +14,7 @@ ruby "copy this repo" do
   not_if do already_run end
   code <<-EOH
     `mkdir #{COOKBOOK_PATH}`
-    `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}`
+    `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}/cookbooks`
   EOH
 end
 
