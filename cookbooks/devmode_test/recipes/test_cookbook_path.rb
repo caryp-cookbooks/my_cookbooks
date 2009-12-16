@@ -12,7 +12,7 @@ server_collection UUID do
 end
 
 # Check query results to see if we have our TAG set.
-ruby_block "debug" do
+ruby_block "Query for cookbook path" do
   block do
     Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]

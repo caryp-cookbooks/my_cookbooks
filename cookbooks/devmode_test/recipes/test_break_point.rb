@@ -10,18 +10,21 @@ server_collection UUID do
   tags UUID_TAG
 end
 
-# Check query results to see if we have the breakpoint set.
-ruby_block "debug" do
+# Check query results to see if we have our TAG set.
+ruby_block "Query for breakpoint" do
   block do
-    Chef::Log.info("Checking server collection for breakpoint tag...")
+    Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]
+    Chef::Log.info("CKP h: #{h.inspect}")
     tags = h[h.keys[0]]
-    tag = tags.select { |s| s == TAG }
-    if tag
-      Chef::Log.info("  We have a breakpoint set!")
+    Chef::Log.info("CKP tags: #{tags.inspect}")
+    result = tags.select { |s| s == TAG }
+    Chef::Log.info("CKP result: #{tag.inspect}")
+    unless result.empty?
+      Chef::Log.info("  Tag found!")
       node[:devmode_test][:has_breakpoint] = true
     else
-      Chef::Log.info("  No breakpoint tag set -- set and reboot!") 
+      Chef::Log.info("  No tag found -- set and reboot!") 
     end
   end
 end
