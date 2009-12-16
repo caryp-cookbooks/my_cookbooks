@@ -15,6 +15,7 @@ ruby_block "debug" do
   block do
     Chef::Log.info("Checking server collection for cookbooks tag...")
     uuids = [ ]
+    Chef::Log.info("CKP: collection: #{node[:server_collection][COLLECTION_NAME].inspect}")
     node[:server_collection][COLLECTION_NAME].each do |id, tags|
       uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
       Chef::Log.info("CKP: uuids: #{uuids.inspect}")
