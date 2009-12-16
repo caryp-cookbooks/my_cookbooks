@@ -5,7 +5,7 @@ already_run = ::File.directory?(COOKBOOK_PATH)
 Chef::Log.info "Custom cookbook path exists = #{already_run}"
 
 # if not, add tag to instance and...
-right_link_tag "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}" do
+right_link_tag "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks" do
   not_if do already_run end
 end
 
@@ -14,7 +14,7 @@ ruby "copy this repo" do
   not_if do already_run end
   code <<-EOH
     `mkdir #{COOKBOOK_PATH}`
-    `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}/cookbooks`
+    `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}`
   EOH
 end
 
