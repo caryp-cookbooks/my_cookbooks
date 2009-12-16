@@ -17,10 +17,12 @@ ruby_block "debug" do
     uuids = [ ]
     node[:server_collection][COLLECTION_NAME].each do |id, tags|
       uuids = tags.select { |s| s =~ /rs_instance:uuid/ }
+      Chef::Log.info("CKP: uuids: #{uuids.inspect}")
     end 
     # is our uuid in this list of tags?
     uuids.each do |tag|
       uuid = tag.split("=").last
+      Chef::Log.info("CKP: uuids: #{uuid} looking for #{node[:rightscale][:instance_uuid]}")
       if uuid == node[:rightscale][:instance_uuid]
         Chef::Log.info("  We have custom cookbook tag set!")
         node[:devmode_test][:loaded_custom_cookbooks] = true
