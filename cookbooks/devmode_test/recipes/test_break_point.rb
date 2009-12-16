@@ -27,7 +27,7 @@ ruby_block "debug" do
 end
 
 # Set breakpoint if not set.
-right_link_tag BREAKPOINT_TAG do
+right_link_tag TAG do
   not_if do node[:devmode_test][:has_breakpoint] end
 end
 

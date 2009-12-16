@@ -28,7 +28,7 @@ ruby_block "debug" do
 end
 
 # if not, add tag to instance and...
-right_link_tag COOKBOOK_TAG do
+right_link_tag TAG do
   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
 end
 
