@@ -21,8 +21,7 @@ suffix = (platform == "x86_64") ? platform : "x86"
 # end
 
 bash "download dropbox" do
-  user "root"
-  cwd "~"
+  cwd "/root"
   code <<-EOH
     wget -O dropbox.tar.gz http://www.getdropbox.com/download?plat=lnx.#{suffix}
     wget http://dl.getdropbox.com/u/6995/dbmakefakelib.py
