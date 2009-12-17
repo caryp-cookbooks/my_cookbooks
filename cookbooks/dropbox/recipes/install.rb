@@ -66,7 +66,7 @@ end
 
 ruby_block "login to dropbox" do
   block do
-     `curl -L -c cookies.txt -d login_email=#{node[:dropbox][:user]} -d login_password=#{node[:dropbox][:password]} -o /root/dropbox_login.log --url https://www.dropbox.com/login`
+     `curl -L -c cookies.txt -d t=791206fc33 -d login_email=#{node[:dropbox][:user]} -d login_password=#{node[:dropbox][:password]} -o /root/dropbox_login.log --url https://www.dropbox.com/login`
   end
 end
 
