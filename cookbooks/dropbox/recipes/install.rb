@@ -30,21 +30,21 @@ bash "download dropbox" do
 end
 
 ruby_block "check download" do
-  not_if { ::File.exists?("/root/dropbox.tar.gz") }
+  not_if do ::File.exists?("/root/dropbox.tar.gz") end
   block do
     raise "ERROR: unable to download dropbox!"
   end
 end
 
 ruby_block "unzip dropbox" do
-   only_if { ::File.exists?("/root/dropbox.tar.gz") }
+   only_if do ::File.exists?("/root/dropbox.tar.gz") end
    block do
       system("tar zxof dropbox.tar.gz")
    end
 end
 
 ruby_block "start dropbox" do
-   not_if { ::File.exists?("/root/.dropbox-dist/dropboxd") }
+   only_if do ::File.exists?("/root/.dropbox-dist/dropboxd") end
    block do
       pid = Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > #{OUTPUT_FILE}` }
       Process.detach(pid) # I don't care about my child -- is that wrong?
@@ -70,6 +70,7 @@ end
 # end
 
 ruby_block "register instance" do
+  only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   block do
     link_line = `grep "link this machine" #{OUTPUT_FILE}`
     words = link_line.split
