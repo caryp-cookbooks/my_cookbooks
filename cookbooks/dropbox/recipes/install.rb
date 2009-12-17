@@ -31,23 +31,23 @@ bash "download dropbox" do
 end
 
 ruby_block "check download" do
-  not_if { ::File.directory?("/dropbox.tar.gz") }
+  not_if { ::File.directory?("/root/dropbox.tar.gz") }
   block do
     raise "ERROR: unable to download dropbox!"
   end
 end
 
 ruby_block "start dropbox" do
-   only_if { ::File.directory?("~/dropbox.tar.gz") }
+   only_if { ::File.directory?("/root/dropbox.tar.gz") }
    block do
       `tar zxof dropbox.tar.gz`
    end
 end
 
 ruby_block "start dropbox" do
-   not_if { ::File.exists?("~/.dropbox-dist/dropboxd") }
+   not_if { ::File.exists?("/root/.dropbox-dist/dropboxd") }
    block do
-      Kernel.fork { `nohup ~/.dropbox-dist/dropboxd > #{OUTPUT_FILE}` }
+      Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > #{OUTPUT_FILE}` }
       Process.detach # I don't care about my children -- is that wrong?
       Kernel.sleep 10
    end
