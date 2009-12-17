@@ -39,7 +39,7 @@ end
 ruby_block "unzip dropbox" do
    only_if do ::File.exists?("/root/dropbox.tar.gz") end
    block do
-      system("tar zxof dropbox.tar.gz")
+      system("tar zxof /root/dropbox.tar.gz")
    end
 end
 
