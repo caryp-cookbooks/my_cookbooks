@@ -9,6 +9,9 @@
     "dropbox::install": [
 
     ],
+    "dropbox::do_agent_dev_connect": [
+
+    ],
     "dropbox": [
 
     ]
@@ -21,7 +24,8 @@
   },
   "recipes": {
     "dropbox::install": "",
-    "dropbox": ""
+    "dropbox": "",
+    "dropbox::do_agent_dev_connect": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
