@@ -30,14 +30,14 @@ bash "download dropbox" do
 end
 
 ruby_block "check download" do
-  not_if { ::File.directory?("/root/dropbox.tar.gz") }
+  not_if { ::File.exists?("/root/dropbox.tar.gz") }
   block do
     raise "ERROR: unable to download dropbox!"
   end
 end
 
-ruby_block "start dropbox" do
-   only_if { ::File.directory?("/root/dropbox.tar.gz") }
+ruby_block "unzip dropbox" do
+   only_if { ::File.exist?("/root/dropbox.tar.gz") }
    block do
       `tar zxof dropbox.tar.gz`
    end
