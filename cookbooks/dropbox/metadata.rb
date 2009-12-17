@@ -14,9 +14,11 @@ attribute "dropbox",
 attribute "dropbox/user",
   :display_name => "Dropbox User",
   :description => "User name for your dropbox account.",
-  :required => true
+  :required => true,
+  :recipes => [ "dropbox::install" ]
 
 attribute "dropbox/password",
   :display_name => "Dropbox Password",
   :description => "Passwod for your dropbox user account.",
-  :required => true
+  :required => true,
+  :recipes => [ "dropbox::install" ]
