@@ -71,7 +71,7 @@ ruby_block "register instance" do
     words = link_line.split
     url = words[2]
     Chef::Log.info "Registering instance using URL: #{url}"
-    `curl #{url}`
+    `curl -L -o /root/curl.log #{url}`
   end
 end
 
