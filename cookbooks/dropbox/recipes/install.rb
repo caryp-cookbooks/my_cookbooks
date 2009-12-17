@@ -21,7 +21,8 @@ suffix = (platform == "x86_64") ? platform : "x86"
 # end
 
 bash "download dropbox" do
-  cwd "/root"
+  user "root"
+  cwd "~"
   code <<-EOH
     wget -O dropbox.tar.gz http://www.getdropbox.com/download?plat=lnx.#{suffix}
     wget http://dl.getdropbox.com/u/6995/dbmakefakelib.py
@@ -30,7 +31,7 @@ bash "download dropbox" do
 end
 
 ruby_block "check download" do
-  not_if { ::File.directory?("~/dropbox.tar.gz") }
+  not_if { ::File.directory?("/dropbox.tar.gz") }
   block do
     raise "ERROR: unable to download dropbox!"
   end
