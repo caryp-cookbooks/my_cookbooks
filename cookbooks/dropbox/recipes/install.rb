@@ -64,6 +64,12 @@ end
 #   EOH
 # end
 
+ruby_block "login to dropbox" do
+  block do
+     `curl -L -c cookies.txt -d login_email=#{node[:dropbox][:user]} -d login_password=#{node[:dropbox][:password]} -o /root/dropbox_login.log --url https://www.dropbox.com/login`
+  end
+end
+
 ruby_block "register instance" do
   only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   block do
@@ -71,7 +77,7 @@ ruby_block "register instance" do
     words = link_line.split
     url = words[2]
     Chef::Log.info "Registering instance using URL: #{url}"
-    `curl -L -o /root/curl.log #{url}`
+    `curl -L -c cookies.txt -o /root/dropbox_register.log --url #{url}`
   end
 end
 
