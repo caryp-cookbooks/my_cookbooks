@@ -1,4 +1,5 @@
-OUTPUT_FILE = "~/dropbox.log"
+OUTPUT_FILE = "dropbox.log"
+DROPBOX_EXEC = "/root/.dropbox-dist/dropboxd"
 
 platform = node[:kernel][:machine]
 suffix = (platform == "x86_64") ? platform : "x86"
@@ -26,27 +27,21 @@ bash "download dropbox" do
     wget -O dropbox.tar.gz http://www.getdropbox.com/download?plat=lnx.#{suffix}
     wget http://dl.getdropbox.com/u/6995/dbmakefakelib.py
     wget http://dl.getdropbox.com/u/6995/dbreadconfig.py
+    tar zxof dropbox.tar.gz
   EOH
 end
 
 ruby_block "check download" do
-  not_if do ::File.exists?("/root/dropbox.tar.gz") end
+  not_if do ::File.exists?(DROPBOX_EXEC) end
   block do
     raise "ERROR: unable to download dropbox!"
   end
 end
 
-ruby_block "unzip dropbox" do
-   only_if do ::File.exists?("/root/dropbox.tar.gz") end
-   block do
-      system("tar zxof /root/dropbox.tar.gz")
-   end
-end
-
 ruby_block "start dropbox" do
-   only_if do ::File.exists?("/root/.dropbox-dist/dropboxd") end
+   only_if do ::File.exists?(DROPBOX_EXEC) end
    block do
-      pid = Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > #{OUTPUT_FILE}` }
+      pid = Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
       Process.detach(pid) # I don't care about my child -- is that wrong?
       Kernel.sleep 10
    end
@@ -62,7 +57,7 @@ end
 #     tar zxof dropbox.tar.gz
 #     wget http://dl.getdropbox.com/u/6995/dbmakefakelib.py
 #     wget http://dl.getdropbox.com/u/6995/dbreadconfig.py
-#     nohup ~/.dropbox-dist/dropboxd > #{OUTPUT_FILE} &
+#     nohup ~/.dropbox-dist/dropboxd > ~/#{OUTPUT_FILE} &
 #     echo `cut & paste URL into a browser to register instance.
 #     sleep 10
 #     cat ~/dropbox-register.log
@@ -72,7 +67,7 @@ end
 ruby_block "register instance" do
   only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   block do
-    link_line = `grep "link this machine" #{OUTPUT_FILE}`
+    link_line = `grep "link this machine" /root/#{OUTPUT_FILE}`
     words = link_line.split
     url = words[2]
     Chef::Log.info "Registering instance using URL: #{url}"
