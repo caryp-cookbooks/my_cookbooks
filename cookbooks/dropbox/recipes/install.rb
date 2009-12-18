@@ -97,7 +97,9 @@ ruby_block "register instance" do
     #encoded_data = data.gsub(/[^a-zA-Z0-9_\.\-]/n) { sprintf('%%%02x', $&[0]) }
     
     Chef::Log.info "Registering instance using URL: #{url}"
-    `curl -L -c cookies.txt --data-urlencode #{data} -o /root/dropbox_register.log --url #{url}`
+    cmd = "curl -L -c cookies.txt --data-urlencode #{data} -o /root/dropbox_register.log --url #{url}"
+    Chef::Log.info "Running command: #{cmd}"
+    `cmd`
   end
 end
 
