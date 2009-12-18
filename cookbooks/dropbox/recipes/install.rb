@@ -31,6 +31,16 @@ bash "download dropbox" do
   EOH
 end
 
+bash "download CLI tool" do
+  cwd "/root"
+  code <<-EOH
+    wget -P /usr/local/bin http://www.dropbox.com/download?dl=packages/dropbox.py
+    mv /usr/local/bin/dropbox.py /usr/local/bin/dropbox
+    chmod 755 /usr/local/bin/dropbox
+    /usr/local/bin/dropbox help
+  EOH
+end
+
 ruby_block "check download" do
   not_if do ::File.exists?(DROPBOX_EXEC) end
   block do
@@ -77,7 +87,7 @@ ruby_block "register instance" do
     words = link_line.split
     url = words[2]
     Chef::Log.info "Registering instance using URL: #{url}"
-    `curl -L -c cookies.txt -o /root/dropbox_register.log --url #{url}`
+    `curl -L -c cookies.txt --get -o /root/dropbox_register.log --url #{url}`
   end
 end
 
