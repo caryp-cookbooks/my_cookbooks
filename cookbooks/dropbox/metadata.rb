@@ -11,9 +11,9 @@ attribute "dropbox",
 #
 # required attributes
 #
-attribute "dropbox/user",
-  :display_name => "Dropbox User",
-  :description => "User name for your dropbox account.",
+attribute "dropbox/email",
+  :display_name => "Dropbox User Email",
+  :description => "Email address linked to your dropbox account.",
   :required => true,
   :recipes => [ "dropbox::install" ]
 
