@@ -36,11 +36,11 @@
   },
   "version": "0.1.0",
   "attributes": {
-    "dropbox\/user": {
+    "dropbox\/email": {
       "type": "string",
       "multiple_values": false,
-      "description": "User name for your dropbox account.",
-      "display_name": "Dropbox User",
+      "description": "Email address linked to your dropbox account.",
+      "display_name": "Dropbox User Email",
       "required": true,
       "recipes": [
         "dropbox::install"
