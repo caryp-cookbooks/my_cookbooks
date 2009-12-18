@@ -74,20 +74,30 @@ end
 #   EOH
 # end
 
-ruby_block "login to dropbox" do
-  block do
-     `curl -L -c cookies.txt -d t=791206fc33 -d login_email=#{node[:dropbox][:user]} -d login_password=#{node[:dropbox][:password]} -o /root/dropbox_login.log --url https://www.dropbox.com/login`
-  end
-end
+# ruby_block "login to dropbox" do
+#   block do
+#      `curl -L -c cookies.txt -d t=791206fc33 -d login_email=#{node[:dropbox][:user]} -d login_password=#{node[:dropbox][:password]} -o /root/dropbox_login.log --url https://www.dropbox.com/login`
+#   end
+# end
 
 ruby_block "register instance" do
   only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   block do
+    
+    data = "login_email=#{node[:dropbox][:email]}"
+    data << "&login_password=#{node[:dropbox][:password]}"
+    data << "&login_submit=Log in"
+    data << "&remember_me=on"
+    data << "&t=791206fc33"
+
     link_line = `grep "link this machine" /root/#{OUTPUT_FILE}`
     words = link_line.split
     url = words[2]
+    data << "&cont=#{url}"
+    #encoded_data = data.gsub(/[^a-zA-Z0-9_\.\-]/n) { sprintf('%%%02x', $&[0]) }
+    
     Chef::Log.info "Registering instance using URL: #{url}"
-    `curl -L -c cookies.txt --get -o /root/dropbox_register.log --url #{url}`
+    `curl -L -c cookies.txt --data-urlencode #{data} -o /root/dropbox_register.log --url #{url}`
   end
 end
 
