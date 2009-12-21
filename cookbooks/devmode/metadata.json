@@ -6,7 +6,7 @@
 
   },
   "providing": {
-    "devmode::do_agent_dev_connect": [
+    "devmode::setup_cookbooks": [
 
     ],
     "devmode": [
@@ -21,7 +21,7 @@
   },
   "recipes": {
     "devmode": "",
-    "devmode::do_agent_dev_connect": ""
+    "devmode::setup_cookbooks": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
