@@ -32,7 +32,6 @@ ruby_block "Query for cookbook" do
   end
 end
 
-
 SETUP_FILE = "/root/Dropbox/setup_instance_links.sh"
 ruby_block "wait for setup file" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
@@ -59,10 +58,10 @@ right_link_tag TAG do
   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
 end
 
-# ..reboot!
-ruby_block "reboot" do
- not_if do node[:devmode_test][:loaded_custom_cookbooks] end
-  block do
-    `init 6`
-  end
-end
+# # ..reboot!
+# ruby_block "reboot" do
+#  not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+#   block do
+#     `init 6`
+#   end
+# end
