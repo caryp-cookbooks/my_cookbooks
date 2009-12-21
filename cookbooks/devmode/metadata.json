@@ -1,0 +1,42 @@
+{
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "devmode::do_agent_dev_connect": [
+
+    ],
+    "devmode": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures devmode",
+  "name": "devmode",
+  "replacing": {
+
+  },
+  "recipes": {
+    "devmode": "",
+    "devmode::do_agent_dev_connect": ""
+  },
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved"
+}
