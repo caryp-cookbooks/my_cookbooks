@@ -34,7 +34,7 @@ end
 ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
    block do
-      pid = Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
+      pid = Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
       #Process.detach(pid) # I don't care about my child -- is that wrong?
       Kernel.sleep 10
       Process.kill("HUP", pid)
@@ -60,7 +60,7 @@ ruby_block "register instance" do
     Chef::Log.info "Registering instance using URL: #{url}"
     cmd = "curl -L -c cookies.txt #{data} -o /root/dropbox_register.log --url https://www.dropbox.com/login"
     Chef::Log.info "Running command: #{cmd}"
-    `cmd`
+    Kernel.system(cmd)
   end
 end
 
