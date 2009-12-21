@@ -50,12 +50,12 @@ ruby_block "register instance" do
     data << "--data-urlencode login_password=#{node[:dropbox][:password]} "
     data << "-d 'login_submit=Log in' "
     data << "-d remember_me=on "
-    data << "-d t=791206fc33"
+    data << "-d t=791206fc33 "
 
     link_line = `grep "link this machine" /root/#{OUTPUT_FILE}`
     words = link_line.split
     url = words[2]
-    data << "&cont=#{url}"
+    data << "-d cont=#{url}"
     
     Chef::Log.info "Registering instance using URL: #{url}"
     cmd = "curl -L -c cookies.txt #{data} -o /root/dropbox_register.log --url https://www.dropbox.com/login"
