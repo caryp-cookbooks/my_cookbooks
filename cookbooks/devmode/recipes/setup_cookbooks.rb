@@ -37,7 +37,7 @@ ruby_block "wait for setup file" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
   block do
     Chef::Log.info("Waiting for #{SETUP_FILE} to exist.")
-    60.times 
+    60.times do
       break if ::File.exists?(SETUP_FILE)
       Chef::Log.info("    Still waiting...")
       Kernel.sleep 60
