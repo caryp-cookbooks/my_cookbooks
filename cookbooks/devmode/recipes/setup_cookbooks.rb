@@ -17,7 +17,12 @@ ruby_block "Query for cookbook" do
     Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]
     tags = h[h.keys[0]]
-    result = tags.select { |s| s == TAG }
+    
+    result = []
+    if tags
+      result = tags.select { |s| s == TAG }
+    end
+  
     unless result.empty?
       Chef::Log.info("  Tag found!")
       node[:devmode][:loaded_custom_cookbooks] = true
