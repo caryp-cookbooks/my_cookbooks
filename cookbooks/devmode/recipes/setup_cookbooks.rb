@@ -37,7 +37,7 @@ SETUP_FILE = "/root/Dropbox/setup_instance_links.sh"
 ruby_block "wait for setup file" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
   block do
-    while ! ::File.exsits?(SETUP_FILE)
+    while ! ::File.exists?(SETUP_FILE)
       Chef::Log.info("Waiting for #{SETUP_FILE}...")
       Kernel.sleep 60
     end
