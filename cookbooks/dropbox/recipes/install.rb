@@ -34,11 +34,8 @@ end
 ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
    block do
-      pid = Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
-      #Process.detach(pid) # I don't care about my child -- is that wrong?
+      Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
       Kernel.sleep 10
-      #Process.kill("HUP", pid)
-      #Process.wait
    end
 end
 
