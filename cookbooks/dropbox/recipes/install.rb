@@ -31,14 +31,14 @@ ruby_block "check download" do
   end
 end
 
-ruby_block "start dropbox" do
+ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
    block do
       pid = Kernel.fork { `nohup /root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
-      Process.detach(pid) # I don't care about my child -- is that wrong?
+      #Process.detach(pid) # I don't care about my child -- is that wrong?
       Kernel.sleep 10
-      # Process.kill("HUP", pid)
-      # Process.wait
+      Process.kill("HUP", pid)
+      Process.wait
    end
 end
 
