@@ -61,10 +61,10 @@ right_link_tag TAG do
   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
 end
 
-# # ..reboot!
-# ruby_block "reboot" do
-#  not_if do node[:devmode_test][:loaded_custom_cookbooks] end
-#   block do
-#     `init 6`
-#   end
-# end
+# ..reboot!
+ruby_block "reboot" do
+ not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+  block do
+    `init 6`
+  end
+end
