@@ -9,9 +9,9 @@ ruby_block "setup custom devlinks for faster development with dropbox" do
     while(1)
       if `dropbox filestatus /root/Dropbox/projects` =~ /up to date/
         break
-        Chef::Log.info "waiting for dropbox to sync /root/Dropbox/projects"
-        sleep 1
       end
+      Chef::Log.info "waiting for dropbox to sync /root/Dropbox/projects"
+      sleep 1
     end
     
     # cookbook links
