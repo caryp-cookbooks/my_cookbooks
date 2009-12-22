@@ -1,40 +1,4 @@
 {
-  "conflicting": {
-
-  },
-  "dependencies": {
-
-  },
-  "providing": {
-    "dropbox::install": [
-
-    ],
-    "dropbox::do_agent_dev_connect": [
-
-    ],
-    "dropbox": [
-
-    ]
-  },
-  "long_description": "",
-  "description": "Installs\/Configures dropbox",
-  "name": "dropbox",
-  "replacing": {
-
-  },
-  "recipes": {
-    "dropbox::install": "",
-    "dropbox": "",
-    "dropbox::do_agent_dev_connect": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.1.0",
   "attributes": {
     "dropbox\/email": {
       "type": "string",
@@ -60,15 +24,51 @@
       "type": "hash",
       "multiple_values": false,
       "display_name": "Dropbox Application Settings",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     }
   },
+  "recipes": {
+    "dropbox::setup_devlinks": "",
+    "dropbox::install": "",
+    "dropbox": ""
+  },
+  "conflicting": {
+
+  },
+  "license": "All rights reserved",
+  "providing": {
+    "dropbox::setup_devlinks": [
+
+    ],
+    "dropbox::install": [
+
+    ],
+    "dropbox": [
+
+    ]
+  },
+  "dependencies": {
+
+  },
+  "long_description": "",
+  "name": "dropbox",
+  "replacing": {
+
+  },
+  "description": "Installs\/Configures dropbox",
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
   "maintainer_email": "cary@rightscale.com",
   "suggestions": {
 
-  },
-  "license": "All rights reserved"
+  }
 }
