@@ -5,6 +5,7 @@ platform = node[:kernel][:machine]
 suffix = (platform == "x86_64") ? platform : "x86"
 
 bash "download dropbox" do
+  not_if do ::File.exists?(DROPBOX_EXEC) end
   cwd "/root"
   code <<-EOH
     wget -O dropbox.tar.gz http://www.getdropbox.com/download?plat=lnx.#{suffix}
@@ -15,6 +16,7 @@ bash "download dropbox" do
 end
 
 bash "download CLI tool" do
+  not_if do ::File.exists?(DROPBOX_EXEC) end
   cwd "/root"
   code <<-EOH
     wget -P /usr/local/bin http://www.dropbox.com/download?dl=packages/dropbox.py
@@ -33,6 +35,7 @@ end
 
 ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
+   not_if do ::File.exists?(OUTPUT_FILE) end
    block do
       Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
       Kernel.sleep 10
@@ -41,6 +44,7 @@ end
 
 ruby_block "register instance" do
   only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
+  not_if do ::File.directory?("/root/Dropbox") end
   block do
     
     data = "--data-urlencode login_email=#{node[:dropbox][:email]} "
@@ -60,4 +64,8 @@ ruby_block "register instance" do
     Kernel.system(cmd)
   end
 end
+
+#TODO: add init.d script for dropdox
+
+#TODO: call service resource to ensure dropbox is running
 
