@@ -61,10 +61,8 @@ ruby_block "read #{COOKBOOK_FILE}" do
   only_if do ::File.exists?(COOKBOOK_FILE) end
   block do
     ::File.open("#{COOKBOOK_FILE}", "r").each do |f|
-      while (line = f.gets) 
-        node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{line}"
-        Chef::Log.info("")
-      end
+      node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{f.chomp}"
+      Chef::Log.info("")
     end
   end
 end
