@@ -27,8 +27,8 @@
   },
   "recipes": {
     "devmode_test::test_should_never_run": "",
-    "devmode_test": "",
     "devmode_test::test_cookbook_path": "",
+    "devmode_test": "",
     "devmode_test::test_break_point": ""
   },
   "maintainer": "RightScale, Inc.",
