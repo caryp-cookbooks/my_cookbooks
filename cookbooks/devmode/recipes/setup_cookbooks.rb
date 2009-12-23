@@ -1,5 +1,4 @@
-COOKBOOKS_PATH = "/root/my_cookbooks/cookbooks,/root/premium/cookbooks,/root/public/cookbooks,/root/opscode"
-TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOKS_PATH}"
+TAG = "rs_agent_dev:cookbooks_path=" 
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 
@@ -55,16 +54,42 @@ ruby_block "call setup file" do
   end
 end
 
-# Tell RightLink where to find your development cookbooks
-# if not, add tag to instance and...
-right_link_tag TAG do
-  not_if do node[:devmode_test][:loaded_custom_cookbooks] end
-end
-
-# ..reboot!
-ruby_block "reboot" do
- not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+# /tmp/cookbooks.txt should be created by setup file.
+COOKBOOK_FILE = "/tmp/cookbooks_path.txt"
+ruby_block "read #{COOKBOOK_FILE}" do
+  not_if do node[:devmode][:loaded_custom_cookbooks] end
+  only_if do ::File.exists(COOKBOOK_FILE) end
   block do
-    `init 6`
+    ::File.open("#{COOKBOOK_FILE}", "r").each do |f|
+      while (line = f.gets) 
+        node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{line}"
+        Chef::Log.info("")
+      end
+    end
   end
 end
+
+# Tell RightLink where to find your development cookbooks
+# if not, add tag to instance and...
+# right_link_tag node[:devmode][:cookbooks_tag] do
+#   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+#   only_if do ::File.exists(COOKBOOK_FILE) end
+# end
+ruby_block "hack provider with a dynamic tag name" do
+  not_if do node[:devmode][:loaded_custom_cookbooks] end
+  only_if do ::File.exists(COOKBOOK_FILE) end
+  block do
+    resrc = Chef::Resource::RightLinkTag.new(node[:devmode][:cookbooks_tag])
+    provider = Chef::Provider::RightLinkTag.new(node, resrc)
+    provider.send("action_publish")
+  end
+end
+
+# only reboot if cookbook_path.txt is found!
+# ruby_block "reboot" do
+#   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+#   only_if do ::File.exists(COOKBOOK_FILE) end
+#   block do
+#     `init 6`
+#   end
+# end
