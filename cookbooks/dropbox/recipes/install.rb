@@ -35,7 +35,7 @@ end
 
 ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
-   not_if do ::File.exists?(OUTPUT_FILE) end
+   not_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
    block do
       Chef::Log.info("Starting dropbox to get registration link...")
       Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
