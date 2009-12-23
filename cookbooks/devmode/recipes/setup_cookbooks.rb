@@ -58,7 +58,7 @@ end
 COOKBOOK_FILE = "/tmp/cookbooks_path.txt"
 ruby_block "read #{COOKBOOK_FILE}" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
-  only_if do ::File.exists(COOKBOOK_FILE) end
+  only_if do ::File.exists?(COOKBOOK_FILE) end
   block do
     ::File.open("#{COOKBOOK_FILE}", "r").each do |f|
       while (line = f.gets) 
@@ -73,11 +73,11 @@ end
 # if not, add tag to instance and...
 # right_link_tag node[:devmode][:cookbooks_tag] do
 #   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
-#   only_if do ::File.exists(COOKBOOK_FILE) end
+#   only_if do ::File.exists?(COOKBOOK_FILE) end
 # end
 ruby_block "hack provider with a dynamic tag name" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
-  only_if do ::File.exists(COOKBOOK_FILE) end
+  only_if do ::File.exists?(COOKBOOK_FILE) end
   block do
     resrc = Chef::Resource::RightLinkTag.new(node[:devmode][:cookbooks_tag])
     provider = Chef::Provider::RightLinkTag.new(node, resrc)
@@ -88,7 +88,7 @@ end
 # only reboot if cookbook_path.txt is found!
 # ruby_block "reboot" do
 #   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
-#   only_if do ::File.exists(COOKBOOK_FILE) end
+#   only_if do ::File.exists?(COOKBOOK_FILE) end
 #   block do
 #     `init 6`
 #   end
