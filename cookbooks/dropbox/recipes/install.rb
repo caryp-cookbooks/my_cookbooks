@@ -37,6 +37,7 @@ ruby_block "start dropbox to get registration link" do
    only_if do ::File.exists?(DROPBOX_EXEC) end
    not_if do ::File.exists?(OUTPUT_FILE) end
    block do
+      Chef::Log.info("Starting dropbox to get registration link...")
       Kernel.fork { `/root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}` }
       Kernel.sleep 10
    end
@@ -46,6 +47,7 @@ ruby_block "register instance" do
   only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   not_if do ::File.directory?("/root/Dropbox") end
   block do
+    Chef::Log.info("Registering instance with dropbox website...")
     
     data = "--data-urlencode login_email=#{node[:dropbox][:email]} "
     data << "--data-urlencode login_password=#{node[:dropbox][:password]} "
@@ -67,6 +69,7 @@ end
 
 # Add init.d script for dropdox
 template "/etc/init.d/dropbox" do
+  Chef::Log.info("Update template.")
   source "init_dropbox.erb"
   mode "770"
 end
@@ -74,6 +77,7 @@ end
 # Call service resource to ensure dropbox is running
 service "dropbox" do
 #  supports [ :status ] 
+  Chef::Log.info("Enable service.")
   action :enable
 end
 
