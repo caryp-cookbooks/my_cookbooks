@@ -73,7 +73,7 @@ end
 
 # Call service resource to ensure dropbox is running
 service "dropbox" do
-  supports [ :status ] 
+#  supports [ :status ] 
   action :enable
 end
 
