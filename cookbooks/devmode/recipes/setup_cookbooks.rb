@@ -60,9 +60,10 @@ ruby_block "read #{COOKBOOK_FILE}" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
   only_if do ::File.exists?(COOKBOOK_FILE) end
   block do
+    Chef::Log.info("Reading #{COOKBOOK_FILE}...")
     ::File.open("#{COOKBOOK_FILE}", "r").each do |f|
       node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{f.chomp}"
-      Chef::Log.info("")
+      Chef::Log.info("Adding tag = #{node[:devmode][:cookbooks_tag]}")
     end
   end
 end
@@ -77,9 +78,11 @@ ruby_block "hack provider with a dynamic tag name" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
   only_if do ::File.exists?(COOKBOOK_FILE) end
   block do
+    Chef::Log.info("Publishing tag...")
     resrc = Chef::Resource::RightLinkTag.new(node[:devmode][:cookbooks_tag])
     provider = Chef::Provider::RightLinkTag.new(node, resrc)
     provider.send("action_publish")
+    Chef::Log.info("  ..done.")
   end
 end
 
