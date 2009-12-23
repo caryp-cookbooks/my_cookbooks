@@ -19,7 +19,7 @@ ruby_block "Query for cookbook" do
     
     result = []
     if tags
-      result = tags.select { |s| s == TAG }
+      result = tags.select { |s| TAG.include?(s) }
     end
   
     unless result.empty?
