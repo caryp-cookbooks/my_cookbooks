@@ -65,7 +65,14 @@ ruby_block "register instance" do
   end
 end
 
-#TODO: add init.d script for dropdox
+# Add init.d script for dropdox
+template "/etc/init.d/dropbox" do
+  source "init_dropbox.erb"
+end
 
-#TODO: call service resource to ensure dropbox is running
+# Call service resource to ensure dropbox is running
+service "dropbox" do
+  supports [ :status ] 
+  action :enable
+end
 
