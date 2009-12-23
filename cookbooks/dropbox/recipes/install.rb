@@ -68,6 +68,7 @@ end
 # Add init.d script for dropdox
 template "/etc/init.d/dropbox" do
   source "init_dropbox.erb"
+  mode "770"
 end
 
 # Call service resource to ensure dropbox is running
