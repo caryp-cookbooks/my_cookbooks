@@ -23,8 +23,11 @@ ruby_block "add to config, if not in config file" do
     args += "-e \" inter 3000 rise 2 fall 3 maxconn #{max_conn_per_svr}\" "
     args += " -k on " if "#{@node[:lb_haproxy][:health_check_uri]}" != ""
     cfg_cmd="/opt/rightscale/lb/bin/haproxy_config_server.rb"
+    Chef::Log.info("running command: #{cfg_cmd} #{args}")
     res=`#{cfg_cmd} #{args}`
-    `service haproxy restart`
+    Chef::Log.info(res)
+    # depricated, restart is handled in the lbtools
+    #`service haproxy restart`
   end
 end
 
