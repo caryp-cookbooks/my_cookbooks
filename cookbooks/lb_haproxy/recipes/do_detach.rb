@@ -19,8 +19,7 @@ ruby_block "Remove from config, if in config file" do
     Chef::Log.info("running command: #{cfg_cmd} #{args}")
     res=`#{cfg_cmd} #{args}`
     Chef::Log.info(res)
-    # depricated, restart is handled in the lbtools
-    #Chef::Log.info `service haproxy restart`
+    Chef::Log.info `service haproxy restart`
   end
 end
 
