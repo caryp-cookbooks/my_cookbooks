@@ -46,7 +46,7 @@
       "display_name": "Rackspace Username",
       "required": true,
       "recipes": [
-        "storage_test::test_cloudfiles"
+        "lvm_test::test_cloudfiles"
       ]
     },
     "test\/s3\/key": {
@@ -55,7 +55,7 @@
       "display_name": "Amazon Secret Access Key",
       "required": true,
       "recipes": [
-        "storage_test::test_s3"
+        "lvm_test::test_s3"
       ]
     },
     "test\/s3\/user": {
@@ -64,7 +64,7 @@
       "display_name": "Amazon Access Key ID",
       "required": true,
       "recipes": [
-        "storage_test::test_s3"
+        "lvm_test::test_s3"
       ]
     },
     "test\/cloudfiles\/key": {
@@ -73,7 +73,7 @@
       "display_name": "Rackspace Authorization Key",
       "required": true,
       "recipes": [
-        "storage_test::test_cloudfiles"
+        "lvm_test::test_cloudfiles"
       ]
     }
   },
