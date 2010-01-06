@@ -25,6 +25,11 @@ file "/mnt/backup_test/b.txt"
 directory "/mnt/backup_test/c" 
 file "/mnt/backup_test/c/c.txt"
 
+# Sync filesystem
+block_device LVM_RESOURCE_NAME do
+  action :sync_fs 
+end
+
 # Take snapshots
 block_device LVM_RESOURCE_NAME do
   action :take_snapshot 
