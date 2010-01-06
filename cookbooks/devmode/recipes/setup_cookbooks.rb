@@ -62,6 +62,14 @@ ruby_block "read #{COOKBOOK_FILE}" do
   block do
     Chef::Log.info("Reading #{COOKBOOK_FILE}...")
     ::File.open("#{COOKBOOK_FILE}", "r").each do |f|
+      f.chomp.split(/,/).each do |book|
+        while(1) do
+          Chef::Log.info("Waiting for #{book} to exist..")
+          break if ::File.exists?(book)
+          sleep(2)
+        end
+      end
+
       node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{f.chomp}"
       Chef::Log.info("Adding tag = #{node[:devmode][:cookbooks_tag]}")
     end
