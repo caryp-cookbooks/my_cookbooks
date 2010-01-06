@@ -16,7 +16,7 @@ bash "download dropbox" do
 end
 
 bash "download CLI tool" do
-  not_if do ::File.exists?(DROPBOX_EXEC) end
+  not_if do ::File.exists?("/usr/local/bin/dropbox") end
   cwd "/root"
   code <<-EOH
     wget -P /usr/local/bin http://www.dropbox.com/download?dl=packages/dropbox.py
