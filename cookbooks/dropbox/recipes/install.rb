@@ -21,8 +21,8 @@ bash "download CLI tool" do
   code <<-EOH
     wget -P /usr/local/bin http://www.dropbox.com/download?dl=packages/dropbox.py
     mv /usr/local/bin/dropbox.py /usr/local/bin/dropbox.py
-    chmod 755 /usr/local/bin/dropbox
-    /usr/local/bin/dropbox help
+    chmod 755 /usr/local/bin/dropbox.py
+    /usr/local/bin/dropbox.py help
   EOH
 end
 
