@@ -65,7 +65,7 @@ ruby_block "read #{COOKBOOK_FILE}" do
       f.chomp.split(/,/).each do |book|
         while(1) do
           Chef::Log.info("Waiting for #{book} to exist..")
-          output = `/usr/local/bin/dropbox filestatus #{book}`
+          output = `/usr/local/bin/dropbox.py filestatus #{book}`
           Chef::Log.info(output)
           break if ::File.exists?(book) && output.include?('up to date')
           sleep(2)
