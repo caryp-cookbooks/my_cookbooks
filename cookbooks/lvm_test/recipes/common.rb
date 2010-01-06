@@ -1,27 +1,22 @@
 include_recipe "lvm::install"
 
 LVM_RESOURCE_NAME = "default" # currently hard coded
-
-LVMROS_TEST_PROVIDER = node[:test][:provider]
-LVMROS_TEST_CONTAINER = "regression_test_area"
-
-BACKUP_TEST_MOUNT_POINT = "/mnt"
-BACKUP_TEST_RESTORE_DIR = "/tmp/restore_test"
-
-# Remove any restore directory from previous runs.
-directory BACKUP_TEST_RESTORE_DIR do
-  action :delete
-  recursive true
-end
+LVM_TEST_MOUNT_POINT = "/mnt"
+LVM_TEST_RESTORE_DIR = "/tmp/restore_test"
 
 node[:remote_storage][:default][:account][:id] = node[:test][:username]
 node[:remote_storage][:default][:account][:credentials] = node[:test][:password]
-node[:remote_storage][:default][:provider] = LVMROS_TEST_PROVIDER
-node[:remote_storage][:default][:container] = LVMROS_TEST_CONTAINER
+node[:remote_storage][:default][:provider] = node[:test][:provider]
+node[:remote_storage][:default][:container] = "regression_test_area"
 
 include_recipe "lvm::setup_remote_storage"
 include_recipe "lvm::setup_lvm"
 
+# Remove any restore directory from previous runs.
+directory LVM_TEST_RESTORE_DIR do
+  action :delete
+  recursive true
+end
 
 # Populate with some files
 directory "/mnt/backup_test" 
@@ -41,13 +36,13 @@ block_device LVM_RESOURCE_NAME do
 end
 
 # Create a palce to put our restore
-directory BACKUP_TEST_RESTORE_DIR do
+directory LVM_TEST_RESTORE_DIR do
   action :create
 end
 
 # Do the restore.
 block_device LVM_RESOURCE_NAME do
-  restore_root BACKUP_TEST_RESTORE_DIR
+  restore_root LVM_TEST_RESTORE_DIR
   action :restore 
 end
 
@@ -55,7 +50,7 @@ end
 # Raise an exception if they are different.
 ruby "test for identical dirs" do
   code <<-EOH
-    `diff -r "#{BACKUP_TEST_MOUNT_POINT}" "#{BACKUP_TEST_RESTORE_DIR}"`
+    `diff -r "#{LVM_TEST_MOUNT_POINT}" "#{LVM_TEST_RESTORE_DIR}"`
     raise "ERROR: directories do not match!!" if $? != 0
   EOH
 end
