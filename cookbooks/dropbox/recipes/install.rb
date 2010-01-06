@@ -20,7 +20,7 @@ bash "download CLI tool" do
   cwd "/root"
   code <<-EOH
     wget -P /usr/local/bin http://www.dropbox.com/download?dl=packages/dropbox.py
-    mv /usr/local/bin/dropbox.py /usr/local/bin/dropbox
+    mv /usr/local/bin/dropbox.py /usr/local/bin/dropbox.py
     chmod 755 /usr/local/bin/dropbox
     /usr/local/bin/dropbox help
   EOH
