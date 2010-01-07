@@ -1,4 +1,4 @@
-include_recipe "lvm::install"
+include_recipe "lvmros::install"
 
 LVM_RESOURCE_NAME = "default" # currently hard coded
 LVM_TEST_MOUNT_POINT = "/mnt"
@@ -9,8 +9,8 @@ node[:remote_storage][:default][:account][:credentials] = node[:test][:password]
 node[:remote_storage][:default][:provider] = node[:test][:provider]
 node[:remote_storage][:default][:container] = "regression_test_area"
 
-include_recipe "lvm::setup_remote_storage"
-include_recipe "lvm::setup_lvm"
+include_recipe "lvmros::setup_remote_storage"
+include_recipe "lvmros::setup_lvm"
 
 # Remove any restore directory from previous runs.
 directory LVM_TEST_RESTORE_DIR do
@@ -60,7 +60,7 @@ ruby "test for identical dirs" do
   EOH
 end
 
-# Do the restore.
+# Remove LVM
 block_device LVM_RESOURCE_NAME do
   action :remove 
 end
