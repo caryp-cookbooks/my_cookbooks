@@ -20,8 +20,8 @@
 
   },
   "recipes": {
-    "core_env::do_write_to_file": "",
-    "core_env": ""
+    "core_env": "",
+    "core_env::do_write_to_file": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {

@@ -9,6 +9,9 @@
     "lvm_test::test_cloudfiles": [
 
     ],
+    "lvm_test::test_all": [
+
+    ],
     "lvm_test": [
 
     ],
@@ -27,6 +30,7 @@
   },
   "recipes": {
     "lvm_test::test_cloudfiles": "",
+    "lvm_test::test_all": "",
     "lvm_test": "",
     "lvm_test::common": "",
     "lvm_test::test_s3": ""

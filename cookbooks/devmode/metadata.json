@@ -20,8 +20,8 @@
 
   },
   "recipes": {
-    "devmode": "",
-    "devmode::setup_cookbooks": ""
+    "devmode::setup_cookbooks": "",
+    "devmode": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
