@@ -6,4 +6,4 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "lvm_test::test_all"
+include_recipe "lvmros_test::test_all"
