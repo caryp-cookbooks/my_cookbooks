@@ -59,3 +59,8 @@ ruby "test for identical dirs" do
     raise "ERROR: directories do not match!!" if $? != 0
   EOH
 end
+
+# Do the restore.
+block_device LVM_RESOURCE_NAME do
+  action :remove 
+end
