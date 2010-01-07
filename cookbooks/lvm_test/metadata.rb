@@ -5,6 +5,8 @@ description      "Installs/Configures lvm_test"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
+depends "bd_lvmros"
+
 attribute "test/s3/user",
   :display_name => "Amazon Access Key ID",
   :required => true,
