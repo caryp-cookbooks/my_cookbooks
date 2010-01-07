@@ -1,4 +1,4 @@
-include_recipe "lvmros::install"
+include_recipe "bd_lvmros::install"
 
 LVM_RESOURCE_NAME = "default" # currently hard coded
 LVM_TEST_MOUNT_POINT = "/mnt"
@@ -9,8 +9,8 @@ node[:remote_storage][:default][:account][:credentials] = node[:test][:password]
 node[:remote_storage][:default][:provider] = node[:test][:provider]
 node[:remote_storage][:default][:container] = "regression_test_area"
 
-include_recipe "lvmros::setup_remote_storage"
-include_recipe "lvmros::setup_lvm"
+include_recipe "bd_lvmros::setup_remote_storage"
+include_recipe "bd_lvmros::setup_lvm"
 
 # Remove any restore directory from previous runs.
 directory LVM_TEST_RESTORE_DIR do
