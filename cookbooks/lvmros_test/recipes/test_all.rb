@@ -6,5 +6,5 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "lvm_test::test_s3"
-include_recipe "lvm_test::test_cloudfiles"
+include_recipe "lvmros_test::test_s3"
+include_recipe "lvmros_test::test_cloudfiles"

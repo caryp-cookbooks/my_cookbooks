@@ -3,37 +3,39 @@
 
   },
   "dependencies": {
-
-  },
-  "providing": {
-    "lvm_test::test_cloudfiles": [
-
-    ],
-    "lvm_test::test_all": [
-
-    ],
-    "lvm_test": [
-
-    ],
-    "lvm_test::common": [
-
-    ],
-    "lvm_test::test_s3": [
+    "bd_lvmros": [
 
     ]
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "providing": {
+    "lvmros_test::test_all": [
+
+    ],
+    "lvmros_test": [
+
+    ],
+    "lvmros_test::common": [
+
+    ],
+    "lvmros_test::test_s3": [
+
+    ],
+    "lvmros_test::test_cloudfiles": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\nThis tests the \n * bd_lvmros cookbook\n * block_device resource\n * block_device\/lvm_ros provider\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
   "description": "Installs\/Configures lvm_test",
-  "name": "lvm_test",
+  "name": "lvmros_test",
   "replacing": {
 
   },
   "recipes": {
-    "lvm_test::test_cloudfiles": "",
-    "lvm_test::test_all": "",
-    "lvm_test": "",
-    "lvm_test::common": "",
-    "lvm_test::test_s3": ""
+    "lvmros_test::test_all": "",
+    "lvmros_test::common": "",
+    "lvmros_test::test_s3": "",
+    "lvmros_test": "",
+    "lvmros_test::test_cloudfiles": ""
   },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
