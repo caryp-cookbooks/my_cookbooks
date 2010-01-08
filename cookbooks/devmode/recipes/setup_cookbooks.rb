@@ -98,7 +98,7 @@ end
 
 # only reboot if cookbook_path.txt is found!
  ruby_block "reboot" do
-   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
+   not_if do node[:devmode][:loaded_custom_cookbooks] end
    only_if do ::File.exists?(COOKBOOK_FILE) end
    block do
      `init 6`
