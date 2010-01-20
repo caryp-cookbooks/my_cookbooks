@@ -20,7 +20,8 @@
 
   },
   "recipes": {
-    "state_test::check_value": "",
+    "state_test::check_value": "Run this as a operational script.",
+    "state_test::default": "Run this as a boot script.",
     "state_test": ""
   },
   "maintainer": "RightScale, Inc.",
