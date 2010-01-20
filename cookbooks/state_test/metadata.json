@@ -1,0 +1,50 @@
+{
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "state_test": [
+
+    ],
+    "state_test::check_value": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\nTest that node attributes set by recipes persist between coverging.\n\nAn attribute is set to the default value \"attrib\"\nThen the boot recipe (\"default\") sets it to \"recipe\"\nThen a third operatinal script runs to verify that the attribute is set to \"recipe\"\nthe op script should fail otherwise\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures state_test",
+  "name": "state_test",
+  "replacing": {
+
+  },
+  "recipes": {
+    "state_test::check_value": "",
+    "state_test": ""
+  },
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+    "state_test\/value": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Value that should be overwrite test recipe value",
+      "recipes": [
+        "state_test::default"
+      ],
+      "required": false
+    }
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved"
+}

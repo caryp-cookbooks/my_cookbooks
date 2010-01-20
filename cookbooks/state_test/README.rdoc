@@ -1,0 +1,15 @@
+= DESCRIPTION:
+
+Test that node attributes set by recipes persist between coverging.
+
+An attribute is set to the default value "attrib"
+Then the boot recipe ("default") sets it to "recipe"
+Then a third operatinal script runs to verify that the attribute is set to "recipe"
+the op script should fail otherwise
+
+= REQUIREMENTS:
+
+= ATTRIBUTES: 
+
+= USAGE:
+
