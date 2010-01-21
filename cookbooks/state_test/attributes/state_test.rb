@@ -1,1 +1,1 @@
-set_unless[:state_test][:value] = "attrib"  # default value
+set_unless[:state_test][:value] = nil  # default value

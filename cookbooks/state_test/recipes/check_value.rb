@@ -5,6 +5,6 @@ ruby_block "check value" do
     Chef::Log.info "state_test::check_value -- Expected: #{expected} Actual: #{actual}"
     error = "ERROR: the node state is not persisted correctly between runs."
     raise error unless expected == actual 
-    Chef::Log.info "state_test::check_value - PASS"
+    Chef::Log.info "state_test::check_value -- PASS"
   end
 end
