@@ -38,7 +38,7 @@ ruby_block "start dropbox to get registration link" do
    not_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
    block do
       Chef::Log.info("Starting dropbox to get registration link...")
-      `nohup /root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}`
+      system("nohup /root/.dropbox-dist/dropboxd > /root/#{OUTPUT_FILE}")
       Kernel.sleep 10
    end
 end
