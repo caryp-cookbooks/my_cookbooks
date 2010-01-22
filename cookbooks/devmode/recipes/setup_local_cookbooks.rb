@@ -47,7 +47,7 @@ ruby_block "symlink and set tags" do
       end
     end
 # convienient link for right_resources_premium editing
-    File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1", "/root/right_resources_premium")
+    File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1", "/root/right_resources_premium"))
 
     node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{cookbooks.join(",")}"
     Chef::Log.info("Adding tag = #{node[:devmode][:cookbooks_tag]}")
