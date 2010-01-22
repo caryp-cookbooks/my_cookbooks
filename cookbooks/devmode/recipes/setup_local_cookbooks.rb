@@ -41,10 +41,11 @@ ruby_block "symlink and set tags" do
       book =~ /_([a-zA-Z]+?_[a-zA-Z]+?)_git/
       shortname = $1
       dest = "/root/#{shortname}"
+      next if shortname == ""
       unless File.exists?(dest)
         File.symlink(book, dest)
-        cookbooks << dest
       end
+      cookbooks << dest
     end
 # convienient link for right_resources_premium editing
     File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1"), "/root/right_resources_premium")
