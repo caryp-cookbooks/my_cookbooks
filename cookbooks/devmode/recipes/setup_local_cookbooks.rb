@@ -45,7 +45,9 @@ ruby_block "symlink and set tags" do
       cookbooks << dest
     end
 
-    node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{dest.join(",")}"
+    
+
+    node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{cookbooks.join(",")}"
     Chef::Log.info("Adding tag = #{node[:devmode][:cookbooks_tag]}")
   end
 end
