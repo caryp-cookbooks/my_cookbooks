@@ -41,7 +41,7 @@ ruby_block "symlink and set tags" do
       book =~ /_([a-zA-Z]+?_[a-zA-Z]+?)_git/
       shortname = $1
       dest = "/root/#{shortname}"
-      next if shortname == ""
+      next if dest == "/root/"
       unless File.exists?(dest)
         File.symlink(book, dest)
       end
