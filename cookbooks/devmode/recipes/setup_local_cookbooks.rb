@@ -45,7 +45,7 @@ ruby_block "symlink and set tags" do
       unless File.exists?(dest)
         File.symlink(book, dest)
       end
-      cookbooks << dest
+      cookbooks << cb
     end
 # convienient link for right_resources_premium editing
     File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1"), "/root/right_resources_premium")
