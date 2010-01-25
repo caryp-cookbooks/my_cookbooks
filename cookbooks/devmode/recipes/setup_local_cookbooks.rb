@@ -42,12 +42,14 @@ ruby_block "symlink and set tags" do
       shortname = $1
       dest = "/root/#{shortname}"
       next if dest == "/root/"
+# link it
       unless File.exists?(dest)
         File.symlink(book, dest)
       end
-      cookbooks << cb
+# tag and bag
+      cookbooks << book
     end
-# convienient link for right_resources_premium editing
+# convienient link for right_resources_premium gem source editing
     File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1"), "/root/right_resources_premium")
 
     node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{cookbooks.join(",")}"
