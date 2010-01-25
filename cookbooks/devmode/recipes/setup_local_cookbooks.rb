@@ -35,7 +35,7 @@ end
 ruby_block "symlink and set tags" do
   not_if do node[:devmode][:loaded_custom_cookbooks] end
   block do
-    cookbooks = []
+    #cookbooks = []
     cb = Dir.glob("/var/cache/rightscale/cookbooks/*")
     cb.each do |book|
       book =~ /_([a-zA-Z]+?_[a-zA-Z]+?)_git/
@@ -46,13 +46,13 @@ ruby_block "symlink and set tags" do
       unless File.exists?(dest)
         File.symlink(book, dest)
       end
-# tag and bag
-      cookbooks << book
+      #cookbooks << book
     end
 # convienient link for right_resources_premium gem source editing
     File.symlink(File.join(Gem.path.last, "gems", "right_resources_premium_0.0.1"), "/root/right_resources_premium")
 
-    node[:devmode][:cookbooks_tag] = "rs_agent_dev:cookbooks_path=#{cookbooks.join(",")}"
+# need right_link tag for disable cookbook download, to make all these haxx go away
+    node[:devmode][:cookbooks_tag] = "/root/my_cookbooks/cookbooks,/root/cookbooks_premium/cookbooks,/root/cookbooks_public/cookbooks,/root/opscode_cookbooks"
     Chef::Log.info("Adding tag = #{node[:devmode][:cookbooks_tag]}")
   end
 end
