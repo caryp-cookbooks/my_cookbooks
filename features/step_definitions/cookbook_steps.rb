@@ -33,7 +33,7 @@ Then /^I should run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recip
 end 
 
 Then /^I should sleep (\d+) seconds\.$/ do |seconds|
-  sleep seconds
+  sleep seconds.to_i
 end
 
 
