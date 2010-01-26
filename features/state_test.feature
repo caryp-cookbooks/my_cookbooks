@@ -5,5 +5,6 @@ Feature: state_test Features
     Given A deployment named "Cary's Sandbox"
     And A server named "right_resources dev - caryp"
     Then I should successfully run a recipe named "state_test::check_value" 
+    Then I should successfully run a recipe named "state_test::check_value_two" 
 
         
