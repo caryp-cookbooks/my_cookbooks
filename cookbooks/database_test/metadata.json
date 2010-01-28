@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "used as a test for the database provider",
+  "name": "database_test",
+  "conflicting": {
 
   },
   "providing": {
@@ -11,18 +21,6 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "used as a test for the database provider",
-  "name": "database_test",
-  "replacing": {
-
-  },
-  "recipes": {
-    "database_test": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
   "platforms": {
 
   },
@@ -30,9 +28,11 @@
   "attributes": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
+  },
+  "recipes": {
+    "database_test": ""
   },
   "license": "All rights reserved"
 }

@@ -1,4 +1,36 @@
 {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures state_test",
+  "name": "state_test",
+  "conflicting": {
+
+  },
+  "providing": {
+    "state_test": [
+
+    ],
+    "state_test::check_value": [
+
+    ],
+    "state_test::check_value_two": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\nTest that node attributes set by recipes persist between coverging.\n\nAn attribute is set to the default value \"attrib\"\nThen the boot recipe (\"default\") sets it to \"recipe\"\nThen a third operatinal script runs to verify that the attribute is set to \"recipe\"\nthe op script should fail otherwise\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
   "attributes": {
     "state_test\/value": {
       "type": "string",
@@ -13,43 +45,11 @@
   "replacing": {
 
   },
-  "license": "All rights reserved",
-  "dependencies": {
-
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "name": "state_test",
-  "maintainer_email": "cary@rightscale.com",
-  "description": "Installs\/Configures state_test",
-  "suggestions": {
-
-  },
-  "conflicting": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.1.0",
   "recipes": {
     "state_test": "",
     "state_test::check_value": "Run this as a operational script.",
     "state_test::default": "Run this as a boot script.",
     "state_test::check_value_two": ""
   },
-  "providing": {
-    "state_test": [
-
-    ],
-    "state_test::check_value": [
-
-    ],
-    "state_test::check_value_two": [
-
-    ]
-  },
-  "long_description": "= DESCRIPTION:\n\nTest that node attributes set by recipes persist between coverging.\n\nAn attribute is set to the default value \"attrib\"\nThen the boot recipe (\"default\") sets it to \"recipe\"\nThen a third operatinal script runs to verify that the attribute is set to \"recipe\"\nthe op script should fail otherwise\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n"
+  "license": "All rights reserved"
 }
