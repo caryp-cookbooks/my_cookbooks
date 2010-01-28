@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures core_env",
+  "name": "core_env",
+  "conflicting": {
 
   },
   "providing": {
@@ -14,19 +24,6 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "Installs\/Configures core_env",
-  "name": "core_env",
-  "replacing": {
-
-  },
-  "recipes": {
-    "core_env": "",
-    "core_env::do_write_to_file": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
   "platforms": {
 
   },
@@ -34,9 +31,12 @@
   "attributes": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
+  },
+  "recipes": {
+    "core_env": "",
+    "core_env::do_write_to_file": ""
   },
   "license": "All rights reserved"
 }

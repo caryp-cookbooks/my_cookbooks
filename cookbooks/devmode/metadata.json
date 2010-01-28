@@ -1,35 +1,19 @@
 {
-  "attributes": {
-
-  },
-  "replacing": {
-
-  },
-  "license": "All rights reserved",
-  "dependencies": {
-
-  },
   "maintainer": "RightScale, Inc.",
   "recommendations": {
 
   },
-  "name": "devmode",
+  "dependencies": {
+
+  },
   "maintainer_email": "cary@rightscale.com",
-  "description": "Installs\/Configures devmode",
   "suggestions": {
 
   },
+  "description": "Installs\/Configures devmode",
+  "name": "devmode",
   "conflicting": {
 
-  },
-  "platforms": {
-
-  },
-  "version": "0.1.0",
-  "recipes": {
-    "devmode::setup_cookbooks": "",
-    "devmode": "",
-    "devmode::setup_local_cookbooks": ""
   },
   "providing": {
     "devmode::setup_cookbooks": [
@@ -42,5 +26,21 @@
 
     ]
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n"
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "recipes": {
+    "devmode::setup_cookbooks": "",
+    "devmode": "",
+    "devmode::setup_local_cookbooks": ""
+  },
+  "license": "All rights reserved"
 }

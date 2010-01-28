@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures server_collection_test",
+  "name": "server_collection_test",
+  "conflicting": {
 
   },
   "providing": {
@@ -17,20 +27,6 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "Installs\/Configures server_collection_test",
-  "name": "server_collection_test",
-  "replacing": {
-
-  },
-  "recipes": {
-    "server_collection_test::do_tag": "",
-    "server_collection_test::do_get_tag_collection": "",
-    "server_collection_test": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
   "platforms": {
 
   },
@@ -38,9 +34,13 @@
   "attributes": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
+  },
+  "recipes": {
+    "server_collection_test": "",
+    "server_collection_test::do_tag": "",
+    "server_collection_test::do_get_tag_collection": ""
   },
   "license": "All rights reserved"
 }

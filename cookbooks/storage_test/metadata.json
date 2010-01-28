@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures storage_test",
+  "name": "storage_test",
+  "conflicting": {
 
   },
   "providing": {
@@ -20,21 +30,6 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "description": "Installs\/Configures storage_test",
-  "name": "storage_test",
-  "replacing": {
-
-  },
-  "recipes": {
-    "storage_test::test_s3": "",
-    "storage_test::common": "",
-    "storage_test::test_cloudfiles": "",
-    "storage_test::get_file": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
   "platforms": {
 
   },
@@ -77,9 +72,14 @@
       ]
     }
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
+  },
+  "recipes": {
+    "storage_test::test_s3": "",
+    "storage_test::common": "",
+    "storage_test::test_cloudfiles": "",
+    "storage_test::get_file": ""
   },
   "license": "All rights reserved"
 }

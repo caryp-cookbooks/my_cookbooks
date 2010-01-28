@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Runs a simple test of remote_recipe and right_link_tag resources",
+  "name": "ping_pong",
+  "conflicting": {
 
   },
   "providing": {
@@ -26,8 +36,13 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n",
-  "description": "Runs a simple test of remote_recipe and right_link_tag resources",
-  "name": "ping_pong",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+
+  },
   "replacing": {
 
   },
@@ -38,21 +53,6 @@
     "ping_pong::do_pong": "",
     "ping_pong": "",
     "ping_pong::do_tag_test": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "platforms": {
-
-  },
-  "version": "0.1.0",
-  "attributes": {
-
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
   },
   "license": "All rights reserved"
 }

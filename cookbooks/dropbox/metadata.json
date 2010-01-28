@@ -1,8 +1,18 @@
 {
-  "conflicting": {
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
 
   },
   "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures dropbox",
+  "name": "dropbox",
+  "conflicting": {
 
   },
   "providing": {
@@ -17,20 +27,6 @@
     ]
   },
   "long_description": "",
-  "description": "Installs\/Configures dropbox",
-  "name": "dropbox",
-  "replacing": {
-
-  },
-  "recipes": {
-    "dropbox::setup_devlinks": "",
-    "dropbox::install": "",
-    "dropbox": ""
-  },
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
   "platforms": {
 
   },
@@ -38,8 +34,8 @@
   "attributes": {
     "dropbox\/email": {
       "type": "string",
-      "multiple_values": false,
       "description": "Email address linked to your dropbox account.",
+      "multiple_values": false,
       "display_name": "Dropbox User Email",
       "required": true,
       "recipes": [
@@ -48,8 +44,8 @@
     },
     "dropbox\/password": {
       "type": "string",
-      "multiple_values": false,
       "description": "Passwod for your dropbox user account.",
+      "multiple_values": false,
       "display_name": "Dropbox Password",
       "required": true,
       "recipes": [
@@ -66,9 +62,13 @@
       "required": false
     }
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
+  "replacing": {
 
+  },
+  "recipes": {
+    "dropbox": "",
+    "dropbox::setup_devlinks": "",
+    "dropbox::install": ""
   },
   "license": "All rights reserved"
 }
