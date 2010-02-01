@@ -25,3 +25,9 @@ Feature: webapp test
 
     When I run "test -d /mnt/log/tomcat6" 
     Then it should exit succesfully 
+
+    When I run "true" 
+    Then it should exit succesfully 
+
+    When I run "false" 
+    Then it should exit succesfully 
