@@ -99,10 +99,9 @@ end
 
 When /^I run "([^\"]*)"$/ do |command|
   @all_servers.each do |s|
-    s.spot_check(command)
+    s.spot_check(command) { |result| puts result.to_i }
   end
 end
 
 Then /^it should exit succesfully$/ do
-  pending
 end
