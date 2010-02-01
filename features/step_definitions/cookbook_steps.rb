@@ -2,7 +2,10 @@ require "rubygems"
 require "rest_connection"
 require "net/ssh"
 
+
 Given /A deployment named "(.*)"/ do | deployment |
+  @all_servers = Array.new
+  @all_responses = Array.new
   @deployment = Deployment.find_by_nickname_speed(deployment).first
   raise "FATAL: Couldn't find a deployment with the name #{deployment}!" unless deployment
 end
@@ -18,6 +21,10 @@ end
 Given /^"([^\"]*)" operational servers named "([^\"]*)"$/ do |num, server_name|
   servers = @deployment.servers_no_reload
   @servers = servers.select { |s| s.nickname =~ /#{server_name}/ }
+  @servers.each do |s| 
+    @all_servers.push s
+  end
+  #@all_servers.push  { |s| s.nickname =~ /#{server_name}/ }
   raise "need at least #{num} servers to start, only have: #{@servers.size}" if @servers.size < num.to_i
   @servers.each { |s| s.start } 
   @servers.each { |s| s.wait_for_operational_with_dns } 
@@ -47,3 +54,55 @@ Then /^I should run a mysql query "([^\"]*)" on server "([^\"]*)"\.$/ do |query,
   @servers[human_index].spot_check(query_command) { |result| puts result }
 end
 
+Given /^An "([^\"]*)" for an operational app server$/ do |arg1|
+  puts "entering op server with value #{arg1}"
+  @endpoint = arg1
+end
+
+When /^I query "([^\"]*)"$/ do |uri|
+  uri = uri + '/' unless uri.nil? 
+  #puts "about to do: curl -s #{@endpoint}#{url}"
+  @response = `curl -s #{@endpoint}#{uri}` 
+end
+
+
+When /^I query "([^\"]*)" on all servers$/ do |uri|
+  uri = uri + '/' unless uri.nil?
+  i = 0
+  @all_servers.each do |s|
+    @all_responses[i] = `curl -s #{s['dns-name']}:8000#{uri}`
+    i+=1
+  end
+end
+
+Then /^I should see "([^\"]*)" in the response$/ do |message|
+  #puts "looking for #{message} in #{@response}"
+  @response.should include(message)
+end
+
+Then /^I should see "([^\"]*)" in all the responses$/ do |message|
+  i = 0
+  @all_servers.each do
+    @all_responses[i].should include(message)
+    i+=1
+  end
+end
+
+Then /^I should not see "([^\"]*)" in the response$/ do |message|
+  @response.should_not include(message) 
+end
+
+Then /^I should not see "([^\"]*)" in all the responses$/ do |message|
+  i = 0
+  @all_servers.each { @all_responses[i].should_not include(message);i+=1 }
+end
+
+When /^I run "([^\"]*)"$/ do |command|
+  @all_servers.each do |s|
+    s.spot_check(command)
+  end
+end
+
+Then /^it should exit succesfully$/ do
+  pending
+end
