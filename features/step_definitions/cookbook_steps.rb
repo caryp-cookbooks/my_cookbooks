@@ -98,10 +98,29 @@ Then /^I should not see "([^\"]*)" in all the responses$/ do |message|
 end
 
 When /^I run "([^\"]*)"$/ do |command|
-  @all_servers.each do |s|
-    s.spot_check(command) { |result| puts result.to_i }
-  end
+  @response = @server.spot_check_command?(command)
 end
 
 Then /^it should exit succesfully$/ do
+  @response.should be true
+end
+
+When /^I run "([^\"]*)" on all servers$/ do |command|
+  i = 0
+  @all_servers.each do |s| 
+    @all_responses[i] = s.spot_check_command?(command)
+    i += 1
+  end
+end
+
+Then /^it should exit succesfully on all servers$/ do
+  @all_responses.each do |response|
+    response.should be true
+  end
+end
+
+Then /^it should not exit succesfully on any server$/ do
+  @all_responses.each do |response|
+    response.should_not be true
+  end
 end
