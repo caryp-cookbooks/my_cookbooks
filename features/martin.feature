@@ -23,11 +23,12 @@ Feature: webapp test
     When I query "/foo" on all servers
     Then I should not see "asdf" in all the responses
 
-    When I run "test -d /mnt/log/tomcat6" 
-    Then it should exit succesfully 
+    When I run "true" on all servers
+    Then it should exit succesfully on all servers 
 
-    When I run "true" 
-    Then it should exit succesfully 
+    When I run "false" on all servers
+    Then it should not exit succesfully on any server
 
-    When I run "false" 
-    Then it should exit succesfully 
+    When I run "test -d /mnt/log/tomcat6" on all servers
+    Then it should exit succesfully on all servers
+
