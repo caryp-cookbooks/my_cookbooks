@@ -68,10 +68,8 @@ end
 
 When /^I query "([^\"]*)" on all servers$/ do |uri|
   uri = uri + '/' unless uri.nil?
-  i = 0
-  @all_servers.each do |s|
+  @all_servers.each_with_index do |s,i|
     @all_responses[i] = `curl -s #{s['dns-name']}:8000#{uri}`
-    i+=1
   end
 end
 
@@ -81,10 +79,8 @@ Then /^I should see "([^\"]*)" in the response$/ do |message|
 end
 
 Then /^I should see "([^\"]*)" in all the responses$/ do |message|
-  i = 0
-  @all_servers.each do
+  @all_servers.each_with_index do |s,i|
     @all_responses[i].should include(message)
-    i+=1
   end
 end
 
@@ -93,33 +89,30 @@ Then /^I should not see "([^\"]*)" in the response$/ do |message|
 end
 
 Then /^I should not see "([^\"]*)" in all the responses$/ do |message|
-  i = 0
-  @all_servers.each { @all_responses[i].should_not include(message);i+=1 }
+  @all_servers.each_with_index { |s,i| @all_responses[i].should_not include(message) }
 end
 
 When /^I run "([^\"]*)"$/ do |command|
   @response = @server.spot_check_command?(command)
 end
 
-Then /^it should exit succesfully$/ do
+Then /^it should exit successfully$/ do
   @response.should be true
 end
 
 When /^I run "([^\"]*)" on all servers$/ do |command|
-  i = 0
-  @all_servers.each do |s| 
+  @all_servers.each_with_index do |s,i|
     @all_responses[i] = s.spot_check_command?(command)
-    i += 1
   end
 end
 
-Then /^it should exit succesfully on all servers$/ do
+Then /^it should exit successfully on all servers$/ do
   @all_responses.each do |response|
     response.should be true
   end
 end
 
-Then /^it should not exit succesfully on any server$/ do
+Then /^it should not exit successfully on any server$/ do
   @all_responses.each do |response|
     response.should_not be true
   end
