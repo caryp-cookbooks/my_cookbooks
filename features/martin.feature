@@ -9,7 +9,7 @@ Feature: webapp test
     #And "2" operational servers named "Tomcat6 App set1"
 
     When I query "/" on all servers 
-    Then I should see "Basic html serving succeeded." in all the responses
+    Then I should see "html serving succeeded." in all the responses
 
     When I query "/appserver" on all servers
     Then I should see "configuration=succeeded" in all the responses 
@@ -24,11 +24,11 @@ Feature: webapp test
     Then I should not see "asdf" in all the responses
 
     When I run "true" on all servers
-    Then it should exit succesfully on all servers 
+    Then it should exit successfully on all servers 
 
     When I run "false" on all servers
-    Then it should not exit succesfully on any server
+    Then it should not exit successfully on any server
 
     When I run "test -d /mnt/log/tomcat6" on all servers
-    Then it should exit succesfully on all servers
+    Then it should exit successfully on all servers
 
