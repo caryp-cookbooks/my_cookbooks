@@ -18,6 +18,7 @@ end
 
 # Do the restore.
 block_device LVM_RESOURCE_NAME do
+  lineage "rollback"
   restore_root LVM_TEST_RESTORE_DIR
   action :restore 
 end
