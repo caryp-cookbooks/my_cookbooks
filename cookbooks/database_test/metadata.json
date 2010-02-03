@@ -18,6 +18,12 @@
   "providing": {
     "database_test": [
 
+    ],
+    "database_test::dev_pristine_restore": [
+
+    ],
+    "database_test::dev_pristine_backup": [
+
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
@@ -32,7 +38,9 @@
 
   },
   "recipes": {
-    "database_test": ""
+    "database_test": "",
+    "database_test::dev_pristine_restore": "",
+    "database_test::dev_pristine_backup": ""
   },
   "license": "All rights reserved"
 }
