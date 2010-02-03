@@ -39,6 +39,12 @@ Then /^I should run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recip
   @servers[human_index].run_recipe(recipe)
 end 
 
+When /^I run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recipe, server_index|
+  human_index = server_index.to_i - 1
+  STDOUT.puts "#{recipe} -> root@#{@servers[human_index].dns_name}"
+  @response = @servers[human_index].run_recipe(recipe)
+end 
+
 Then /^I should sleep (\d+) seconds\.$/ do |seconds|
   sleep seconds.to_i
 end
@@ -98,6 +104,10 @@ end
 
 Then /^it should exit successfully$/ do
   @response.should be true
+end
+
+Then /^it should converge successfully\.$/ do
+  @response[:status].should == true
 end
 
 When /^I run "([^\"]*)" on all servers$/ do |command|
