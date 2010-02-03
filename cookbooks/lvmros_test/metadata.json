@@ -83,8 +83,8 @@
   "recipes": {
     "lvmros_test::test_all": "",
     "lvmros_test::common": "",
-    "lvmros_test::test_s3": "",
     "lvmros_test": "",
+    "lvmros_test::test_s3": "",
     "lvmros_test::test_cloudfiles": ""
   },
   "license": "All rights reserved"
