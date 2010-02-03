@@ -3,12 +3,11 @@ Feature: webapp test
 
   Scenario: Basic test
 
-
     Given A deployment named "Regression Test - tomcat6"
     And "2" operational servers named "Tomcat6 FE set1"
     #And "2" operational servers named "Tomcat6 App set1"
 
-    When I query "/" on all servers 
+    When I query "/index.html" on all servers 
     Then I should see "html serving succeeded." in all the responses
 
     When I query "/appserver" on all servers
