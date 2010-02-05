@@ -1,0 +1,114 @@
+{
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures resat",
+  "name": "resat",
+  "conflicting": {
+
+  },
+  "providing": {
+    "resat::do_deployment_destroy": [
+
+    ],
+    "resat": [
+
+    ],
+    "resat::do_deployment_create": [
+
+    ],
+    "resat::do_deployment_shutdown": [
+
+    ],
+    "resat::do_cleanup": [
+
+    ],
+    "resat::do_deployment_reboot": [
+
+    ],
+    "resat::setup_test_variables": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+    "resat\/git_key": {
+      "type": "string",
+      "description": "The private SSH key of the git repository.",
+      "multiple_values": false,
+      "display_name": "Git Repository Credentials",
+      "recipes": [
+        "resat::default"
+      ],
+      "required": false,
+      "require": true
+    },
+    "resat\/test\/template": {
+      "type": "string",
+      "description": "The type of ServerTemplate to test.",
+      "multiple_values": false,
+      "display_name": "Template Type",
+      "recipes": [
+        "resat::do_deployment_create",
+        "resat::do_deployment_destroy",
+        "resat::do_deployment_reboot",
+        "resat::do_deployment_shutdown"
+      ],
+      "required": false,
+      "require": true
+    },
+    "resat\/test\/type": {
+      "type": "string",
+      "description": "The type of deployment test to run.",
+      "multiple_values": false,
+      "display_name": "Test Type",
+      "recipes": [
+        "resat::do_deployment_create",
+        "resat::do_deployment_destroy",
+        "resat::do_deployment_reboot",
+        "resat::do_deployment_shutdown"
+      ],
+      "required": false,
+      "require": true
+    },
+    "resat\/test\/os": {
+      "type": "string",
+      "description": "The platform to test on.",
+      "multiple_values": false,
+      "display_name": "Test Platform",
+      "recipes": [
+        "resat::do_deployment_create",
+        "resat::do_deployment_destroy",
+        "resat::do_deployment_reboot",
+        "resat::do_deployment_shutdown"
+      ],
+      "required": false,
+      "require": true
+    }
+  },
+  "replacing": {
+
+  },
+  "recipes": {
+    "resat::do_deployment_destroy": "",
+    "resat::do_deployment_create": "",
+    "resat::do_deployment_shutdown": "",
+    "resat::do_cleanup": "",
+    "resat::do_deployment_reboot": "",
+    "resat::setup_test_variables": "",
+    "resat": ""
+  },
+  "license": "All rights reserved"
+}
