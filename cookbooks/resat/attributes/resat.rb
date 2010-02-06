@@ -1,3 +1,4 @@
+set_unless[:cucumber][:tags] = nil 
 
 set_unless[:resat][:git_key] = nil
 set_unless[:resat][:test][:type] = nil

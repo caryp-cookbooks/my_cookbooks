@@ -5,12 +5,15 @@ description      "Installs/Configures resat"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
+attribute "cucumber/tags",
+  :display_name => "Feature Tags to run",
+  :description => "Which tagged features should be run. See http://wiki.github.com/aslakhellesoy/cucumber/tags",
+  :required => true
 
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",
   :description => "The private SSH key of the git repository.",
   :require => true
-
 
 attribute "resat/test/type",
   :display_name => "Test Type",

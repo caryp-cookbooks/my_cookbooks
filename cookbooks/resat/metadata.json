@@ -44,6 +44,16 @@
   },
   "version": "0.1.0",
   "attributes": {
+    "cucumber\/tags": {
+      "type": "string",
+      "description": "Which tagged features should be run. See http:\/\/wiki.github.com\/aslakhellesoy\/cucumber\/tags",
+      "multiple_values": false,
+      "display_name": "Feature Tags to run",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
     "resat\/git_key": {
       "type": "string",
       "description": "The private SSH key of the git repository.",
