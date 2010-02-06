@@ -50,7 +50,7 @@
       "multiple_values": false,
       "display_name": "Git Repository Credentials",
       "recipes": [
-        "resat::default"
+
       ],
       "required": false,
       "require": true

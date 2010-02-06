@@ -9,9 +9,8 @@ version          "0.1"
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",
   :description => "The private SSH key of the git repository.",
-  :require => true,
-  :recipes => ["resat::default" ]
-  
+  :require => true
+
 
 attribute "resat/test/type",
   :display_name => "Test Type",
