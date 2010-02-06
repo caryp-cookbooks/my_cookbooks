@@ -16,6 +16,9 @@
 
   },
   "providing": {
+    "resat::do_run_features": [
+
+    ],
     "resat::do_deployment_destroy": [
 
     ],
@@ -99,6 +102,7 @@
 
   },
   "recipes": {
+    "resat::do_run_features": "",
     "resat::do_deployment_destroy": "",
     "resat::do_deployment_create": "",
     "resat::do_deployment_shutdown": "",
