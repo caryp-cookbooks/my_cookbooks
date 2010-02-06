@@ -29,6 +29,8 @@ repo_git_pull "Get right_test" do
   cred node[:resat][:git_key]
 end
 
+gem_package "../files/default/rest_connection-0.0.1.gem"  
+
 # Create dummy output and input files for RESAT
 file "#{base_dir}/variables.txt"
 file "#{base_dir}/variables1.txt"
