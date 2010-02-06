@@ -33,9 +33,6 @@
     ],
     "resat::do_deployment_reboot": [
 
-    ],
-    "resat::setup_test_variables": [
-
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
@@ -107,7 +104,6 @@
     "resat::do_deployment_shutdown": "",
     "resat::do_cleanup": "",
     "resat::do_deployment_reboot": "",
-    "resat::setup_test_variables": "",
     "resat": ""
   },
   "license": "All rights reserved"

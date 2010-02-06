@@ -23,9 +23,9 @@ gem_package "resat"
 
 # Install RESAT configuration and scenario files
 repo_git_pull "Get right_test" do
-  url "github.com:rightscale/right_test.git"
+  url "git@github.com:rightscale/right_test.git"
   user git
-  dest base_dir
+  dest "#{base_dir}/right_test"
   cred node[:resat][:git_key]
 end
 
