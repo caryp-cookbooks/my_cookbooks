@@ -9,7 +9,7 @@ attribute "cucumber/tags",
   :display_name => "Feature Tags to run",
   :description => "Which tagged features should be run. See http://wiki.github.com/aslakhellesoy/cucumber/tags",
   :required => true,
-  :recipes => "resat::do_run_features"
+  :recipes => [ "resat::do_run_features" ]
 
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",

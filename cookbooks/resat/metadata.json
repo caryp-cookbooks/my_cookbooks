@@ -51,7 +51,7 @@
       "display_name": "Feature Tags to run",
       "required": true,
       "recipes": [
-
+        "resat::do_run_features"
       ]
     },
     "resat\/git_key": {
