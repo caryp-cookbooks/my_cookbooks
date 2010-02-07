@@ -1,4 +1,4 @@
-@database
+
 Feature: mysql_db premium resources and master/slave cluster operations
   Tests the RightScale premium ServerTemplate Mysql Chef (alpha)
 
