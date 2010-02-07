@@ -8,7 +8,7 @@
 #
 test_dir = "#{node[:resat][:base_dir]}/tests"
 
-[ "rest_connection", "cucumber", "net-ssh" ].each { |gem| gem_package gem }
+[ "rest_connection", "cucumber", "net-ssh" ].each { |p| gem_package p }
 
 directory "#{[:resat][:base_dir]}/.rest_connection"
 
