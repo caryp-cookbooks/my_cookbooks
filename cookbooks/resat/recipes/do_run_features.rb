@@ -6,14 +6,15 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-test_dir = "node[:resat][:base_dir]/tests"
+test_dir = "#{node[:resat][:base_dir]}/tests"
 
-gem_package "rest_connection"
+[ "rest_connection", "cucumber", "net-ssh" ].each { |gem| gem_package gem }
 
 repo_git_pull "Get cucumber feature tests" do
   url "git@github.com:caryp/my_cookbooks.git"
   user git
   dest test_dir
+  branch "db_mysql"
   cred node[:resat][:git_key]
 end
 
