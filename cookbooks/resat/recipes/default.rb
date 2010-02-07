@@ -29,7 +29,11 @@ repo_git_pull "Get right_test" do
   cred node[:resat][:git_key]
 end
 
-gem_package "../files/default/rest_connection-0.0.1.gem"  
+# Install attached rest_connection gem (TODO: publish to gemcutter)
+remote_file "/tmp/rest_connection-0.0.1.gem" do 
+  source "rest_connection-0.0.1.gem"
+end
+gem_package "rest_connection-0.0.1.gem"  
 
 # Create dummy output and input files for RESAT
 file "#{base_dir}/variables.txt"
