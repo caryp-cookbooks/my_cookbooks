@@ -10,9 +10,9 @@ test_dir = "#{node[:resat][:base_dir]}/tests"
 
 [ "rest_connection", "cucumber", "net-ssh" ].each { |gem| gem_package gem }
 
-directory "~/rest_connection"
+directory "~/.rest_connection"
 
-file "~/rest_connection/rest_api.config.yaml" do
+file "~/.rest_connection/rest_api.config.yaml" do
   source "rest_api_config.yaml.erb"
   mode "600"
 end
