@@ -33,7 +33,9 @@ end
 remote_file "/tmp/rest_connection-0.0.1.gem" do 
   source "rest_connection-0.0.1.gem"
 end
-gem_package "rest_connection-0.0.1.gem"  
+gem_package "/tmp/rest_connection-0.0.1.gem" do
+  version "0.0.1"
+end
 
 # Create dummy output and input files for RESAT
 file "#{base_dir}/variables.txt"
