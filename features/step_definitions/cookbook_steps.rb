@@ -30,6 +30,10 @@ Given /^"([^\"]*)" operational servers named "([^\"]*)"$/ do |num, server_name|
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
 
+Given /An ssh key located at "(.*)"/ do |ssh_key|
+  @ssh_key_path = ssh_key
+end
+
 Then /I should successfully run a recipe named "(.*)"/ do |recipe|
   @server.run_recipe(recipe)
 end 
@@ -42,7 +46,7 @@ end
 When /^I run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recipe, server_index|
   human_index = server_index.to_i - 1
   STDOUT.puts "#{recipe} -> root@#{@servers[human_index].dns_name}"
-  @response = @servers[human_index].run_recipe(recipe)
+  @response = @servers[human_index].run_recipe(recipe, @ssh_key_path)
 end 
 
 Then /^I should sleep (\d+) seconds\.$/ do |seconds|
