@@ -46,7 +46,8 @@ end
 When /^I run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recipe, server_index|
   human_index = server_index.to_i - 1
   STDOUT.puts "#{recipe} -> root@#{@servers[human_index].dns_name}"
-  @response = @servers[human_index].run_recipe(recipe, @ssh_key_path)
+  @response = @servers[human_index].run_recipe(recipe) unless @ssh_key_path
+  @response = @servers[human_index].run_recipe(recipe, @ssh_key_path) if @ssh_key_path # hackey hack hack
 end 
 
 Then /^I should sleep (\d+) seconds\.$/ do |seconds|
