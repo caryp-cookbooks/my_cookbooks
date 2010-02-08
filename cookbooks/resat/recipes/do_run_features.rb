@@ -12,7 +12,7 @@ test_dir = "#{node[:resat][:base_dir]}/tests"
 
 directory "#{node[:resat][:base_dir]}/.rest_connection"
 
-template "#{node[:resat][:base_dir]}/.rest_connection/rest_api.config.yaml" do
+template "#{node[:resat][:base_dir]}/.rest_connection/rest_api_config.yaml" do
   source "rest_api_config.yaml.erb"
   mode "600"
 end

@@ -5,6 +5,7 @@ Feature: mysql_db premium resources and master/slave cluster operations
   Scenario: Basic cluster failover operations
     Given A deployment named "Server Template Test - Database MySQL Ubuntu"
     And "2" operational servers named "DB"
+    And An ssh key located at "~/.ssh/id_rsa"
     When I run a recipe named "db_mysql::do_restore_and_become_master" on server "1". 
     Then it should converge successfully.
 
