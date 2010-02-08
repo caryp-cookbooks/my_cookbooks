@@ -14,20 +14,12 @@ package "rdoc"
 package "libmysql-ruby"
 
 # Install gem dependencies
-gem_package "ruby-debug"
-gem_package "kwalify"
+[ "ruby-debug", "kwalify", "cucumber", "net-ssh" ].each { |p| gem_package p }
+
 
 # Install RESAT
 # gem sources -a https://gemcutter.org
 gem_package "resat"
-
-# Install RESAT configuration and scenario files
-repo_git_pull "Get right_test" do
-  url "git@github.com:rightscale/right_test.git"
-  user git
-  dest "#{base_dir}/right_test"
-  cred node[:resat][:git_key]
-end
 
 # Install attached rest_connection gem (TODO: publish to gemcutter)
 remote_file "/tmp/rest_connection-0.0.1.gem" do 
@@ -35,6 +27,23 @@ remote_file "/tmp/rest_connection-0.0.1.gem" do
 end
 gem_package "/tmp/rest_connection-0.0.1.gem" do
   version "0.0.1"
+end
+
+# Configure rest_connection
+directory "#{node[:resat][:base_dir]}/.rest_connection"
+
+template "#{node[:resat][:base_dir]}/.rest_connection/rest_api_config.yaml" do
+  source "rest_api_config.yaml.erb"
+  mode "600"
+end
+
+# Install test repo
+repo_git_pull "Get test repo" do
+  url "git@github.com:caryp/my_cookbooks.git"
+  user git
+  dest "#{base_dir}/tests"
+  branch "db_mysql"
+  cred node[:resat][:git_key]
 end
 
 # Create dummy output and input files for RESAT
