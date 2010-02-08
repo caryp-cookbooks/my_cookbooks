@@ -91,10 +91,11 @@
     },
     "resat\/test\/type": {
       "type": "string",
-      "description": "The type of deployment test to run.",
+      "description": "Selects deployment config directory, also which tagged features should be run. See http:\/\/wiki.github.com\/aslakhellesoy\/cucumber\/tags",
       "multiple_values": false,
       "display_name": "Test Type",
       "recipes": [
+        "resat::do_run_features",
         "resat::do_deployment_create",
         "resat::do_deployment_destroy",
         "resat::do_deployment_reboot",

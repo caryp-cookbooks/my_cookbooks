@@ -25,7 +25,7 @@ repo_git_pull "Get cucumber feature tests" do
   cred node[:resat][:git_key]
 end
 
-execute "cucumber --tags #{node[:cucumber][:tags]}" do
+execute "cucumber --tags @#{node[:resat][:test][:type]}" do
   cwd test_dir
 end
 
