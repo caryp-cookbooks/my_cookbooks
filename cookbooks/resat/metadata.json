@@ -44,6 +44,16 @@
   },
   "version": "0.1.0",
   "attributes": {
+    "rest_connection\/api\/password": {
+      "type": "string",
+      "description": "Password used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API Password",
+      "required": true,
+      "recipes": [
+        "resat::do_run_features"
+      ]
+    },
     "cucumber\/tags": {
       "type": "string",
       "description": "Which tagged features should be run. See http:\/\/wiki.github.com\/aslakhellesoy\/cucumber\/tags",
@@ -106,6 +116,26 @@
       ],
       "required": false,
       "require": true
+    },
+    "rest_connection\/api\/url": {
+      "type": "string",
+      "description": "URL used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API URL",
+      "required": true,
+      "recipes": [
+        "resat::do_run_features"
+      ]
+    },
+    "rest_connection\/api\/user": {
+      "type": "string",
+      "description": "Username used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API Username",
+      "required": true,
+      "recipes": [
+        "resat::do_run_features"
+      ]
     }
   },
   "replacing": {
