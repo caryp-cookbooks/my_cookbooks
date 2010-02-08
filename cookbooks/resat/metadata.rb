@@ -4,12 +4,6 @@ license          "All rights reserved"
 description      "Installs/Configures resat"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
-
-attribute "cucumber/tags",
-  :display_name => "Feature Tags to run",
-  :description => "Which tagged features should be run. See http://wiki.github.com/aslakhellesoy/cucumber/tags",
-  :required => true,
-  :recipes => [ "resat::do_run_features" ]
   
 attribute "rest_connection/api/user",
   :display_name => "API Username",
