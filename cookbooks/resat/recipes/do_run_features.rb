@@ -8,11 +8,11 @@
 #
 test_dir = "#{node[:resat][:base_dir]}/tests"
 
-[ "rest_connection", "cucumber", "net-ssh" ].each { |p| gem_package p }
+[ "cucumber", "net-ssh" ].each { |p| gem_package p }
 
-directory "#{[:resat][:base_dir]}/.rest_connection"
+directory "#{node[:resat][:base_dir]}/.rest_connection"
 
-template "#{[:resat][:base_dir]}/.rest_connection/rest_api.config.yaml" do
+template "#{node[:resat][:base_dir]}/.rest_connection/rest_api.config.yaml" do
   source "rest_api_config.yaml.erb"
   mode "600"
 end
