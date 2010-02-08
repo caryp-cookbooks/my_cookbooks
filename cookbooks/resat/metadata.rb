@@ -29,8 +29,6 @@ attribute "rest_connection/api/password",
   :required => true,
   :recipes => [ "resat::do_run_features" ]
 
-
-
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",
   :description => "The private SSH key of the git repository.",
@@ -38,9 +36,9 @@ attribute "resat/git_key",
 
 attribute "resat/test/type",
   :display_name => "Test Type",
-  :description => "The type of deployment test to run.",
+  :description => "Selects deployment config directory, also which tagged features should be run. See http://wiki.github.com/aslakhellesoy/cucumber/tags",
   :require => true,
-  :recipes => [ "resat::do_deployment_create",  "resat::do_deployment_destroy", "resat::do_deployment_reboot", "resat::do_deployment_shutdown" ]
+  :recipes => [ "resat::do_run_features", "resat::do_deployment_create",  "resat::do_deployment_destroy", "resat::do_deployment_reboot", "resat::do_deployment_shutdown" ]
 
 attribute "resat/test/template",
   :display_name => "Template Type",
