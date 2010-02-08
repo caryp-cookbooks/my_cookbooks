@@ -1,3 +1,4 @@
+#TODO: this needs it's paths fixed up
 
 ruby_block "Cleanup EBS Volumes" do
   block do
