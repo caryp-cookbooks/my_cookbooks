@@ -4,7 +4,9 @@
 
   },
   "dependencies": {
+    "git": [
 
+    ]
   },
   "maintainer_email": "cary@rightscale.com",
   "suggestions": {
@@ -138,8 +140,8 @@
     "resat::do_deployment_create": "",
     "resat::do_deployment_shutdown": "",
     "resat::do_cleanup": "",
-    "resat::do_deployment_reboot": "",
-    "resat": ""
+    "resat": "",
+    "resat::do_deployment_reboot": ""
   },
   "license": "All rights reserved"
 }
