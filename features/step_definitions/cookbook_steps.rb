@@ -70,6 +70,10 @@ Given /^An "([^\"]*)" for an operational app server$/ do |arg1|
   @endpoint = arg1
 end
 
+Given /^A server running on "([^\"]*)"$/ do |arg1|
+  @port = arg1
+end
+
 When /^I query "([^\"]*)"$/ do |uri|
   uri = uri + '/' unless uri.nil? 
   #puts "about to do: curl -s #{@endpoint}#{url}"
@@ -80,7 +84,7 @@ end
 When /^I query "([^\"]*)" on all servers$/ do |uri|
   uri = uri + '/' unless uri.nil?
   @all_servers.each_with_index do |s,i|
-    @all_responses[i] = `curl -s #{s['dns-name']}:8000#{uri}`
+    @all_responses[i] = `curl -s #{s['dns-name']}:#{@port}#{uri}`
   end
 end
 
