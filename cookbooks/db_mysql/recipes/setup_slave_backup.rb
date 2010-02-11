@@ -1,10 +1,18 @@
-Chef::Log.info "Disabling master continuous backup cron job (if exists)"
+# Cookbook Name:: db_mysql
+# Recipe:: setup_slave_backups
+#
+# Copyright 2009, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
+
+log "Disabling master continuous backup cron job (if exists)"
 cron "Master continuous backups" do
   user "root"
   action :delete
 end
 
-Chef::Log.info "Enabling slave continuous backup cron job:#{node[:db][:backup][:minute]} #{node[:db][:backup][:slave_hour]}"
+log "Enabling slave continuous backup cron job:#{node[:db][:backup][:minute]} #{node[:db][:backup][:slave_hour]}"
 cron "Slave continuous backups" do
   minute "#{node[:db][:backup][:slave][:minute]}"
   hour "#{node[:db][:backup][:slave][:hour]}"

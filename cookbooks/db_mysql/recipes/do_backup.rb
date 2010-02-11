@@ -16,7 +16,7 @@ include_recipe "db_mysql::do_lookup_master"
 # NOTE: you can override this check, using node[:db][:backup][:force]
 # used in do_promote_to_master:
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action :pre_backup_sanity_check
 end
 
@@ -27,7 +27,7 @@ end
 
 # Flush database with read-lock
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action [:lock, :write_mysql_backup_info]
 end
 
@@ -44,7 +44,7 @@ end
 
 # Release database read-lock
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action :unlock
 end
 

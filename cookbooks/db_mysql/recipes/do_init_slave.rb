@@ -11,7 +11,7 @@ include_recipe "db_mysql::do_lookup_master"
 include_recipe "db_mysql::do_restore"
 
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action [ :wipe_existing_runtime_config ]
 end
 
@@ -41,14 +41,14 @@ end
 
 # checks for valid backup and that current master matches backup
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action [ :validate_backup, 
            :reconfigure_replication,
            :grant_replication_slave ]
 end
 
 database "localhost" do
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action :do_query
   query "SET GLOBAL READ_ONLY=1"
 end

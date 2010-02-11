@@ -5,7 +5,7 @@ RACKSPACE_GEM = ::File.join(::File.dirname(__FILE__), "..", "files", "default", 
 # Install resources gem
 resource_gem_path = ::File.join(Gem.path.last, 'gems', "right_resources_premium-0.0.1")
 unless ::File.exists?(resource_gem_path)
-  Chef::Log.info("premium resources gem not found at #{resource_gem_path}, installing")
+  log "premium resources gem not found at #{resource_gem_path}, installing"
   r = gem_package RESOURCE_GEM do
     gem_binary "#{SANDBOX_BIN_DIR}/gem"
     version "0.0.1"

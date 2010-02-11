@@ -1,204 +1,27 @@
 {
-  "attributes": {
-    "dns\/master_id": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The record ID (or DNS ID) of the server is used to update the DNS record to point to the new server IP address.  DNS is only used by application servers to find the master database, it is not required for mysql internal operations. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the server's Elastic IP.  Ex: 4404922",
-      "display_name": "Master DNS ID",
-      "recipes": [
-        "db_mysql::setup_master_dns",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_tag_as_master"
-      ],
-      "required": true
-    },
-    "db\/backup": {
-      "type": "hash",
-      "multiple_values": false,
-      "display_name": "Database Backup Options",
-      "recipes": [
+  "maintainer_email": "support@rightscale.com",
+  "suggestions": {
 
-      ],
-      "required": false
-    },
-    "dns\/password": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The password of your DNSMadeEasy account.",
-      "display_name": "DNSMadeEasy Password",
-      "recipes": [
-        "db_mysql::setup_master_dns",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_tag_as_master"
-      ],
-      "required": true
-    },
-    "db\/backup\/master\/minute": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "Defaults to random minute set on launch",
-      "display_name": "Master Backup Cron Minute",
-      "recipes": [
-        "db_mysql::setup_slave_backup",
-        "db_mysql::setup_master_backup",
-        "db_mysql::do_disable_backup",
-        "db_mysql::do_enable_backup"
-      ],
-      "required": false
-    },
-    "db\/admin\/password": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The password of the database user that has 'admin' privileges.",
-      "display_name": "Database Admin Password",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::do_backup"
-      ],
-      "required": true
-    },
-    "db\/backup\/slave\/hour": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "Defaults to once per hour (*)",
-      "display_name": "Slave Backup Cron Hour",
-      "recipes": [
-        "db_mysql::setup_slave_backup",
-        "db_mysql::setup_master_backup",
-        "db_mysql::do_disable_backup",
-        "db_mysql::do_enable_backup"
-      ],
-      "required": false
-    },
-    "db\/admin\/user": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The username of the database user that has 'admin' privileges.",
-      "display_name": "Database Admin Username",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::do_backup"
-      ],
-      "required": true
-    },
-    "db\/backup\/slave\/minute": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "Defaults to random minute set on launch",
-      "display_name": "Slave Backup Cron Minute",
-      "recipes": [
-        "db_mysql::setup_slave_backup",
-        "db_mysql::setup_master_backup",
-        "db_mysql::do_disable_backup",
-        "db_mysql::do_enable_backup"
-      ],
-      "required": false
-    },
-    "db\/backup\/lineage": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The prefix that will be used to name the EBS snapshots of your MySQL database backups.  For example, if prefix is 'mydb' the filename will be 'mydb-master-date\/time stamp' for a snapshot of your master database and 'mydb-slave-date\/time stamp' for a slave.  During a restore, it will use the most recent MySQL EBS snapshot with the same prefix.",
-      "display_name": "Backup Lineage",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_backup",
-        "db_mysql::do_init_slave",
-        "db_mysql::do_restore_and_become_master"
-      ],
-      "required": true
-    },
-    "db\/replication\/password": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The password that's used for replication between the master and slave databases.",
-      "display_name": "Replication Password",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_init_slave",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::setup_replication_privileges"
-      ],
-      "required": true
-    },
-    "db": {
-      "type": "hash",
-      "multiple_values": false,
-      "display_name": "General Database Options",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "dns": {
-      "type": "hash",
-      "multiple_values": false,
-      "display_name": "Database DNS Options",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "db\/replication\/user": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The username that's used for replication between the master and slave databases.",
-      "display_name": "Replication Username",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_init_slave",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::setup_replication_privileges"
-      ],
-      "required": true
-    },
-    "db\/backup\/lineage_override": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "If this parameter is specified, this value will be used to determine which snapshot to restore.  However, backups will still be taken with the db\/backup\/lineage value.",
-      "display_name": "Backup Lineage Override",
-      "recipes": [
-        "db_mysql::do_restore",
-        "db_mysql::do_backup",
-        "db_mysql::do_init_slave",
-        "db_mysql::do_restore_and_become_master"
-      ],
-      "required": false
-    },
-    "db\/backup\/master\/hour": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "Defaults to random hour set on launch, once daily.",
-      "display_name": "Master Backup Cron Hour",
-      "recipes": [
-        "db_mysql::setup_slave_backup",
-        "db_mysql::setup_master_backup",
-        "db_mysql::do_disable_backup",
-        "db_mysql::do_enable_backup"
-      ],
-      "required": false
-    },
-    "dns\/user": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The username of your DNSMadeEasy account.",
-      "display_name": "DNSMadeEasy Username",
-      "recipes": [
-        "db_mysql::setup_master_dns",
-        "db_mysql::do_restore_and_become_master",
-        "db_mysql::do_promote_to_master",
-        "db_mysql::do_tag_as_master"
-      ],
-      "required": true
-    }
   },
+  "dependencies": {
+    "db_mysql": [
+
+    ],
+    "mysql": [
+      "= 0.9"
+    ],
+    "rs_tools": [
+
+    ],
+    "bd_lvmros": [
+
+    ]
+  },
+  "conflicting": {
+
+  },
+  "description": "Installs\/configures a MySQL database server with automated backups",
+  "name": "db_mysql",
   "providing": {
     "db_mysql::do_enable_backup": [
 
@@ -218,10 +41,10 @@
     "db_mysql::do_backup": [
 
     ],
-    "db_mysql::do_restore": [
+    "db_mysql::do_tag_as_master": [
 
     ],
-    "db_mysql::do_tag_as_master": [
+    "db_mysql::do_restore": [
 
     ],
     "db_mysql::setup_slave_backup": [
@@ -243,57 +66,234 @@
 
     ]
   },
-  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers.\n\n= REQUIREMENTS:\n\n* The RightScale public cookbooks must be in your cookbook path.\n* The Opscode public cookbooks must be in your cookbook path.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nDesigned to be run within a RightScale ServerTemplate with the following run order:\n\nBoot Scripts\n  * install_mysql - Performs base server install and configuration. (RightScale public cookbook)\n\nOperational Scripts\n  * todo\n  \nDecommission Scripts\n  * todo \n",
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n",
+  "long_description": "= DESCRIPTION:\n\nConfigures MySQL database servers.\n\n= REQUIREMENTS:\n\n* The RightScale public cookbooks must be in your cookbook path.\n* The Opscode public cookbooks must be in your cookbook path.\n* Requires a DNSMadeEasy.com account.\n\n= ATTRIBUTES: \n\nSee metadata.rb \n\n= USAGE:\n\nThe ServerTemplate is designed to bootup into a pristine mysql state.  An operational script must be run to initialize the server into a cluster role (such as do_init_slave).  \nThe recipes can be added to a ServerTemplate in the following sections:\n\nBoot Recipes\n* recipe \"db_mysql::default\" - \"Installs and configures MySQL. see: db_mysql::install_mysql\"\n\nOperational Recipes\n* recipe \"db_mysql::do_backup\", \"Perform backup of MySQL database\"\n* recipe \"db_mysql::do_restore_and_become_master\", \"Restore MySQL database.  Tag as Master.  Set Master DNS.  Kick off a fresh backup from this master.\"\n* recipe \"db_mysql::do_restore\", \"Restore MySQL database\"  \n* recipe \"db_mysql::do_init_slave\", \"Initialize MySQL Slave\"\n* recipe \"db_mysql::do_tag_as_master\", \"USE WITH CAUTION! Tag server with master tags and set master DNS to this server\"\n* recipe \"db_mysql::do_lookup_master\", \"Use tags to lookup current master and slave in the node\"\n* recipe \"db_mysql::do_promote_to_master\", \"Promote a replicating slave to master\"\n* recipe \"db_mysql::setup_master_backup\", \"Set up crontab MySQL backup job with the master frequency and rotation\"\n* recipe \"db_mysql::setup_slave_backup\", \"Set up crontab MySQL backup job with the slave frequency and rotation\"\n* recipe \"db_mysql::do_enable_backup\", \"Enable crontab MySQL backups (detects master vs. slave automatically)\"\n* recipe \"db_mysql::do_disable_backup\", \"Disable crontab MySQL backups (detects master vs. slave automatically)\"\n* recipe \"db_mysql::setup_master_dns\", \"USE WITH CAUTION! Set master DNS to this server's IP\"\n* recipe \"db_mysql::setup_replication_privileges\", \"Set up privileges for MySQL replication slaves\"\n\nDecommission Scripts\n  * NA \n",
   "replacing": {
-
-  },
-  "dependencies": {
-    "db_mysql": [
-
-    ],
-    "mysql": [
-      "= 0.9"
-    ],
-    "rs_tools": [
-
-    ],
-    "bd_lvmros": [
-
-    ]
-  },
-  "maintainer": "RightScale, Inc.",
-  "name": "db_mysql",
-  "recommendations": {
-
-  },
-  "description": "Installs\/configures a MySQL database server with automated backups",
-  "recipes": {
-    "db_mysql::do_enable_backup": "Enable crontab MySQL backups (detects master vs. slave automatically)",
-    "db_mysql::do_disable_backup": "Disable crontab MySQL backups (detects master vs. slave automatically)",
-    "db_mysql::do_lookup_master": "Use tags to lookup current master and save in the node",
-    "db_mysql": "",
-    "db_mysql::do_restore_and_become_master": "Restore MySQL database.  Tag as Master.  Set Master DNS.  Kick off a fresh backup from this master.",
-    "db_mysql::do_backup": "Perform backup of MySQL database",
-    "db_mysql::default": "Installs dbtools",
-    "db_mysql::do_restore": "Restore MySQL database",
-    "db_mysql::do_tag_as_master": "USE WITH CAUTION! Tag server with master tags and set master DNS to this server.",
-    "db_mysql::setup_slave_backup": "Setup crontab MySQL backup job with the slave frequency and rotation.",
-    "db_mysql::setup_replication_privileges": "Setup privileges for MySQL replication slaves.",
-    "db_mysql::setup_master_dns": "USE WITH CAUTION! Set master DNS to this server's IP",
-    "db_mysql::do_init_slave": "Initialize MySQL Slave",
-    "db_mysql::do_promote_to_master": "Promote a replicating slave to master",
-    "db_mysql::setup_master_backup": "Setup crontab MySQL backup job with the master frequency and rotation."
-  },
-  "maintainer_email": "support@rightscale.com",
-  "suggestions": {
 
   },
   "platforms": {
 
   },
   "version": "0.0.1",
-  "conflicting": {
+  "attributes": {
+    "dns\/master_id": {
+      "type": "string",
+      "description": "This input is used to update the DNSMadeEasy 'A' record's IP address to  point to the new IP address of this server.  Provide the DDNS ID of the 'A' record you wish to be modified.  DNS is only used by application servers to find the master database, it is not required for internal operations. This 7-digit number is provided by DNSMadeEasy. This record should point to the fully qualified domain name of the server's Elastic IP.  Ex: 4404922",
+      "multiple_values": false,
+      "display_name": "Master DNS ID",
+      "required": true,
+      "recipes": [
+        "db_mysql::setup_master_dns",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_tag_as_master"
+      ]
+    },
+    "db\/backup": {
+      "type": "hash",
+      "multiple_values": false,
+      "display_name": "Database Backup Options",
+      "recipes": [
 
-  }
+      ],
+      "required": false
+    },
+    "dns\/password": {
+      "type": "string",
+      "description": "The password of your DNSMadeEasy account.",
+      "multiple_values": false,
+      "display_name": "DNSMadeEasy Password",
+      "required": true,
+      "recipes": [
+        "db_mysql::setup_master_dns",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_tag_as_master"
+      ]
+    },
+    "db\/backup\/master\/minute": {
+      "type": "string",
+      "description": "Defines the minute of the hour when the backup EBS snapshot will be taken of the Master database.  Backups of the Master are taken daily.  By default, a minute will be randomly chosen at launch time.  The time of the backup is defined by 'Master Backup Cron Hour' and 'Master Backup Cron Minute'.  Uses standard crontab format. (Ex: 30) for the 30th minute of the hour.",
+      "multiple_values": false,
+      "display_name": "Master Backup Cron Minute",
+      "required": false,
+      "recipes": [
+        "db_mysql::setup_slave_backup",
+        "db_mysql::setup_master_backup",
+        "db_mysql::do_disable_backup",
+        "db_mysql::do_enable_backup"
+      ]
+    },
+    "db\/admin\/password": {
+      "type": "string",
+      "description": "The password of the database user that has 'admin' privileges.",
+      "multiple_values": false,
+      "display_name": "Database Admin Password",
+      "required": true,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::do_backup"
+      ]
+    },
+    "db\/backup\/slave\/hour": {
+      "type": "string",
+      "description": "By default, backup EBS Snapshots of the Slave database are taken hourly. (Ex: *)",
+      "multiple_values": false,
+      "display_name": "Slave Backup Cron Hour",
+      "required": false,
+      "recipes": [
+        "db_mysql::setup_slave_backup",
+        "db_mysql::setup_master_backup",
+        "db_mysql::do_disable_backup",
+        "db_mysql::do_enable_backup"
+      ]
+    },
+    "db\/admin\/user": {
+      "type": "string",
+      "description": "The username of the database user that has 'admin' privileges.",
+      "multiple_values": false,
+      "display_name": "Database Admin Username",
+      "required": true,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::do_backup"
+      ]
+    },
+    "db\/backup\/slave\/minute": {
+      "type": "string",
+      "description": "Defines the minute of the hour when the backup EBS snapshot will be taken of the Slave database.  Backups of the Slave are taken hourly.  By default, a minute will be randomly chosen at launch time.  Uses standard crontab format. (Ex: 30) for the 30th minute of the hour.",
+      "multiple_values": false,
+      "display_name": "Slave Backup Cron Minute",
+      "required": false,
+      "recipes": [
+        "db_mysql::setup_slave_backup",
+        "db_mysql::setup_master_backup",
+        "db_mysql::do_disable_backup",
+        "db_mysql::do_enable_backup"
+      ]
+    },
+    "db\/backup\/lineage": {
+      "type": "string",
+      "description": "The prefix that will be used to name the EBS snapshots of your MySQL database backups.  For example, if prefix is 'mydb' the filename will be 'mydb-master-date\/time stamp' for a snapshot of your master database and 'mydb-slave-date\/time stamp' for a slave.  During a restore, it will use the most recent MySQL EBS snapshot with the same prefix.",
+      "multiple_values": false,
+      "display_name": "Backup Lineage",
+      "required": true,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_backup",
+        "db_mysql::do_init_slave",
+        "db_mysql::do_restore_and_become_master"
+      ]
+    },
+    "db\/replication\/password": {
+      "type": "string",
+      "description": "The password that's used for replication between the master and slave databases.",
+      "multiple_values": false,
+      "display_name": "Replication Password",
+      "required": true,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_init_slave",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::setup_replication_privileges"
+      ]
+    },
+    "db": {
+      "type": "hash",
+      "multiple_values": false,
+      "display_name": "General Database Options",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "dns": {
+      "type": "hash",
+      "multiple_values": false,
+      "display_name": "Database DNS Options",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "db\/replication\/user": {
+      "type": "string",
+      "description": "The username that's used for replication between the master and slave databases.",
+      "multiple_values": false,
+      "display_name": "Replication Username",
+      "required": true,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_init_slave",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::setup_replication_privileges"
+      ]
+    },
+    "db\/backup\/lineage_override": {
+      "type": "string",
+      "description": "If defined, it will override the input defined for 'Backup Lineage'. This input allows you to restore from a different snapshot that has a different prefix than the 'Backup Lineage'; however, the database will continue to backup using the 'Backup Lineage' prefix for subsequent snapshots.  Be sure to remove this input after you bring up the new master.  Ex: myolddb",
+      "multiple_values": false,
+      "display_name": "Backup Lineage Override",
+      "required": false,
+      "recipes": [
+        "db_mysql::do_restore",
+        "db_mysql::do_backup",
+        "db_mysql::do_init_slave",
+        "db_mysql::do_restore_and_become_master"
+      ]
+    },
+    "db\/backup\/master\/hour": {
+      "type": "string",
+      "description": "Defines the hour of the day when the backup EBS snapshot will be taken of the Master database.  Backups of the Master are taken daily.  By default, an hour will be randomly chosen at launch time.  The time of the backup is defined by 'Master Backup Cron Hour' and 'Master Backup Cron Minute'.  Uses standard crontab format. (Ex: 23) for 11pm.",
+      "multiple_values": false,
+      "display_name": "Master Backup Cron Hour",
+      "required": false,
+      "recipes": [
+        "db_mysql::setup_slave_backup",
+        "db_mysql::setup_master_backup",
+        "db_mysql::do_disable_backup",
+        "db_mysql::do_enable_backup"
+      ]
+    },
+    "dns\/user": {
+      "type": "string",
+      "description": "The username of your DNSMadeEasy account.",
+      "multiple_values": false,
+      "display_name": "DNSMadeEasy Username",
+      "required": true,
+      "recipes": [
+        "db_mysql::setup_master_dns",
+        "db_mysql::do_restore_and_become_master",
+        "db_mysql::do_promote_to_master",
+        "db_mysql::do_tag_as_master"
+      ]
+    }
+  },
+  "maintainer": "RightScale, Inc.",
+  "recipes": {
+    "db_mysql::do_enable_backup": "Enable crontab MySQL backups (detects master vs. slave automatically)",
+    "db_mysql::do_disable_backup": "Disable crontab MySQL backups (detects master vs. slave automatically)",
+    "db_mysql::do_lookup_master": "Use tags to lookup current master and save in the node",
+    "db_mysql::do_restore_and_become_master": "Restore MySQL database.  Tag as Master.  Set Master DNS.  Kick off a fresh backup from this master.",
+    "db_mysql::do_backup": "Perform backup of MySQL database",
+    "db_mysql::default": "Installs dbtools",
+    "db_mysql::do_tag_as_master": "USE WITH CAUTION! Tag server with master tags and set master DNS to this server.",
+    "db_mysql::do_restore": "Restore MySQL database",
+    "db_mysql::setup_slave_backup": "Set up crontab MySQL backup job with the slave frequency and rotation.",
+    "db_mysql::setup_replication_privileges": "Set up privileges for MySQL replication slaves.",
+    "db_mysql": "",
+    "db_mysql::setup_master_dns": "USE WITH CAUTION! Set master DNS to this server's IP",
+    "db_mysql::do_init_slave": "Initialize MySQL Slave",
+    "db_mysql::do_promote_to_master": "Promote a replicating slave to master",
+    "db_mysql::setup_master_backup": "Set up crontab MySQL backup job with the master frequency and rotation."
+  },
+  "recommendations": {
+
+  },
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nAll rights reserved - Do Not Redistribute\n"
 }

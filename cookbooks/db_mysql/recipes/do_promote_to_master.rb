@@ -9,8 +9,7 @@
 
 include_recipe 'db_mysql::do_lookup_master'
 
-# find current master
-#step1 ) slave check
+# Find current master
 ruby_block "slave check" do
   only_if do true end
   block do
@@ -28,15 +27,15 @@ directory logbin_dir do
   group 'mysql' 
 end
 
-# set read/write in my.cnf
+# Set read/write in my.cnf
 @node[:db_mysql][:tunable][:read_only] = 0
-# enable binary logging in my.cnf
+# Enable binary logging in my.cnf
 @node[:db_mysql][:log_bin_enabled] = true
 include_recipe 'db_mysql::setup_my_cnf'
 
 database "newmaster" do
   only_if do true end
-  not_if do false end
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
   action :promote
 end
 

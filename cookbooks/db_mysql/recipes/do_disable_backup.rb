@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.info "Disabling master/slave continuous backup cron jobs"
+log "Disabling master/slave continuous backup cron jobs"
 
 cron "Slave continuous backups" do
   user "root"

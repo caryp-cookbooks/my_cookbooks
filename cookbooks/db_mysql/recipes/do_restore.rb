@@ -19,7 +19,7 @@ service "mysql" do
   action :stop
 end
 
-# Recreate empty data directory.
+# Recreate empty data directory
 directory @node[:db_mysql][:datadir_relocate] do
   action [:delete, :create]
   recursive true
@@ -27,7 +27,7 @@ directory @node[:db_mysql][:datadir_relocate] do
   group 'mysql' 
 end
 
-# Do restore.
+# Do restore
 block_device node[:db][:backup][:block_device_resource] do
   lineage node[:db][:backup][:lineage_override] || node[:db][:backup][:lineage]
   restore_root node[:db][:backup][:mount_point]
@@ -44,9 +44,6 @@ directory logbin_dir do
   group 'mysql' 
 end
 
-#database "localhost" do
-  #action :wipe_existing_runtime_config
-#end
 ruby_block "kill master.info" do
   only_if do true end
   block do
@@ -58,21 +55,14 @@ end
 
 # Service provider uses the status command to decide if it 
 # has to run the start command again.
-#10.times do
 service "mysql" do
   only_if do true end
   action :start
 end
-#end
-
-# TODO: raise if mysql can't start 
-# service "mysql" do
-#   action :ensure_started
-# end
 
 database DATABASE_NAME do
   action :grant_replication_slave
-  not_if do false end # hack for Chef bug
+  not_if do false end # http://tickets.opscode.com/browse/CHEF-894
 end
 
 include_recipe "db_mysql::setup_admin_privileges"

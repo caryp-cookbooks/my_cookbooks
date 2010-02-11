@@ -14,13 +14,26 @@ See metadata.rb
 
 = USAGE:
 
-Designed to be run within a RightScale ServerTemplate with the following run order:
+The ServerTemplate is designed to bootup into a pristine mysql state.  An operational script must be run to initialize the server into a cluster role (such as do_init_slave).  
+The recipes can be added to a ServerTemplate in the following sections:
 
-Boot Scripts
-  * install_mysql - Performs base server install and configuration. (RightScale public cookbook)
+Boot Recipes
+* recipe "db_mysql::default" - "Installs and configures MySQL. see: db_mysql::install_mysql"
 
-Operational Scripts
-  * todo
-  
+Operational Recipes
+* recipe "db_mysql::do_backup", "Perform backup of MySQL database"
+* recipe "db_mysql::do_restore_and_become_master", "Restore MySQL database.  Tag as Master.  Set Master DNS.  Kick off a fresh backup from this master."
+* recipe "db_mysql::do_restore", "Restore MySQL database"  
+* recipe "db_mysql::do_init_slave", "Initialize MySQL Slave"
+* recipe "db_mysql::do_tag_as_master", "USE WITH CAUTION! Tag server with master tags and set master DNS to this server"
+* recipe "db_mysql::do_lookup_master", "Use tags to lookup current master and slave in the node"
+* recipe "db_mysql::do_promote_to_master", "Promote a replicating slave to master"
+* recipe "db_mysql::setup_master_backup", "Set up crontab MySQL backup job with the master frequency and rotation"
+* recipe "db_mysql::setup_slave_backup", "Set up crontab MySQL backup job with the slave frequency and rotation"
+* recipe "db_mysql::do_enable_backup", "Enable crontab MySQL backups (detects master vs. slave automatically)"
+* recipe "db_mysql::do_disable_backup", "Disable crontab MySQL backups (detects master vs. slave automatically)"
+* recipe "db_mysql::setup_master_dns", "USE WITH CAUTION! Set master DNS to this server's IP"
+* recipe "db_mysql::setup_replication_privileges", "Set up privileges for MySQL replication slaves"
+
 Decommission Scripts
-  * todo 
+  * NA 
