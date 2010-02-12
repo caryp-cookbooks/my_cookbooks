@@ -46,16 +46,6 @@
   },
   "version": "0.1.0",
   "attributes": {
-    "rest_connection\/api\/password": {
-      "type": "string",
-      "description": "Password used to access the RigthScale API.",
-      "multiple_values": false,
-      "display_name": "API Password",
-      "required": true,
-      "recipes": [
-        "resat::do_run_features"
-      ]
-    },
     "resat\/git_key": {
       "type": "string",
       "description": "The private SSH key of the git repository.",
@@ -109,26 +99,6 @@
       ],
       "required": false,
       "require": true
-    },
-    "rest_connection\/api\/url": {
-      "type": "string",
-      "description": "URL used to access the RigthScale API.",
-      "multiple_values": false,
-      "display_name": "API URL",
-      "required": true,
-      "recipes": [
-        "resat::do_run_features"
-      ]
-    },
-    "rest_connection\/api\/user": {
-      "type": "string",
-      "description": "Username used to access the RigthScale API.",
-      "multiple_values": false,
-      "display_name": "API Username",
-      "required": true,
-      "recipes": [
-        "resat::do_run_features"
-      ]
     }
   },
   "replacing": {

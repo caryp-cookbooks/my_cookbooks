@@ -16,26 +16,9 @@ package "libmysql-ruby"
 # Install gem dependencies
 [ "ruby-debug", "kwalify", "cucumber", "net-ssh" ].each { |p| gem_package p }
 
-
 # Install RESAT
 # gem sources -a https://gemcutter.org
 gem_package "resat"
-
-# Install attached rest_connection gem (TODO: publish to gemcutter)
-remote_file "/tmp/rest_connection-0.0.1.gem" do 
-  source "rest_connection-0.0.1.gem"
-end
-gem_package "/tmp/rest_connection-0.0.1.gem" do
-  version "0.0.1"
-end
-
-# Configure rest_connection
-directory "#{node[:resat][:base_dir]}/.rest_connection"
-
-template "#{node[:resat][:base_dir]}/.rest_connection/rest_api_config.yaml" do
-  source "rest_api_config.yaml.erb"
-  mode "600"
-end
 
 # Install test repo
 repo_git_pull "Get test repo" do
