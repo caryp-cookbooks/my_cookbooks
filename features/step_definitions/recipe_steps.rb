@@ -1,8 +1,7 @@
 When /^I run a recipe named "([^\"]*)" on server "([^\"]*)"\.$/ do |recipe, server_index|
   human_index = server_index.to_i - 1
   STDOUT.puts "#{recipe} -> root@#{@servers[human_index].dns_name}"
-  @response = @servers[human_index].run_recipe(recipe) unless @ssh_key_path
-  @response = @servers[human_index].run_recipe(recipe, @ssh_key_path) if @ssh_key_path # hackey hack hack
+  @response = @servers[human_index].run_recipe(recipe)
 end 
 
 Then /I should successfully run a recipe named "(.*)"/ do |recipe|
@@ -16,6 +15,15 @@ end
 
 Then /^it should converge successfully\.$/ do
   @response[:status].should == true
+end
+
+When /^I clear the log on server "(.*)".$/ do |server_index|
+  human_index = server_index.to_i - 1
+  cmd = "rm -f /var/log/messages; touch /var/log/messages ; chown root:root /var/log/messages ; chmod 600 /var/log/messages"
+  @respone = @servers[human_index].spot_check(cmd) do |result|
+    puts result
+  end
+  
 end
 
 Then /^I should see "(.*)" in the log on server "(.*)"\.$/ do |message, server_index|

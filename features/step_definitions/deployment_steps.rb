@@ -30,10 +30,6 @@ Given /^"([^\"]*)" operational servers named "([^\"]*)"$/ do |num, server_name|
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
 
-Given /An ssh key located at "(.*)"/ do |ssh_key|
-  @ssh_key_path = ssh_key
-end
-
 Then /^I should sleep (\d+) seconds\.$/ do |seconds|
   sleep seconds.to_i
 end
