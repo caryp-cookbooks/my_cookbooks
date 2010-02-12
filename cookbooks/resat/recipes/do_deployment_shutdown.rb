@@ -1,4 +1,4 @@
-base_dir = node[:resat][:base_dir]
+base_dir = node[:test][:path][:src]
 type = node[:resat][:test][:type]
 template = node[:resat][:test][:template]
 os = node[:resat][:test][:os]

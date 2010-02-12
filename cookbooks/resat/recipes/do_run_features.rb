@@ -2,13 +2,10 @@
 # Cookbook Name:: resat
 # Recipe:: default
 #
-# Copyright 2010, RightScale, Inc.
-#
-# All rights reserved - Do Not Redistribute
-#
 
-execute "cucumber --tags @#{node[:resat][:test][:type]}" do
+cucumber_run_features "run cuke tests" do
   cwd "#{node[:resat][:base_dir]}/tests"
-  user "root"
+  tags [ node[:resat][:test][:type] ]
 end
+
 

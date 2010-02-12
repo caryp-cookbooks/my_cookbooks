@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-base_dir = node[:resat][:base_dir]
+base_dir = node[:test][:path][:src]
 
 # Install packages for RESAT
 package "ruby1.8-dev" 
@@ -15,15 +15,10 @@ package "libmysql-ruby"
 
 execute 'gem update --system'
 
-gem_package "rspec" do
-  version "1.2.7"
-end
-
 # Install gem dependencies
-[ "ruby-debug", "kwalify", "cucumber", "net-ssh" ].each { |p| gem_package p }
+[ "ruby-debug", "kwalify" ].each { |p| gem_package p }
 
 # Install RESAT
-# gem sources -a https://gemcutter.org
 gem_package "resat"
 
 # Install test repo
