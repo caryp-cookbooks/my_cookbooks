@@ -1,0 +1,41 @@
+{
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures cucumber",
+  "name": "cucumber",
+  "conflicting": {
+
+  },
+  "providing": {
+    "cucumber_run_features(:cwd, :user, :tags, :options)": [
+
+    ],
+    "cucumber": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "recipes": {
+    "cucumber": ""
+  },
+  "license": "All rights reserved"
+}
