@@ -13,6 +13,12 @@ package "ruby1.8-dev"
 package "rdoc" 
 package "libmysql-ruby"
 
+execute 'gem update --system'
+
+gem_package "rspec" do
+  version "1.2.7"
+end
+
 # Install gem dependencies
 [ "ruby-debug", "kwalify", "cucumber", "net-ssh" ].each { |p| gem_package p }
 
