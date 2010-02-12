@@ -18,9 +18,9 @@ gem_package "/tmp/rest_connection-0.0.1.gem" do
 end
 
 # Configure rest_connection
-directory "#{node[:resat][:base_dir]}/.rest_connection"
+directory "#{node[:test][:path][:src]}/.rest_connection"
 
-template "#{node[:resat][:base_dir]}/.rest_connection/rest_api_config.yaml" do
+template "#{node[:test][:path][:src]}/.rest_connection/rest_api_config.yaml" do
   source "rest_api_config.yaml.erb"
   mode "600"
 end

@@ -6,6 +6,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
 depends "git"
+depends "cucumber"
   
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",
