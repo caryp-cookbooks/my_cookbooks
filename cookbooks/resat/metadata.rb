@@ -7,24 +7,6 @@ version          "0.1"
 
 depends "git"
   
-attribute "rest_connection/api/user",
-  :display_name => "API Username",
-  :description => "Username used to access the RigthScale API.",
-  :required => true,
-  :recipes => [ "resat::do_run_features" ]
-
-attribute "rest_connection/api/url",
-  :display_name => "API URL",
-  :description => "URL used to access the RigthScale API.",
-  :required => true,
-  :recipes => [ "resat::do_run_features" ]
-
-attribute "rest_connection/api/password",
-  :display_name => "API Password",
-  :description => "Password used to access the RigthScale API.",
-  :required => true,
-  :recipes => [ "resat::do_run_features" ]
-
 attribute "resat/git_key",
   :display_name => "Git Repository Credentials",
   :description => "The private SSH key of the git repository.",

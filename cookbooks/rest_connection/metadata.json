@@ -1,0 +1,77 @@
+{
+  "maintainer": "RightScale, Inc.",
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "description": "Installs\/Configures rest_connection",
+  "name": "rest_connection",
+  "conflicting": {
+
+  },
+  "providing": {
+    "rest_connection": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+    "rest_connection\/api\/password": {
+      "type": "string",
+      "description": "Password used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API Password",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "rest_connection\/ssh\/key": {
+      "type": "string",
+      "description": "SSH Key to login to server so we can run commands.",
+      "multiple_values": false,
+      "display_name": "SSH Key",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "rest_connection\/api\/url": {
+      "type": "string",
+      "description": "URL used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API URL",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "rest_connection\/api\/user": {
+      "type": "string",
+      "description": "Username used to access the RigthScale API.",
+      "multiple_values": false,
+      "display_name": "API Username",
+      "required": true,
+      "recipes": [
+
+      ]
+    }
+  },
+  "replacing": {
+
+  },
+  "recipes": {
+    "rest_connection": ""
+  },
+  "license": "All rights reserved"
+}
