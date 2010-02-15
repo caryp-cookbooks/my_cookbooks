@@ -4,6 +4,13 @@ Feature: mysql_db premium resources and master/slave cluster operations
   Scenario: Basic cluster failover operations
     Given A deployment. 
     And "2" operational servers.
+
+# DEVELOPMENT ROLLBACK SETUP
+    When I run a recipe named "database_test::dev_pristine_backup" on server "1".
+    Then it should converge successfully.
+    When I run a recipe named "database_test::dev_pristine_backup" on server "2".
+    Then it should converge successfully.
+
     When I run a recipe named "db_mysql::do_restore_and_become_master" on server "1". 
     Then it should converge successfully.
 

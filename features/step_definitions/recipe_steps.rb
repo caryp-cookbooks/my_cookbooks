@@ -20,7 +20,7 @@ end
 When /^I clear the log on server "(.*)".$/ do |server_index|
   human_index = server_index.to_i - 1
   cmd = "rm -f /var/log/messages; touch /var/log/messages ; chown root:root /var/log/messages ; chmod 600 /var/log/messages"
-  @respone = @servers[human_index].spot_check(cmd) do |result|
+  @response = @servers[human_index].spot_check(cmd) do |result|
     puts result
   end
   
@@ -31,4 +31,8 @@ Then /^I should see "(.*)" in the log on server "(.*)"\.$/ do |message, server_i
   @servers[human_index].spot_check("grep '#{message}' /var/log/messages") do |result|
     result.should_not == nil
   end
+end
+
+Then /^the audit entry should NOT contain "([^\"]*)"\.$/ do |st_match|
+  @response[:output].should_not include(st_match)
 end
