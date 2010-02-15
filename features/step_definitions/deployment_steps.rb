@@ -51,6 +51,7 @@ Then /^I should sleep (\d+) seconds\.$/ do |seconds|
   sleep seconds.to_i
 end
 
-
-
-
+Then /I should set a variation lineage./ do
+  lin = "text:testlineage#{rand(1000000)}"
+  @deployment.set_input('db/backup/lineage', lin)
+end
