@@ -2,18 +2,22 @@ Feature: mysql_db premium resources and master/slave cluster operations
   Tests the RightScale premium ServerTemplate Mysql Chef (alpha). Starting from a fresh database (no prior backup required).
 
   Scenario: Basic cluster failover operations and backup from scratch.
-    Given A deployment named "Regression Test CHEF - MySQL Multi-Cloud -JDDEV"
-    And "2" operational servers named "set1"
+    Given A deployment.
+#   Then I should set a variation lineage.
+    And "2" operational servers.
     Then I should run a mysql query "create database mynewtest" on server "1".
 
     When I run a recipe named "db_mysql::setup_admin_privileges" on server "1".
     Then it should converge successfully.
+    Then the audit entry should NOT contain "Found buggy mysql".
     
     When I run a recipe named "db_mysql::setup_replication_privileges" on server "1".
     Then it should converge successfully.
     
     When I run a recipe named "db_mysql::do_tag_as_master" on server "1".
     Then it should converge successfully.
+# this sleep is so that the tag can catch up to us and our backup won't fail because we think we're a slave.  The alternative is to force the backup somehow.
+    Then I should sleep 10 seconds.
 
     When I run a recipe named "db_mysql::do_backup" on server "1".
     Then it should converge successfully.
