@@ -6,6 +6,9 @@
   "dependencies": {
     "git": [
 
+    ],
+    "cucumber": [
+
     ]
   },
   "maintainer_email": "cary@rightscale.com",
@@ -107,10 +110,10 @@
   "recipes": {
     "resat::do_run_features": "",
     "resat::do_deployment_destroy": "",
+    "resat": "",
     "resat::do_deployment_create": "",
     "resat::do_deployment_shutdown": "",
     "resat::do_cleanup": "",
-    "resat": "",
     "resat::do_deployment_reboot": ""
   },
   "license": "All rights reserved"

@@ -66,9 +66,9 @@
 
   },
   "recipes": {
-    "dropbox": "",
     "dropbox::setup_devlinks": "",
-    "dropbox::install": ""
+    "dropbox::install": "",
+    "dropbox": ""
   },
   "license": "All rights reserved"
 }

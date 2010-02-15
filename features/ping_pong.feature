@@ -11,5 +11,5 @@ Feature: Allow instances to tag themselves and run recipes on other remote insta
      
     Then I should sleep 10 seconds.
 
-    Then I should see "do_ping" in the log on server "2".
+    Then I should see "resource_remote_recipe_ping" in the log on server "2".
   

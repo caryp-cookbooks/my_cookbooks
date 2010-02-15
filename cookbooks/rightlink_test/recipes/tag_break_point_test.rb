@@ -1,4 +1,4 @@
-TAG = "rs_agent_dev:break_point=devmode_test::test_should_never_run"
+TAG = "rs_agent_dev:break_point=rightlink_test::test_should_never_run"
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 

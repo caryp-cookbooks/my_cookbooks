@@ -19,6 +19,6 @@ end
 
 # send pong to sender
 remote_recipe "pong sender" do
-  recipe "ping_pong::do_pong"
+  recipe "rightlink_test::resource_remote_recipe_pong"
   recipients @node[:remote_recipe][:from]
 end
