@@ -46,10 +46,10 @@
 
   },
   "recipes": {
-    "state_test": "",
     "state_test::check_value": "Run this as a operational script.",
     "state_test::default": "Run this as a boot script.",
-    "state_test::check_value_two": ""
+    "state_test::check_value_two": "",
+    "state_test": ""
   },
   "license": "All rights reserved"
 }
