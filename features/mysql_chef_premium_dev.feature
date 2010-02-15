@@ -1,7 +1,7 @@
-Feature: mysql_db premium resources and master/slave cluster operations
-  Tests the RightScale premium ServerTemplate Mysql Chef (alpha)
+Feature: mysql_db premium resources and master/slave cluster operations with ROLLBACK
+  Tests the RightScale premium ServerTemplate Mysql Chef (alpha) and configures ROLLBACK
 
-  Scenario: Basic cluster failover operations
+  Scenario: Setup Development ROLLBACK support and run basic cluster failover operations
     Given A deployment. 
     And "2" operational servers.
 
