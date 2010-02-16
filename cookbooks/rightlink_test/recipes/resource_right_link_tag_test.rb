@@ -6,18 +6,43 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+COLLECTION_NAME = "tag_test"
+TAG = "test:foo="
 
-# add tag
-right_link_tag "test:foo=bar"
+# Add tag
+right_link_tag "#{TAG}bar"
 
+# Verify tag exists
+server_collection COLLECTION_NAME do
+  tags [ TAG ]
+end
 
-# todo: verify tag exists
+ruby_block "tags exists?" do
+  block do
+    Chef::Log.info "Displaying Tags..."
+    h = node[:server_collection][COLLECTION_NAME]
+    tags = h[h.keys[0]]
+    result = tags.select { |s| s =~ /#{TAG}/ }
+    raise "ERROR: right_link_tag resource failed to add tag." if result.empty?
+  end
+end
 
-
-# remove tag
+# Remove tag
 right_link_tag "test:foo=bar" do
   action :remove
 end
 
-
-# todo: verify tag is gone
+# Verify tag is gone
+server_collection COLLECTION_NAME do
+  tags [ TAG ]
+end
+  
+ruby_block "tags gone?" do
+  block do
+    Chef::Log.info "Displaying Tags..."
+    h = node[:server_collection][COLLECTION_NAME]
+    tags = h[h.keys[0]]
+    result = tags.select { |s| s =~ /#{TAG}/ }
+    raise "ERROR: right_link_tag resource failed to remove a tag." unless result.empty?
+  end
+end

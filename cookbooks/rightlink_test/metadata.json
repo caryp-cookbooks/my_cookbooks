@@ -22,13 +22,16 @@
     "rightlink_test::tag_break_point_test": [
 
     ],
+    "rightlink_test::core_env_test": [
+
+    ],
     "rightlink_test::resource_remote_recipe_test_start": [
 
     ],
     "rightlink_test::tag_break_point_test_should_never_run": [
 
     ],
-    "rightlink_test::ohai_test_values": [
+    "rightlink_test::ohai_plugin_test": [
 
     ],
     "rightlink_test::resource_remote_recipe_pong": [
@@ -44,15 +47,6 @@
 
     ],
     "rightlink_test::tag_cookbook_path_test": [
-
-    ],
-    "rightlink_test::core_env_write_file": [
-
-    ],
-    "rightlink_test::ohai_write_file": [
-
-    ],
-    "rightlink_test": [
 
     ]
   },
@@ -70,17 +64,15 @@
   "recipes": {
     "rightlink_test::resource_remote_recipe_ping": "",
     "rightlink_test::tag_break_point_test": "",
+    "rightlink_test::core_env_test": "",
     "rightlink_test::resource_remote_recipe_test_start": "",
     "rightlink_test::tag_break_point_test_should_never_run": "",
-    "rightlink_test::ohai_test_values": "",
-    "rightlink_test": "",
+    "rightlink_test::ohai_plugin_test": "",
     "rightlink_test::resource_remote_recipe_pong": "",
     "rightlink_test::resource_server_collection_test": "",
     "rightlink_test::resource_right_link_tag_test": "",
     "rightlink_test::resource_remote_recipe_setup": "",
-    "rightlink_test::tag_cookbook_path_test": "",
-    "rightlink_test::core_env_write_file": "",
-    "rightlink_test::ohai_write_file": ""
+    "rightlink_test::tag_cookbook_path_test": ""
   },
   "license": "All rights reserved"
 }
