@@ -4,10 +4,10 @@ TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks"
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 
-# Add our instance UUID as a tag
+log "Add our instance UUID as a tag: #{UUID_TAG}"
 right_link_tag UUID_TAG
 
-# Query servers for our UUID tag...
+log "Query servers for our tags..."
 server_collection UUID do
   tags UUID_TAG
 end
@@ -18,6 +18,7 @@ ruby_block "Query for cookbook path" do
     Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]
     tags = h[h.keys[0]]
+    Chef::Log.info("Tags:#{tags}")
     result = tags.select { |s| s == TAG }
     unless result.empty?
       Chef::Log.info("  Tag found!")
@@ -37,6 +38,7 @@ end
 ruby "copy this repo" do
   not_if do node[:devmode_test][:loaded_custom_cookbooks] end
   code <<-EOH
+    Chef::Log.info "Rebooting so coobook_path tag will take affect."
     `mkdir #{COOKBOOK_PATH}`
     `cp -r #{::File.join(File.dirname(__FILE__), "..", "..", "..","*")} #{COOKBOOK_PATH}`
   EOH
@@ -52,4 +54,4 @@ ruby_block "reboot" do
   end
 end
 
-# TODO: Check that were using local cookbook repo (somehow)
+log "TODO: Check that were using local cookbook repo (somehow)"

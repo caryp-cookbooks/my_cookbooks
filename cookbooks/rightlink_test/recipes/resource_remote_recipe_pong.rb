@@ -6,9 +6,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+LOGFILE = "/tmp/pong.log"
+
+log "PONG!"
 
 # touch file
-template "/tmp/pong.log" do
+template LOGFILE do
   backup 100
   source "pingpong.erb"
   variables ( 
@@ -17,5 +20,7 @@ template "/tmp/pong.log" do
     :tags => @node[:remote_recipe][:tags] )
   action :create
 end
+
+output_file LOGFILE
 
 
