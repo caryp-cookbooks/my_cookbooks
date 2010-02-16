@@ -1,3 +1,4 @@
+
 COOKBOOK_PATH = "/root/my_cookbooks"
 TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks"
 UUID = node[:rightscale][:instance_uuid]
@@ -50,3 +51,5 @@ ruby_block "reboot" do
     `init 6`
   end
 end
+
+# TODO: Check that were using local cookbook repo (somehow)
