@@ -1,20 +1,4 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "description": "Installs\/Configures rightlink_test",
-  "name": "rightlink_test",
-  "conflicting": {
-
-  },
   "providing": {
     "rightlink_test::resource_remote_recipe_ping": [
 
@@ -51,16 +35,26 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "platforms": {
-
-  },
-  "version": "0.1.0",
-  "attributes": {
+  "dependencies": {
 
   },
   "replacing": {
 
   },
+  "description": "Installs\/Configures rightlink_test",
+  "maintainer": "RightScale, Inc.",
+  "name": "rightlink_test",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
   "recipes": {
     "rightlink_test::resource_remote_recipe_ping": "",
     "rightlink_test::tag_break_point_test": "",
@@ -73,6 +67,12 @@
     "rightlink_test::resource_right_link_tag_test": "",
     "rightlink_test::resource_remote_recipe_setup": "",
     "rightlink_test::tag_cookbook_path_test": ""
+  },
+  "attributes": {
+
+  },
+  "conflicting": {
+
   },
   "license": "All rights reserved"
 }
