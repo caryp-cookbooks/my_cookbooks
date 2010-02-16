@@ -6,9 +6,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+LOG_FILE = "/tmp/ping.log"
+
+log "PING!"
 
 # touch file
-template "/tmp/ping.log" do
+template LOG_FILE do
   source "pingpong.erb"
   variables ( 
     :ping_type => "PING", 
@@ -16,6 +19,10 @@ template "/tmp/ping.log" do
     :tags => @node[:remote_recipe][:tags] )
   action :create
 end
+
+output_file LOG_FILE
+
+log "Requesting pong..."
 
 # send pong to sender
 remote_recipe "pong sender" do

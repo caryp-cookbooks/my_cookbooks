@@ -9,10 +9,10 @@
 COLLECTION_NAME = "tag_test"
 TAG = "test:foo=bar"
 
-# Add tag
+log "Add tag: #{TAG}"
 right_link_tag "#{TAG}"
 
-# Verify tag exists
+log "Verify tag exists"
 server_collection COLLECTION_NAME do
   tags [ TAG ]
 end
@@ -30,12 +30,12 @@ ruby_block "tags exists?" do
   end
 end
 
-# Remove tag
+log "Remove tag: #{tags}"
 right_link_tag "test:foo=bar" do
   action :remove
 end
 
-# Verify tag is gone
+log "Verify tag is gone"
 server_collection COLLECTION_NAME do
   tags [ TAG ]
 end

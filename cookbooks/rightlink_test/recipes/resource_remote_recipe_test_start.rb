@@ -7,7 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# send ping to receiver
+log "send ping to receiver"
+
 remote_recipe "ping receiver" do
   recipe "rightlink_test::resource_remote_recipe_ping"
   recipients_tags "test:ping=reciever"

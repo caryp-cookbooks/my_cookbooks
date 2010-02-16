@@ -14,15 +14,7 @@ template "/tmp/ohai_values.log" do
   action :create
 end
 
-ruby_block "Output Values" do
-  block do
-    ::File.open("/tmp/ohai_values.log") do |infile| 
-      while (line = infile.gets) 
-        Chef::Log.info(line) 
-      end 
-    end
-  end
-end
+output_file "/tmp/ohai_values.log"
 
 # Check that chef is not using sandboxed ruby -- this is fixed by our custom ruby provider
 ruby_block "ruby_bin should not point to sandbox" do

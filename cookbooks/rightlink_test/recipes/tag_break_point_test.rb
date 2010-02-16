@@ -2,10 +2,10 @@ TAG = "rs_agent_dev:break_point=rightlink_test::tag_break_point_test_should_neve
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 
-# Add our instance UUID as a tag
+log "Add our instance UUID as a tag: #{UUID_TAG}"
 right_link_tag UUID_TAG
 
-# Query servers for our breakpoint tag...
+log "Query servers for our tags..."
 server_collection UUID do
   tags UUID_TAG
 end
@@ -16,6 +16,7 @@ ruby_block "Query for breakpoint" do
     Chef::Log.info("Checking server collection for tag...")
     h = node[:server_collection][UUID]
     tags = h[h.keys[0]]
+    Chef::Log.info("Tags:#{tags}")
     result = tags.select { |s| s == TAG }
     unless result.empty?
       Chef::Log.info("  Tag found!")
@@ -37,6 +38,7 @@ end
 ruby_block "reboot" do
   not_if do node[:devmode_test][:has_breakpoint] end
   block do
+    Chef::Log.info "Rebooting so breakpoint tag will take affect."
     `init 6`
   end
 end
