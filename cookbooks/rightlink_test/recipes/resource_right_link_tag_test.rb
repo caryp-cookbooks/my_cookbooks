@@ -30,7 +30,7 @@ ruby_block "tags exists?" do
   end
 end
 
-log "Remove tag: #{tags}"
+log "Remove tag: #{TAG}"
 right_link_tag "test:foo=bar" do
   action :remove
 end
@@ -42,9 +42,29 @@ end
   
 ruby_block "tags gone?" do
   block do
-    h = node[:server_collection][COLLECTION_NAME]
-    tags = h[h.keys[0]]
-    raise "ERROR: right_link_tag resource failed to remove a tag." unless tags == nil
+    require 'timeout'
+    
+    TIMEOUT_SEC = 4 * 60 # 4min
+    resrc = Chef::Resource::ServerCollection.new(COLLECTION_NAME)
+    resrc.tags [ TAG ]
+    provider = Chef::Provider::ServerCollection.new(node, resrc)
+    tags = ["bogus_seed"]
+    
+    begin
+      status = Timeout::timeout(TIMEOUT_SEC) do
+        until tags == nil
+          provider.send("action_load")
+          h = node[:server_collection][COLLECTION_NAME]
+          tags = h[h.keys[0]]
+          unless tags
+            sleep 10
+            Chef::Log.info "  Tag still exists.  Retry..."
+          end
+        end
+      end
+    rescue Timeout::Error => e
+      raise "ERROR: right_link_tag resource failed to remove a tag after #{TIMEOUT_SEC/60} minutes."
+    end
     Chef::Log.info "#{TAG} tag removed."
   end
 end
