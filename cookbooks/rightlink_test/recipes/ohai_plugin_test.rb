@@ -1,12 +1,30 @@
 #
-# Cookbook Name:: core_env
-# Recipe:: do_test_values
+# Cookbook Name:: rightlink_test
+# Recipe:: ohai_plugin_test
 #
 # Copyright 2009, RightScale, Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
 
+# Write values that our custom ohai plugins should provide
+# This will fail if our plugins are not loaded
+template "/tmp/ohai_values.log" do
+  source "ohai_values.erb"
+  action :create
+end
+
+ruby_block "Output Values" do
+  block do
+    ::File.open("/tmp/ohai_values.log") do |infile| 
+      while (line = infile.gets) 
+        Chef::Log.info(line) 
+      end 
+    end
+  end
+end
+
+# Check that chef is not using sandboxed ruby -- this is fixed by our custom ruby provider
 ruby_block "ruby_bin should not point to sandbox" do
   block do
     test_failed = ( @node[:languages][:ruby][:ruby_bin] =~ /sandbox/ )
@@ -15,6 +33,7 @@ ruby_block "ruby_bin should not point to sandbox" do
   end
 end
 
+# Check that chef is not using sandboxed gems -- this is fixed by our custom ruby provider
 ruby_block "gems_dir should not point to sandbox" do
   block do
    test_failed = ( @node[:languages][:ruby][:gems_dir] =~ /sandbox/ )
@@ -22,3 +41,5 @@ ruby_block "gems_dir should not point to sandbox" do
    Chef::Log.info("gems_dir should not point to sandbox == PASS ==")
   end
 end
+
+
