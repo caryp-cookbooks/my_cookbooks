@@ -31,9 +31,6 @@
     "rightlink_test::ohai_test_values": [
 
     ],
-    "rightlink_test::resource_server_collection_setup": [
-
-    ],
     "rightlink_test::resource_remote_recipe_pong": [
 
     ],
@@ -77,7 +74,6 @@
     "rightlink_test::tag_break_point_test_should_never_run": "",
     "rightlink_test::ohai_test_values": "",
     "rightlink_test": "",
-    "rightlink_test::resource_server_collection_setup": "",
     "rightlink_test::resource_remote_recipe_pong": "",
     "rightlink_test::resource_server_collection_test": "",
     "rightlink_test::resource_right_link_tag_test": "",
