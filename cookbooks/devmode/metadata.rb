@@ -13,5 +13,5 @@ attribute "devmode/recipe_loop/count",
 attribute "devmode/recipe_loop/recipe_name",
   :display_name => "Recipe Name",
   :description => "The name of the recipe to run in a loop. Syntax: <cookbook>::<recipe>",
-  :default => "10",
+  :required => true,
   :recipes => [ "devmode::do_recipe_loop" ]
