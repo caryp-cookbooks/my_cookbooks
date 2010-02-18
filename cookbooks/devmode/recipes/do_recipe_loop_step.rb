@@ -2,7 +2,7 @@
 
 total = node[:devmode][:recipe_loop][:total].to_i
 name = node[:devmode][:recipe_loop][:recipe_name]
-count = node[:devmode][:recipe_loop][:count]
+count = node[:devmode][:recipe_loop][:count].to_i
 
 log "Skipping #{__FILE__}. Loop count missing." unless total
 log "Skipping #{__FILE__}. Recipe name to loop is missing." unless name
@@ -25,6 +25,6 @@ if name && total
       recipients_tags TAG
     end
 
-    # Increment loop count in node
-    node[:devmode][:recipe_loop][:count] = "#{count.to_i+1}"
+    # Increment loop count in node 
+    node[:devmode][:recipe_loop][:count] = "#{count+1}"
 end
