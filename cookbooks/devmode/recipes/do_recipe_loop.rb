@@ -1,6 +1,14 @@
 # Run a recipe <count> times.
 
-node[:devmode][:recipe_loop][:count].times do |count|
-  log "============== Running #{node[:devmode][:recipe_loop][:recipe_name]} (#{count}/#{node[:devmode][:recipe_loop][:count]}) ============="
-  include_recipe node[:devmode][:recipe_loop][:recipe_name]
+total = node[:devmode][:recipe_loop][:count].to_i
+name = node[:devmode][:recipe_loop][:recipe_name]
+
+log "Skipping #{__FILE__}. Loop count missing." unless count
+log "Skipping #{__FILE__}. Recipe name to loop is missing." unless recipe
+
+if name && total
+  total.times do |count|
+    log "============== Running #{name} (#{count}/#{total}) ============="
+    include_recipe name
+  end
 end

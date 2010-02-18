@@ -42,7 +42,6 @@
   },
   "attributes": {
     "devmode\/recipe_loop\/recipe_name": {
-      "default": "10",
       "type": "string",
       "multiple_values": false,
       "description": "The name of the recipe to run in a loop. Syntax: <cookbook>::<recipe>",
@@ -50,7 +49,7 @@
       "recipes": [
         "devmode::do_recipe_loop"
       ],
-      "required": false
+      "required": true
     },
     "devmode\/recipe_loop\/count": {
       "default": "10",
