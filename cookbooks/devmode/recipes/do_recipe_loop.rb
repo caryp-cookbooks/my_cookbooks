@@ -20,7 +20,7 @@ if name && total
     
     # Use remote_recipe "ping-pong" to syncronize runs 
     remote_recipe "ping-pong the running of recipe" do
-      only_if do total < count end
+      only_if do total > count end
       recipe "devmode::do_recipe_loop_step"
       recipients_tags TAG
     end
