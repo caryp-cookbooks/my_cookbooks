@@ -9,59 +9,58 @@ node[:remote_storage][:default][:account][:credentials] = node[:test][:password]
 node[:remote_storage][:default][:provider] = node[:test][:provider]
 node[:remote_storage][:default][:container] = "regression_test_area"
 
-#include_recipe "bd_lvmros::setup_remote_storage"
-#include_recipe "bd_lvmros::setup_lvm"
+include_recipe "bd_lvmros::setup_remote_storage"
+include_recipe "bd_lvmros::setup_lvm"
 
-# log "Remove any restore directory from previous runs."
-# directory LVM_TEST_RESTORE_DIR do
-#   action :delete
-#   recursive true
-# end
-# 
-# log "Populate with some files"
-# directory "/mnt/backup_test" 
-# file "/mnt/backup_test/a.txt"
-# file "/mnt/backup_test/b.txt"
-# directory "/mnt/backup_test/c" 
-# file "/mnt/backup_test/c/c.txt"
+# Remove any restore directory from previous runs.
+directory LVM_TEST_RESTORE_DIR do
+  action :delete
+  recursive true
+end
 
-log "Sync filesystem"
+# Populate with some files
+directory "/mnt/backup_test" 
+file "/mnt/backup_test/a.txt"
+file "/mnt/backup_test/b.txt"
+directory "/mnt/backup_test/c" 
+file "/mnt/backup_test/c/c.txt"
+
+# Sync filesystem
 block_device LVM_RESOURCE_NAME do
-  provider_type "LVMROS"
   action :sync_fs 
 end
 
-# log "Take snapshots"
-# block_device LVM_RESOURCE_NAME do
-#   action :take_snapshot 
-# end
-# 
-# log "Do the actual backup."
-# block_device LVM_RESOURCE_NAME do
-#   action :backup 
-# end
-# 
-# log "Create a palce to put our restore"
-# directory LVM_TEST_RESTORE_DIR do
-#   action :create
-# end
-# 
-# log "Do the restore."
-# block_device LVM_RESOURCE_NAME do
-#   restore_root LVM_TEST_RESTORE_DIR
-#   action :restore 
-# end
-# 
-# log "Compare directories."
-# # Raise an exception if they are different.
-# ruby "test for identical dirs" do
-#   code <<-EOH
-#     `diff -r "#{LVM_TEST_MOUNT_POINT}" "#{LVM_TEST_RESTORE_DIR}"`
-#     raise "ERROR: directories do not match!!" if $? != 0
-#   EOH
-# end
+# Take snapshots
+block_device LVM_RESOURCE_NAME do
+  action :take_snapshot 
+end
 
-# # Remove LVM
-# block_device LVM_RESOURCE_NAME do
-#   action :remove 
-# end
+# Do the actual backup.
+block_device LVM_RESOURCE_NAME do
+  action :backup 
+end
+
+# Create a palce to put our restore
+directory LVM_TEST_RESTORE_DIR do
+  action :create
+end
+
+# Do the restore.
+block_device LVM_RESOURCE_NAME do
+  restore_root LVM_TEST_RESTORE_DIR
+  action :restore 
+end
+
+# Compare directories.
+# Raise an exception if they are different.
+ruby "test for identical dirs" do
+  code <<-EOH
+    `diff -r "#{LVM_TEST_MOUNT_POINT}" "#{LVM_TEST_RESTORE_DIR}"`
+    raise "ERROR: directories do not match!!" if $? != 0
+  EOH
+end
+
+# Remove LVM
+block_device LVM_RESOURCE_NAME do
+  action :remove 
+end
