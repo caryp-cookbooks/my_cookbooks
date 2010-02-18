@@ -1,20 +1,4 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "description": "Installs\/Configures devmode",
-  "name": "devmode",
-  "conflicting": {
-
-  },
   "providing": {
     "devmode::setup_cookbooks": [
 
@@ -22,25 +6,65 @@
     "devmode": [
 
     ],
+    "devmode::do_recipe_loop": [
+
+    ],
     "devmode::setup_local_cookbooks": [
 
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "platforms": {
-
-  },
-  "version": "0.1.0",
-  "attributes": {
+  "dependencies": {
 
   },
   "replacing": {
 
   },
+  "description": "Installs\/Configures devmode",
+  "maintainer": "RightScale, Inc.",
+  "name": "devmode",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
   "recipes": {
     "devmode::setup_cookbooks": "",
-    "devmode": "",
-    "devmode::setup_local_cookbooks": ""
+    "devmode::do_recipe_loop": "",
+    "devmode::setup_local_cookbooks": "",
+    "devmode": ""
+  },
+  "attributes": {
+    "devmode\/recipe_loop\/recipe_name": {
+      "default": "10",
+      "type": "string",
+      "multiple_values": false,
+      "description": "The name of the recipe to run in a loop. Syntax: <cookbook>::<recipe>",
+      "display_name": "Recipe Name",
+      "recipes": [
+        "devmode::do_recipe_loop"
+      ],
+      "required": false
+    },
+    "devmode\/recipe_loop\/count": {
+      "default": "10",
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Recipe Loop Count",
+      "recipes": [
+        "devmode::do_recipe_loop"
+      ],
+      "required": false
+    }
+  },
+  "conflicting": {
+
   },
   "license": "All rights reserved"
 }
