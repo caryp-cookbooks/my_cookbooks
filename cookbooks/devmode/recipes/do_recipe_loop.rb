@@ -3,7 +3,7 @@
 total = node[:devmode][:recipe_loop][:count].to_i
 name = node[:devmode][:recipe_loop][:recipe_name]
 
-log "Skipping #{__FILE__}. Loop count missing." unless count
+log "Skipping #{__FILE__}. Loop count missing." unless total
 log "Skipping #{__FILE__}. Recipe name to loop is missing." unless recipe
 
 if name && total
