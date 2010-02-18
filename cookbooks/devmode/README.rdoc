@@ -1,5 +1,7 @@
 = DESCRIPTION:
 
+Usefull recipes for cookbook development on the RightScale platform.
+
 = REQUIREMENTS:
 
 = ATTRIBUTES: 
