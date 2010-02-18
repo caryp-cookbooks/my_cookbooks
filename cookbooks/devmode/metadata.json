@@ -3,20 +3,14 @@
     "devmode::setup_cookbooks": [
 
     ],
-    "devmode": [
+    "devmode::do_converge_loop_step": [
 
     ],
-    "devmode::do_recipe_loop_step": [
-
-    ],
-    "devmode::do_recipe_loop": [
-
-    ],
-    "devmode::setup_local_cookbooks": [
+    "devmode::do_converge_loop": [
 
     ]
   },
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "long_description": "= DESCRIPTION:\n\nUsefull recipes for cookbook development on the RightScale platform.\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
   "dependencies": {
 
   },
@@ -38,32 +32,21 @@
   },
   "version": "0.1.0",
   "recipes": {
-    "devmode::setup_cookbooks": "",
-    "devmode::do_recipe_loop_step": "",
-    "devmode::do_recipe_loop": "",
-    "devmode::setup_local_cookbooks": "",
-    "devmode": ""
+    "devmode::setup_cookbooks": "Used to setup Dropbox cookbook as instance cookbooks.",
+    "devmode::do_recipe_loop": "Reconverge the boot recipes <count> times.",
+    "devmode::do_recipe_loop_step": "Used by do_recipe_loop as a remote recipe.",
+    "devmode::do_converge_loop_step": "",
+    "devmode::do_converge_loop": ""
   },
   "attributes": {
-    "devmode\/recipe_loop\/recipe_name": {
-      "type": "string",
-      "multiple_values": false,
-      "description": "The name of the recipe to run in a loop. Syntax: <cookbook>::<recipe>",
-      "display_name": "Recipe Name",
-      "recipes": [
-        "devmode::do_recipe_loop",
-        "devmode::do_recipe_loop_step"
-      ],
-      "required": true
-    },
-    "devmode\/recipe_loop\/total": {
+    "devmode\/converge_loop\/total": {
       "default": "10",
       "type": "string",
       "multiple_values": false,
-      "display_name": "Recipe Loop Count",
+      "display_name": "Converge Loop Count",
       "recipes": [
-        "devmode::do_recipe_loop",
-        "devmode::do_recipe_loop_step"
+        "devmode::do_converge_loop",
+        "devmode::do_converge_loop_step"
       ],
       "required": false
     }
