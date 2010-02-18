@@ -26,5 +26,5 @@ if name && total
     end
 
     # Increment loop count in node
-    node[:devmode][:recipe_loop][:count] = "#{count.to_i++}"
+    node[:devmode][:recipe_loop][:count] = "#{count.to_i+1}"
 end
