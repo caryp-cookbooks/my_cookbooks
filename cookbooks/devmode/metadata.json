@@ -51,7 +51,8 @@
       "description": "The name of the recipe to run in a loop. Syntax: <cookbook>::<recipe>",
       "display_name": "Recipe Name",
       "recipes": [
-        "devmode::do_recipe_loop"
+        "devmode::do_recipe_loop",
+        "devmode::do_recipe_loop_step"
       ],
       "required": true
     },
@@ -61,7 +62,8 @@
       "multiple_values": false,
       "display_name": "Recipe Loop Count",
       "recipes": [
-        "devmode::do_recipe_loop"
+        "devmode::do_recipe_loop",
+        "devmode::do_recipe_loop_step"
       ],
       "required": false
     }
