@@ -5,7 +5,7 @@ description      "Installs/Configures devmode"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
-attribute "devmode/recipe_loop/count",
+attribute "devmode/recipe_loop/total",
   :display_name => "Recipe Loop Count",
   :default => "10",
   :recipes => [ "devmode::do_recipe_loop" ]

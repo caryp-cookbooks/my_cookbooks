@@ -6,6 +6,9 @@
     "devmode": [
 
     ],
+    "devmode::do_recipe_loop_step": [
+
+    ],
     "devmode::do_recipe_loop": [
 
     ],
@@ -36,6 +39,7 @@
   "version": "0.1.0",
   "recipes": {
     "devmode::setup_cookbooks": "",
+    "devmode::do_recipe_loop_step": "",
     "devmode::do_recipe_loop": "",
     "devmode::setup_local_cookbooks": "",
     "devmode": ""
@@ -51,7 +55,7 @@
       ],
       "required": true
     },
-    "devmode\/recipe_loop\/count": {
+    "devmode\/recipe_loop\/total": {
       "default": "10",
       "type": "string",
       "multiple_values": false,
