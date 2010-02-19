@@ -29,12 +29,4 @@ template TEST_FILE do
   action :create
 end
 
-ruby_block "Output Values" do
-  block do
-    ::File.open(TEST_FILE) do |infile| 
-      while (line = infile.gets) 
-        Chef::Log.info(line) 
-      end 
-    end
-  end
-end    
+output_file TEST_FILE
