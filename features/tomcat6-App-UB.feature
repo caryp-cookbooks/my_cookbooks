@@ -6,6 +6,7 @@ Feature: webapp test
   Scenario: Basic test
 
     Given A deployment.
+    And A server running on "8000"
     And "2" operational servers named "app"
 
     When I query "/" on all servers 
