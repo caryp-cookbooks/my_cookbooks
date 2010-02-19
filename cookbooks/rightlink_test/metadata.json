@@ -82,7 +82,7 @@
       "multiple_values": false,
       "display_name": "Value that should be overwrite test recipe value",
       "recipes": [
-        "state_test::default"
+        "rightlink_test::state_test_setup"
       ],
       "required": false
     }
