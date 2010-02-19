@@ -1,10 +1,12 @@
+@tomcat-ubuntu
+
 Feature: webapp test
   Tests the RightScale app stack
 
   Scenario: Basic test
 
-    Given A deployment named "Regression Test - tomcat6"
-    And "2" operational servers named "Tomcat6 App set2"
+    Given A deployment.
+    And "2" operational servers named "app"
 
     When I query "/" on all servers 
     Then I should see "html serving succeeded." in all the responses
