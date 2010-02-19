@@ -21,4 +21,4 @@ recipe "rightlink_test::state_test_check_value","Verifies attribute setup in sta
 
 attribute "state_test/value",
   :display_name => "Value that should be overwrite test recipe value",
-  :recipes => [ "state_test::default" ]
+  :recipes => [ "rightlink_test::state_test_setup" ]
