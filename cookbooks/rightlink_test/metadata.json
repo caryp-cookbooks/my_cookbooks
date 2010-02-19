@@ -1,5 +1,8 @@
 {
   "providing": {
+    "rightlink_test::state_test_check_value": [
+
+    ],
     "rightlink_test::resource_remote_recipe_ping": [
 
     ],
@@ -22,6 +25,9 @@
 
     ],
     "rightlink_test::resource_server_collection_test": [
+
+    ],
+    "rightlink_test::state_test_setup": [
 
     ],
     "rightlink_test::resource_right_link_tag_test": [
@@ -56,6 +62,7 @@
   },
   "version": "0.1.0",
   "recipes": {
+    "rightlink_test::state_test_check_value": "Verifies attribute setup in state_test_setup was persisted. This should be run as an operational script.",
     "rightlink_test::resource_remote_recipe_ping": "Called by resource_remote_recipe_test_start -- Add as a operational script.",
     "rightlink_test::tag_break_point_test": "Add a breakpoint at tag_break_point_test_should_never_run recipe and reboots server.",
     "rightlink_test::core_env_test": "Verifies all require rightscale environment variables are available in the Chef node.",
@@ -64,12 +71,21 @@
     "rightlink_test::ohai_plugin_test": "Verifies all custom ohai plugin values are available in the Chef node.",
     "rightlink_test::resource_remote_recipe_pong": "Called by resource_remote_recipe_test_start -- Add as a operational script.",
     "rightlink_test::resource_server_collection_test": "Tests the ability to query tags on the local server.",
+    "rightlink_test::state_test_setup": "Overwrites default attribute the first time run. This can be boot or op script.",
     "rightlink_test::resource_right_link_tag_test": "Test the ability to add and remove tags.",
     "rightlink_test::resource_remote_recipe_setup": "Tags a server as a ping receiver.  Any server with this tag needs resource_remote_recipe_ping & resource_remote_recipe_pong as operational scripts.",
     "rightlink_test::tag_cookbook_path_test": "Copies this repo to a local dir, sets the cookbook_path tag, and reboots server."
   },
   "attributes": {
-
+    "state_test\/value": {
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Value that should be overwrite test recipe value",
+      "recipes": [
+        "state_test::default"
+      ],
+      "required": false
+    }
   },
   "conflicting": {
 
