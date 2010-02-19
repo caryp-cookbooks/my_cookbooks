@@ -1,10 +1,12 @@
+@tomcat-ubuntu
+
 Feature: webapp test
   Tests the RightScale app stack
 
   Scenario: Basic test
 
-    Given A deployment named "Regression Test - tomcat6"
-    And "2" operational servers named "Tomcat6 FE set2"
+    Given A deployment.
+    And "2" operational servers named "fe"
 
 #    When I run "service haproxy restart" on all servers
 #    Then it should exit successfully on all servers
