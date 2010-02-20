@@ -2,10 +2,17 @@ COLLECTION_NAME = "server_tags"
 TAG = "rightlink:test="
 TAG_COUNT = 10
 
+log "============ resource test: server_collection =============="
+
 TAG_COUNT.times do |n|
   my_tag = "#{TAG}resource_server_collection_#{n}"
   log "Tagging server with #{my_tag}"
   right_link_tag my_tag
+  
+  wait_for_tag TAG do
+    collection_name COLLECTION_NAME
+  end
+  
 end
 
 server_collection COLLECTION_NAME do

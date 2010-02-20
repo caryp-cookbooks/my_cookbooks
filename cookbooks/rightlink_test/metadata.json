@@ -79,8 +79,9 @@
   "attributes": {
     "state_test\/value": {
       "type": "string",
+      "desription": "The default value for the attribute used in the state test recipes.",
       "multiple_values": false,
-      "display_name": "Value that should be overwrite test recipe value",
+      "display_name": "State Test Value",
       "recipes": [
         "rightlink_test::state_test_setup"
       ],

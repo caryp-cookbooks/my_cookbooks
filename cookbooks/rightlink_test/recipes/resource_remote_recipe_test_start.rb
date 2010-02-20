@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+log "============ resource test: remote_recipe =============="
+
 log "send ping to receiver"
 
 remote_recipe "ping receiver" do
