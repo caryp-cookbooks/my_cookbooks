@@ -20,5 +20,6 @@ recipe "rightlink_test::state_test_setup","Overwrites default attribute the firs
 recipe "rightlink_test::state_test_check_value","Verifies attribute setup in state_test_setup was persisted. This should be run as an operational script."
 
 attribute "state_test/value",
-  :display_name => "Value that should be overwrite test recipe value",
+  :display_name => "State Test Value",
+  :desription => "The default value for the attribute used in the state test recipes.",
   :recipes => [ "rightlink_test::state_test_setup" ]
