@@ -33,7 +33,7 @@ define :wait_for_tag, :collection_name => nil, :should_exist => true, :timeout =
       rescue Timeout::Error => e
         raise "ERROR: right_link_tag resource failed to remove a tag after #{timeout/60} minutes."
       end
-      Chef::Log.info "#{TAG} tag #{state}."
+      Chef::Log.info "#{tag} tag #{state}."
     end
   end
   
