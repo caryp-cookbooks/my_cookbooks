@@ -7,7 +7,7 @@ require "#{File.dirname(__FILE__)}/run_test.rb"
 require "json"
 require "/var/spool/ec2/meta-data-cache.rb"
 
-@test_params = JSON.parse File.read("#{ENV['DIR']}/static.json")
+@test_params = JSON.parse File.read("#{File.dirname(__FILE__)}/static.json")
 
 puts 
 puts "test_name = #{@test_params["test_name"]}"
