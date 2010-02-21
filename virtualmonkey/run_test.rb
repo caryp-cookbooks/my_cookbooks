@@ -5,13 +5,13 @@ require "rest_connection"
 require "net/ssh"
 
 
-def add_server(nickname,deployment,template,image,ssh_key,security_group,cloud,instance_type)
+def add_server(nickname,deployment,template,image,ssh_key,security_group,cloud_id,instance_type)
   server = Server.create(:nickname => nickname, \
                          :deployment_href => deployment , \
                          :server_template_href => template , \
                          :ec2_image_href => image , \
                          :ec2_ssh_key_href => ssh_key , \
-                         :cloud => cloud, \
+                         :cloud_id => cloud_id , \
                          :instance_type => instance_type, \
                          :ec2_security_groups_href => security_group )
   return server
@@ -37,7 +37,7 @@ def run_test( deployment_name, \
               image_href, \
               ssh_key, \
               security_group, \
-              cloud, \
+              cloud_id, \
               instance_types, \
               cuke_tags )
 
@@ -51,13 +51,13 @@ def run_test( deployment_name, \
   ## add servers
   puts "adding servers" if @debug
   instance_type = pick_instance_type(instance_types)
-  fe1 = add_server("fe1",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud,instance_type)
+  fe1 = add_server("fe1",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  fe2 = add_server("fe2",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud,instance_type)
+  fe2 = add_server("fe2",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  app1 = add_server("app1",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud,instance_type)
+  app1 = add_server("app1",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  app2 = add_server("app2",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud,instance_type)
+  app2 = add_server("app2",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud_id,instance_type)
 
   
   ## set inputs

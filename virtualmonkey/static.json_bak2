@@ -9,8 +9,19 @@
   "clouds": {
     "ec2": {
       "regions": {
-        "us-west": {
-         "cloud_id": "2" ,
+        "us-east": {
+          "cloud_id": "1",
+          "ssh_key": "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/7053",
+          "security_group": "https://my.rightscale.com/api/acct/2901/ec2_security_groups/6411",
+
+          "images": [
+            { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91316755" },
+            { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-ccb35ea5", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91322535" }
+          ]
+       },
+
+       "us-west": {
+         "cloud_id": "3",
          "ssh_key": "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/197758",
          "security_group": "https://my.rightscale.com/api/acct/2901/ec2_security_groups/97863",
 

@@ -1,7 +1,7 @@
 {
   "test_name": "tomcat 6 FE and APP",
 
-  "cuke_tags": "@tomcat",
+  "cuke_tags": "@tomcat-ubuntu",
 
   "front_end_template": "https://my.rightscale.com/api/acct/2901/server_templates/44210",
   "app_server_template": "https://my.rightscale.com/api/acct/2901/server_templates/18769",
@@ -9,15 +9,16 @@
   "clouds": {
     "ec2": {
       "regions": {
-        "us-west": {
-         "cloud_id": "2" ,
-         "ssh_key": "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/197758",
-         "security_group": "https://my.rightscale.com/api/acct/2901/ec2_security_groups/97863",
+        "us-east": {
+          "ssh_key": "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/7053",
+          "security_group": "https://my.rightscale.com/api/acct/2901/ec2_security_groups/6411",
 
-         "images": [
-           { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-e32273a6", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91330093" },
-           { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-eb2273ae", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91335509" }
-         ]
+          "images": [
+            { "name": "Ubuntu_9.10_i386_v4.5.0" , "id": "ami-9b6488f2", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109218294" },
+            { "name": "Ubuntu_9.10_x64_v4.5.0"  , "id": "ami-cf6a86a6", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109186430" },
+            { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91316755" },
+            { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-ccb35ea5", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91322535" }
+          ]
         }
       },        
 

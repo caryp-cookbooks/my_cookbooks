@@ -1,10 +1,13 @@
+@tomcat
+
 Feature: webapp test
   Tests the RightScale app stack
 
   Scenario: Basic test
 
-    Given A deployment named "Regression Test - tomcat6"
-    And "2" operational servers named "Tomcat6 App set1"
+    Given A deployment.
+    And A server running on "8000"
+    And "2" operational servers named "app"
 
     When I query "/" on all servers 
     Then I should see "html serving succeeded." in all the responses
@@ -27,12 +30,6 @@ Feature: webapp test
     When I run "test -L /var/log/tomcat6" on all servers
     Then it should exit successfully on all servers
 
-    When I run "test -d /home/webapps/tomcatapp/current/apptest" on all servers
-    Then it should exit successfully on all servers
-
     When I run "test -f /etc/logrotate.d/tomcat6" on all servers
     Then it should exit successfully on all servers
-
-#    When I run "" on all servers
-#    Then it should exit successfully on all servers
 
