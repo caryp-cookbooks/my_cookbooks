@@ -1,22 +1,4 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-    "bd_lvmros": [
-
-    ]
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "description": "Installs\/Configures lvm_test",
-  "name": "lvmros_test",
-  "conflicting": {
-
-  },
   "providing": {
     "lvmros_test::test_all": [
 
@@ -35,57 +17,85 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\nThis tests the \n * bd_lvmros cookbook\n * block_device resource\n * block_device\/lvm_ros provider\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+    "bd_lvmros": [
+
+    ]
+  },
+  "replacing": {
+
+  },
+  "description": "Installs\/Configures lvm_test",
+  "maintainer": "RightScale, Inc.",
+  "name": "lvmros_test",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
   "platforms": {
 
   },
   "version": "0.1.0",
+  "recipes": {
+    "lvmros_test::test_all": "",
+    "lvmros_test::common": "",
+    "lvmros_test": "",
+    "lvmros_test::test_s3": "",
+    "lvmros_test::test_cloudfiles": ""
+  },
   "attributes": {
     "test\/cloudfiles\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Username",
-      "required": true,
       "recipes": [
         "lvmros_test::test_cloudfiles"
-      ]
+      ],
+      "required": true
     },
     "test\/s3\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Secret Access Key",
-      "required": true,
       "recipes": [
         "lvmros_test::test_s3"
-      ]
+      ],
+      "required": true
     },
     "test\/s3\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Access Key ID",
-      "required": true,
       "recipes": [
         "lvmros_test::test_s3"
-      ]
+      ],
+      "required": true
     },
     "test\/cloudfiles\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Authorization Key",
-      "required": true,
       "recipes": [
         "lvmros_test::test_cloudfiles"
-      ]
+      ],
+      "required": true
+    },
+    "test\/container": {
+      "default": "regression_test_area",
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Test Container",
+      "recipes": [
+
+      ],
+      "required": true
     }
   },
-  "replacing": {
+  "conflicting": {
 
-  },
-  "recipes": {
-    "lvmros_test::test_all": "",
-    "lvmros_test::common": "",
-    "lvmros_test::test_s3": "",
-    "lvmros_test::test_cloudfiles": "",
-    "lvmros_test": ""
   },
   "license": "All rights reserved"
 }
