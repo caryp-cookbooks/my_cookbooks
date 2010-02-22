@@ -9,7 +9,6 @@ depends "bd_lvmros"
 
 attribute "test/container",
   :display_name => "Test Container",
-  :required => true,
   :default => "regression_test_area"
   
 attribute "test/s3/user",

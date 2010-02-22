@@ -91,7 +91,7 @@
       "recipes": [
 
       ],
-      "required": true
+      "required": false
     }
   },
   "conflicting": {
