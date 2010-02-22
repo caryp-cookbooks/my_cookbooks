@@ -7,7 +7,7 @@ LVM_TEST_RESTORE_DIR = "/tmp/restore_test"
 node[:remote_storage][:default][:account][:id] = node[:test][:username]
 node[:remote_storage][:default][:account][:credentials] = node[:test][:password]
 node[:remote_storage][:default][:provider] = node[:test][:provider]
-node[:remote_storage][:default][:container] = "regression_test_area"
+node[:remote_storage][:default][:container] = node[:test][:container]
 
 include_recipe "bd_lvmros::setup_remote_storage"
 include_recipe "bd_lvmros::setup_lvm"
