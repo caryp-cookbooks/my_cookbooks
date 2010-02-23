@@ -8,6 +8,7 @@ Feature: webapp test
     Given A deployment.
     And A server running on "8000"
     And "2" operational servers named "fe"
+    And with ssh private key
 
     When I query "/" on all servers 
     Then I should see "html serving succeeded." in all the responses
