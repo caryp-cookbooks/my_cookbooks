@@ -5,12 +5,12 @@ require "rest_connection"
 require "net/ssh"
 
 
-def add_server(nickname,deployment,template,image,ssh_key,security_group,cloud_id,instance_type)
+def add_server(nickname,deployment,template,image,public_ssh_key_href,security_group,cloud_id,instance_type)
   server = Server.create(:nickname => nickname, \
                          :deployment_href => deployment , \
                          :server_template_href => template , \
                          :ec2_image_href => image , \
-                         :ec2_ssh_key_href => ssh_key , \
+                         :ec2_ssh_key_href => public_ssh_key_href , \
                          :cloud_id => cloud_id , \
                          :instance_type => instance_type, \
                          :ec2_security_groups_href => security_group )
@@ -35,10 +35,11 @@ def run_test( deployment_name, \
               front_end_template, \
               app_server_template, \
               image_href, \
-              ssh_key, \
+              public_ssh_key_href, \
               security_group, \
               cloud_id, \
               instance_types, \
+              private_ssh_key_path, \
               cuke_tags )
 
   @debug = true
@@ -51,13 +52,13 @@ def run_test( deployment_name, \
   ## add servers
   puts "adding servers" if @debug
   instance_type = pick_instance_type(instance_types)
-  fe1 = add_server("fe1",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud_id,instance_type)
+  fe1 = add_server("fe1",deployment.href,front_end_template,image_href,public_ssh_key_href,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  fe2 = add_server("fe2",deployment.href,front_end_template,image_href,ssh_key,security_group,cloud_id,instance_type)
+  fe2 = add_server("fe2",deployment.href,front_end_template,image_href,public_ssh_key_href,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  app1 = add_server("app1",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud_id,instance_type)
+  app1 = add_server("app1",deployment.href,app_server_template,image_href,public_ssh_key_href,security_group,cloud_id,instance_type)
   instance_type = pick_instance_type(instance_types)
-  app2 = add_server("app2",deployment.href,app_server_template,image_href,ssh_key,security_group,cloud_id,instance_type)
+  app2 = add_server("app2",deployment.href,app_server_template,image_href,public_ssh_key_href,security_group,cloud_id,instance_type)
 
   
   ## set inputs
@@ -96,11 +97,13 @@ def run_test( deployment_name, \
 
   ## run cucumber 
   puts "running cucumber" if @debug
-  ENV['DEPLOYMENT']=deployment_name
+  ENV['SSH_KEY_PATH'] = private_ssh_key_path
+  ENV['DEPLOYMENT'] = deployment_name
   result = `cucumber --guess --tags #{cuke_tags} /root/my_cookbooks/features/ --out /root/cuke_log_#{deployment_name}.log`
 
   ## clean up 
-  ##deployment.destroy
+  deployment.stop_all
+  deployment.destroy
 
   ## return results
   puts "completed tests" if @debug
