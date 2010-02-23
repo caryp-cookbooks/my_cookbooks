@@ -10,6 +10,10 @@ Given /A deployment./ do
   puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
 end
 
+Given /^with ssh private key$/ do
+  @deployment.connection.settings[:ssh_key] = ENV['SSH_KEY_PATH']
+end
+
 Given /^"([^\"]*)" operational servers./ do |num|
   servers = @deployment.servers_no_reload
   @servers = servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
