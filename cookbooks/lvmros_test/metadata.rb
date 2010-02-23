@@ -7,6 +7,10 @@ version          "0.1"
 
 depends "bd_lvmros"
 
+attribute "test/container",
+  :display_name => "Test Container",
+  :default => "regression_test_area"
+
 attribute "test/s3/user",
   :display_name => "Amazon Access Key ID",
   :required => true,
@@ -26,3 +30,4 @@ attribute "test/cloudfiles/key",
   :display_name => "Rackspace Authorization Key",
   :required => true,
   :recipes => [ "lvmros_test::test_cloudfiles" ]
+  
