@@ -49,6 +49,17 @@
         "devmode::do_converge_loop_step"
       ],
       "required": false
+    },
+    "devmode\/converge_loop\/recipe_name": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "The name of the recipe to run in a loop.",
+      "display_name": "Recipe Name",
+      "recipes": [
+        "devmode::do_converge_loop",
+        "devmode::do_converge_loop_step"
+      ],
+      "required": true
     }
   },
   "conflicting": {
