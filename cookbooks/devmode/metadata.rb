@@ -9,12 +9,6 @@ recipe "devmode::setup_cookbooks", "Used to setup Dropbox cookbook as instance c
 recipe "devmode::do_recipe_loop_step", "Used by do_recipe_loop as a remote recipe."
 recipe "devmode::do_recipe_loop", "Reconverge the boot recipes <count> times."
 
-attribute "devmode/converge_loop/recipe_name",
-  :display_name => "Recipe Name",
-  :description => "The name of the recipe to run in a loop.",
-  :required => true,
-  :recipes => [ "devmode::do_converge_loop", "devmode::do_converge_loop_step" ]
-
 attribute "devmode/converge_loop/total",
   :display_name => "Converge Loop Count",
   :default => "10",
