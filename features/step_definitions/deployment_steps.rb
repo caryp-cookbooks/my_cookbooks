@@ -75,3 +75,23 @@ Then /I should set a variation lineage./ do
   lin = "text:testlineage#{rand(1000000)}"
   @deployment.set_input('db/backup/lineage', lin)
 end
+
+Then /all servers should go operational./ do 
+  servers = @deployment.servers_no_reload
+  server_tag = ENV['SERVER_TAG']
+  @servers = servers.select { |s| s.nickname =~ /#{server_tag}/ }
+  raise "ERROR: no servers with tag '#{server_tag}' found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
+  @servers.each { |s| s.start } 
+  @servers.each { |s| s.wait_for_operational_with_dns } 
+end
+
+Then /all servers should shutdown./ do 
+  servers = @deployment.servers_no_reload
+  server_tag = ENV['SERVER_TAG']
+  @servers = servers.select { |s| s.nickname =~ /#{server_tag}/ }
+  raise "ERROR: no servers with tag '#{server_tag}' found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
+  @servers.each { |s| s.stop } 
+  @servers.each { |s| s.wait_for_state("terminated") } 
+end
+
+ 
