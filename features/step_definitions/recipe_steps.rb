@@ -23,7 +23,6 @@ When /^I clear the log on server "(.*)".$/ do |server_index|
   @response = @servers[human_index].spot_check(cmd) do |result|
     puts result
   end
-  
 end
 
 Then /^I should see "(.*)" in the log on server "(.*)"\.$/ do |message, server_index|
@@ -35,4 +34,11 @@ end
 
 Then /^the audit entry should NOT contain "([^\"]*)"\.$/ do |st_match|
   @response[:output].should_not include(st_match)
+end
+
+Then /^all servers should successfully run a recipe named "(.*)"\.$/ do |recipe|
+   @servers.each do |s| 
+     response = s.run_recipe(recipe)
+     response[:status].should == true
+   end
 end
