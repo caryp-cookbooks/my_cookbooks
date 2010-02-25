@@ -2,6 +2,9 @@
 Feature: LVM Provider re-converge test
   
   Make sure lvm provider is idempotent 
+ 
+  export DEPLOYMENT="Regression Test CHEF - stress test - lvmros"
+  export SERVER_TAG="LVM Stress"
 
   Scenario: The LVM Stress Test template should go operational
     Given A deployment.
