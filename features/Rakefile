@@ -1,21 +1,30 @@
 require 'rubygems'
 require 'rest_connection'
 require 'yaml'
+require 'fileutils'
 
-desc "Parallel MySQL Chef Alpha test"
-task :run_mysql_chef_alpha do
-  raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
+def cached_deployments()
   if File.exists?("deployments.cache.yaml")
     puts "Loading deployments from cache.."
     deployments = YAML::load(IO.read("deployments.cache.yaml"))
-    set = deployments.select {|d| d.nickname.include? ENV['DEPLOYMENTS_TAG']}
   else
-    deployments = Deployment.find_all
-    set = deployments.select {|d| d.nickname.include? ENV['DEPLOYMENTS_TAG']}
+    deployments = Deployment.find_by(:nickname) { |nick| nick.include?(ENV['DEPLOYMENTS_TAG']) }
     File.open("deployments.cache.yaml", "w") {|f| f.write(deployments.to_yaml)}
   end
+  deployments
+end
 
-  raise "FATAL: 4 deployments required for this test" unless deployments.size >= 4
+desc "Parallel MySQL Chef Alpha test"
+task :run_mysql_chef_alpha do
+  set = cached_deployments 
+  if ENV["FEATURE"]
+    feature_name = ENV["FEATURE"]
+  else
+    feature_name = "mysql_chef_alpha_premium_from_scratch.feature" 
+  end
+  raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
+  FileUtils.mkdir_p("log")
+    raise "FATAL: 4 deployments required for this test" unless set.size >= 4
   platforms = [" Ubuntu"," CentOS"]
   archs = [ "i386", "x86_64" ]
   children = []
@@ -26,7 +35,7 @@ task :run_mysql_chef_alpha do
       ENV['SERVER_TAG'] = "#{a}#{p}"
       ENV['REST_CONNECTION_LOG'] = "log/rest_connection.#{ENV['SERVER_TAG']}.log"
       children << Process.fork {
-        cmd = "cucumber mysql_chef_premium_from_scratch.feature --out 'log/mysqlchef.#{ENV['SERVER_TAG']}.log'"
+        cmd = "cucumber #{feature_name} --out 'log/mysqlchef.#{ENV['SERVER_TAG']}.log'"
         puts "RUNNING: #{cmd}"
         system(cmd)
       }
@@ -49,14 +58,7 @@ end
 desc "TERMINATE all servers in all deployments specified by DEPLOYMENTS_TAG"
 task :kill_all do
   raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
-  if File.exists?("deployments.cache.yaml")
-    puts "Loading deployments from cache.."
-    deployments = YAML::load(IO.read("deployments.cache.yaml"))
-    set = deployments.select {|d| d.nickname.include? ENV['DEPLOYMENTS_TAG']}
-  else
-    deployments = Deployment.find_all
-    File.open("deployments.cache.yaml", "w") {|f| f.write(deployments.to_yaml)}
-  end
+  set = cached_deployments 
   set.each {|n| STDOUT.puts n.nickname}
   STDOUT.puts "10 seconds till ..TERMINATING all servers in these deployments ^^^^. CTRL-C to abort."
   sleep 10
@@ -69,14 +71,7 @@ end
 desc "RELAUNCH all *running servers in deployments specified by DEPLOYMENTS_TAG"
 task :relaunch_all do
   raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
-  if File.exists?("deployments.cache.yaml")
-    puts "Loading deployments from cache.."
-    deployments = YAML::load(IO.read("deployments.cache.yaml"))
-    set = deployments.select {|d| d.nickname.include? ENV['DEPLOYMENTS_TAG']}
-  else
-    deployments = Deployment.find_all
-    File.open("deployments.cache.yaml", "w") {|f| f.write(deployments.to_yaml)}
-  end
+  set = cached_deployments 
   set.each {|n| STDOUT.puts n.nickname}
   STDOUT.puts "10 seconds till ..RELAUNCHING all servers in these deployments ^^^^. CTRL-C to abort."
   sleep 10
