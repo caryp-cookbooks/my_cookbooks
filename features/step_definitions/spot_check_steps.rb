@@ -18,3 +18,24 @@ When /^I run "([^\"]*)" on all servers$/ do |command|
     @all_responses[i] = s.spot_check_command?(command)
   end
 end
+
+
+#
+# Checking for request sucess/error
+#
+Then /^it should exit successfully$/ do
+  @response.should be true
+end
+
+Then /^it should exit successfully on all servers$/ do
+  @all_responses.each do |response|
+    response.should be true
+  end
+end
+
+Then /^it should not exit successfully on any server$/ do
+  @all_responses.each do |response|
+    response.should_not be true
+  end
+end
+

@@ -17,9 +17,6 @@
           "private_key_path": "/root/.ssh/publish-test",
 
           "images": [
-            { "name": "Ubuntu_9.10_i386_v4.5.0" , "id": "ami-9b6488f2", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109218294" },
-            { "name": "Ubuntu_9.10_x64_v4.5.0" , "id": "ami-cf6a86a6", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109186430" },
-            { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91316755" },
             { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-ccb35ea5", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91322535" }
           ],
           
@@ -35,9 +32,6 @@
          "private_key_path": "/root/.ssh/publish-test-west",
 
          "images": [
-           { "name": "Ubuntu_9.10_i386_v4.5.0" , "id": "ami-3d451478", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109183830" },
-           { "name": "Ubuntu_9.10_x64_v4.5.0" , "id": "ami-3f45147a", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109183837" },
-           { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-e32273a6", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91330093" },
            { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-eb2273ae", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91335509" }
          ],
 
@@ -53,9 +47,6 @@
          "private_key_path": "/root/.ssh/publish-test-eu",
           
          "images": [ 
-           { "name": "Ubuntu_9.10_i386_v4.5.0" , "id": "ami-35a78c41", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109189743" },
-           { "name": "Ubuntu_9.10_x64_v4.5.0" , "id": "ami-25a78c51", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109208062" },
-           { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-efe4cf9b", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91339358" },
            { "name": "CentOS_5.4_x64_v4.4.10" , "id": "ami-ebe4cf9f", "arch": "x86_64" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91343309" }
          ],
           

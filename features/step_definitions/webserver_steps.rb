@@ -45,21 +45,3 @@ Then /^I should not see "([^\"]*)" in all the responses$/ do |message|
   @all_servers.each_with_index { |s,i| @all_responses[i].should_not include(message) }
 end
 
-#
-# Checking for request sucess/error
-#
-Then /^it should exit successfully$/ do
-  @response.should be true
-end
-
-Then /^it should exit successfully on all servers$/ do
-  @all_responses.each do |response|
-    response.should be true
-  end
-end
-
-Then /^it should not exit successfully on any server$/ do
-  @all_responses.each do |response|
-    response.should_not be true
-  end
-end

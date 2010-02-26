@@ -34,6 +34,7 @@ def run_test( deployment_name, \
               deployment_inputs, \
               front_end_template, \
               app_server_template, \
+              connect_script, \
               image_href, \
               public_ssh_key_href, \
               security_group, \
@@ -76,12 +77,20 @@ def run_test( deployment_name, \
   fe2.start
   fe1.wait_for_state("operational")
   fe2.wait_for_state("operational")
-
-  ## set deployment LB_HOSTNAME to fe's private address
+   
+  ## cross-connnect front ends to loadbalancers
   fe1.reload
   fe2.reload
   fe1_ip = fe1.settings['private-dns-name']
   fe2_ip = fe2.settings['private-dns-name']
+  lb_hostname = { :LB_HOSTNAME,"text:#{fe1_ip} #{fe2_ip}"} 
+  #fe1_connect_status = fe1.run_script(connect_script,lb_hostname)
+  #fe2_connect_status = fe2.run_script(connect_script,lb_hostname)
+  #fe1_connect_status.wait_for_completed(fe1.audit_link)
+  #fe2_connect_status.wait_for_completed(fe2.audit_link)
+  
+  
+  ## set deployment LB_HOSTNAME to fe's private address
   deployment.set_input(:LB_HOSTNAME,"text:#{fe1_ip} #{fe2_ip}")
 
 
