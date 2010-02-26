@@ -21,6 +21,8 @@ ruby_block "Query for breakpoint" do
     unless result.empty?
       Chef::Log.info("  Tag found!")
       node[:devmode_test][:has_breakpoint] = true
+      node[:devmode_test][:initial_pass] = false if node[:devmode_test][:initial_pass]
+      node[:devmode_test][:disable_breakpoint_test] = true unless node[:devmode_test][:initial_pass]
     else
       Chef::Log.info("  No tag found -- set and reboot!") 
     end

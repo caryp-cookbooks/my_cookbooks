@@ -4,7 +4,7 @@ define :devmode_converge_loop, remote_recipe => "" do
   count = node[:devmode][:converge_loop][:count].to_i
 
   if total > 0
-    TAG = "devmode:loop=true"
+    TAG = "devmode:loop=#{node[:rightscale][:instance_uuid]}"
     log "Tag server for loop requests. Tag: #{TAG}"
     right_link_tag TAG
  
