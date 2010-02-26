@@ -34,3 +34,8 @@ Feature: webapp test
     When I run "test -f /etc/logrotate.d/tomcat6" on all servers
     Then it should exit successfully on all servers
 
+    When I run "service haproxy restart" on all servers
+    Then it should exit successfully on all servers
+
+    When I run "pgrep haproxy" on all servers
+    Then it should exit successfully on all servers
