@@ -16,8 +16,6 @@ Feature: mysql_db premium resources and master/slave cluster operations
     
     When I run a recipe named "db_mysql::do_tag_as_master" on server "1".
     Then it should converge successfully.
-# this sleep is so that the tag can catch up to us and our backup won't fail because we think we're a slave.  The alternative is to force the backup somehow.
-    Then I should sleep 10 seconds.
 
     When I run a recipe named "db_mysql::do_backup" on server "1".
     Then it should converge successfully.
