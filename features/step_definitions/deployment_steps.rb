@@ -71,9 +71,39 @@ Then /^I should sleep (\d+) seconds\.$/ do |seconds|
   sleep seconds.to_i
 end
 
+Then /^I should set rs_agent_dev:package to "(.*)"\.$/ do |package|
+  @deployment.servers_no_reload.each do |s|
+    s.tags << {"name"=>"rs_agent_dev:package=#{package}"}
+    s.save
+  end
+end
+
+Then /^I should set un-set all tags on all servers in the deployment\.$/ do
+  @deployment.servers_no_reload.each do |s|
+    # can't unset ALL tags, so we must set a bogus one
+    s.tags = [{"name"=>"removeme:now=1"}]
+    s.save
+  end
+end
+
 Then /I should set a variation lineage./ do
   lin = "text:testlineage#{rand(1000000)}"
   @deployment.set_input('db/backup/lineage', lin)
+# unset all server level inputs in the deployment to ensure use of 
+# the setting from the deployment level
+  @deployment.servers_no_reload.each do |s|
+    s.set_input('db/backup/lineage', "text:")
+  end
+end
+
+Then /I should set a variation bucket./ do
+  bucket = "text:testingcandelete#{@deployment.href.split(/\//).last}"
+  @deployment.set_input('remote_storage/default/container', bucket)
+# unset all server level inputs in the deployment to ensure use of 
+# the setting from the deployment level
+  @deployment.servers_no_reload.each do |s|
+    s.set_input('remote_storage/default/container', "text:")
+  end
 end
 
 Then /all servers should go operational./ do 

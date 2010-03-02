@@ -4,6 +4,8 @@ Feature: mysql_db premium resources and master/slave cluster operations
   Scenario: Basic cluster failover operations
     Given A deployment. 
     And "2" operational servers.
+    Then I should run a mysql query "drop database mynewtest" on server "1".
+    Then I should run a mysql query "drop database mynewtest" on server "2".
     When I run a recipe named "db_mysql::do_restore_and_become_master" on server "1". 
     Then it should converge successfully.
 
