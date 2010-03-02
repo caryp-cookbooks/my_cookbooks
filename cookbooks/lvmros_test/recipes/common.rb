@@ -37,6 +37,7 @@ end
 
 # Do the actual backup.
 block_device LVM_RESOURCE_NAME do
+  lineage node[:rightscale][:instance_uuid]
   action :backup 
 end
 
