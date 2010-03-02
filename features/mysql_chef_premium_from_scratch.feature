@@ -4,6 +4,7 @@ Feature: mysql_db premium resources and master/slave cluster operations
   Scenario: Basic cluster failover operations and backup from scratch.
     Given A deployment.
     Then I should set a variation lineage.
+    Then I should set a variation bucket.
     And "2" operational servers.
     Then I should run a mysql query "create database mynewtest" on server "1".
 
