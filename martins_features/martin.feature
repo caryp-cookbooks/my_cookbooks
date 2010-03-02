@@ -5,7 +5,8 @@ Feature: haproxy test
 
   Scenario: Basic test
 
-    Given A deployment.
+    Given A deployment name
+    And "2" operational frontends
     And A server running on "80"
     And "2" operational servers named "fe"
     And with ssh private key

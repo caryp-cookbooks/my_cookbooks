@@ -43,6 +43,8 @@ def run_test( deployment_name, \
               private_ssh_key_path, \
               cuke_tags )
 
+`true`
+return [$?,"result output","path_to_output"]
   @debug = true
 
   ## create deployment 
@@ -108,7 +110,8 @@ def run_test( deployment_name, \
   puts "running cucumber" if @debug
   ENV['SSH_KEY_PATH'] = private_ssh_key_path
   ENV['DEPLOYMENT'] = deployment_name
-  result = `cucumber --guess --tags #{cuke_tags} /root/my_cookbooks/features/ --out /root/cuke_log_#{deployment_name}.log`
+  output_file = "/root/cuke_log_#{deployment_name}.log"
+  result = `cucumber -f html --guess --tags #{cuke_tags} /root/my_cookbooks/features/ --out #{output_file}`
 
   ## clean up 
   deployment.stop_all
@@ -116,7 +119,7 @@ def run_test( deployment_name, \
 
   ## return results
   puts "completed tests" if @debug
-  return [$?,result]
+  return [$?,result,output_file]
 
 end
 

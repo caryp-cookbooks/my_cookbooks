@@ -17,7 +17,6 @@
           "private_key_path": "/root/.ssh/publish-test",
 
           "images": [
-            { "name": "Ubuntu_9.10_i386_v4.5.0" , "id": "ami-9b6488f2", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109218294" },
              { "name": "CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/91316755" }
           ],
           
