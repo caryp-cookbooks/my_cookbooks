@@ -1,0 +1,51 @@
+{
+  "providing": {
+    "virtual_monkey": [
+
+    ],
+    "virtual_monkey::setup_apptest_database": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+
+  },
+  "replacing": {
+
+  },
+  "description": "Installs\/Configures virtual_monkey",
+  "maintainer": "RightScale, Inc.",
+  "name": "virtual_monkey",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "recipes": {
+    "virtual_monkey": "",
+    "virtual_monkey::setup_apptest_database": ""
+  },
+  "attributes": {
+    "db_mysql\/bind_address": {
+      "default": "0.0.0.0",
+      "type": "string",
+      "multiple_values": false,
+      "display_name": "Database Bind Address",
+      "recipes": [
+
+      ],
+      "required": false
+    }
+  },
+  "conflicting": {
+
+  },
+  "license": "All rights reserved"
+}
