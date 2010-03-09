@@ -1,0 +1,30 @@
+    <html>
+      <head><title>Virtual Monkey -- <%= date %></title></head>
+      <body>
+        <h1>Virtual Monkey -- <%= date %></h1>
+        <p>ran <%= num_tests %> tests</p>
+
+        <p><%= failed_tests %> tests failed</p>
+
+        <ul>
+          <% @failed_tests.each do |t| %>
+            <li>
+            <A HREF="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
+            </li>
+          <% end %>
+        </ul>
+
+        <p><%= successful_tests %> tests passed</p>
+
+        <ul>
+          <% @successful_tests.each do |t| %>
+            <li>
+            <A HREF="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
+            </li>
+          <% end %>
+        </ul>
+
+
+      </body>
+    </html>
+

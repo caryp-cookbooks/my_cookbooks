@@ -1,11 +1,14 @@
 {
   "test_name": "tomcat 6 FE and APP",
 
-  "cuke_tags": "@tomcat",
+  "cuke_tags": "@foo",
 
-  "front_end_template": "https://my.rightscale.com/api/acct/2901/server_templates/44210",
-  "app_server_template": "https://my.rightscale.com/api/acct/2901/server_templates/18769",
-  "connect_script": "https://my.rightscale.com/api/acct/2901/right_scripts/23969",
+  "servers": {
+    "frontend1": "https://my.rightscale.com/api/acct/2901/server_templates/44210",
+    "frontend2": "https://my.rightscale.com/api/acct/2901/server_templates/44210",
+    "appserver1": "https://my.rightscale.com/api/acct/2901/server_templates/18769",
+    "appserver2": "https://my.rightscale.com/api/acct/2901/server_templates/18769"
+  },
 
   "clouds": {
     "ec2": {

@@ -1,0 +1,24 @@
+    <html>
+      <head><title>Virtual Monkey -- <%= @name %></title></head>
+      <body>
+
+        <h1><%= @name %> (<%= @code %>)</h1>
+        <p><%= @desc %></p>
+
+        <ul>
+          <% @features.each do |f| %>
+            <li><b><%= f %></b></li>
+          <% end %>
+        </ul>
+
+        <p>
+          <% if @cost < 10 %>
+            <b>Only <%= @cost %>!!!</b>
+          <% else %>
+             Call for a price, today!
+          <% end %>
+        </p>
+
+      </body>
+    </html>
+
