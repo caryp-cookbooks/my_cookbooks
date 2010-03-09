@@ -20,7 +20,7 @@ task :run_mysql_chef_alpha do
   if ENV["FEATURE"]
     feature_name = ENV["FEATURE"]
   else
-    feature_name = "mysql_chef_alpha_premium_from_scratch.feature" 
+    feature_name = "mysql_chef_premium_from_scratch.feature" 
   end
   raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
   FileUtils.mkdir_p("log")

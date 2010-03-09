@@ -2,6 +2,17 @@ require "rubygems"
 require "rest_connection"
 require "net/ssh"
 
+Given /A set of RightScripts for MySQL promote operations\.$/ do
+  st = ServerTemplate.find(@servers[1].server_template_href)
+  @scripts_to_run = {}
+  @scripts_to_run['restore'] = st.executables.detect { |ex| ex.name =~  /restore and become/i }
+  @scripts_to_run['slave_init'] = st.executables.detect { |ex| ex.name =~ /slave init v2/ }
+  @scripts_to_run['promote'] = st.executables.detect { |ex| ex.name =~ /promote to master/ }
+  @scripts_to_run['backup'] = st.executables.detect { |ex| ex.name =~ /EBS backup/ }
+# hardwired script! hax! (this is an 'anyscript' that users typically use to setup the master dns)
+  @scripts_to_run['master_init'] = RightScript.new('href' => "/right_scripts/195053")
+end
+
 Given /A deployment./ do
   raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
   @all_servers = Array.new
@@ -34,7 +45,7 @@ Given /^"([^\"]*)" operational servers./ do |num|
   servers = @deployment.servers_no_reload
   @servers = servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
   # only want 2 even if we matched more than that.
-  @servers.slice!(2)
+  @servers = @servers.slice(0,2)
   raise "need at least #{num} servers to start, only have: #{@servers.size}" if @servers.size < num.to_i
   @servers.each { |s| s.start } 
   @servers.each { |s| s.wait_for_operational_with_dns } 
@@ -123,5 +134,3 @@ Then /all servers should shutdown./ do
   @servers.each { |s| s.stop } 
   @servers.each { |s| s.wait_for_state("terminated") } 
 end
-
- 

@@ -42,3 +42,13 @@ Then /^all servers should successfully run a recipe named "(.*)"\.$/ do |recipe|
      response[:status].should == true
    end
 end
+
+When /^I run a rightscript named "([^\"]*)" on server "([^\"]*)"\.$/ do |script, server_index|
+  human_index = server_index.to_i - 1
+  @status = @servers[human_index].run_script(@scripts_to_run[script])
+  @audit_link = @servers[human_index].audit_link
+end
+
+Then /^the rightscript should complete successfully\.$/ do
+  @status.wait_for_completed(@audit_link)
+end
