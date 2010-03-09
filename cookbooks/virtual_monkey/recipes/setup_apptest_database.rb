@@ -24,7 +24,7 @@ end
 bash "unpack mysqldump file: #{SQL_DUMP}" do
   not_if "echo \"show databases\" | mysql | grep -q  \"^#{SCHEMA}$\""
   user "root"
-  cwd dir
+  cwd "#{SQL_BASE_DIR}"
   code <<-EOH
     set -e
     if [ ! -f #{SQL_DUMP} ] 
