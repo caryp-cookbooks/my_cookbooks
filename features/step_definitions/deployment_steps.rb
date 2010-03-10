@@ -19,6 +19,7 @@ Given /A deployment./ do
   @all_servers_os = Array.new
   @all_responses = Array.new
   @deployment = Deployment.find_by_nickname_speed(ENV['DEPLOYMENT']).first
+  @servers = @deployment.servers
   raise "FATAL: Couldn't find a deployment with the name #{ENV['DEPLOYMENT']}!" unless @deployment
   puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
 end
@@ -107,6 +108,17 @@ Then /I should set a variation lineage./ do
   end
 end
 
+Then /I should set an oldschool variation lineage./ do
+  lin = "text:testlineage#{rand(1000000)}"
+  @deployment.set_input('DB_LINEAGE_NAME', lin)
+# unset all server level inputs in the deployment to ensure use of 
+# the setting from the deployment level
+  @deployment.servers_no_reload.each do |s|
+    s.set_input('DB_LINEAGE_NAME', "text:")
+  end
+end
+
+
 Then /I should set a variation bucket./ do
   bucket = "text:testingcandelete#{@deployment.href.split(/\//).last}"
   @deployment.set_input('remote_storage/default/container', bucket)
@@ -118,10 +130,7 @@ Then /I should set a variation bucket./ do
 end
 
 Then /all servers should go operational./ do 
-  servers = @deployment.servers_no_reload
-  server_tag = ENV['SERVER_TAG']
-  @servers = servers.select { |s| s.nickname =~ /#{server_tag}/ }
-  raise "ERROR: no servers with tag '#{server_tag}' found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
+  raise "ERROR: no servers found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
   @servers.each { |s| s.start } 
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
