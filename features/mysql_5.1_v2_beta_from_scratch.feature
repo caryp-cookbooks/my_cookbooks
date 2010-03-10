@@ -7,6 +7,8 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     Then all servers should go operational.
     Then I should set an oldschool variation lineage.
     And A set of RightScripts for MySQL promote operations. 
+    Then I should create an EBS stripe on server "1".
+    Then the rightscript should complete successfully.
     Then I should run a mysql query "create database mynewtest" on server "1".
     Then I should setup admin and replication privileges on server "1".
     Then I should setup master dns to point at server "1".

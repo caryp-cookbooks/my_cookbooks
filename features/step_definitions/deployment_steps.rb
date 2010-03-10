@@ -11,6 +11,7 @@ Given /A set of RightScripts for MySQL promote operations\.$/ do
   @scripts_to_run['backup'] = st.executables.detect { |ex| ex.name =~ /EBS backup/ }
 # hardwired script! hax! (this is an 'anyscript' that users typically use to setup the master dns)
   @scripts_to_run['master_init'] = RightScript.new('href' => "/right_scripts/195053")
+  @scripts_to_run['create_stripe'] = RightScript.new('href' => "/right_scripts/171443")
 end
 
 Given /A deployment./ do
@@ -99,8 +100,8 @@ Then /^I should set un-set all tags on all servers in the deployment\.$/ do
 end
 
 Then /I should set a variation lineage./ do
-  lin = "text:testlineage#{rand(1000000)}"
-  @deployment.set_input('db/backup/lineage', lin)
+  @lineage = "text:testlineage#{rand(1000000)}"
+  @deployment.set_input('db/backup/lineage', @lineage)
 # unset all server level inputs in the deployment to ensure use of 
 # the setting from the deployment level
   @deployment.servers_no_reload.each do |s|
@@ -109,8 +110,8 @@ Then /I should set a variation lineage./ do
 end
 
 Then /I should set an oldschool variation lineage./ do
-  lin = "text:testlineage#{rand(1000000)}"
-  @deployment.set_input('DB_LINEAGE_NAME', lin)
+  @lineage = "text:testlineage#{rand(1000000)}"
+  @deployment.set_input('DB_LINEAGE_NAME', @lineage)
 # unset all server level inputs in the deployment to ensure use of 
 # the setting from the deployment level
   @deployment.servers_no_reload.each do |s|

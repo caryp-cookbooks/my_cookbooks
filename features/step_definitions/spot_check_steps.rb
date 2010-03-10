@@ -19,6 +19,12 @@ Then /^I should setup admin and replication privileges on server "([^\"]*)"\.$/ 
   puts @servers[human_index].spot_check_command(query_command)
 end
 
+Then /^I should create an EBS stripe on server "([^\"]*)"\.$/ do |server_index|
+  human_index = server_index.to_i - 1
+  @status = @servers[human_index].run_script(@scripts_to_run['create_stripe'], {"EBS_MOUNT_POINT" => "text:/mnt", "EBS_VOLUME_SIZE_GB" => "text:1", "EBS_LINEAGE" => @lineage }) 
+  @audit_link = @servers[human_index].audit_link
+end
+  
 Then /^I should setup master dns to point at server "([^\"]*)"\.$/ do |server_index|
   human_index = server_index.to_i - 1
   @servers[human_index].run_script(@scripts_to_run['master_init'], {'DB_TEST_MASTER_DNSID' => 'text:4635073'})
