@@ -8,6 +8,7 @@ Feature: mysql 5.1 v2 (beta) promote operations test
 # PHASE 1) Bootstrap a backup lineage from scratch
 #
     Given A deployment. 
+    Then I should stop the servers.
     And A set of RightScripts for MySQL promote operations. 
     Then I should set an oldschool variation lineage.
     Then all servers should go operational.

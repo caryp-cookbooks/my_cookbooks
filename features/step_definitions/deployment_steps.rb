@@ -9,6 +9,12 @@ Given /A deployment./ do
   @all_responses = Array.new
   @deployment = Deployment.find_by_nickname_speed(ENV['DEPLOYMENT']).first
   @servers = @deployment.servers
+
+  if ENV['SERVER_TAG']
+    puts "found SERVER_TAG environment variable. Scoping server list with tag: #{ENV['SERVER_TAG']}"
+    @servers = @servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
+  end
+
   raise "FATAL: Couldn't find a deployment with the name #{ENV['DEPLOYMENT']}!" unless @deployment
   puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
 end
@@ -121,10 +127,7 @@ end
 
 Then /all servers should go operational./ do 
   raise "ERROR: no servers found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
-  if ENV['SERVER_TAG']
-    puts "found SERVER_TAG environment variable. Scoping server list with tag: #{ENV['SERVER_TAG']}"
-    @servers = @servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
-  end
+  
   @servers.each { |s| s.start } 
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
