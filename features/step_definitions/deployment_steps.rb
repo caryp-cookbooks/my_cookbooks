@@ -2,18 +2,6 @@ require "rubygems"
 require "rest_connection"
 require "net/ssh"
 
-Given /A set of RightScripts for MySQL promote operations\.$/ do
-  st = ServerTemplate.find(@servers[1].server_template_href)
-  @scripts_to_run = {}
-  @scripts_to_run['restore'] = st.executables.detect { |ex| ex.name =~  /restore and become/i }
-  @scripts_to_run['slave_init'] = st.executables.detect { |ex| ex.name =~ /slave init v2/ }
-  @scripts_to_run['promote'] = st.executables.detect { |ex| ex.name =~ /promote to master/ }
-  @scripts_to_run['backup'] = st.executables.detect { |ex| ex.name =~ /EBS backup/ }
-# hardwired script! hax! (this is an 'anyscript' that users typically use to setup the master dns)
-  @scripts_to_run['master_init'] = RightScript.new('href' => "/right_scripts/195053")
-  @scripts_to_run['create_stripe'] = RightScript.new('href' => "/right_scripts/171443")
-end
-
 Given /A deployment./ do
   raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
   @all_servers = Array.new
@@ -117,6 +105,7 @@ Then /I should set an oldschool variation lineage./ do
   @deployment.servers_no_reload.each do |s|
     s.set_input('DB_LINEAGE_NAME', "text:")
   end
+  puts "Using Lineage: #{@lineage}"
 end
 
 
@@ -132,6 +121,10 @@ end
 
 Then /all servers should go operational./ do 
   raise "ERROR: no servers found in deployment '#{ENV['DEPLOYMENT']}'" if @servers.size == 0
+  if ENV['SERVER_TAG']
+    puts "found SERVER_TAG environment variable. Scoping server list with tag: #{ENV['SERVER_TAG']}"
+    @servers = @servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
+  end
   @servers.each { |s| s.start } 
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
