@@ -27,7 +27,7 @@
           "inputs": {
             "PRIVATE_SSH_KEY"          : "key:publish-test:1"
           }
-       },
+       }
      },         
 
       "instance_types": {
