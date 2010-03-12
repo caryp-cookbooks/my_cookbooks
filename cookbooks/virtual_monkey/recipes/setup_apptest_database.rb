@@ -12,17 +12,21 @@ SQL_DUMP = "#{SQL_BASE_DIR}/app_test.sql"
 SCHEMA = "app_test"
 
 # Download lastest app_test mysql dump
-subversion "pull unified_app_test repo" do
-  repository "https://wush.net/svn/rightscale/unified_test_app/common/sql"
-  revision "HEAD"
-  destination SQL_BASE_DIR
-  action :sync
+# subversion "pull unified_app_test repo" do
+#   repository "https://wush.net/svn/rightscale/unified_test_app/common/sql"
+#   revision "HEAD"
+#   destination SQL_BASE_DIR
+#   action :sync
+# end
+
+remote_file "#{SQL_DUMP}" do
+  source "app_test.sql"
 end
 
 # setup the mysql app_test database
 # TODO: this code was stolen from db_mysql definition db_mysql_restore, port to use svn or git
 bash "unpack mysqldump file: #{SQL_DUMP}" do
-  not_if "echo \"show databases\" | mysql | grep -q  \"^#{SCHEMA}$\""
+ # not_if do `echo "show databases" | mysql | grep -q  "^#{SCHEMA}$"` end
   user "root"
   cwd "#{SQL_BASE_DIR}"
   code <<-EOH
