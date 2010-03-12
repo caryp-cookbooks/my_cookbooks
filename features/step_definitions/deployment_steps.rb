@@ -137,3 +137,8 @@ Then /all servers should shutdown./ do
   @servers.each { |s| s.stop } 
   @servers.each { |s| s.wait_for_state("terminated") } 
 end
+
+Then /I should stop the servers\.$/ do
+  @servers.each { |s| s.stop }
+  @servers.each { |s| s.wait_for_state("stopped") }
+end
