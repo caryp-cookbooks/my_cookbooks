@@ -3,7 +3,6 @@ Feature: mysql 5.1 v2 (beta) promote operations test
   Tests the RightScale premium ServerTemplate Mysql 5.1 v2 (beta)
 
   Scenario: Setup 2 server deployment and run basic cluster failover operations
-
 #
 # PHASE 1) Bootstrap a backup lineage from scratch
 #
@@ -46,8 +45,7 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     Then the rightscript should complete successfully.
 
     Then I should sleep 200 seconds.
-
-    When I run a rightscript named "init_slave" on server "2".
+    When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
     When I run a rightscript named "promote" on server "2".
     Then the rightscript should complete successfully.

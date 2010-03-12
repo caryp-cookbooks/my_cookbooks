@@ -10,7 +10,7 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     When I run a rightscript named "restore" on server "1".
     Then the rightscript should complete successfully.
 
-    When I run a rightscript named "init_slave" on server "2".
+    When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
     When I run a rightscript named "promote" on server "2".
     Then the rightscript should complete successfully.
