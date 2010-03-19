@@ -1,6 +1,6 @@
 {
   "test_name": "tomcat 6 FE and APP",
-  "cuke_tags": "@tomcat",
+  "cuke_tags": "@foo",
 
   "servers": {
     "frontend1": "https://my.rightscale.com/api/acct/2901/server_templates/44210",

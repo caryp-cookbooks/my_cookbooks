@@ -1,25 +1,37 @@
     <html>
       <head><title>Virtual Monkey -- <%= date %></title></head>
+      <style type="text/css">
+	.failed, .failed a {
+	color: red;
+	}
+	.success, .success a {
+	color: green;
+	}
+	h1 {
+	color: white;
+	background-color: black;
+	}
+      </style>
       <body>
         <h1>Virtual Monkey -- <%= date %></h1>
-        <p>ran <%= num_tests %> tests</p>
+        <p class="ran">ran <%= num_tests %> tests</p>
 
-        <p><%= failed_tests %> tests failed</p>
+        <p class="failed"><%= failed_tests %> tests failed</p>
 
-        <ul>
+        <ul class="failed">
           <% @failed_tests.each do |t| %>
             <li>
-            <A HREF="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
+            <a href="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
             </li>
           <% end %>
         </ul>
 
-        <p><%= successful_tests %> tests passed</p>
+        <p class="success"><%= successful_tests %> tests passed</p>
 
-        <ul>
+        <ul class="success">
           <% @successful_tests.each do |t| %>
             <li>
-            <A HREF="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
+            <a href="<%= get_log_name(@tests[t]) %>"><%= @tests[t] %></A>
             </li>
           <% end %>
         </ul>

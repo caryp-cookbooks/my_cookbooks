@@ -84,22 +84,22 @@ end
     child = Process.fork {
 
       ## create deployment
-      deployment = Deployment.create(:nickname => deployment_name)
+#      deployment = Deployment.create(:nickname => deployment_name)
 
 
       ## add servers to deployment
       @servers.each do |server_name,template_href|
-        add_server(server_name,deployment.href,template_href,image_href,public_ssh_key_href,security_group,cloud_id,pick_instance_type(instance_types))
+#        add_server(server_name,deployment.href,template_href,image_href,public_ssh_key_href,security_group,cloud_id,pick_instance_type(instance_types))
       end
 
 
       ## if we need to setup dns, merge the values into the inputs
-      server_inputs = server_inputs.merge(dns_hash) unless dns_hash.nil?
+#      server_inputs = server_inputs.merge(dns_hash) unless dns_hash.nil?
 
 
       ## set deployment inputs
       server_inputs.each do |key,val|
-        deployment.set_input(key,val)
+#        deployment.set_input(key,val)
       end
 
 
