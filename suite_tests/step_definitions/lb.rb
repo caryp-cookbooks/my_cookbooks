@@ -54,6 +54,61 @@ Then /^I should see all servers being served from haproxy$/ do
   end
 end
 
+
+When /^I restart haproxy on the frontends$/ do
+  @frontends.each_with_index do |server,i|
+    response = server.spot_check_command?('service haproxy restart')
+    raise "Haproxy restart failed" unless response
+  end
+end
+
+Then /^haproxy status should be good$/ do
+  if @servers_os.first == "ubuntu"
+    haproxy_check_cmd = "service haproxy status"
+  else
+    haproxy_check_cmd = "service haproxy check"
+  end
+  @frontends.each_with_index do |server,i|
+    response = server.spot_check_command?(haproxy_check_cmd)
+    raise "Haproxy check failed" unless response
+  end
+end
+
+When /^I restart apahce on all servers$/ do
+  puts "entering :I restart apahce on all servers"
+  @statuses = Array.new
+  st = ServerTemplate.find(@servers.first.server_template_href)
+  script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
+  @frontends.each { |s| @statuses << s.run_script(script_to_run) }
+  puts "exiting :I restart apahce on all servers"
+end
+
+Then /^apache status should be good$/ do
+  if @servers_os.first == "ubuntu"
+    apache_status_cmd = "service apache2 status"
+  else
+    apache_status_cmd = "service httpd status"
+  end
+  @servers.each_with_index do |server,i|
+    response = server.spot_check_command?(apache_status_cmd)
+    raise "Apache status failed" unless response
+  end
+end
+
+When /^I force log rotation$/ do
+  @frontends.each_with_index do |server,i|
+    response = server.spot_check_command?('logrotate -f /etc/logrotate.conf')
+    raise "Logrotate restart failed" unless response
+  end
+end
+
+Then /^I should see "([^\"]*)"$/ do |logfile|
+  @frontends.each_with_index do |server,i|
+    response = server.spot_check_command?('test -f #{logfile}')
+    raise "Log file does not exist" unless response
+  end
+end
+
 Then /^the lb tests should succeed$/ do
   steps %Q{
     Given A deployment with frontends

@@ -6,20 +6,28 @@ Feature: PHP Server Test
 Scenario: PHP server test
 
   Given an operational app deployment
-
-  Then the app tests should succeed
-  #And the lb tests should succeed
-    #Given A deployment with frontends
-    When I cross connect the frontends
-    Then the cross connect script completes successfully
-    And I should see all servers in the haproxy config
-    And I should see all servers being served from haproxy
-
-  And the php tests should secceed
-
-  When I reboot the app deployment
+  Given with a known OS
 
   Then the app tests should succeed
   And the lb tests should succeed
-  And the php tests should secceed
 
+#  And the httpd log dir should exist on all servers
+#  And the httpd log symlink should exist
+
+#  When I force log rotation
+#  Then I should see the http logs rotated
+
+#  When I reboot the app deployment
+
+#  Then the app tests should succeed
+#  And the lb tests should succeed
+#  And the php tests should succeed
+
+#    When I run "test -d /mnt/log/tomcat6" on all servers
+#    Then it should exit successfully on all servers
+
+#    When I run "test -L /var/log/tomcat6" on all servers
+#    Then it should exit successfully on all servers
+
+#    When I run "test -f /etc/logrotate.d/tomcat6" on all servers
+#    Then it should exit successfully on all servers

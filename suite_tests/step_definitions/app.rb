@@ -48,10 +48,24 @@ Then /^the appservers become operational$/ do
   puts "exiting :the appservers become operational"
 end
 
+Given /^with a known OS$/ do
+  @servers_os = Array.new
+  @servers.each do |server|
+    puts "server.spot_check_command?(\"lsb_release -is | grep Ubuntu\") = #{server.spot_check_command?("lsb_release -is | grep Ubuntu")}"
+    if server.spot_check_command?("lsb_release -is | grep Ubuntu")
+      puts "setting server to ubuntu"
+      @servers_os << "ubuntu"
+    else
+      puts "setting server to centos"
+      @servers_os << "centos"
+    end
+  end
+end
+
 When /^I query "([^\"]*)" on all servers$/ do |uri|
   @responses = Array.new
   @servers.each { |s| 
-    puts "s.inspect = #{s.inspect}"
+    #puts "s.inspect = #{s.inspect}"
     cmd = "curl -s #{s['dns-name']}:8000#{uri} 2> /dev/null "
     puts cmd
     @responses << `#{cmd}` 
