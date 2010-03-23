@@ -17,9 +17,8 @@
           "ssh_key": "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/7053",
           "security_group": "https://my.rightscale.com/api/acct/2901/ec2_security_groups/6411",
           "private_key_path": "/root/.ssh/publish-test",
- # WARNING: image href is bogus!!
           "images": [
-            { "name": "RightImage CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/2901/ec2_images/109218294" }
+            { "name": "RightImage CentOS_5.4_i386_v4.4.10" , "id": "ami-f8b35e91", "arch": "i386" , "href": "https://my.rightscale.com/api/acct/0/ec2_images/ami-f8b35e91?cloud_id=1" }
           ],
           
           "inputs": {
