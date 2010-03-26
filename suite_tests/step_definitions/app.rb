@@ -4,74 +4,41 @@ require 'ruby-debug'
 
 #TODO get rid of the @servers, @frontends, @appservers and just use the server_set hash.
 Given /^A deployment$/ do
-  @server_set = Hash.new
+  @servers = Hash.new
   raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
   @deployment = Deployment.find_by_nickname_speed(ENV['DEPLOYMENT']).first
   raise "FATAL: Couldn't find a deployment with the name #{ENV['DEPLOYMENT']}!" unless @deployment
 #  @servers = @deployment.servers_no_reload
-  @server_set["all"] = @deployment.servers_no_reload
-  raise "FATAL: Deployment #{ENV['DEPLOYMENT']} does not contain any servers!" unless @server_set["all"]
-  raise "need at 4 servers to start, only have: #{@server_set["all"].size}" unless @server_set["all"].size == 4
-  @server_set["all"].each { |s| s.settings }
+  @servers["all"] = @deployment.servers_no_reload
+  raise "FATAL: Deployment #{ENV['DEPLOYMENT']} does not contain any servers!" unless @servers["all"]
+  raise "need at 4 servers to start, only have: #{@servers["all"].size}" unless @servers["all"].size == 4
+  @servers["all"].each { |s| s.settings }
   puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
 end
 
 When /^I launch the "([^\"]*)" servers$/ do |server_set|
   puts "entering :I launch the #{server_set}"
-  @server_set[server_set] = @server_set["all"].select { |s| s.nickname =~ /#{server_set}?/ }
-  raise "need at least 2 #{server_set} servers to start, only have: #{@server_set[server_set].size}" unless @server_set[server_set].size == 2
-  @server_set[server_set].each { |s| s.start }
+  @servers[server_set] = @servers["all"].select { |s| s.nickname =~ /#{server_set}?/ }
+  raise "need at least 2 #{server_set} servers to start, only have: #{@servers[server_set].size}" unless @servers[server_set].size == 2
+  @servers[server_set].each { |s| s.start }
   puts "exiting :I launch the #{server_set}"
 end
 
-#When /^I launch the frontends$/ do
-#  puts "entering :I launch the frontends"
-#  @frontends = @servers.select { |s| s.nickname =~ /frontend?/ }
-#  @server_set["frontend"] = @frontends
-#  raise "need at least 2 frontends to start, only have: #{@frontends.size}" unless @frontends.size == 2
-#  @frontends.each { |s| s.start }
-#  puts "exiting :I launch the frontends"
-#end
-
-#When /^I launch the appservers$/ do
-#  puts "entering :I launch the appservers"
-#  @appservers = @servers.select { |s| s.nickname =~ /appserver?/ }
-#  @server_set["app"] = @appservers
-#  raise "need at least 2 appservers to start, only have: #{@appservers.size}" unless @appservers.size == 2
-#  @appservers.each { |s| s.start }
-#  puts "exiting :I launch the appservers"
-#end
-
 Then /^the "([^\"]*)" servers become non\-operational$/ do |server_set|
 #Then /^the frontends become non\-operational$/ do
-  @server_set[server_set].each { |s| s.wait_for_state('decommissioning') }
+  @servers[server_set].each { |s| s.wait_for_state('decommissioning') }
 end
-
-#Then /^the appservers become non\-operational$/ do
-#  @server_set["app"].each { |s| s.wait_for_state('decommissioning') }
-#end
 
 Then /^the "([^\"]*)" servers become operational$/ do |server_set|
   puts "entering :the #{server_set} servers become operational"
-  @server_set[server_set].each { |s| s.wait_for_operational_with_dns ; s.settings ; s.reload }
+  @servers[server_set].each { |s| s.wait_for_operational_with_dns ; s.settings ; s.reload }
   puts "exiting :the #{server_set} servers become operational"
 end
 
-#Then /^the frontends become operational$/ do
-#  puts "entering :the frontends become operational"
-#  @server_set["frontend"].each { |s| s.wait_for_operational_with_dns ; s.settings ; s.reload }
-#  puts "exiting :the frontends become operational"
-#end
-
-#Then /^the appservers become operational$/ do
-#  puts "entering :the appservers become operational"
-#  @server_set["app"].each { |s| s.wait_for_operational_with_dns ; s.settings ; s.reload }
-#  puts "exiting :the appservers become operational"
-#end
-
+#TODO we are not testing mixed OS deployments - just grab the OS of one server
 Given /^with a known OS$/ do
   @servers_os = Array.new
-  @server_set["all"].each do |server|
+  @servers["all"].each do |server|
     puts "server.spot_check_command?(\"lsb_release -is | grep Ubuntu\") = #{server.spot_check_command?("lsb_release -is | grep Ubuntu")}"
     if server.spot_check_command?("lsb_release -is | grep Ubuntu")
       puts "setting server to ubuntu"
@@ -83,51 +50,32 @@ Given /^with a known OS$/ do
   end
 end
 
-When /^I query "([^\"]*)" on all "([^\"]*)" servers on port "([^\"]*)"$/ do |uri, server_set, port|
-#When /I query "([^\"]*)" on "([^\"]*)" servers on port "([^\"]*)"$/ do |uri, server_set, port|
+When /^I query "([^\"]*)" on the servers$/ do |uri|
   @responses = Array.new
-  @server_set[server_set].each { |s| 
-    cmd = "curl -s #{s['dns-name']}:#{port}#{uri} 2> /dev/null "
+  @server_set.each { |s| 
+    cmd = "curl -s #{s['dns-name']}:#{@port}#{uri} 2> /dev/null "
     puts cmd
     @responses << `#{cmd}` 
   }
 end
 
-#When /^I query "([^\"]*)" on all servers$/ do |uri|
-#  @responses = Array.new
-#  @servers.each { |s| 
-#    #puts "s.inspect = #{s.inspect}"
-#    cmd = "curl -s #{s['dns-name']}:8000#{uri} 2> /dev/null "
-#    puts cmd
-#    @responses << `#{cmd}` 
-#  }
-#end
-
-# Can we also pass in the array to use?  frontends vs servers vs appservers?  Then this can be one step
-#Then /^I query "([^\"]*)" on all frontend servers$/ do |uri|
-#  @responses = Array.new
-#  @frontends.each { |s| 
-#    cmd = "curl -s #{s['dns-name']}:8000#{uri} 2> /dev/null "
-#    puts cmd
-##    @responses << `#{cmd}` 
-#  }
-#end
-
 Then /^I should see "([^\"]*)" in all the responses$/ do |message|
   @responses.each { |r| puts "r  #{r}" ; r.should include(message) }
 end
 
-When /^I reboot the "([^\"]*)" servers$/ do |server_set|
-  puts "entering :I reboot the #{server_set} servers"
-  @server_set[server_set].each { |s| s.reboot }
-  puts "exiting :I reboot the #{server_set} servers"
+When /^I reboot the servers$/ do
+  puts "entering :I reboot the servers"
+  @server_set.each { |s| s.reboot }
+  puts "exiting :I reboot the servers"
 end
 
-#When /^I reboot the appservers$/ do
-#  puts "entering: I reboot the appservers"
-#  @server_set["app"].each { |s| s.reboot }
-#  puts "exiting :I reboot the appservers"
-#end
+Then /^I should do nothing$/ do
+  puts "NO OP"
+end
+
+Then /^print the args passed "([^\"]*)"$/ do |arg1|
+  puts "Arg1: #{arg1}"
+end
 
 Given /^an operational app deployment$/ do
   steps %Q{
@@ -168,3 +116,21 @@ Then /^the app tests should succeed$/ do
     Then 'I should see "I am in the db" in all the responses'
 end
 
+Given /^I am testing the "([^\"]*)"$/ do |server_set|
+  @server_set = @servers[server_set]
+end
+
+Given /^I am using port "([^\"]*)"$/ do |port|
+  @port = port
+end
+
+Then /^I run the unified app tests on the servers$/ do
+#    Then "I should do nothing"
+#    And 'print the args passed "\#{server_set}"'
+#    When 'I query "/index.html" on the servers'
+#    Then 'I should see "html serving succeeded." in all the responses'
+  steps %Q{
+#    When I query "/index.html" on the servers 
+#    Then I should see "html serving succeeded." in all the responses
+  }
+end

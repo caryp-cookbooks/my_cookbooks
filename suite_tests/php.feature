@@ -1,9 +1,9 @@
-@lb_test
+@php_test
 
-Feature: LB Server Test
-  Tests the LB servers
+Feature: PHP Server Test
+  Tests the PHP servers
 
-Scenario: LB server test
+Scenario: PHP server test
 
   Given A deployment
 

@@ -25,8 +25,8 @@ end
 Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |server_set|
   puts "entering :I should see all #{server_set} servers in the haproxy config"
   @server_ips = Array.new
-  @server_set[server_set].each { |app| @server_ips << app['private-ip-address'] }
-  @server_set["frontend"].each do |fe|
+  @servers[server_set].each { |app| @server_ips << app['private-ip-address'] }
+  @servers["frontend"].each do |fe|
     fe.settings
     haproxy_config = fe.spot_check_command('cat /home/haproxy/rightscale_lb.cfg | grep server')
     @server_ips.each { |ip|  haproxy_config.to_s.should include(ip) }
@@ -34,21 +34,9 @@ Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |server_se
   puts "Exiting from :I should see all #{server_set} servers in the haproxy config"
 end
 
-#Then /^I should see all app servers in the haproxy config$/ do
-#  puts "entering :I should see all app servers in the haproxy config"
-#  @app_server_ips = Array.new
-#  @appservers.each { |app| @app_server_ips << app['private-ip-address'] }
-#  @frontends.each do |fe|
-##    fe.settings
-#    haproxy_config = fe.spot_check_command('cat /home/haproxy/rightscale_lb.cfg | grep server')
-#    @app_server_ips.each { |ip|  haproxy_config.to_s.should include(ip) }
-#  end
-#  puts "Exiting from :I should see all app servers in the haproxy config"
-#end
-
 Then /^I should see all servers being served from haproxy$/ do
   puts "entering :I should see all servers being served from haproxy"
-  @server_set["frontend"].each do |fe|
+  @servers["frontend"].each do |fe|
     ip_list = @app_server_ips.clone
     ip_list.size.times do 
       cmd = "curl -q #{fe['dns-name']}/serverid/ 2> /dev/null | grep ip= | sed 's/^ip=//' | sed 's/;.*$//'"
@@ -64,7 +52,7 @@ end
 
 
 When /^I restart haproxy on the frontend servers$/ do
-  @server_set["frontend"].each_with_index do |server,i|
+  @servers["frontend"].each_with_index do |server,i|
     response = server.spot_check_command?('service haproxy restart')
     raise "Haproxy restart failed" unless response
   end
@@ -76,7 +64,7 @@ Then /^haproxy status should be good$/ do
   else
     haproxy_check_cmd = "service haproxy check"
   end
-  @server_set["frontend"].each_with_index do |server,i|
+  @servers["frontend"].each_with_index do |server,i|
     response = server.spot_check_command?(haproxy_check_cmd)
     raise "Haproxy check failed" unless response
   end
@@ -108,10 +96,10 @@ end
 When /^I restart apache on the frontend servers$/ do
   puts "entering :I restart apache on the frontend servers"
   @statuses = Array.new
-  st = ServerTemplate.find(@server_set["frontend"].first.server_template_href)
+  st = ServerTemplate.find(@servers["frontend"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
   raise "Script not found" unless script_to_run
-  @server_set["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart apache on the frontend servers"
 end
 
@@ -121,7 +109,7 @@ Then /^apache status should be good on the frontend servers$/ do
   else
     apache_status_cmd = "service httpd status"
   end
-  @server_set["frontend"].each_with_index do |server,i|
+  @servers["frontend"].each_with_index do |server,i|
     response = server.spot_check_command?(apache_status_cmd)
     raise "Apache status failed" unless response
   end
@@ -130,29 +118,29 @@ end
 When /^I restart mongrels on all servers$/ do
   puts "entering :I restart mongrels on all servers"
   @statuses = Array.new
-  st = ServerTemplate.find(@server_set["all"].first.server_template_href)
+  st = ServerTemplate.find(@servers["all"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /RB mongrel_cluster \(re\)start v1/i }
   raise "Script not found" unless script_to_run
-  @server_set["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart mongrels on all servers"
 end
 
 Then /^mongrel status should be good$/ do
-  @server_set["all"].each_with_index do |server,i|
+  @servers["all"].each_with_index do |server,i|
     response = server.spot_check_command?("service mongrel_cluster status")
     raise "Mongrel status failed" unless response
   end
 end
 
 When /^I force log rotation$/ do
-  @server_set["frontend"].each_with_index do |server,i|
+  @server_set.each do |server|
     response = server.spot_check_command?('logrotate -f /etc/logrotate.conf')
     raise "Logrotate restart failed" unless response
   end
 end
 
 Then /^I should see "([^\"]*)"$/ do |logfile|
-  @server_set["frontend"].each_with_index do |server,i|
+  @server_set.each do |server|
     response = server.spot_check_command?('test -f #{logfile}')
     raise "Log file does not exist" unless response
   end
