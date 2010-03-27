@@ -2,6 +2,8 @@ require 'rubygems'
 require 'rest_connection'
 require 'yaml'
 require 'fileutils'
+require 'sqlite3'
+require File.join(File.dirname(__FILE__), "..", "vmonk", "lib", "cuke_monk")
 
 def cached_deployments()
   if File.exists?("deployments.cache.yaml")
@@ -14,33 +16,67 @@ def cached_deployments()
   deployments
 end
 
-desc "Parallel MySQL Chef Alpha test"
-task :run_mysql_chef_alpha do
-  set = cached_deployments 
-  if ENV["FEATURE"]
-    feature_name = ENV["FEATURE"]
-  else
-    feature_name = "mysql_chef_premium_from_scratch.feature" 
-  end
-  raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
-  FileUtils.mkdir_p("log")
-    raise "FATAL: 4 deployments required for this test" unless set.size >= 4
-  platforms = [" Ubuntu"," CentOS"]
-  archs = [ "i386", "x86_64" ]
-  children = []
-  dep_index = 0
-  platforms.each do |p|
-    archs.each do |a|
-      ENV['DEPLOYMENT'] = set[dep_index].nickname
-      ENV['SERVER_TAG'] = "#{a}#{p}"
-      ENV['REST_CONNECTION_LOG'] = "log/rest_connection.#{ENV['SERVER_TAG']}.log"
-      children << Process.fork {
-        cmd = "cucumber #{feature_name} --out 'log/mysqlchef.#{ENV['SERVER_TAG']}.log'"
-        puts "RUNNING: #{cmd}"
-        system(cmd)
-      }
-      dep_index += 1
+desc "Release MySQL DNS records for reuse"
+task :release_dns do
+  raise "Please setup DEPLOYMENT environment variable" unless ENV['DEPLOYMENT']
+  SQLite3::Database.new("shared.db") do |db|
+    q = db.query("UPDATE mysql_dns SET owner=NULL where owner='#{ENV['DEPLOYMENT']}'")
+    q.close
+    db.query("SELECT * FROM mysql_dns") do |result|
+      puts result.entries
     end
+  end
+end
+
+desc "Release ALL MySQL DNS records for reuse"
+task :release_all_dns do
+  SQLite3::Database.new("shared.db") do |db|
+    q = db.query("UPDATE mysql_dns SET owner=NULL")
+    q.close
+    db.query("SELECT * FROM mysql_dns") do |result|
+      puts result.entries
+    end
+  end
+end
+
+desc "Run Parallel Cucumber Features and post results"
+task :run_parallel_features do
+  raise "FATAL: please setup $FEATURE environment variable with the filename of Cuke feature test." unless ENV['FEATURE']
+  raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
+
+  cm = CukeMonk.new
+  set = Deployment.find_by(:nickname) { |nick| nick.include?(ENV['DEPLOYMENTS_TAG']) }
+  puts "Found: #{set.size} deployments matching #{ENV['DEPLOYMENTS_TAG']}"
+  feature_name = ENV["FEATURE"]
+  FileUtils.mkdir_p("log")
+  ENV['REST_CONNECTION_LOG'] = "log/rest_connection.log"
+  deployment_nicknames = set.map &:nickname
+  cm.run_tests(deployment_nicknames, feature_name)
+  cm.generate_reports
+end
+
+desc "Parallel Cuke test on a set of deployments"
+task :run_parallel_features_old do
+  raise "FATAL: please setup $FEATURE environment variable with the filename of Cuke feature test." unless ENV['FEATURE']
+  raise "FATAL: please setup DEPLOYMENTS_TAG environment variable, for finding your set of deployments" unless ENV['DEPLOYMENTS_TAG']
+  set = Deployment.find_by(:nickname) { |nick| nick.include?(ENV['DEPLOYMENTS_TAG']) }
+  puts "Found: #{set.size} deployments matching #{ENV['DEPLOYMENTS_TAG']}"
+  feature_name = ENV["FEATURE"]
+  FileUtils.mkdir_p("log")
+  children = []
+  set.each do |dep|
+    ENV['DEPLOYMENT'] = dep.nickname
+    ENV['REST_CONNECTION_LOG'] = "log/rest_connection.#{ENV['DEPLOYMENT']}-#{dep.nickname}.log"
+    children << Process.fork {
+      cmd = "cucumber #{feature_name} --out 'log/#{ENV['DEPLOYMENT']}-#{dep.nickname}.log'"
+      puts "RUNNING: #{cmd}"
+      success = system(cmd)
+      if success
+        FileUtils.mv("log/#{ENV['DEPLOYMENT']}-#{dep.nickname}.log","log/COMPLETED-#{ENV['DEPLOYMENT']}-#{dep.nickname}.log")
+      else
+        FileUtils.mv("log/#{ENV['DEPLOYMENT']}-#{dep.nickname}.log","log/FAILED-#{ENV['DEPLOYMENT']}-#{dep.nickname}.log")
+      end
+    }
   end
 
   Signal.trap("SIGINT") do

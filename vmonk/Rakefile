@@ -1,0 +1,13 @@
+require 'rubygems'
+require 'dm-core'
+require File.join(File.dirname(__FILE__), "lib", "storage")
+
+desc "Perform automigration"
+task :automigrate do
+  ::DataMapper.auto_migrate!
+end
+
+desc "Perform non destructive automigration"
+task :autoupgrade do
+  ::DataMapper.auto_upgrade!
+end

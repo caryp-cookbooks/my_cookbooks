@@ -45,7 +45,7 @@ end
 
 When /^I run a rightscript named "([^\"]*)" on server "([^\"]*)"\.$/ do |script, server_index|
   human_index = server_index.to_i - 1
-  @status = @servers[human_index].run_script(@scripts_to_run[script])
+  @status = @servers[human_index].run_executable(@scripts_to_run[script])
   @audit_link = @servers[human_index].audit_link
 end
 
