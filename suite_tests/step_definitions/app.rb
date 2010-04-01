@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rest_connection'
 require 'ruby-debug'
+require 'timeout'
 
 #TODO get rid of the @servers, @frontends, @appservers and just use the server_set hash.
 Given /^A deployment$/ do
@@ -54,13 +55,32 @@ When /^I query "([^\"]*)" on the servers$/ do |uri|
   @responses = Array.new
   @server_set.each { |s| 
     cmd = "curl -s #{s['dns-name']}:#{@port}#{uri} 2> /dev/null "
-    puts cmd
     @responses << `#{cmd}` 
   }
 end
 
 Then /^I should see "([^\"]*)" in all the responses$/ do |message|
   @responses.each { |r| puts "r  #{r}" ; r.should include(message) }
+end
+
+Then /^I should see "([^\"]*)" from "([^\"]*)" on the servers$/ do |message, uri|
+  @server_set.each { |s| 
+    cmd = "curl -s #{s['dns-name']}:#{@port}#{uri} 2> /dev/null "
+    puts cmd
+    timeout=10
+    begin
+      status = Timeout::timeout(timeout) do
+        while true
+          response = `#{cmd}` 
+	  break if response.should include(message)
+          puts "Retrying..."
+          sleep 1
+        end
+      end
+    rescue Timeout::Error => e
+      raise "ERROR: Query failed after #{timeout/60} minutes."
+    end
+  }
 end
 
 When /^I reboot the servers$/ do
@@ -122,6 +142,10 @@ end
 
 Given /^I am using port "([^\"]*)"$/ do |port|
   @port = port
+end
+
+When /^I sleep for "([^\"]*)" seconds$/ do |seconds|
+  sleep seconds.to_i
 end
 
 Then /^I run the unified app tests on the servers$/ do

@@ -141,7 +141,7 @@ end
 
 Then /^I should see "([^\"]*)"$/ do |logfile|
   @server_set.each do |server|
-    response = server.spot_check_command?('test -f #{logfile}')
+    response = server.spot_check_command?("test -f #{logfile}")
     raise "Log file does not exist" unless response
   end
 end
