@@ -19,7 +19,7 @@ def get_log_name(deployment_name)
 end
 
 def get_log_path(deployment_name)
-  return "/root/#{get_log_name(deployment_name)}"  
+  return "./log/#{get_log_name(deployment_name)}"  
 end
 
 def add_server(nickname,deployment,template,image,public_ssh_key_href,security_group,cloud_id,instance_type)
@@ -84,29 +84,31 @@ end
     child = Process.fork {
 
       ## create deployment
-#      deployment = Deployment.create(:nickname => deployment_name)
+      deployment = Deployment.create(:nickname => deployment_name)
 
 
       ## add servers to deployment
       @servers.each do |server_name,template_href|
-#        add_server(server_name,deployment.href,template_href,image_href,public_ssh_key_href,security_group,cloud_id,pick_instance_type(instance_types))
+        add_server(server_name,deployment.href,template_href,image_href,public_ssh_key_href,security_group,cloud_id,pick_instance_type(instance_types))
       end
 
 
       ## if we need to setup dns, merge the values into the inputs
-#      server_inputs = server_inputs.merge(dns_hash) unless dns_hash.nil?
+      server_inputs = server_inputs.merge(dns_hash) unless dns_hash.nil?
 
 
       ## set deployment inputs
       server_inputs.each do |key,val|
-#        deployment.set_input(key,val)
+        deployment.set_input(key,val)
       end
 
 
       ## run cucumber tests 
       ENV['SSH_KEY_PATH'] = private_ssh_key_path
       ENV['DEPLOYMENT'] = deployment_name
-      result = `cucumber --format html --guess --tags #{@cuke_tags} /root/my_cookbooks/features/ --out #{get_log_path(deployment_name)}`
+      cmd = "cucumber --format html --guess --tags #{@cuke_tags} ../suite_tests --out #{get_log_path(deployment_name)}"
+      p cmd
+      result = `#{cmd}`
 
 
       if $?.success?

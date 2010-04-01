@@ -32,13 +32,13 @@ Scenario: PHP server test
 #  When I restart apache on the frontend servers
 #  Then apache status should be good on the frontend servers
 
-  Given I am testing the "frontend"
+#  Given I am testing the "frontend"
 #  When I force log rotation
-  Then I should see "/mnt/log/httpd/haproxy.log.1"
+#  Then I should see "/mnt/log/httpd/haproxy.log.1"
 
-  Given I am testing the "all"
+#  Given I am testing the "all"
 #  When I force log rotation
-  Then I should see "/mnt/log/httpd/access_log.1"
+#  Then I should see "/mnt/log/httpd/access_log.1"
 
   Given I am testing the "frontend"
   When I reboot the servers
