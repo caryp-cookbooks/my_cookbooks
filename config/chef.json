@@ -1,0 +1,25 @@
+{ 
+  "recipes": [ "repo_svn", "lwrp_demo::do_source_pull" ],
+
+  "lwrp_demo": {
+    "destination": "/tmp/lwrp_demo"
+  },
+	  
+  "git": {
+    "default" : {
+      "remote": "origin", 
+	  "branch": "mephisto",  
+	  "enable_submodules": "false", 
+	  "repository": "git://github.com/rightscale/examples.git"
+    }
+  },
+    
+  "svn": {
+    "default": {
+  	  "repository": "http://svn.github.com/schacon/cowsay.git", 
+  	  "password": "you", 		
+  	  "username": "wish"
+  	}
+  }
+
+}

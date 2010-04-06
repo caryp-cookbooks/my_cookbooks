@@ -7,7 +7,6 @@
   },
   "description": "The base role pulling code from a git repository",
   "recipes": [
-    "repo",
     "repo_git",
     "lwrp_demo::do_source_pull"
   ],

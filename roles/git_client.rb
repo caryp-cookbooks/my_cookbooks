@@ -1,6 +1,6 @@
 name "git_client"
 description "The base role pulling code from a git repository"
-recipes "repo", "repo_git", "lwrp_demo::do_source_pull"
+recipes "repo_git", "lwrp_demo::do_source_pull"
 override_attributes "lwrp_demo" => [ "destination" => "/tmp/lwrp_demo" ], 
 
 	"git" =>  [ 
