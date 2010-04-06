@@ -5,21 +5,21 @@ require "net/ssh"
 
 Given /^A deployment with frontends$/ do
   puts "entering :A deployment with frontends"
-  @server_set["all"].each { |s| s.settings }
+  @servers["all"].each { |s| s.settings }
 end
 
 When /^I cross connect the frontends$/ do
   puts "entering :I cross\-connect the frontends"
   @statuses = Array.new 
-  st = ServerTemplate.find(@server_set["frontend"].first.server_template_href)
+  st = ServerTemplate.find(@servers["frontend"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /LB [app|mongrels]+ to HA proxy connect/i }
   raise "Could not find script" unless script_to_run
-  @server_set["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I cross\-connect the frontends"
 end
 
 Then /^the cross connect script completes successfully$/ do
-  @statuses.each_with_index { |s,i| s.wait_for_completed(@server_set["frontend"][i].audit_link) }
+  @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["frontend"][i].audit_link) }
 end
 
 Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |server_set|
@@ -73,11 +73,11 @@ end
 When /^I restart apache on all servers$/ do
   puts "entering :I restart apache on all servers"
   @statuses = Array.new
-  st = ServerTemplate.find(@server_set["all"].first.server_template_href)
+  st = ServerTemplate.find(@servers["all"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
   raise "Script not found" unless script_to_run
-  @server_set["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
-  @server_set["app"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["app"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart apache on all servers"
 end
 
@@ -87,7 +87,7 @@ Then /^apache status should be good$/ do
   else
     apache_status_cmd = "service httpd status"
   end
-  @server_set["all"].each_with_index do |server,i|
+  @servers["all"].each_with_index do |server,i|
     response = server.spot_check_command?(apache_status_cmd)
     raise "Apache status failed" unless response
   end
@@ -133,14 +133,14 @@ Then /^mongrel status should be good$/ do
 end
 
 When /^I force log rotation$/ do
-  @server_set.each do |server|
+  @servers.each do |server|
     response = server.spot_check_command?('logrotate -f /etc/logrotate.conf')
     raise "Logrotate restart failed" unless response
   end
 end
 
 Then /^I should see "([^\"]*)"$/ do |logfile|
-  @server_set.each do |server|
+  @servers.each do |server|
     response = server.spot_check_command?("test -f #{logfile}")
     raise "Log file does not exist" unless response
   end
@@ -151,7 +151,9 @@ Then /^the lb tests should succeed$/ do
     Given A deployment with frontends
     When I cross connect the frontends
     Then the cross connect script completes successfully
-    And I should see all servers in the haproxy config
+#    And I should see all servers in the haproxy config
+  Then I should see all "app" servers in the haproxy config
+    Then I should see all "all" servers in the haproxy config
 #    And I should see all servers being served from haproxy
   }
 end
