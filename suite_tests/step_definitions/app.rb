@@ -15,6 +15,8 @@ Given /^A deployment$/ do
   raise "need at 4 servers to start, only have: #{@servers["all"].size}" unless @servers["all"].size == 4
   @servers["all"].each { |s| s.settings }
   puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
+  # Set the default port
+  @port="80"
 end
 
 When /^I launch the "([^\"]*)" servers$/ do |server_set|
@@ -67,14 +69,14 @@ Then /^I should see "([^\"]*)" from "([^\"]*)" on the servers$/ do |message, uri
   @server_set.each { |s| 
     cmd = "curl -s #{s['dns-name']}:#{@port}#{uri} 2> /dev/null "
     puts cmd
-    timeout=10
+    timeout=60 * 5
     begin
       status = Timeout::timeout(timeout) do
         while true
           response = `#{cmd}` 
-	  break if response.should include(message)
+	  break if response.include?(message)
           puts "Retrying..."
-          sleep 1
+          sleep 10
         end
       end
     rescue Timeout::Error => e

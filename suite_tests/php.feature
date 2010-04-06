@@ -11,19 +11,19 @@ Scenario: PHP server test
   Then the "frontend" servers become operational
 
   When I launch the "app" servers
-  Then I sleep for "30" seconds
   Then the "app" servers become operational
 
   Given I am testing the "all"
   And I am using port "8000"
-#  Then I run the unified app tests on the servers
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
   Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
-#  Then the lb tests should succeed
-  Then I should see all "app" servers in the haproxy config
+#  Given A deployment with frontends
+#  When I cross connect the frontends
+#  Then the cross connect script completes successfully
+#  Then I should see all "all" servers in the haproxy config
 
   Given with a known OS
   When I restart haproxy on the frontend servers
@@ -42,22 +42,22 @@ Scenario: PHP server test
 
   Given I am testing the "frontend"
   When I reboot the servers
-  Then I sleep for "120" seconds
-  #Then the "frontend" servers become non-operational
   Then the "frontend" servers become operational
-
+  And I am using port "80"
+  Then I should see "html serving succeeded." from "/index.html" on the servers
+  Then I should see "configuration=succeeded" from "/appserver/" on the servers
+  Then I should see "I am in the db" from "/dbread/" on the servers
+  And I am using port "8000" 
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
   Then I should see "I am in the db" from "/dbread/" on the servers
 
   Given I am testing the "app"
   When I reboot the servers
-  Then I sleep for "120" seconds
-#  Then the "app" servers become non-operational
   Then the "app" servers become operational
-  Then I sleep for "30" seconds
-
+  And I am using port "8000"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
   Then I should see "I am in the db" from "/dbread/" on the servers
 
+# Disconnect test - todo
