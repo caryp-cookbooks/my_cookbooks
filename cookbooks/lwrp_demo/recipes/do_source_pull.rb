@@ -7,12 +7,17 @@
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.info("...do some stuff here...")
+ruby_block "...do some stuff here..." do
+  block do end
+end
 
 repo "default" do
   destination @node[:lwrp_demo][:destination]
   action :pull
 end
 
-Chef::Log.info("...do some other stuff here...")
+ruby_block "...do some other stuff here..." do
+  block do end
+end
+#Chef::Log.info("...do some other stuff here...")
 

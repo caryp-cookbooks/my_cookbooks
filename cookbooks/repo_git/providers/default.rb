@@ -33,11 +33,12 @@ action :pull do
  
   # add ssh key and exec script
   keyfile = nil
-  if "#{@node[:git][:ssh_key]}" != ""
+  keyname = node[:git][new_resource.name][:ssh_key]
+  if "#{keyname}" != ""
     keyfile = "/tmp/gitkey"
     bash 'create_temp_git_ssh_key' do
       code <<-EOH
-        echo -n '#{@node[:git][:ssh_key]}' > #{keyfile}
+        echo -n '#{keyname}' > #{keyfile}
         chmod 700 #{keyfile}
         echo 'exec ssh -oStrictHostKeyChecking=no -i #{keyfile} "$@"' > #{keyfile}.sh
         chmod +x #{keyfile}.sh
@@ -46,30 +47,30 @@ action :pull do
   end 
 
   # pull repo (if exist)
-  ruby "pull-exsiting-local-repo" do
-    cwd new_resource.destination
+  ruby_block "pull-exsiting-local-repo" do
     only_if do ::File.directory?(new_resource.destination) end
-    code <<-EOH
-      puts "Updateing existing repo at #{new_resource.destination}"
+    block do
+      Dir.chdir new_resource.destination
+      puts "Updating existing repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
       puts `git pull` 
-    EOH
+    end
   end
 
   # clone repo (if not exist)
-  ruby "create-new-local-repo" do
+  ruby_block "create-new-local-repo" do
     not_if do ::File.directory?(new_resource.destination) end
-    code <<-EOH
+    block do
       puts "Creating new repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
-      puts `git clone #{@node[:git][:repository]} -- #{new_resource.destination}`
-
-      if "#{@node[:git][:branch]}" != "master" 
+      puts `git clone #{node[:git][new_resource.name][:repository]} -- #{new_resource.destination}`
+      branch = node[:git][new_resource.name][:branch]
+      if "#{branch}" != "master" 
         dir = "#{new_resource.destination}"
         Dir.chdir(dir) 
-        puts `git checkout --track -b #{@node[:git][:branch]} origin/#{@node[:git][:branch]}`
+        puts `git checkout --track -b #{branch} origin/#{branch}`
       end
-    EOH
+    end
   end
 
   # delete SSH key & clear GIT_SSH

@@ -24,16 +24,16 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Install git client
-case node[:platform]
-when "debian", "ubuntu"
-  package "git-core"
-else 
-  package "git"
-end
-
-package "gitk"
-package "git-svn"
-package "git-email"
+# case node[:platform]
+# when "debian", "ubuntu"
+#   package "git-core"
+# else 
+#   package "git"
+# end
+# 
+# package "gitk"
+# package "git-svn"
+# package "git-email"
 
 # Setup all git resources that have attributes in the node.
 node[:git].each do |resource_name, git| 
