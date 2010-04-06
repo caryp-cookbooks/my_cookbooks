@@ -3,19 +3,37 @@
   "recommendations": {
 
   },
+  "dependencies": {
+
+  },
   "maintainer_email": "support@rightscale.com",
   "suggestions": {
 
   },
-  "dependencies": {
+  "description": "Manages the Git fast version control system",
+  "name": "repo_git",
+  "conflicting": {
 
   },
+  "providing": {
+    "provider:repo": [
+
+    ],
+    "repo_git": [
+
+    ]
+  },
+  "long_description": "",
   "platforms": {
 
   },
-  "name": "repo_git",
+  "version": "0.0.1",
+  "recipes": {
+    "repo_git": "",
+    "repo_git::default": "Runs recipe 'repo_git::install_prerequisites'"
+  },
   "attributes": {
-    "\/git\/remote": {
+    "\/git\/default\/remote": {
       "default": "origin",
       "type": "string",
       "description": "",
@@ -26,28 +44,7 @@
       ],
       "required": false
     },
-    "git\/branch": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "Branch\/Tag",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "git\/ssh_key": {
-      "default": null,
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "SSH Key",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "git\/depth": {
+    "git\/default\/depth": {
       "default": null,
       "type": "string",
       "description": "",
@@ -58,7 +55,7 @@
       ],
       "required": false
     },
-    "git\/repository": {
+    "git\/default\/repository": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -68,7 +65,7 @@
       ],
       "required": true
     },
-    "git\/enable_submodules": {
+    "git\/default\/enable_submodules": {
       "default": "false",
       "type": "string",
       "description": "",
@@ -79,46 +76,30 @@
       ],
       "required": false
     },
-    "git\/destination": {
-      "default": "\/tmp",
+    "git\/default\/branch": {
       "type": "string",
-      "description": "Where should I put the files?",
+      "description": "",
       "multiple_values": false,
-      "display_name": "Repository Destination",
+      "display_name": "Branch\/Tag",
       "recipes": [
-        "repo_git::do_pull"
+
       ],
-      "required": true
+      "required": false
+    },
+    "git\/default\/ssh_key": {
+      "default": null,
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "SSH Key",
+      "recipes": [
+
+      ],
+      "required": false
     }
-  },
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
-  "conflicting": {
-
-  },
-  "providing": {
-    "repo_git::do_pull": [
-
-    ],
-    "provider:repo": [
-
-    ],
-    "repo_git::install_prerequisites": [
-
-    ],
-    "repo_git": [
-
-    ]
-  },
-  "version": "0.0.1",
-  "description": "Manages the Git fast version control system",
-  "recipes": {
-    "repo_git::do_pull": "Pulls from a Git repository.",
-    "repo_git": "",
-    "repo_git::install_prerequisites": "Installs Git.",
-    "repo_git::default": "Runs recipe 'repo_git::install_prerequisites'"
   },
   "replacing": {
 
   },
-  "long_description": ""
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
 }

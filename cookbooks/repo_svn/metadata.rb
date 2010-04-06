@@ -6,42 +6,33 @@ version          "0.0.1"
 
 provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
-recipe  "repo_svn::default", "Runs recipe 'repo_svn::install_prerequisites'"
-recipe  "repo_svn::install_prerequisites", "Install Subversion."
-recipe  "repo_svn::do_pull", "Pulls from a Subversion repository."
+recipe  "repo_svn::default", "Runs install svn client and setup resources"
 
-# grouping "repo/svn",
-#   :display_name => "Subversion Source Control",
+# grouping "svn/deafult",
+#   :display_name => "Subversion Client Default Settings",
 #   :description => "Settings for managing a Subversion source repository"
 
-attribute "svn/repository",
+attribute "svn/default/repository",
   :display_name => "Repository Url",
   :description => "",
   :required => true
   
-attribute "svn/destination",
-  :display_name => "Repository Destination",
-  :description => "Where should I put the files?",
-  :default => "/tmp",
-  :required => true,
-  :recipes => [ "repo_svn::do_pull" ]
-  
-attribute "svn/revision",
+attribute "svn/default/revision",
   :display_name => "Revision/Branch/Tag",
   :description => "",
   :required => false
 
-attribute "svn/username",
+attribute "svn/default/username",
   :display_name => "User Name",
   :description => "",
   :required => false
   
-attribute "svn/password",
+attribute "svn/default/password",
   :display_name => "Password",
   :description => "",
   :required => false
 
-attribute "svn/arguments",
+attribute "svn/default/arguments",
   :display_name => "Arguments",
   :description => "",
   :required => false

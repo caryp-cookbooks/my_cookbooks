@@ -23,4 +23,35 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-include_recipe "repo_svn::install_prerequisites"
+# install subversion client
+package "subversion" do
+  action :install
+end
+
+extra_packages = case node[:platform]
+  when "ubuntu","debian"
+    if node[:platform_version].to_f < 8.04
+      %w{subversion-tools libsvn-core-perl}
+    else
+      %w{subversion-tools libsvn-perl}
+    end
+  when "centos","redhat","fedora"
+    %w{subversion-devel subversion-perl}
+  end
+
+extra_packages.each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
+# Setup all svn resources that have attributes in the node.
+node[:svn].each do |resource_name, svn| 
+    
+    # Setup svn client
+    repo resource_name do
+      provider "repo_svn"
+      action :create
+    end
+
+end

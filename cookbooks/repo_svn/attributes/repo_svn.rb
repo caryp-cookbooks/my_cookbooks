@@ -1,6 +1,5 @@
-default[:svn][:destination] = nil
-default[:svn][:repository] = nil
-default[:svn][:revision] = nil
-default[:svn][:username] = nil
-default[:svn][:password] = nil
-default[:svn][:arguments] = nil
+default[:svn][:default][:repository] = nil
+default[:svn][:default][:revision] = nil
+default[:svn][:default][:username] = nil
+default[:svn][:default][:password] = nil
+default[:svn][:default][:arguments] = nil

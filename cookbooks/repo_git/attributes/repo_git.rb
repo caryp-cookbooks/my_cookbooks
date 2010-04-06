@@ -1,7 +1,6 @@
-default[:git][:destination] = nil
-default[:git][:repository] = nil
-default[:git][:branch] = nil
-default[:git][:depth] = nil
-default[:git][:enable_submodules] = nil
-default[:git][:remote] = nil
-default[:git][:ssh_key] = nil
+default[:git][:default][:repository] = nil
+default[:git][:default][:branch] = "master"
+default[:git][:default][:depth] = nil
+default[:git][:default][:enable_submodules] = "false"
+default[:git][:default][:remote] = "origin"
+default[:git][:default][:ssh_key] = nil

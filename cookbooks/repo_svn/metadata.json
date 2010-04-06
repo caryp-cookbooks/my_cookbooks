@@ -3,19 +3,47 @@
   "recommendations": {
 
   },
+  "dependencies": {
+
+  },
   "maintainer_email": "support@rightscale.com",
   "suggestions": {
 
   },
-  "dependencies": {
+  "description": "Manages the Subversion version control system",
+  "name": "repo_svn",
+  "conflicting": {
 
   },
+  "providing": {
+    "repo_svn": [
+
+    ],
+    "provider:repo": [
+
+    ]
+  },
+  "long_description": "",
   "platforms": {
 
   },
-  "name": "repo_svn",
+  "version": "0.0.1",
+  "recipes": {
+    "repo_svn": "",
+    "repo_svn::default": "Runs install svn client and setup resources"
+  },
   "attributes": {
-    "svn\/arguments": {
+    "svn\/default\/revision": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Revision\/Branch\/Tag",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "svn\/default\/arguments": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -25,7 +53,7 @@
       ],
       "required": false
     },
-    "svn\/password": {
+    "svn\/default\/password": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -35,28 +63,7 @@
       ],
       "required": false
     },
-    "svn\/destination": {
-      "default": "\/tmp",
-      "type": "string",
-      "description": "Where should I put the files?",
-      "multiple_values": false,
-      "display_name": "Repository Destination",
-      "recipes": [
-        "repo_svn::do_pull"
-      ],
-      "required": true
-    },
-    "svn\/username": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "User Name",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "svn\/repository": {
+    "svn\/default\/repository": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -66,45 +73,19 @@
       ],
       "required": true
     },
-    "svn\/revision": {
+    "svn\/default\/username": {
       "type": "string",
       "description": "",
       "multiple_values": false,
-      "display_name": "Revision\/Branch\/Tag",
+      "display_name": "User Name",
       "recipes": [
 
       ],
       "required": false
     }
   },
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
-  "conflicting": {
-
-  },
-  "providing": {
-    "repo_svn": [
-
-    ],
-    "repo_svn::install_prerequisites": [
-
-    ],
-    "repo_svn::do_pull": [
-
-    ],
-    "provider:repo": [
-
-    ]
-  },
-  "version": "0.0.1",
-  "description": "Manages the Subversion version control system",
-  "recipes": {
-    "repo_svn::install_prerequisites": "Install Subversion.",
-    "repo_svn::do_pull": "Pulls from a Subversion repository.",
-    "repo_svn": "",
-    "repo_svn::default": "Runs recipe 'repo_svn::install_prerequisites'"
-  },
   "replacing": {
 
   },
-  "long_description": ""
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
 }

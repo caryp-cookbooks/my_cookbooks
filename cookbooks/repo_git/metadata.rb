@@ -7,49 +7,40 @@ version          "0.0.1"
 provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
 recipe  "repo_git::default", "Runs recipe 'repo_git::install_prerequisites'"
-recipe  "repo_git::install_prerequisites", "Installs Git."
-recipe  "repo_git::do_pull", "Pulls from a Git repository."
 
-# grouping "repo/git",
-#   :display_name => "Git Version Control",
+# grouping "git/default",
+#   :display_name => "Git Client Default Settings",
 #   :description => "Settings for managing a Git source repository"
 
-attribute "git/repository",
+attribute "git/default/repository",
   :display_name => "Repository Url",
   :description => "",
   :required => true
   
-attribute "git/destination",
-  :display_name => "Repository Destination",
-  :description => "Where should I put the files?",
-  :default => "/tmp",
-  :required => true,
-  :recipes => [ "repo_git::do_pull" ]
-  
-attribute "git/branch",
+attribute "git/default/branch",
   :display_name => "Branch/Tag",
   :description => "",
   :required => false
 
-attribute "git/depth",
+attribute "git/default/depth",
   :display_name => "Depth",
   :description => "",
   :default => nil,
   :required => false
 
-attribute "git/enable_submodules",
+attribute "git/default/enable_submodules",
   :display_name => "Enable Submodules",
   :description => "",
   :default => "false",
   :required => false
 
-attribute "/git/remote",
+attribute "/git/default/remote",
   :display_name => "Remote",
   :description => "",
   :default => "origin",
   :required => false
   
-attribute "git/ssh_key",
+attribute "git/default/ssh_key",
   :display_name => "SSH Key",
   :description => "",
   :default => nil,

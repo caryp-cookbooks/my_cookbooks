@@ -3,23 +3,17 @@
   "recommendations": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
   "dependencies": {
     "resource:repo": [
 
     ]
   },
-  "platforms": {
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
 
   },
+  "description": "Installs\/Configures lwrp_demo",
   "name": "lwrp_demo",
-  "attributes": {
-
-  },
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
   "conflicting": {
 
   },
@@ -28,13 +22,19 @@
 
     ]
   },
+  "long_description": "= DESCRIPTION:\n\nDemonstrates the usage of the new Chef Lightweight Resources and Providers \n(LWRP) feature.\n\nThis cookbook uses a chef lightweight resource called 'repo' to define a \ngeneric interface for downloading contents of a source repository.\n\n= REQUIREMENTS:\n\nChef Version >= 0.7.14\n\n= ATTRIBUTES: \n\n * destination - where to put the repo locally (ex. \/tmp\/myrepo )\n\n= USAGE:\n\n See ..\/roles\/git_client.rb for example.\n\n Create a runlist like \"recipe[repo]\", \"recipe[repo_*]\", \"recipe[lwrp_demo::do_source_pull]\" \n Where * is the repository type (ex. svn or git)\n \n Execute the runlist with a json file containing: \n  1. the run-time attribute 'destination' that is defined above.\n  2. named attributes for the providers\n\n\nExample json file contains attributes to setup scn and git resources both named \"default\":\n  \n{\n\t\"lwrp_demo\": {\n\t\t\"destination\": \"\/tmp\/lwrp_demo\"\n\t},\n\t  \n\t\"git\": {\n\t \"default\" : {\n    \t\"remote\": \"origin\", \n\t    \"branch\": \"mephisto\",  \n\t    \"enable_submodules\": \"false\", \n\t    \"repository\": \"git:\/\/github.com\/rightscale\/examples.git\"\n    },\n  },\n    \n  \"svn\": {\n    \"default\": {\n  \t\t\"repository\": \"https:\/\/myserver.com\/svn\/rightscale\/cookbooks_test\/\", \n  \t\t\"password\": \"mypasswd\", \t\t\n  \t\t\"username\": \"me\"\n  \t}\n\t}\n}\n\n",
+  "platforms": {
+
+  },
   "version": "0.0.1",
-  "description": "Installs\/Configures lwrp_demo",
   "recipes": {
     "lwrp_demo::do_source_pull": ""
+  },
+  "attributes": {
+
   },
   "replacing": {
 
   },
-  "long_description": "= DESCRIPTION:\n\nDemonstrates the usage of the new Chef Lightweight Resources and Providers \n(LWRP) feature.\n\nThis cookbook uses a chef lightweight resource called 'repo' to define a \ngeneric interface for downloading contents of a source repository.\n\n= REQUIREMENTS:\n\nChef Version >= 0.7.14\n\n= ATTRIBUTES: \n\n[:lwrp_demo][:destination] - where to put the repo locally (ex. \/tmp\/myrepo )\n[:lwrp_demo][:provider] - which lightwight 'repo' provider to use. \n\n= USAGE:\n\nRun the lwrp_demo::do_source_pull recipe with a json file containing all the \nattributes for the selected provider and the two attribute defined above.\n\nThe two valid providers for this demo are 'repo_git' and 'repo_svn'.\n\nExample json file used to pull from a git repository:\n  \n{\n\t\"lwrp_demo\": {\n\t\t\"provider\": \"repo_git\",\n\t\t\"destination\": \"\/tmp\/lwrp_demo_git\"\n\t},\n\t  \n\t\"git\": {\n    \t\"remote\": \"origin\", \n\t    \"branch\": \"mephisto\", \n\t    \"destination\": \"\/tmp\/git\", \n\t    \"enable_submodules\": \"false\", \n\t    \"repository\": \"git:\/\/github.com\/rightscale\/examples.git\"\n    }\n}\n\nExample json file used to pull from a Subversion repository:\n\n{\n\t\"lwrp_demo\": {\n\t\t\"provider\": \"repo_svn\",\n\t\t\"destination\": \"\/tmp\/lwrp_demo_svn\"\n\t},\n\t\n\t\"svn\": {\n\t\t\"destination\": \"\/tmp\/svn\", \n\t\t\"repository\": \"https:\/\/wush.net\/svn\/rightscale\/cookbooks_test\/\", \n\t\t\"password\": \"u_wish\", \t\t\n\t\t\"username\": \"someone\"\n\t}\n}\n"
+  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
 }

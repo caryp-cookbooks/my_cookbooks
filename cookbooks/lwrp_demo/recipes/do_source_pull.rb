@@ -9,10 +9,9 @@
 
 Chef::Log.info("...do some stuff here...")
 
-repo "get source code" do
+repo "default" do
   destination @node[:lwrp_demo][:destination]
   action :pull
-  provider @node[:lwrp_demo][:provider]
 end
 
 Chef::Log.info("...do some other stuff here...")

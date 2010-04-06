@@ -23,6 +23,10 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+action :create do
+  # place named resource in resource collection 
+end
+
 action :pull do
  
  Chef::Log.info "Running repo_git::do_pull..."

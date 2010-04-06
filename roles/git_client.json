@@ -1,0 +1,44 @@
+{
+  "name": "git_client",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+
+  },
+  "description": "The base role pulling code from a git repository",
+  "recipes": [
+    "repo",
+    "repo_git",
+    "lwrp_demo::do_source_pull"
+  ],
+  "override_attributes": {
+    "svn": [
+      {
+        "default": [
+          {
+            "repository": "https:\/\/myserver.com\/svn\/rightscale\/cookbooks_test\/",
+            "username": "me",
+            "password": "mypasswd"
+          }
+        ]
+      }
+    ],
+    "git": [
+      {
+        "default": [
+          {
+            "repository": "git:\/\/github.com\/rightscale\/examples.git",
+            "enable_submodules": "false",
+            "branch": "mephisto",
+            "remote": "origin"
+          }
+        ]
+      }
+    ],
+    "lwrp_demo": [
+      {
+        "destination": "\/tmp\/lwrp_demo"
+      }
+    ]
+  }
+}
