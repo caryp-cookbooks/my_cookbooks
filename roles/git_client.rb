@@ -4,7 +4,7 @@ recipes "repo_git", "lwrp_demo::do_source_pull"
 override_attributes "lwrp_demo" => [ "destination" => "/tmp/lwrp_demo" ], 
 
 	"git" =>  [ 
-	  "default" => [ 
+	  "demo_repo" => [ 
 	    "remote" => "origin", 
 	    "branch" => "mephisto",  
 	    "enable_submodules" => "false", 
@@ -13,7 +13,7 @@ override_attributes "lwrp_demo" => [ "destination" => "/tmp/lwrp_demo" ],
   ],
     
   "svn" => [
-    "default" => [
+    "demo_repo" => [
   		"repository" => "https://myserver.com/svn/rightscale/cookbooks_test/", 
   		"password" => "mypasswd", 		
   		"username" => "me"

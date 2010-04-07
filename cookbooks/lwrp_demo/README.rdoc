@@ -1,8 +1,5 @@
 = DESCRIPTION:
 
-Demonstrates the usage of the new Chef Lightweight Resources and Providers 
-(LWRP) feature.
-
 This cookbook uses a chef lightweight resource called 'repo' to define a 
 generic interface for downloading contents of a source repository.
 
@@ -16,38 +13,8 @@ Chef Version >= 0.7.14
 
 = USAGE:
 
- See ../roles/git_client.rb for example.
+ See /roles/git_client.rb for example to use with Chef Server.
+ See /config/chef.json for example to use with Chef Solo.
 
- Create a runlist like "recipe[repo]", "recipe[repo_*]", "recipe[lwrp_demo::do_source_pull]" 
- Where * is the repository type (ex. svn or git)
  
- Execute the runlist with a json file containing: 
-  1. the run-time attribute 'destination' that is defined above.
-  2. named attributes for the providers
-
-
-Example json file contains attributes to setup scn and git resources both named "default":
-  
-{
-	"lwrp_demo": {
-		"destination": "/tmp/lwrp_demo"
-	},
-	  
-	"git": {
-	 "default" : {
-    	"remote": "origin", 
-	    "branch": "mephisto",  
-	    "enable_submodules": "false", 
-	    "repository": "git://github.com/rightscale/examples.git"
-    },
-  },
-    
-  "svn": {
-    "default": {
-  		"repository": "https://myserver.com/svn/rightscale/cookbooks_test/", 
-  		"password": "mypasswd", 		
-  		"username": "me"
-  	}
-	}
-}
 

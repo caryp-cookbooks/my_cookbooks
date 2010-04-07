@@ -2,7 +2,7 @@
 # Cookbook Name:: repo_git
 # Recipe:: default
 #
-# Copyright (c) 2009 RightScale Inc
+# Copyright (c) 2010 RightScale Inc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,7 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-unless node[platform] == "darwin" do
+unless node[:platform] == "mac_os_x" then
   # Install git client
   case node[:platform]
   when "debian", "ubuntu"
@@ -31,11 +31,11 @@ unless node[platform] == "darwin" do
   else 
     package "git"
   end
-end
 
-package "gitk"
-package "git-svn"
-package "git-email"
+  package "gitk"
+  package "git-svn"
+  package "git-email"
+end
 
 # Setup all git resources that have attributes in the node.
 node[:git].each do |resource_name, git| 

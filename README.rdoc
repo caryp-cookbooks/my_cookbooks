@@ -1,0 +1,24 @@
+= Study of Cookbook Design Patterns using LWRPs. =  
+
+== Default Pattern ==
+The 'repo_svn' and 'repo_git' cookbooks use the default.rb recipe to install required 
+packages and load 'repo' resources named 'demo-repo' which they provide for other cookbooks to use. 
+Using the default.rb recipe in this manor is referred to as the "Default" pattern.
+
+== Bridge Pattern ===
+The 'repo' cookbook contains a resource that decouples the implementation of source repository cookbooks from 
+the cookbooks that depends on them.  This is called the 'Bridge' pattern.  The 'lwrp_demo' cookbook 
+is the main cookbook to run. It uses the "bridge" provided by the 'repo' cookbook to loosely couple 
+itself to the 'repo' resource provided by repo_git and repo_svn cookbooks.  
+
+== Dependency Injection Pattern ==
+The actual repo implementation is 'wired' or assembled at runtime at the 'recipes' (see config/chef.json) 
+or 'role' level (see roles/git_client.rb).  As you can see, the "Default" pattern is being leveraged to 
+load (or inject) a concrete 'repo' provider into Chef's resource collection.  The 'lwrp_demo' cookbook 
+gets it's dependency on the 'repo' resource fulfilled by this injection.  Hence this pattern is
+dubbed the "Dependency Injection" pattern.  To switch between git and scm source repositories, just 
+modify the first recipe in the runlist from 'repo_git' to 'repo_svn'. Vola!
+
+These cookbooks require Chef 0.7.16
+
+cary@rightscale.com

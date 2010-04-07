@@ -2,7 +2,7 @@
 # Cookbook Name:: repo_svn
 # Recipe:: default
 #
-# Copyright (c) 2009 RightScale Inc
+# Copyright (c) 2010 RightScale Inc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,7 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-unless node[platform] == "darwin" do
+unless node[:platform] == "mac_os_x" then
   # install subversion client
   package "subversion" do
     action :install
@@ -49,7 +49,7 @@ end
 
 # Setup all svn resources that have attributes in the node.
 node[:svn].each do |resource_name, svn| 
-    
+
     # Setup svn client
     repo resource_name do
       provider "repo_svn"

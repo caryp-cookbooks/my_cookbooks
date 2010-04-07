@@ -30,10 +30,10 @@
   "version": "0.0.1",
   "recipes": {
     "repo_svn": "",
-    "repo_svn::default": "Runs install svn client and setup resources"
+    "repo_svn::default": "Default pattern of loading packages and resources provided"
   },
   "attributes": {
-    "svn\/default\/revision": {
+    "svn\/demo_repo\/revision": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -43,17 +43,7 @@
       ],
       "required": false
     },
-    "svn\/default\/arguments": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "Arguments",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "svn\/default\/password": {
+    "svn\/demo_repo\/password": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -63,7 +53,7 @@
       ],
       "required": false
     },
-    "svn\/default\/repository": {
+    "svn\/demo_repo\/repository": {
       "type": "string",
       "description": "",
       "multiple_values": false,
@@ -73,11 +63,21 @@
       ],
       "required": true
     },
-    "svn\/default\/username": {
+    "svn\/demo_repo\/username": {
       "type": "string",
       "description": "",
       "multiple_values": false,
       "display_name": "User Name",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "svn\/demo_repo\/arguments": {
+      "type": "string",
+      "description": "",
+      "multiple_values": false,
+      "display_name": "Arguments",
       "recipes": [
 
       ],
@@ -87,5 +87,5 @@
   "replacing": {
 
   },
-  "license": "Copyright (c) 2009 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
+  "license": "Copyright (c) 2010 RightScale, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n'Software'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and\/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
 }

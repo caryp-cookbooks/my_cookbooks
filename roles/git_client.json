@@ -13,7 +13,7 @@
   "override_attributes": {
     "svn": [
       {
-        "default": [
+        "demo_repo": [
           {
             "repository": "https:\/\/myserver.com\/svn\/rightscale\/cookbooks_test\/",
             "username": "me",
@@ -24,7 +24,7 @@
     ],
     "git": [
       {
-        "default": [
+        "demo_repo": [
           {
             "repository": "git:\/\/github.com\/rightscale\/examples.git",
             "enable_submodules": "false",

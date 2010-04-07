@@ -6,33 +6,33 @@ version          "0.0.1"
 
 provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
-recipe  "repo_svn::default", "Runs install svn client and setup resources"
+recipe  "repo_svn::default", "Default pattern of loading packages and resources provided"
 
-# grouping "svn/deafult",
+# grouping "svn/demo_repo",
 #   :display_name => "Subversion Client Default Settings",
 #   :description => "Settings for managing a Subversion source repository"
 
-attribute "svn/default/repository",
+attribute "svn/demo_repo/repository",
   :display_name => "Repository Url",
   :description => "",
   :required => true
   
-attribute "svn/default/revision",
+attribute "svn/demo_repo/revision",
   :display_name => "Revision/Branch/Tag",
   :description => "",
   :required => false
 
-attribute "svn/default/username",
+attribute "svn/demo_repo/username",
   :display_name => "User Name",
   :description => "",
   :required => false
   
-attribute "svn/default/password",
+attribute "svn/demo_repo/password",
   :display_name => "Password",
   :description => "",
   :required => false
 
-attribute "svn/default/arguments",
+attribute "svn/demo_repo/arguments",
   :display_name => "Arguments",
   :description => "",
   :required => false
