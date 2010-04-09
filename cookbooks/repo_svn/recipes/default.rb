@@ -46,14 +46,3 @@ unless node[:platform] == "mac_os_x" then
     end
   end
 end
-
-# Setup all svn resources that have attributes in the node.
-node[:svn].each do |resource_name, svn| 
-
-    # Setup svn client
-    repo resource_name do
-      provider "repo_svn"
-      action :create
-    end
-
-end

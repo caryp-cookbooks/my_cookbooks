@@ -8,31 +8,32 @@ provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
 recipe  "repo_svn::default", "Default pattern of loading packages and resources provided"
 
-# grouping "svn/demo_repo",
-#   :display_name => "Subversion Client Default Settings",
-#   :description => "Settings for managing a Subversion source repository"
+ grouping "svn",
+   :display_name => "Subversion Client Default Settings",
+   :description => "Settings for managing a Subversion source repository",
+   :databag => true
 
-attribute "svn/demo_repo/repository",
+attribute "svn/repository",
   :display_name => "Repository Url",
   :description => "",
   :required => true
   
-attribute "svn/demo_repo/revision",
+attribute "svn/revision",
   :display_name => "Revision/Branch/Tag",
   :description => "",
   :required => false
 
-attribute "svn/demo_repo/username",
+attribute "svn/username",
   :display_name => "User Name",
   :description => "",
   :required => false
   
-attribute "svn/demo_repo/password",
+attribute "svn/password",
   :display_name => "Password",
   :description => "",
   :required => false
 
-attribute "svn/demo_repo/arguments",
+attribute "svn/arguments",
   :display_name => "Arguments",
   :description => "",
   :required => false

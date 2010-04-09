@@ -23,19 +23,15 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-action :create do
-  # place named resource in resource collection 
-end
-
 action :pull do
  
   Chef::Log.info "Running repo_svn::do_pull..."
 
   # setup parameters 
-  password = node[:svn][new_resource.name][:password]
-  revision = node[:svn][new_resource.name][:revision]
+  password = node[:repo][new_resource.name][:password]
+  revision = node[:repo][new_resource.name][:revision]
   params = "--no-auth-cache --non-interactive"
-  params << " --username #{node[:svn][new_resource.name][:username]} --password #{password}" if "#{password}" != ""
+  params << " --username #{node[:repo][new_resource.name][:username]} --password #{password}" if "#{password}" != ""
   params << " --revision #{revision}" if "#{revision}" != ""
 
   # pull repo (if exist)
@@ -44,7 +40,7 @@ action :pull do
     block do
       Dir.chdir new_resource.destination
       puts "Updateing existing repo at #{new_resource.destination}"
-      puts `svn update #{params} #{node[:svn][new_resource.name][:repository]} #{new_resource.destination}` 
+      puts `svn update #{params} #{node[:repo][new_resource.name][:repository]} #{new_resource.destination}` 
     end
   end
 
@@ -53,7 +49,7 @@ action :pull do
     not_if do ::File.directory?(new_resource.destination) end
     block do
       puts "Creating new repo at #{new_resource.destination}"
-      puts `svn checkout #{params} #{node[:svn][new_resource.name][:repository]} #{new_resource.destination}`
+      puts `svn checkout #{params} #{node[:repo][new_resource.name][:repository]} #{new_resource.destination}`
     end
   end
  

@@ -8,39 +8,40 @@ provides "provider:repo" # not really in metadata spec yet. Format TBD.
 
 recipe  "repo_git::default", "Default pattern of loading packages and resources provided"
 
-# grouping "git/demo_repo",
-#   :display_name => "Git Client Default Settings",
-#   :description => "Settings for managing a Git source repository"
+grouping "git",
+ :display_name => "Git Client Default Settings",
+ :description => "Settings for managing a Git source repository",
+ :databag => true       # proposed metadata addition
 
-attribute "git/demo_repo/repository",
+attribute "git/repository",
   :display_name => "Repository Url",
   :description => "",
   :required => true
   
-attribute "git/demo_repo/branch",
+attribute "git/branch",
   :display_name => "Branch/Tag",
   :description => "",
   :required => false
 
-attribute "git/demo_repo/depth",
+attribute "git/depth",
   :display_name => "Depth",
   :description => "",
   :default => nil,
   :required => false
 
-attribute "git/demo_repo/enable_submodules",
+attribute "git/enable_submodules",
   :display_name => "Enable Submodules",
   :description => "",
   :default => "false",
   :required => false
 
-attribute "/git/demo_repo/remote",
+attribute "/git/remote",
   :display_name => "Remote",
   :description => "",
   :default => "origin",
   :required => false
   
-attribute "git/demo_repo/ssh_key",
+attribute "git/ssh_key",
   :display_name => "SSH Key",
   :description => "",
   :default => nil,

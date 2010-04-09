@@ -23,17 +23,13 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-action :create do
-  # place named resource in resource collection 
-end
-
 action :pull do
  
  Chef::Log.info "Running repo_git::do_pull..."
  
   # add ssh key and exec script
   keyfile = nil
-  keyname = node[:git][new_resource.name][:ssh_key]
+  keyname = node[:repo][new_resource.name][:ssh_key]
   if "#{keyname}" != ""
     keyfile = "/tmp/gitkey"
     bash 'create_temp_git_ssh_key' do
@@ -63,8 +59,8 @@ action :pull do
     block do
       puts "Creating new repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
-      puts `git clone #{node[:git][new_resource.name][:repository]} -- #{new_resource.destination}`
-      branch = node[:git][new_resource.name][:branch]
+      puts `git clone #{node[:repo][new_resource.name][:repository]} -- #{new_resource.destination}`
+      branch = node[:repo][new_resource.name][:branch]
       if "#{branch}" != "master" 
         dir = "#{new_resource.destination}"
         Dir.chdir(dir) 

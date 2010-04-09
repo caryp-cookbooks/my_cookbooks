@@ -37,13 +37,13 @@ unless node[:platform] == "mac_os_x" then
   package "git-email"
 end
 
-# Setup all git resources that have attributes in the node.
-node[:git].each do |resource_name, git| 
-    
-    # Setup git client
-    repo resource_name do
-      provider "repo_git"
-      action :create
-    end
-
-end
+## Setup all git resources that have attributes in the node.
+# node[:repo].each do |resource_name, data| 
+#   if data[:provider] == "repo_git" then
+#     Chef::Log.info("Name:#{resource_name}, data: #{data}")
+#     # Setup git client
+#     repo resource_name do
+#       provider "repo_git"
+#     end
+#   end
+# end

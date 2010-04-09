@@ -1,25 +1,29 @@
 { 
-  "recipes": [ "repo_git", "lwrp_demo::do_source_pull" ],
+  "recipes": [ "lwrp_demo::do_source_pull" ],
 
   "lwrp_demo": {
     "destination": "/tmp/lwrp_demo"
   },
-	  
-  "git": {
-    "demo_repo" : {
-      "remote": "origin", 
-	  "branch": "mephisto",  
-	  "enable_submodules": "false", 
-	  "repository": "git://github.com/rightscale/examples.git"
-    }
-  },
-    
+  
   "svn": {
-    "demo_repo": {
+    
+  },
+
+  "repo": {	  
+    "demo_repo" : {
+	  "provider": "repo_git",
+      "remote": "origin", 
+      "branch": "mephisto",  
+      "enable_submodules": "false", 
+      "repository": "git://github.com/rightscale/examples.git"
+	},
+	
+	"cowsay": {
   	  "repository": "http://svn.github.com/schacon/cowsay.git", 
   	  "password": "you", 		
   	  "username": "wish"
   	}
+	
   }
 
 }
