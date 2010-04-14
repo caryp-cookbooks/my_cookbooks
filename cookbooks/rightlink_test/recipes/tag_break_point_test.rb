@@ -5,6 +5,11 @@ UUID_TAG = "rs_instance:uuid=#{UUID}"
 log "Add our instance UUID as a tag: #{UUID_TAG}"
 right_link_tag UUID_TAG
 
+log "Verify tag exists"
+wait_for_tag UUID_TAG do
+  collection_name UUID
+end
+
 log "Query servers for our tags..."
 server_collection UUID do
   tags UUID_TAG
