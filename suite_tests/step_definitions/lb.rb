@@ -3,6 +3,14 @@ require "ruby-debug"
 require "rest_connection"
 require "net/ssh"
 
+def get_lb_hostname_input(fe_servers)
+  lb_hostname_input = "text:"
+  fe_servers.each do |fe|
+      lb_hostname_input << fe.settings['private-dns-name'] + " " 
+  end
+  lb_hostname_input
+end
+
 Given /^A deployment with frontends$/ do
   puts "entering :A deployment with frontends"
   @servers["all"].each { |s| s.settings }
@@ -14,8 +22,16 @@ When /^I cross connect the frontends$/ do
   st = ServerTemplate.find(@servers["frontend"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /LB [app|mongrels]+ to HA proxy connect/i }
   raise "Could not find script" unless script_to_run
-  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  
+  options = Hash.new
+  options[:LB_HOSTNAME] = get_lb_hostname_input(@servers["frontend"])
+  
+  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run, options) }
   puts "exiting :I cross\-connect the frontends"
+end
+
+When /^I setup deployment input LB_HOSTNAME to current frontends$/ do
+  @deployment.set_input(:LB_HOSTNAME,get_lb_hostname_input(@servers["frontend"])) 
 end
 
 Then /^the cross connect script completes successfully$/ do

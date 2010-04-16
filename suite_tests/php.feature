@@ -10,6 +10,8 @@ Scenario: PHP server test
   When I launch the "frontend" servers
   Then the "frontend" servers become operational
 
+  When I setup deployment input LB_HOSTNAME to current frontends
+
   When I launch the "app" servers
   Then the "app" servers become operational
 
