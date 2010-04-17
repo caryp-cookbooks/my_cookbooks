@@ -26,4 +26,13 @@
 actions :pull
 
 attribute :destination, :kind_of => String
+attribute :repository, :kind_of => String
+attribute :revision, :kind_of => String 
+attribute :provider_type, :kind_of => String 
 
+# Subversion only
+attribute :svn_username, :kind_of => String
+attribute :svn_password, :kind_of => String
+
+# Git only
+attribute :ssh_key, :kind_of => String

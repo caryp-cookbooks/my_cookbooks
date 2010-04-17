@@ -29,7 +29,7 @@ action :pull do
  
   # add ssh key and exec script
   keyfile = nil
-  keyname = node[:repo][new_resource.name][:ssh_key]
+  keyname = new_resource.ssh_key
   if "#{keyname}" != ""
     keyfile = "/tmp/gitkey"
     bash 'create_temp_git_ssh_key' do
@@ -59,8 +59,8 @@ action :pull do
     block do
       puts "Creating new repo at #{new_resource.destination}"
       ENV["GIT_SSH"] = "#{keyfile}.sh" unless ("#{keyfile}" == "")
-      puts `git clone #{node[:repo][new_resource.name][:repository]} -- #{new_resource.destination}`
-      branch = node[:repo][new_resource.name][:branch]
+      puts `git clone #{new_resource.repository} -- #{new_resource.destination}`
+      branch = new_resource.revision
       if "#{branch}" != "master" 
         dir = "#{new_resource.destination}"
         Dir.chdir(dir) 

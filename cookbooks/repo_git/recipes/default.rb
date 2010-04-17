@@ -23,6 +23,8 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+PROVIDER_NAME = "repo_git"  # grab this from cookbook directory name
+
 unless node[:platform] == "mac_os_x" then
   # Install git client
   case node[:platform]
@@ -37,13 +39,22 @@ unless node[:platform] == "mac_os_x" then
   package "git-email"
 end
 
-## Setup all git resources that have attributes in the node.
-# node[:repo].each do |resource_name, data| 
-#   if data[:provider] == "repo_git" then
-#     Chef::Log.info("Name:#{resource_name}, data: #{data}")
-#     # Setup git client
-#     repo resource_name do
-#       provider "repo_git"
-#     end
-#   end
-# end
+# Setup all git resources that have attributes in the node.
+node[:repo].each do |resource_name, entry| 
+  if entry[:provider] == PROVIDER_NAME then
+    Chef::Log.info("Name:#{resource_name}, entry: #{entry}")
+    
+    url = entry[:repository]
+    raise "ERROR: You did not specify a repository for repo resource named #{resource_name}." unless url
+    branch = (entry[:branch]) ? entry[:branch] : "master"
+    key = (entry[:ssh_key]) ? entry[:ssh_key] : ""
+    
+    # Setup git client
+    repo resource_name do
+      provider "repo_git"
+      repository url
+      revision branch
+      ssh_key key
+    end
+  end
+end

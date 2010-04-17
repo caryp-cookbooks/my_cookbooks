@@ -23,6 +23,8 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+PROVIDER_NAME = "repo_svn"  # grab this from cookbook directory name
+
 unless node[:platform] == "mac_os_x" then
   # install subversion client
   package "subversion" do
@@ -43,6 +45,26 @@ unless node[:platform] == "mac_os_x" then
   extra_packages.each do |pkg|
     package pkg do
       action :install
+    end
+  end
+end
+
+# Setup all Subversion resources that have attributes in the node.
+node[:repo].each do |resource_name, entry| 
+  if entry[:provider] == PROVIDER_NAME then
+    Chef::Log.info("Name:#{resource_name}, entry: #{entry}")
+    
+    url = entry[:repository]
+    raise "ERROR: You did not specify a repository for repo resource named #{resource_name}." unless url
+    username = (entry[:username]) ? entry[:username] : ""
+    password = (entry[:password]) ? entry[:password] : ""
+    
+    # Setup svn client
+    repo resource_name do
+      provider "repo_svn"
+      repository url
+      svn_username username
+      svn_password password
     end
   end
 end

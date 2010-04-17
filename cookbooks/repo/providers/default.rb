@@ -27,36 +27,61 @@ require 'chef/mixin/convert_to_class_name'
 
 action :pull do
   
-  # does the named provider exist in collection?
-  begin
- #   Chef::Log.info("looking for name #{new_resource.name} in collection #{new_resource.collection.inspect}")
-    resource = new_resource.collection.lookup(new_resource.name)
-    provider = resource.provider if resource
-  rescue ArgumentError
-    Chef::Log.info("No resource found in collection named #{new_resource.name}.")
-  end
+  abstract_resource = new_resource
   
-  # provider = load_provider_from_node(new_resource.name)  
-  unless provider then
-    # create named provider from node or databag
-    repo_bag = node[:repo]
-    raise("ERROR: unable to find resource named '#{new_resource.name}' in collection or node.") unless repo_bag
-
-    repo_bag.each do |name, data|
-      if name == new_resource.name then
-        pname = data[:provider]
-        raise("ERROR: you must specify :provider in your resource data.") unless pname
-        class_name = convert_to_class_name(pname)
-        provider_klass = Chef::Provider.const_get(class_name)
-        provider = provider_klass.new(new_resource.node, new_resource, new_resource.collection)
-        provider.load_current_resource
-        Chef::Log.info("Loaded data from node into #{provider_klass}")
-        break;
-      end
+  # Does the named provider exist in collection?
+  Chef::Log.info("looking for #{abstract_resource.to_s} in collection")
+  # Find the resource before this one in the collection -- maybe look up diff providers with same name?
+  curr_resrc = prev_resrc = nil 
+  @collection.each do |r|   
+    if r.to_s == abstract_resource.to_s then
+      Chef::Log.info("resource: #{r}")
+      prev_resrc = curr_resrc if curr_resrc
+      curr_resrc = r 
+    end
+  end
+  resource = prev_resrc
+  Chef::Log.info("Found #{abstract_resource.to_s}in resource collection! ptype:#{resource.provider}") if resource
+    
+  
+  # If not, look in the node for a serialze resource from a previous converge
+  ## provider = load_provider_from_node(abstract_resource.name)  
+  # unless resource then
+  #     # create named provider from node or databag
+  #     repo_bag = node[:resource_collection][:repo]
+  #     raise("ERROR: unable to find resource named '#{abstract_resource.name}' in collection or node.") unless repo_bag
+  # 
+  #     repo_bag.each do |name, data|
+  #       if name == abstract_resource.name then
+  #         pname = data[:provider]
+  #         raise("ERROR: you must specify :provider in your resource data.") unless pname
+  #         class_name = convert_to_class_name(pname)
+  #         provider_klass = Chef::Provider.const_get(class_name)
+  #         provider = provider_klass.new(abstract_resource.node, abstract_resource, abstract_resource.collection)
+  #         provider.load_current_resource
+  #         Chef::Log.info("Loaded data from node into #{provider_klass}")
+  #         break;
+  #       end
+  #     end
+  #   end
+  
+  raise ("No resource found in collection or node named #{abstract_resource.name}.") unless resource   
+  
+  # Merge attributes from abstract resource to concrete resource
+  abstract_resource.instance_variables.each do |iv|
+    unless iv == "@source_line" || iv == "@action" || iv == "@provider"
+     resource.instance_variable_set(iv, abstract_resource.instance_variable_get(iv))
     end
   end
   
-  raise ("ERROR: no provider named '#{new_resource.name}' found for repo resource.") unless provider
+  # Load the provider
+  provider = resource.provider.new(resource.node, resource, resource.collection)
+  provider.load_current_resource
+  Chef::Log.info("Loaded resource into #{resource.provider}")
   provider.action_pull()
+  
+  ## Persist resource to node.
+  # resource.instance_eval("@node = nil")
+  # node[:resource_collection][:repo] = resource.to_json
 
 end

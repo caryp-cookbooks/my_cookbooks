@@ -1,12 +1,8 @@
 { 
-  "recipes": [ "lwrp_demo::do_source_pull" ],
+  "recipes": [ "repo_git", "lwrp_demo::do_source_pull" ],
 
   "lwrp_demo": {
     "destination": "/tmp/lwrp_demo"
-  },
-  
-  "svn": {
-    
   },
 
   "repo": {	  
@@ -19,11 +15,11 @@
 	},
 	
 	"cowsay": {
+	  "provider": "repo_svn",
   	  "repository": "http://svn.github.com/schacon/cowsay.git", 
   	  "password": "you", 		
   	  "username": "wish"
-  	}
-	
+  	}	
   }
 
 }

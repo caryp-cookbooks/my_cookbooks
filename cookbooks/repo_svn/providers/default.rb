@@ -28,10 +28,10 @@ action :pull do
   Chef::Log.info "Running repo_svn::do_pull..."
 
   # setup parameters 
-  password = node[:repo][new_resource.name][:password]
-  revision = node[:repo][new_resource.name][:revision]
+  password = new_resource.svn_password
+  revision = new_resource.revision
   params = "--no-auth-cache --non-interactive"
-  params << " --username #{node[:repo][new_resource.name][:username]} --password #{password}" if "#{password}" != ""
+  params << " --username #{new_resource.svn_username} --password #{password}" if "#{password}" != ""
   params << " --revision #{revision}" if "#{revision}" != ""
 
   # pull repo (if exist)
@@ -39,8 +39,8 @@ action :pull do
     only_if do ::File.directory?(new_resource.destination) end
     block do
       Dir.chdir new_resource.destination
-      puts "Updateing existing repo at #{new_resource.destination}"
-      puts `svn update #{params} #{node[:repo][new_resource.name][:repository]} #{new_resource.destination}` 
+      puts "Updating existing repo at #{new_resource.destination}"
+      puts `svn update #{params} #{new_resource.repository} #{new_resource.destination}` 
     end
   end
 
@@ -49,7 +49,7 @@ action :pull do
     not_if do ::File.directory?(new_resource.destination) end
     block do
       puts "Creating new repo at #{new_resource.destination}"
-      puts `svn checkout #{params} #{node[:repo][new_resource.name][:repository]} #{new_resource.destination}`
+      puts `svn checkout #{params} #{new_resource.repository} #{new_resource.destination}`
     end
   end
  
