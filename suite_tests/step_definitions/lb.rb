@@ -126,7 +126,14 @@ Then /^apache status should be good on the frontend servers$/ do
     apache_status_cmd = "service httpd status"
   end
   @servers["frontend"].each_with_index do |server,i|
-    response = server.spot_check_command?(apache_status_cmd)
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?(apache_status_cmd)
+      break if response	
+      count += 1
+      sleep 10
+    end
     raise "Apache status failed" unless response
   end
 end
@@ -149,14 +156,14 @@ Then /^mongrel status should be good$/ do
 end
 
 When /^I force log rotation$/ do
-  @servers.each do |server|
+  @server_set.each do |server|
     response = server.spot_check_command?('logrotate -f /etc/logrotate.conf')
     raise "Logrotate restart failed" unless response
   end
 end
 
 Then /^I should see "([^\"]*)"$/ do |logfile|
-  @servers.each do |server|
+  @server_set.each do |server|
     response = server.spot_check_command?("test -f #{logfile}")
     raise "Log file does not exist" unless response
   end
