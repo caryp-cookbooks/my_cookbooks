@@ -22,25 +22,25 @@ Scenario: PHP server test
   Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
-#  Given A deployment with frontends
-#  When I cross connect the frontends
-#  Then the cross connect script completes successfully
-#  Then I should see all "all" servers in the haproxy config
+  Given A deployment with frontends
+  When I cross connect the frontends
+  Then the cross connect script completes successfully
+  Then I should see all "all" servers in the haproxy config
 
   Given with a known OS
   When I restart haproxy on the frontend servers
   Then haproxy status should be good
 
-#  When I restart apache on the frontend servers
-#  Then apache status should be good on the frontend servers
+  When I restart apache on the frontend servers
+  Then apache status should be good on the frontend servers
 
-#  Given I am testing the "frontend"
-#  When I force log rotation
-#  Then I should see "/mnt/log/httpd/haproxy.log.1"
+  Given I am testing the "frontend"
+  When I force log rotation
+  Then I should see "/mnt/log/httpd/haproxy.log.1"
 
-#  Given I am testing the "all"
-#  When I force log rotation
-#  Then I should see "/mnt/log/httpd/access_log.1"
+  Given I am testing the "all"
+  When I force log rotation
+  Then I should see "/mnt/log/httpd/access_log.1"
 
   Given I am testing the "frontend"
   When I reboot the servers
