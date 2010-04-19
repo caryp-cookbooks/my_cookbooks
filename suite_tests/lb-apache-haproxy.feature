@@ -10,6 +10,8 @@ Scenario: LB server test
   When I launch the "frontend" servers
   Then the "frontend" servers become operational
 
+  When I setup deployment input LB_HOSTNAME to current frontends
+
   When I launch the "app" servers
   Then the "app" servers become operational
 
@@ -29,9 +31,9 @@ Scenario: LB server test
   When I restart apache on the frontend servers
   Then apache status should be good on the frontend servers
 
-#  When I force log rotation
-#  Then I should see "/mnt/log/httpd/haproxy.log.1"
-#  Then I should see "/mnt/log/httpd/access_log.1"
+  When I force log rotation
+  Then I should see "/mnt/log/httpd/haproxy.log.1"
+  Then I should see "/mnt/log/httpd/access_log.1"
 
   Given I am testing the "frontend"
   When I reboot the servers
