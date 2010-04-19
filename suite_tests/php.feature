@@ -7,13 +7,13 @@ Scenario: PHP server test
 
   Given A deployment
 
-  When I launch the "frontend" servers
-  Then the "frontend" servers become operational
+  When I launch the "FrontEnd" servers
+  Then the "FrontEnd" servers become operational
 
-  When I setup deployment input LB_HOSTNAME to current frontends
+  When I setup deployment input "LB_HOSTNAME" to current "FrontEnd"
 
-  When I launch the "app" servers
-  Then the "app" servers become operational
+  When I launch the "App Server" servers
+  Then the "App Server" servers become operational
 
   Given I am testing the "all"
   And I am using port "8000"
@@ -34,7 +34,7 @@ Scenario: PHP server test
   When I restart apache on the frontend servers
   Then apache status should be good on the frontend servers
 
-  Given I am testing the "frontend"
+  Given I am testing the "FrontEnd"
   When I force log rotation
   Then I should see "/mnt/log/httpd/haproxy.log.1"
 
@@ -42,9 +42,9 @@ Scenario: PHP server test
   When I force log rotation
   Then I should see "/mnt/log/httpd/access_log.1"
 
-  Given I am testing the "frontend"
+  Given I am testing the "FrontEnd"
   When I reboot the servers
-  Then the "frontend" servers become operational
+  Then the "FrontEnd" servers become operational
   And I am using port "80"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
@@ -54,9 +54,9 @@ Scenario: PHP server test
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
   Then I should see "I am in the db" from "/dbread/" on the servers
 
-  Given I am testing the "app"
+  Given I am testing the "App Server"
   When I reboot the servers
-  Then the "app" servers become operational
+  Then the "App Server" servers become operational
   And I am using port "8000"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers

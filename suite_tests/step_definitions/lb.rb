@@ -30,8 +30,9 @@ When /^I cross connect the frontends$/ do
   puts "exiting :I cross\-connect the frontends"
 end
 
-When /^I setup deployment input LB_HOSTNAME to current frontends$/ do
-  @deployment.set_input(:LB_HOSTNAME,get_lb_hostname_input(@servers["frontend"])) 
+When /^I setup deployment input "([^\"]*)" to current "([^\"]*)"$/ do |input, server_set|
+#When /^I setup deployment input LB_HOSTNAME to current frontends$/ do
+  @deployment.set_input(:"#{input}",get_lb_hostname_input(@servers[server_set])) 
 end
 
 Then /^the cross connect script completes successfully$/ do

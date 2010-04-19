@@ -3,7 +3,6 @@ require 'rest_connection'
 require 'ruby-debug'
 require 'timeout'
 
-#TODO get rid of the @servers, @frontends, @appservers and just use the server_set hash.
 Given /^A deployment$/ do
   @servers = Hash.new
   raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
@@ -28,7 +27,6 @@ When /^I launch the "([^\"]*)" servers$/ do |server_set|
 end
 
 Then /^the "([^\"]*)" servers become non\-operational$/ do |server_set|
-#Then /^the frontends become non\-operational$/ do
   @servers[server_set].each { |s| s.wait_for_state('decommissioning') }
 end
 
