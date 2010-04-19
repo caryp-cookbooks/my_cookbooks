@@ -11,39 +11,38 @@ def get_lb_hostname_input(fe_servers)
   lb_hostname_input
 end
 
-Given /^A deployment with frontends$/ do
-  puts "entering :A deployment with frontends"
-  @servers["all"].each { |s| s.settings }
-end
+#Given /^A deployment with frontends$/ do
+#  puts "entering :A deployment with frontends"
+#  @servers["all"].each { |s| s.settings }
+#end
 
 When /^I cross connect the frontends$/ do
   puts "entering :I cross\-connect the frontends"
   @statuses = Array.new 
-  st = ServerTemplate.find(@servers["frontend"].first.server_template_href)
+  st = ServerTemplate.find(@servers["FrontEnd"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /LB [app|mongrels]+ to HA proxy connect/i }
   raise "Could not find script" unless script_to_run
   
   options = Hash.new
-  options[:LB_HOSTNAME] = get_lb_hostname_input(@servers["frontend"])
+  options[:LB_HOSTNAME] = get_lb_hostname_input(@servers["FrontEnd"])
   
-  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run, options) }
+  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run, options) }
   puts "exiting :I cross\-connect the frontends"
 end
 
 When /^I setup deployment input "([^\"]*)" to current "([^\"]*)"$/ do |input, server_set|
-#When /^I setup deployment input LB_HOSTNAME to current frontends$/ do
   @deployment.set_input(:"#{input}",get_lb_hostname_input(@servers[server_set])) 
 end
 
 Then /^the cross connect script completes successfully$/ do
-  @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["frontend"][i].audit_link) }
+  @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["FrontEnd"][i].audit_link) }
 end
 
 Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |server_set|
   puts "entering :I should see all #{server_set} servers in the haproxy config"
   @server_ips = Array.new
   @servers[server_set].each { |app| @server_ips << app['private-ip-address'] }
-  @servers["frontend"].each do |fe|
+  @servers["FrontEnd"].each do |fe|
     fe.settings
     haproxy_config = fe.spot_check_command('cat /home/haproxy/rightscale_lb.cfg | grep server')
     @server_ips.each { |ip|  haproxy_config.to_s.should include(ip) }
@@ -53,7 +52,7 @@ end
 
 Then /^I should see all servers being served from haproxy$/ do
   puts "entering :I should see all servers being served from haproxy"
-  @servers["frontend"].each do |fe|
+  @servers["FrontEnd"].each do |fe|
     ip_list = @app_server_ips.clone
     ip_list.size.times do 
       cmd = "curl -q #{fe['dns-name']}/serverid/ 2> /dev/null | grep ip= | sed 's/^ip=//' | sed 's/;.*$//'"
@@ -69,7 +68,7 @@ end
 
 
 When /^I restart haproxy on the frontend servers$/ do
-  @servers["frontend"].each_with_index do |server,i|
+  @servers["FrontEnd"].each_with_index do |server,i|
     response = server.spot_check_command?('service haproxy restart')
     raise "Haproxy restart failed" unless response
   end
@@ -81,7 +80,7 @@ Then /^haproxy status should be good$/ do
   else
     haproxy_check_cmd = "service haproxy check"
   end
-  @servers["frontend"].each_with_index do |server,i|
+  @servers["FrontEnd"].each_with_index do |server,i|
     response = server.spot_check_command?(haproxy_check_cmd)
     raise "Haproxy check failed" unless response
   end
@@ -93,7 +92,7 @@ When /^I restart apache on all servers$/ do
   st = ServerTemplate.find(@servers["all"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
   raise "Script not found" unless script_to_run
-  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
   @servers["app"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart apache on all servers"
 end
@@ -113,10 +112,10 @@ end
 When /^I restart apache on the frontend servers$/ do
   puts "entering :I restart apache on the frontend servers"
   @statuses = Array.new
-  st = ServerTemplate.find(@servers["frontend"].first.server_template_href)
+  st = ServerTemplate.find(@servers["FrontEnd"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
   raise "Script not found" unless script_to_run
-  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart apache on the frontend servers"
 end
 
@@ -126,7 +125,7 @@ Then /^apache status should be good on the frontend servers$/ do
   else
     apache_status_cmd = "service httpd status"
   end
-  @servers["frontend"].each_with_index do |server,i|
+  @servers["FrontEnd"].each_with_index do |server,i|
     response = nil
     count = 0
     until response || count > 3 do
@@ -145,7 +144,7 @@ When /^I restart mongrels on all servers$/ do
   st = ServerTemplate.find(@servers["all"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /RB mongrel_cluster \(re\)start v1/i }
   raise "Script not found" unless script_to_run
-  @servers["frontend"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart mongrels on all servers"
 end
 
