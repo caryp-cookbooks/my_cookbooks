@@ -84,8 +84,9 @@ Then /^I should see "([^\"]*)" from "([^\"]*)" on the servers$/ do |message, uri
 end
 
 When /^I reboot the servers$/ do
+  wait_for_reboot = true
   puts "entering :I reboot the servers"
-  @server_set.each { |s| s.reboot }
+  @server_set.each { |s| s.reboot(wait_for_reboot) }
   puts "exiting :I reboot the servers"
 end
 
