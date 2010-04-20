@@ -17,7 +17,7 @@
 	"RAILS_VERSION":"text:2.1.2",
 	"DBAPPLICATION_USER":"cred:DBAPPLICATION_USER",
 	"APPLICATION":"text:app_test",
-	"LB_HOSTNAME":"ignore:ignore",
+	"LB_HOSTNAME":"ignore:$ignore",
 	"LB_APPLISTENER_NAME":"text:railsapp",
 	"OPT_VHOST_PORT":"ignore:$ignore",
 	"MAX_CONN_PER_SERVER":"text:100",
