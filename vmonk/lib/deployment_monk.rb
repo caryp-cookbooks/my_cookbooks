@@ -29,13 +29,12 @@ class DeploymentMonk
     server_templates.each do |st|
       @server_templates << ServerTemplate.find(st.to_i)
     end
-    # only using the MCI from the first server template for now.
-    st = @server_templates.first
-    st.fetch_multi_cloud_images
-    @images = st.multi_cloud_images
 
-    # load additional mcis here
-    #@images += extra_images
+    @image_count = 0
+    @server_templates.each do |st|
+      st.fetch_multi_cloud_images
+      @image_count = st.multi_cloud_images.size if st.multi_cloud_images.size > @image_count
+    end
 
     @variables_for_cloud = { 
       1 => { "ec2_ssh_key_href" => "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/7053",
@@ -52,21 +51,19 @@ class DeploymentMonk
       }
   end
 
-  def load_images(file)
-    @images += JSON.parse(IO.read(file))
-  end
-
   def generate_variations
-    @images.each do |image|
+    @image_count.times do |index|
       @clouds.each do |cloud|
         if @variables_for_cloud[cloud] == nil
           puts "variables not found for cloud #{cloud} skipping.."
           next
         end
-        dep_tempname = "#{@tag}-#{image['name'].gsub(/ /,'_')}-#{rand(1000000)}"
+        dep_tempname = "#{@tag}-#{rand(1000000)}-"
+        dep_image_list = []
         new_deploy = Deployment.create(:nickname => dep_tempname)
         @variations << new_deploy
         @server_templates.each do |st|
+          dep_image_list << st.multi_cloud_images[index]['name'].gsub(/ /,'_')
           server_params = { :nickname => "tempserver-#{st.nickname}", 
                             :deployment_href => new_deploy.href, 
                             :server_template_href => st.href, 
@@ -80,9 +77,17 @@ class DeploymentMonk
           @variables_for_cloud[cloud]['parameters'].each do |key,val|
             server.set_input(key,val)
           end
-          # need to setup the MCI afterwards, because we have a special internal call for that
-          RsInternal.set_server_multi_cloud_image(server.href, image['href'])
+         
+          # uses a special internal call for setting the MCI on the server
+          if st.multi_cloud_images[index]
+            use_this_image = st.multi_cloud_images[index]['href']
+          else
+            use_this_image = st.multi_cloud_images[0]['href']
+          end
+          RsInternal.set_server_multi_cloud_image(server.href, use_this_image)
         end
+        new_deploy.nickname = dep_tempname + dep_image_list.uniq.join("_AND_")
+        new_deploy.save
         @common_inputs.each do |key,val|
           new_deploy.set_input(key,val)
         end

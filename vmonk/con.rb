@@ -9,6 +9,7 @@ require File.join(File.dirname(__FILE__), "lib", "storage")
 require File.join(File.dirname(__FILE__), "lib", "cuke_monk")
 
 class MenuMonk
+  FEATURE_GLOB = File.join(File.dirname(__FILE__), "..", "**", "*.feature")
   CONFIG_DIR=File.join(File.dirname(__FILE__), "config")
 
   def do_templates_menu
