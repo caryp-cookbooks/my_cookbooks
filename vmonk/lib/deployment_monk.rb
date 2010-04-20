@@ -15,6 +15,7 @@ class DeploymentMonk
 
   def initialize(tag, server_templates = [], extra_images = [])
     @clouds = [1,2,3]
+    #@clouds = [1]
     @tag = tag
     @variations = from_tag
     @server_templates = []
@@ -63,7 +64,6 @@ class DeploymentMonk
         new_deploy = Deployment.create(:nickname => dep_tempname)
         @variations << new_deploy
         @server_templates.each do |st|
-          dep_image_list << st.multi_cloud_images[index]['name'].gsub(/ /,'_')
           server_params = { :nickname => "tempserver-#{st.nickname}", 
                             :deployment_href => new_deploy.href, 
                             :server_template_href => st.href, 
@@ -80,6 +80,7 @@ class DeploymentMonk
          
           # uses a special internal call for setting the MCI on the server
           if st.multi_cloud_images[index]
+            dep_image_list << st.multi_cloud_images[index]['name'].gsub(/ /,'_')
             use_this_image = st.multi_cloud_images[index]['href']
           else
             use_this_image = st.multi_cloud_images[0]['href']
