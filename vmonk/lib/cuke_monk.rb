@@ -56,9 +56,6 @@ class CukeMonk
   def generate_reports(jobs=@jobs)
     #puts "jobs is nil in generate_reports method" && Kernel.exit 1 if jobs.nil? 
     jobs.each { |j| j[0].join }
-    puts "ran #{jobs.size} jobs"
-    puts "#{jobs.select{|j|!j[2][0]}.size} tests failed"
-    puts "#{jobs.select{|j|j[2][0]}.size} tests passed"
 
     require 'rubygems'
     require 'erb'
@@ -86,7 +83,15 @@ class CukeMonk
       s3_object.put(j[3][0],"public-read")
     end
     
-    puts "\n\nresults avilable at http://s3.amazonaws.com/#{bucket}/#{date}/index.html\n\n"
+    msg = <<END_OF_MESSAGE
+    ran #{num_tests} jobs
+    #{failed_tests} tests failed
+    #{successful_tests} tests passed
+
+    results avilable at http://s3.amazonaws.com/#{bucket}/#{date}/index.html
+END_OF_MESSAGE
+    puts msg
+    return msg
   end
 
 
