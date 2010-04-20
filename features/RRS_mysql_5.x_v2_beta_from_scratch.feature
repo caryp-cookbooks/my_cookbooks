@@ -1,6 +1,5 @@
-@mysql_5.1
-Feature: mysql 5.1 v2 (beta) promote operations test
-  Tests the RightScale premium ServerTemplate Mysql 5.1 v2 (beta)
+Feature: mysql 5.x v2 (beta) promote operations test on v4 images
+  Tests the RightScale premium ServerTemplate Mysql 5.1 v2 (beta) using v4 images
 
   Scenario: Setup 2 server deployment and run basic cluster failover operations
 #
@@ -10,6 +9,8 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     Then I should stop the servers.
     And A set of RightScripts for MySQL promote operations. 
     Then I should set an oldschool variation lineage.
+    Then I should set a variation stripe count of "1".
+    Then I should set a variation MySQL DNS.
     Then all servers should go operational.
     Then I should run a command "/etc/init.d/mysql stop" on server "1".
     Then I should run a command "/etc/init.d/mysqld stop" on server "1".
@@ -23,12 +24,14 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     Then I should run a mysql query "create database mynewtest" on server "1".
     Then I should setup admin and replication privileges on server "1".
     Then I should setup master dns to point at server "1".
+# This sleep is to wait for DNS to settle
+    Then I should sleep 50 seconds.
     When I run a rightscript named "backup" on server "1".
     Then the rightscript should complete successfully.
 
 # This sleep is required for the EBS volume snapshot to settle. 
 # The sleep time can vary so if slave init fails with no snapshot, this is a likely culprit.
-    Then I should sleep 200 seconds.
+    Then I should sleep 320 seconds.
 
     When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
@@ -44,8 +47,19 @@ Feature: mysql 5.1 v2 (beta) promote operations test
     When I run a rightscript named "restore" on server "1".
     Then the rightscript should complete successfully.
 
-    Then I should sleep 200 seconds.
+    Then I should sleep 320 seconds.
     When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
     When I run a rightscript named "promote" on server "2".
     Then the rightscript should complete successfully.
+
+#
+# PHASE 3)
+#
+
+    Then I should reboot the servers.
+# This sleep is so that we don't immediately get an operational state.
+    Then I should sleep 60 seconds.
+    Then I should wait for the servers to be operational with dns.
+
+#TODO: spot check for operational mysql

@@ -1,0 +1,133 @@
+--- 
+- !ruby/object:Deployment 
+  params: 
+    href: https://my.rightscale.com/api/acct/2901/deployments/40490
+    created_at: 2010/03/30 16:26:09 +0000
+    nickname: MYSQLRETEST-492382775
+    updated_at: 2010/03/30 16:26:09 +0000
+    tags: []
+
+    default_vpc_subnet_href: 
+    description: 
+    servers: 
+    - href: https://my.rightscale.com/api/acct/2901/servers/751159
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/03/30 16:26:10 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/03/30 16:26:10 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40490
+      current_instance_href: 
+      state: stopped
+    - href: https://my.rightscale.com/api/acct/2901/servers/751160
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/03/30 16:26:10 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/03/30 16:26:10 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40490
+      current_instance_href: 
+      state: stopped
+- !ruby/object:Deployment 
+  params: 
+    href: https://my.rightscale.com/api/acct/2901/deployments/40491
+    created_at: 2010/03/30 16:26:18 +0000
+    nickname: MYSQLRETEST-461764670
+    updated_at: 2010/03/30 16:26:18 +0000
+    tags: []
+
+    default_vpc_subnet_href: 
+    description: 
+    servers: 
+    - href: https://my.rightscale.com/api/acct/2901/servers/751161
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/03/30 16:26:19 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 02:35:25 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40491
+      current_instance_href: https://my.rightscale.com/api/acct/2901/ec2_instances/3679575
+      state: operational
+    - href: https://my.rightscale.com/api/acct/2901/servers/751162
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/03/30 16:26:19 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 02:35:29 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40491
+      current_instance_href: https://my.rightscale.com/api/acct/2901/ec2_instances/3679576
+      state: operational
+- !ruby/object:Deployment 
+  params: 
+    href: https://my.rightscale.com/api/acct/2901/deployments/40732
+    created_at: 2010/04/02 17:26:46 +0000
+    nickname: MYSQLRETEST-650100807
+    updated_at: 2010/04/02 17:26:46 +0000
+    tags: []
+
+    default_vpc_subnet_href: 
+    description: 
+    servers: 
+    - href: https://my.rightscale.com/api/acct/2901/servers/751999
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/04/02 17:26:48 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 17:26:48 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40732
+      current_instance_href: 
+      state: stopped
+    - href: https://my.rightscale.com/api/acct/2901/servers/752000
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/04/02 17:26:48 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 17:26:48 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40732
+      current_instance_href: 
+      state: stopped
+- !ruby/object:Deployment 
+  params: 
+    href: https://my.rightscale.com/api/acct/2901/deployments/40733
+    created_at: 2010/04/02 17:26:56 +0000
+    nickname: MYSQLRETEST-561871507
+    updated_at: 2010/04/02 17:26:56 +0000
+    tags: []
+
+    default_vpc_subnet_href: 
+    description: 
+    servers: 
+    - href: https://my.rightscale.com/api/acct/2901/servers/752001
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/04/02 17:26:56 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 17:26:56 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40733
+      current_instance_href: 
+      state: stopped
+    - href: https://my.rightscale.com/api/acct/2901/servers/752002
+      server_type: ec2
+      server_template_href: https://my.rightscale.com/api/acct/2901/ec2_server_templates/27418
+      created_at: 2010/04/02 17:26:57 +0000
+      nickname: tempserver-MySQL 5.0 EBS v2 (Beta)
+      updated_at: 2010/04/02 17:26:57 +0000
+      tags: []
+
+      deployment_href: https://my.rightscale.com/api/acct/2901/deployments/40733
+      current_instance_href: 
+      state: stopped

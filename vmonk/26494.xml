@@ -1,0 +1,39 @@
+<multi-cloud-image>
+<is-head-version type="boolean">true</is-head-version>
+<name>(unofficial x86_64) Ubuntu 5.1.1 Alpha</name>
+<version type="integer">1</version>
+¿
+<href>
+https://my.rightscale.com/api/acct/2901/multi_cloud_images/26494
+</href>
+¿
+<multi-cloud-image-ec2-cloud-settings type="array">
+¿
+<multi-cloud-image-ec2-cloud-setting>
+<cloud-id>1</cloud-id>
+¿
+<ec2-image-href>
+https://my.rightscale.com/api/acct/0/ec2_images/ami-4af01223?cloud_id=1
+</ec2-image-href>
+<aws-instance-type>m1.large</aws-instance-type>
+</multi-cloud-image-ec2-cloud-setting>
+¿
+<multi-cloud-image-ec2-cloud-setting>
+<cloud-id>2</cloud-id>
+¿
+<ec2-image-href>
+https://my.rightscale.com/api/acct/0/ec2_images/ami-3df8d349?cloud_id=2
+</ec2-image-href>
+<aws-instance-type>m1.large</aws-instance-type>
+</multi-cloud-image-ec2-cloud-setting>
+¿
+<multi-cloud-image-ec2-cloud-setting>
+<cloud-id>3</cloud-id>
+¿
+<ec2-image-href>
+https://my.rightscale.com/api/acct/0/ec2_images/ami-cf3d6c8a?cloud_id=3
+</ec2-image-href>
+<aws-instance-type>m1.large</aws-instance-type>
+</multi-cloud-image-ec2-cloud-setting>
+</multi-cloud-image-ec2-cloud-settings>
+</multi-cloud-image>

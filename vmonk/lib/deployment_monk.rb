@@ -5,27 +5,37 @@ class DeploymentMonk
   attr_accessor :common_inputs
   attr_accessor :variables_for_cloud
   attr_accessor :variations
+  attr_reader :tag
 
   def from_tag
-    puts "please setup the environment variable $DEPLOYMENTS_TAG to match your deployments" unless ENV['DEPLOYMENTS_TAG']
-    variations = Deployment.find_by(:nickname) {|n| n =~ /#{ENV['DEPLOYMENTS_TAG']}/ }
+    variations = Deployment.find_by(:nickname) {|n| n =~ /^#{@tag}/ }
     puts "loading #{variations.size} deployments matching your tag"
     return variations
   end
 
-  def initialize(server_templates = [])
+  def initialize(tag, server_templates = [], extra_images = [])
+    @clouds = [1,2,3]
+    @tag = tag
     @variations = from_tag
     @server_templates = []
+    @common_inputs = {}
+    raise "Need either populated deployments or passed in server_template ids" if server_templates.empty? && @variations.empty?
+    if server_templates.empty?
+      puts "loading server templates from servers in the first deployment"
+      @variations.first.servers.each do |s|
+        server_templates << s.server_template_href.split(/\//).last.to_i
+      end
+    end
     server_templates.each do |st|
-      @server_templates << ServerTemplate.find(st)
+      @server_templates << ServerTemplate.find(st.to_i)
     end
     # only using the MCI from the first server template for now.
     st = @server_templates.first
-    # right now this is an array
-    @images = st.multi_cloud_image['multi_cloud_image_ec2_cloud_settings']
-    # load additional mcis here
+    st.fetch_multi_cloud_images
+    @images = st.multi_cloud_images
 
-    load_common_inputs(File.join(File.dirname(__FILE__), "..", "config", "mysql", "common_inputs.json"))
+    # load additional mcis here
+    #@images += extra_images
 
     @variables_for_cloud = { 
       1 => { "ec2_ssh_key_href" => "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/7053",
@@ -42,51 +52,61 @@ class DeploymentMonk
       }
   end
 
-  def generate_variations
-    ENV['DEPLOYMENTS_TAG'] ? deprefix = ENV['DEPLOYMENTS_TAG'] : deprefix = "VMONK"
-    @images.each do |image|
-      if @variables_for_cloud[image['cloud_id']] == nil
-        puts "variables not found for cloud_id #{image['cloud_id']} skipping.."
-        next
-      end
-      new_deploy = Deployment.create(:nickname => "#{deprefix}-#{rand(1000000000)}")
-      @variations << new_deploy
-      @server_templates.each do |st|
-        server_params = { :nickname => "tempserver-#{st.nickname}", 
-                          :deployment_href => new_deploy.href, 
-                          :server_template_href => st.href, 
-                          :ec2_image_href => image['image_href'], 
-                          :cloud_id => image['cloud_id'], 
-                          :instance_type => image['aws_instance_type'] 
-                        }
-        
-        server = Server.create(server_params.merge(@variables_for_cloud[image['cloud_id']]))
-        # since the create call does not set the parameters, we need to set them separate
-        @variables_for_cloud[image['cloud_id']]['parameters'].each do |key,val|
-          server.set_input(key,val)
-        end
-      end
-      @common_inputs.each do |key,val|
-        new_deploy.set_input(key,val)
-      end
-    end
+  def load_images(file)
+    @images += JSON.parse(IO.read(file))
   end
 
-  def setup_variation_dns(dns_pool)
-    @variations.each do |deployment|
-    # set DNS inputs  
+  def generate_variations
+    @images.each do |image|
+      @clouds.each do |cloud|
+        if @variables_for_cloud[cloud] == nil
+          puts "variables not found for cloud #{cloud} skipping.."
+          next
+        end
+        dep_tempname = "#{@tag}-#{image['name'].gsub(/ /,'_')}-#{rand(1000000)}"
+        new_deploy = Deployment.create(:nickname => dep_tempname)
+        @variations << new_deploy
+        @server_templates.each do |st|
+          server_params = { :nickname => "tempserver-#{st.nickname}", 
+                            :deployment_href => new_deploy.href, 
+                            :server_template_href => st.href, 
+                            #:ec2_image_href => image['image_href'], 
+                            :cloud_id => cloud, 
+                            #:instance_type => image['aws_instance_type'] 
+                          }
+          
+          server = Server.create(server_params.merge(@variables_for_cloud[cloud]))
+          # since the create call does not set the parameters, we need to set them separate
+          @variables_for_cloud[cloud]['parameters'].each do |key,val|
+            server.set_input(key,val)
+          end
+          # need to setup the MCI afterwards, because we have a special internal call for that
+          RsInternal.set_server_multi_cloud_image(server.href, image['href'])
+        end
+        @common_inputs.each do |key,val|
+          new_deploy.set_input(key,val)
+        end
+      end
     end
   end
 
   def load_common_inputs(file)
-    @common_inputs = JSON.parse(IO.read(file))
+    @common_inputs.merge! JSON.parse(IO.read(file))
   end
 
   def destroy_all
     @variations.each do |v|
+      v.reload
       v.servers.each { |s| s.stop }
     end 
     @variations.each { |v| v.destroy }
     @variations = []
   end
+
+  def get_deployments
+    deployments = []
+    @variations.each { |v| deployments << v.nickname }
+    deployments 
+  end
+
 end
