@@ -12,8 +12,10 @@ def get_lb_hostname_input(fe_servers)
 end
 
 def get_tester_ip_addr()
+  my_ip_input = "text:"
   #TODO: use ohai to grab this value when we move to v5 testers
-  `ifconfig | grep eth0 -a1 | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+  my_ip_input << `ifconfig | grep eth0 -a1 | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+  my_ip_input.strip
 end
 
 #Given /^A deployment with frontends$/ do
