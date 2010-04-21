@@ -168,7 +168,7 @@ Then /^I should see rotated apache log "([^\"]*)" in base dir "([^\"]*)"$/ do |l
     response = nil
     count = 0
     until response || count > 3 do
-      response = server.spot_check_command?("test -f /#{basedir}/#{@apache_str}/#{logfile}")
+      response = server.spot_check_command?("test -f #{basedir}/#{@apache_str}/#{logfile}")
       break if response
       count += 1
       sleep 10

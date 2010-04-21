@@ -39,7 +39,7 @@ Scenario: PHP server test
 
   Given I am testing the "all"
   When I force log rotation
-  Then I should see rotated apache log "access_log.1" in base dir "/mnt/log" 
+  Then I should see rotated apache log "access.log.1" in base dir "/mnt/log" 
 
   Given I am testing the "FrontEnd"
   When I reboot the servers
