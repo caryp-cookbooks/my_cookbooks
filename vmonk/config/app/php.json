@@ -15,6 +15,7 @@
   "SSL_CERTIFICATE" : "cred:TEST_SSL_CERT",
   "DBAPPLICATION_USER" : "cred:DBAPPLICATION_USER",
   "APPLICATION" : "text:phpapp",
+  "MASTER_DB_DNSNAME" : "text:<%= ENV['EC2_PUBLIC_HOSTNAME'] %>",
   "LB_APPLISTENER_NAME" : "text:phpapp",
   "OPT_VHOST_PORT" : "ignore:$ignore",
   "MAX_CONN_PER_SERVER" : "text:100",

@@ -8,7 +8,7 @@
 	"OPT_PHP_ENABLE":"text:yes",
 	"PRIVATE_SSH_KEY":"key:publish-test:1",
 	"OPT_TARGET_BIND_PORT":"ignore:$ignore",
-	"DB_HOST_NAME":"text:ec2-174-129-47-15.compute-1.amazonaws.com",
+     "MASTER_DB_DNSNAME" : "text:<%= ENV['EC2_PUBLIC_HOSTNAME'] %>",
 	"RAILS_ENV":"text:production",
 	"LB_BIND_PORT":"text:85",
 	"WEBSITE_DNS":"text:reg-rails.test.rightscale.com",

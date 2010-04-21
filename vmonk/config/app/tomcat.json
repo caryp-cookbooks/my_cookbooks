@@ -7,5 +7,6 @@
   "OPT_SVN_PASSWORD"         : "cred:martin_svn_passwd",
   "OPT_SVN_USERNAME"         : "cred:martin_svn_user",
   "SVN_APP_REPOSITORY"       : "text:https://wush.net/svn/rightscale/unified_test_app/tomcat/dist",
+  "MASTER_DB_DNSNAME"        : "text:<%= ENV['EC2_PUBLIC_HOSTNAME'] %>",
   "WEBSITE_DNS"              : "text:reg-tomcat.test.rightscale.com"
 }
