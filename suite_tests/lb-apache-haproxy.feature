@@ -34,8 +34,8 @@ Scenario: LB server test
   Then apache status should be good on the frontend servers
 
   When I force log rotation
-  Then I should see "/mnt/log/httpd/haproxy.log.1"
-  Then I should see "/mnt/log/httpd/access_log.1"
+  Then I should see rotated apache log "haproxy.log.1" in base dir "/mnt/log"
+#  Then I should see rotated apache log "access.log.1" in base dir "/mnt/log" 
 
   Given I am testing the "FrontEnd"
   When I reboot the servers
