@@ -9,15 +9,15 @@ Scenario: LB server test
   
   When I setup deployment input "MASTER_DB_DNSNAME" to "tester_ip"
 
-  When I launch the "FrontEnd" servers
-  Then the "FrontEnd" servers become operational
+  When I launch the "Apache" servers
+  Then the "Apache" servers become operational
 
-  When I setup deployment input "LB_HOSTNAME" to current "FrontEnd"
+  When I setup deployment input "LB_HOSTNAME" to current "Apache"
 
   When I launch the "App Server" servers
   Then the "App Server" servers become operational
 
-  Given I am testing the "FrontEnd"
+  Given I am testing the "Apache"
   Given I am using port "80"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
@@ -37,9 +37,9 @@ Scenario: LB server test
   Then I should see rotated apache log "haproxy.log.1" in base dir "/mnt/log"
 #  Then I should see rotated apache log "access.log.1" in base dir "/mnt/log" 
 
-  Given I am testing the "FrontEnd"
+  Given I am testing the "Apache"
   When I reboot the servers
-  Then the "FrontEnd" servers become operational
+  Then the "Apache" servers become operational
 
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
