@@ -6,6 +6,8 @@ Feature: Rails Server Test
 Scenario: Rails server test
 
   Given A deployment
+  
+  I setup deployment input "MASTER_DB_DNSNAME" to "tester_ip"
 
   When I launch the "FrontEnd" servers
   Then the "FrontEnd" servers become operational

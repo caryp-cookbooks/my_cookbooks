@@ -11,6 +11,11 @@ def get_lb_hostname_input(fe_servers)
   lb_hostname_input
 end
 
+def get_tester_ip_addr()
+  #TODO: use ohai to grab this value when we move to v5 testers
+  `ifconfig | grep eth0 -a1 | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+end
+
 #Given /^A deployment with frontends$/ do
 #  puts "entering :A deployment with frontends"
 #  @servers["all"].each { |s| s.settings }
@@ -32,6 +37,11 @@ end
 
 When /^I setup deployment input "([^\"]*)" to current "([^\"]*)"$/ do |input, server_set|
   @deployment.set_input(:"#{input}",get_lb_hostname_input(@servers[server_set])) 
+end
+
+When /^I setup deployment input "([^\"]*)" to "([^\"]*)"$/ do |input_name, value|
+  value = get_tester_ip_addr() if value == "tester_ip"
+  @deployment.set_input(:"#{input_name}", value) 
 end
 
 Then /^the cross connect script completes successfully$/ do
