@@ -16,6 +16,7 @@ class DeploymentMonk
 
   def initialize(tag, server_templates = [], extra_images = [])
     @clouds = [1,2,3]
+    @cloud_names = { 1 => "ec2-east", 2 => "ec2-eu", 3 => "ec2-west"}
     #@clouds = [1]
     @tag = tag
     @variations = from_tag
@@ -60,7 +61,7 @@ class DeploymentMonk
           puts "variables not found for cloud #{cloud} skipping.."
           next
         end
-        dep_tempname = "#{@tag}-#{rand(1000000)}-"
+        dep_tempname = "#{@tag}-#{@cloud_names[cloud]}-#{rand(1000000)}-"
         dep_image_list = []
         new_deploy = Deployment.create(:nickname => dep_tempname)
         @variations << new_deploy
