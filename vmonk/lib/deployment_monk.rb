@@ -6,6 +6,7 @@ class DeploymentMonk
   attr_accessor :variables_for_cloud
   attr_accessor :variations
   attr_reader :tag
+  attr_accessor :clouds
 
   def from_tag
     variations = Deployment.find_by(:nickname) {|n| n =~ /^#{@tag}/ }
