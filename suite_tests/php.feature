@@ -19,7 +19,7 @@ Scenario: PHP server test
   And I am using port "8000"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
-  Then I should see "I am in the db" from "/dbread/" on the servers
+#  Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
   When I cross connect the frontends
@@ -46,12 +46,12 @@ Scenario: PHP server test
   Then the "FrontEnd" servers become operational
   And I am using port "80"
   Then I should see "html serving succeeded." from "/index.html" on the servers
-  Then I should see "configuration=succeeded" from "/appserver/" on the servers
+#  Then I should see "configuration=succeeded" from "/appserver/" on the servers
   Then I should see "I am in the db" from "/dbread/" on the servers
   And I am using port "8000" 
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
-  #Then I should see "I am in the db" from "/dbread/" on the servers
+#  Then I should see "I am in the db" from "/dbread/" on the servers
 
   Given I am testing the "App Server"
   When I reboot the servers
@@ -59,6 +59,6 @@ Scenario: PHP server test
   And I am using port "8000"
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
-  #Then I should see "I am in the db" from "/dbread/" on the servers
+#  Then I should see "I am in the db" from "/dbread/" on the servers
 
 # Disconnect test - todo
