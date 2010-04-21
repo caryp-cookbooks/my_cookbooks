@@ -162,6 +162,21 @@ When /^I force log rotation$/ do
   end
 end
 
+Then /^I should see rotated apache log "([^\"]*)" in base dir "([^\"]*)"$/ do |logfile, basedir|
+  raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @apache_str
+  @server_set.each do |server|
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?("test -f /#{basedir}/#{@apache_str}/#{logfile}")
+      break if response
+      count += 1
+      sleep 10
+    end
+    raise "Log file does not exist" unless response
+  end
+end
+
 Then /^I should see "([^\"]*)"$/ do |logfile|
   @server_set.each do |server|
     response = nil

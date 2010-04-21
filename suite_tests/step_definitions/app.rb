@@ -44,9 +44,11 @@ Given /^with a known OS$/ do
     if server.spot_check_command?("lsb_release -is | grep Ubuntu")
       puts "setting server to ubuntu"
       @servers_os << "ubuntu"
+      @apache_str = "apache2"
     else
       puts "setting server to centos"
       @servers_os << "centos"
+      @apache_str = "httpd"
     end
   end
 end
