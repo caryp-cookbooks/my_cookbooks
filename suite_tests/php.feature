@@ -46,8 +46,8 @@ Scenario: PHP server test
   Then the "FrontEnd" servers become operational
   And I am using port "80"
   Then I should see "html serving succeeded." from "/index.html" on the servers
-#  Then I should see "configuration=succeeded" from "/appserver/" on the servers
-  Then I should see "I am in the db" from "/dbread/" on the servers
+  Then I should see "configuration=succeeded" from "/appserver/" on the servers
+#  Then I should see "I am in the db" from "/dbread/" on the servers
   And I am using port "8000" 
   Then I should see "html serving succeeded." from "/index.html" on the servers
   Then I should see "configuration=succeeded" from "/appserver/" on the servers
