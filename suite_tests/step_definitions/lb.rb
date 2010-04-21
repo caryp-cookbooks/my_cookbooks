@@ -164,7 +164,14 @@ end
 
 Then /^I should see "([^\"]*)"$/ do |logfile|
   @server_set.each do |server|
-    response = server.spot_check_command?("test -f #{logfile}")
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?("test -f #{logfile}")
+      break if response
+      count += 1
+      sleep 10
+    end
     raise "Log file does not exist" unless response
   end
 end
