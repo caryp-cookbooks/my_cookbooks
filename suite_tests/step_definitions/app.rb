@@ -45,10 +45,14 @@ Given /^with a known OS$/ do
       puts "setting server to ubuntu"
       @servers_os << "ubuntu"
       @apache_str = "apache2"
+      @apache_check = "apache2ctl status"
+      @haproxy_check = "service haproxy status"
     else
       puts "setting server to centos"
       @servers_os << "centos"
       @apache_str = "httpd"
+      @apache_check = "service httpd status"
+      @haproxy_check = "service haproxy check"
     end
   end
 end

@@ -42,11 +42,11 @@ Scenario: Rails server test
 
   Given I am testing the "FrontEnd"
   When I force log rotation
-  Then I should see "/mnt/log/httpd/haproxy.log.1"
+  Then I should see rotated apache log "haproxy.log.1" in base dir "/mnt/log"
 
-#  Given I am testing the "all"
-#  When I force log rotation
-#  Then I should see "/mnt/log/httpd/access_log.1"
+  Given I am testing the "all"
+  When I force log rotation
+  Then I should see rotated apache log "access.log.1" in base dir "/mnt/log"
 
   Given I am testing the "FrontEnd"
   When I reboot the servers

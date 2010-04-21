@@ -75,13 +75,9 @@ When /^I restart haproxy on the frontend servers$/ do
 end
 
 Then /^haproxy status should be good$/ do
-  if @servers_os.first == "ubuntu"
-    haproxy_check_cmd = "service haproxy status"
-  else
-    haproxy_check_cmd = "service haproxy check"
-  end
+  raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @haproxy_check
   @servers["FrontEnd"].each_with_index do |server,i|
-    response = server.spot_check_command?(haproxy_check_cmd)
+    response = server.spot_check_command?(@haproxy_check)
     raise "Haproxy check failed" unless response
   end
 end
@@ -120,16 +116,12 @@ When /^I restart apache on the frontend servers$/ do
 end
 
 Then /^apache status should be good on the frontend servers$/ do
-  if @servers_os.first == "ubuntu"
-    apache_status_cmd = "apache2ctl status"
-  else
-    apache_status_cmd = "service httpd status"
-  end
+  raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @apache_check
   @servers["FrontEnd"].each_with_index do |server,i|
     response = nil
     count = 0
     until response || count > 3 do
-      response = server.spot_check_command?(apache_status_cmd)
+      response = server.spot_check_command?(@apache_check)
       break if response	
       count += 1
       sleep 10
