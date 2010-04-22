@@ -82,8 +82,21 @@ end
 
 When /^I restart haproxy$/ do
   @server_set.each_with_index do |server,i|
-    response = server.spot_check_command?('service haproxy restart')
-    raise "Haproxy restart failed" unless response
+    response = server.spot_check_command?('service haproxy stop')
+    raise "Haproxy stop command failed" unless response
+
+    stopped = false
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command(@haproxy_check)
+      stopped = response.include?("not running")
+      break if stopped
+      count += 1
+      sleep 10
+    end
+
+    response = server.spot_check_command?('service haproxy start')
+    raise "Haproxy start failed" unless response
   end
 end
 
