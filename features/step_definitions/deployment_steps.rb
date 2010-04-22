@@ -93,6 +93,12 @@ Then /^I should set un-set all tags on all servers in the deployment\.$/ do
   end
 end
 
+Then /^the servers should have monitoring enabled\.$/ do
+  @servers.each do |server|
+    server.monitoring
+  end
+end
+
 Then /I should set a variation bucket./ do
   bucket = "text:testingcandelete#{@deployment.href.split(/\//).last}"
   @deployment.set_input('remote_storage/default/container', bucket)

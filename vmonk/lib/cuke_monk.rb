@@ -73,7 +73,7 @@ class CukeMonk
     ## upload to s3
     bucket_name = "virtual_monkey"
     dir = date
-    s3 = RightAws::S3.new("1EPVFPZVAGMQQ3YDA5G2", "nuSHnVayKx98A6A0z9HLS1Wly9K09F4CHgUaz2Y6")
+    s3 = RightAws::S3.new("@@AWS_ACCESS_KEY_ID@@", "@@AWS_SECRET_ACCESS_KEY@@")
     bucket = s3.bucket(bucket_name)
     s3_object = RightAws::S3::Key.create(bucket,"#{dir}/index.html")
     s3_object.put(index.result(binding),"public-read")

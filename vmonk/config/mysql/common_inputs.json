@@ -16,5 +16,6 @@
     "INIT_SLAVE_AT_BOOT"          : "text:false",
     "MASTER_DB_DNSNAME"           : "text:master-ebs-stripe1.test.rightscale.com",
     "OPT_SYS_LVM_SWAP_SIZE_IN_G"  : "ignore:$ignore", 
+    "SERVER_UUID"  : "env:RS_INSTANCE_UUID", 
     "SLAVE_DB_DNSID"              : "text:4635264"
 }

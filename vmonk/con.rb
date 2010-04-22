@@ -116,9 +116,16 @@ class MenuMonk
           @dm.variations.each do |deployment|
             deployment.reload
             deployment.servers.each do |server|
-              st = ServerTemplate.find(server.server_template_href)
-              terminate_script = st.executables.detect { |ex| ex.name =~ /TERMINATE/ }
-              server.run_executable(terminate_script)
+              puts server.state
+              unless server.state == "stopped"
+                st = ServerTemplate.find(server.server_template_href)
+                terminate_script = st.executables.detect { |ex| ex.name =~ /TERMINATE/ }
+                begin
+                  server.run_executable(terminate_script)
+                rescue => e
+                  puts "WARNING: #{e}"
+                end
+              end
             end
           end
         end

@@ -33,6 +33,8 @@ Feature: mysql 5.x v2 (beta) promote operations test image
 # This sleep is required for the EBS volume snapshot to settle. 
 # The sleep time can vary so if slave init fails with no snapshot, this is a likely culprit.
     Then I should sleep 600 seconds.
+# Might as well perform this check here, after waiting a while for servers anyways.
+    Then the servers should have monitoring enabled.
 
     When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
