@@ -80,8 +80,8 @@ Then /^I should see all servers being served from haproxy$/ do
 end
 
 
-When /^I restart haproxy on the frontend servers$/ do
-  @servers["FrontEnd"].each_with_index do |server,i|
+When /^I restart haproxy$/ do
+  @server_set.each_with_index do |server,i|
     response = server.spot_check_command?('service haproxy restart')
     raise "Haproxy restart failed" unless response
   end
@@ -89,7 +89,7 @@ end
 
 Then /^haproxy status should be good$/ do
   raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @haproxy_check
-  @servers["FrontEnd"].each_with_index do |server,i|
+  @server_set.each_with_index do |server,i|
     response = nil
     count = 0
     until response || count > 3 do
@@ -102,49 +102,49 @@ Then /^haproxy status should be good$/ do
   end
 end
 
-When /^I restart apache on all servers$/ do
-  puts "entering :I restart apache on all servers"
+# When /^I restart apache on all servers$/ do
+#   puts "entering :I restart apache on all servers"
+#   @statuses = Array.new
+#   st = ServerTemplate.find(@servers["all"].first.server_template_href)
+#   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
+#   raise "Script not found" unless script_to_run
+#   @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
+#   @servers["app"].each { |s| @statuses << s.run_executable(script_to_run) }
+#   puts "exiting :I restart apache on all servers"
+# end
+
+# Then /^apache status should be good$/ do
+#   if @servers_os.first == "ubuntu"
+#     apache_status_cmd = "apache2ctl status"
+#   else
+#     apache_status_cmd = "service httpd status"
+#   end
+#   @servers["all"].each_with_index do |server,i|
+#     response = nil
+#     count = 0
+#     until response || count > 3 do
+#       response = server.spot_check_command?(apache_status_cmd)
+#       break if response 
+#       count += 1
+#       sleep 10
+#     end
+#     raise "Apache status failed" unless response
+#   end
+# end
+
+When /^I restart apache$/ do
+  puts "entering :I restart apache"
   @statuses = Array.new
-  st = ServerTemplate.find(@servers["all"].first.server_template_href)
+  st = ServerTemplate.find(@server_set.first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
   raise "Script not found" unless script_to_run
-  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
-  @servers["app"].each { |s| @statuses << s.run_executable(script_to_run) }
-  puts "exiting :I restart apache on all servers"
-end
-
-Then /^apache status should be good$/ do
-  if @servers_os.first == "ubuntu"
-    apache_status_cmd = "apache2ctl status"
-  else
-    apache_status_cmd = "service httpd status"
-  end
-  @servers["all"].each_with_index do |server,i|
-    response = nil
-    count = 0
-    until response || count > 3 do
-      response = server.spot_check_command?(apache_status_cmd)
-      break if response	
-      count += 1
-      sleep 10
-    end
-    raise "Apache status failed" unless response
-  end
-end
-
-When /^I restart apache on the frontend servers$/ do
-  puts "entering :I restart apache on the frontend servers"
-  @statuses = Array.new
-  st = ServerTemplate.find(@servers["FrontEnd"].first.server_template_href)
-  script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
-  raise "Script not found" unless script_to_run
-  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @server_set.each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart apache on the frontend servers"
 end
 
-Then /^apache status should be good on the frontend servers$/ do
+Then /^apache status should be good$/ do
   raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @apache_check
-  @servers["FrontEnd"].each_with_index do |server,i|
+  @server_set.each_with_index do |server,i|
     response = nil
     count = 0
     until response || count > 3 do

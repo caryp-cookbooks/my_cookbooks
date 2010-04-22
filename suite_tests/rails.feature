@@ -31,16 +31,17 @@ Scenario: Rails server test
   Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
+  Given I am testing the "FrontEnd"
   When I cross connect the frontends
   Then the cross connect script completes successfully
   Then I should see all "all" servers in the haproxy config
 
+  Given I am testing the "FrontEnd"
   Given with a known OS
-  When I restart haproxy on the frontend servers
+  When I restart haproxy
   Then haproxy status should be good
-
-  When I restart apache on the frontend servers
-  Then apache status should be good on the frontend servers
+  When I restart apache
+  Then apache status should be good
 
   Given I am testing the "FrontEnd"
   When I force log rotation
