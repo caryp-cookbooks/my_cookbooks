@@ -79,7 +79,7 @@ class CukeMonk
     s3_object.put(index.result(binding),"public-read")
     
     jobs.each do |j|
-      s3_object = RightAws::S3::Key.create(bucket,"#{dir}/#{j[4]}")
+      s3_object = RightAws::S3::Key.create(bucket,"#{dir}/#{j[4]}.html")
       s3_object.put(j[3][0],"public-read")
     end
     
