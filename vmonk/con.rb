@@ -112,6 +112,24 @@ class MenuMonk
           confirm = ask("Really destroy all these deployments? #{(@dm.variations.map &:nickname).join(',')}", lambda { |ans| true if (ans =~ /^[y,Y]{1}/) })
           @dm.destroy_all if confirm
         end 
+        menu.choice("SPECIAL MySQL TERMINATE all") do
+          @dm.variations.each do |deployment|
+            deployment.reload
+            deployment.servers.each do |server|
+              st = ServerTemplate.find(server.server_template_href)
+              terminate_script = st.executables.detect { |ex| ex.name =~ /TERMINATE/ }
+              server.run_executable(terminate_script)
+            end
+          end
+        end
+        menu.choice("TERMINATE all") do
+          @dm.variations.each do |deployment|
+            deployment.reload
+            deployment.servers.each do |server|
+              server.stop
+            end
+          end
+        end
         menu.choice("run cuke feature on all deployments") { run_cuke }
         menu.choices(*@dm.variations.map {|m| "#{m.href}" }) do |dep_href|
           
