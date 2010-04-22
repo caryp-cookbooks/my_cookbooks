@@ -24,6 +24,7 @@ Scenario: LB server test
   Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
+  Given I am testing the "Apache"
   Then I should see all "App Server" servers in the haproxy config
 
   Given I am testing the "Apache"
