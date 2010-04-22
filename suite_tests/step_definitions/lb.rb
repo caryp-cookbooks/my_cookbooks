@@ -51,11 +51,11 @@ Then /^the cross connect script completes successfully$/ do
   @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["FrontEnd"][i].audit_link) }
 end
 
-Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |server_set|
+Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |app_server_set|
   puts "entering :I should see all #{server_set} servers in the haproxy config"
   @server_ips = Array.new
-  @servers[server_set].each { |app| @server_ips << app['private-ip-address'] }
-  @servers["FrontEnd"].each do |fe|
+  @servers[app_server_set].each { |app| @server_ips << app['private-ip-address'] }
+  @servers[@server_set].each do |fe|
     fe.settings
     haproxy_config = fe.spot_check_command('cat /home/haproxy/rightscale_lb.cfg | grep server')
     @server_ips.each { |ip|  haproxy_config.to_s.should include(ip) }
