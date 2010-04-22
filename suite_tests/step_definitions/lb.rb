@@ -90,7 +90,14 @@ end
 Then /^haproxy status should be good$/ do
   raise "ERROR: you must include 'Given with a known OS' step before this one!" unless @haproxy_check
   @servers["FrontEnd"].each_with_index do |server,i|
-    response = server.spot_check_command?(@haproxy_check)
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?(@haproxy_check)
+      break if response	
+      count += 1
+      sleep 10
+    end
     raise "Haproxy check failed" unless response
   end
 end
@@ -113,7 +120,14 @@ Then /^apache status should be good$/ do
     apache_status_cmd = "service httpd status"
   end
   @servers["all"].each_with_index do |server,i|
-    response = server.spot_check_command?(apache_status_cmd)
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?(apache_status_cmd)
+      break if response	
+      count += 1
+      sleep 10
+    end
     raise "Apache status failed" unless response
   end
 end
@@ -155,7 +169,14 @@ end
 
 Then /^mongrel status should be good$/ do
   @servers["all"].each_with_index do |server,i|
-    response = server.spot_check_command?("service mongrel_cluster status")
+    response = nil
+    count = 0
+    until response || count > 3 do
+      response = server.spot_check_command?("service mongrel_cluster status")
+      break if response	
+      count += 1
+      sleep 10
+    end
     raise "Mongrel status failed" unless response
   end
 end
