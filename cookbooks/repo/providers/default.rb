@@ -25,13 +25,16 @@
 
 require 'chef/mixin/convert_to_class_name'
 
+action :nothing do
+  store_resource(new_resource)
+end
+
 action :pull do
-  
   abstract_resource = new_resource
   
   # Does the named provider exist in collection?
   Chef::Log.info("looking for #{abstract_resource.to_s} in collection")
-  # Find the resource before this one in the collection -- maybe look up diff providers with same name?
+  # Find the resource before this one in the collection -- maybe look up diff providers_types with same name?
   curr_resrc = prev_resrc = nil 
   @collection.each do |r|   
     if r.to_s == abstract_resource.to_s then
@@ -41,31 +44,15 @@ action :pull do
     end
   end
   resource = prev_resrc
-  Chef::Log.info("Found #{abstract_resource.to_s}in resource collection! ptype:#{resource.provider}") if resource
-    
-  
-  # If not, look in the node for a serialze resource from a previous converge
-  ## provider = load_provider_from_node(abstract_resource.name)  
-  # unless resource then
-  #     # create named provider from node or databag
-  #     repo_bag = node[:resource_collection][:repo]
-  #     raise("ERROR: unable to find resource named '#{abstract_resource.name}' in collection or node.") unless repo_bag
-  # 
-  #     repo_bag.each do |name, data|
-  #       if name == abstract_resource.name then
-  #         pname = data[:provider]
-  #         raise("ERROR: you must specify :provider in your resource data.") unless pname
-  #         class_name = convert_to_class_name(pname)
-  #         provider_klass = Chef::Provider.const_get(class_name)
-  #         provider = provider_klass.new(abstract_resource.node, abstract_resource, abstract_resource.collection)
-  #         provider.load_current_resource
-  #         Chef::Log.info("Loaded data from node into #{provider_klass}")
-  #         break;
-  #       end
-  #     end
-  #   end
-  
-  raise ("No resource found in collection or node named #{abstract_resource.name}.") unless resource   
+  Chef::Log.info("Found #{abstract_resource.to_s} in resource collection! ptype:#{resource.provider}") if resource
+     
+  # If not, look in the node for a serialzed resource from a previous converge
+  unless resource
+    Chef::Log.info("#{abstract_resource.to_s} not found in resource collection! Looking in node...")  
+    resource = load_resource(abstract_resource.name)  
+    Chef::Log.info("Found #{abstract_resource.to_s} in node! ptype:#{resource.inspect}") if resource
+  end
+  raise ("No resource found in collection or node named #{abstract_resource.name}.") unless resource
   
   # Merge attributes from abstract resource to concrete resource
   abstract_resource.instance_variables.each do |iv|
@@ -80,8 +67,36 @@ action :pull do
   Chef::Log.info("Loaded resource into #{resource.provider}")
   provider.action_pull()
   
-  ## Persist resource to node.
-  # resource.instance_eval("@node = nil")
-  # node[:resource_collection][:repo] = resource.to_json
-
+  # Persist resource to node.
+  store_resource(resource)
 end
+
+
+def store_resource(resource)
+  # create parent hash if missing
+  @node[:resource_store] = Hash.new unless @node[:resource_store]
+  
+  # don't serialize node
+  node_save = resource.node
+  resource.instance_eval("@node = nil")
+  
+  # serialize resource to node
+  @node[:resource_store][resource.name] = resource.to_hash
+  Chef::Log.info("Resource persisted in node as @node[:resource_store][#{resource.name}]")
+  
+  # leave resource as we found it
+  resource.instance_eval { @node = node_save }
+  true
+end
+
+def load_resource(name)
+  resource = JSON.parse(@node[:resource_store][name]) if @node[:resource_store] && @node[:resource_store][name] 
+  Chef::Log.info("Resource loaded from @node[:resource_store][#{resource.name}]") if resource
+  
+  # add node
+  current_node = @node
+  resource.instance_eval { @node = current_node }
+  
+  resource
+end
+
