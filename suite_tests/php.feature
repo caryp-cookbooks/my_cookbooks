@@ -24,6 +24,7 @@ Scenario: PHP server test
   Then I should see "I am in the db" from "/dbread/" on the servers
   Then I should see "hostname=" from "/serverid/" on the servers
 
+  Given I am testing the "FrontEnd"
   When I cross connect the frontends
   Then the cross connect script completes successfully
   Then I should see all "all" servers in the haproxy config
