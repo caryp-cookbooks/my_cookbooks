@@ -139,7 +139,6 @@ class MenuMonk
         end
         menu.choice("run cuke feature on all deployments") { run_cuke }
         menu.choices(*@dm.variations.map {|m| "#{m.href}" }) do |dep_href|
-          
           deployment_menu(dep_href)
         end
         menu.choice("quit") { exit(0) }

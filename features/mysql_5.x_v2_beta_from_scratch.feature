@@ -65,6 +65,8 @@ Feature: mysql 5.x v2 (beta) promote operations test image
     Then I should sleep 60 seconds.
     Then I should wait for the servers to be operational with dns.
 
+    When I run a rightscript named "backup" on server "1".
+    Then the rightscript should complete successfully.
 #
 # PHASE 4) cleanup
 # 

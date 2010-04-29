@@ -15,8 +15,8 @@ class DeploymentMonk
   end
 
   def initialize(tag, server_templates = [], extra_images = [])
-    @clouds = [1,2,3]
-    @cloud_names = { 1 => "ec2-east", 2 => "ec2-eu", 3 => "ec2-west"}
+    @clouds = [1,2,3,4]
+    @cloud_names = { 1 => "ec2-east", 2 => "ec2-eu", 3 => "ec2-west", 4 => "ec2-ap"}
     #@clouds = [1]
     @tag = tag
     @variations = from_tag
@@ -50,7 +50,10 @@ class DeploymentMonk
 
       3 => { "ec2_ssh_key_href" => "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/197758",
              "ec2_security_groups_href" => "https://my.rightscale.com/api/acct/2901/ec2_security_groups/97863",
-             "parameters" => { "PRIVATE_SSH_KEY" => "key:publish-test-west:3"}}
+             "parameters" => { "PRIVATE_SSH_KEY" => "key:publish-test-west:3"}},
+      4 => { "ec2_ssh_key_href" => "https://my.rightscale.com/api/acct/2901/ec2_ssh_keys/209603",
+             "ec2_security_groups_href" => "https://my.rightscale.com/api/acct/2901/ec2_security_groups/126284",
+             "parameters" => { "PRIVATE_SSH_KEY" => "key:publish-test-ap:4"}}
       }
   end
 
