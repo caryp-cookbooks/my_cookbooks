@@ -68,11 +68,17 @@ class CukeMonk
     failed_tests = jobs.select{|j|!j[2][0]}.size
     successful_tests = jobs.select{|j|j[2][0]}.size
 
-    #File.open("/tmp/index.html", 'w') {|f| f.write(index.result(binding)) }
-
-    ## upload to s3
     bucket_name = "virtual_monkey"
     dir = date
+
+    ## Log a local copy of the results
+    FileUtils.mkdir_p(File.join("log",dir))
+    File.open(File.join("log",dir,"index.html"), 'w') {|f| f.write(index.result(binding)) }
+    jobs.each do |j|
+      File.open(File.join("log",dir,"#{j[4]}.html"), "w") {|f| f.write(j[3][0])}
+    end 
+
+    ## upload to s3
     s3 = RightAws::S3.new("@@AWS_ACCESS_KEY_ID@@", "@@AWS_SECRET_ACCESS_KEY@@")
     bucket = s3.bucket(bucket_name)
     s3_object = RightAws::S3::Key.create(bucket,"#{dir}/index.html")
