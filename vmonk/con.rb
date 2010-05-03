@@ -158,7 +158,7 @@ class MenuMonk
     end
     FileUtils.mkdir_p("log")
     ENV['REST_CONNECTION_LOG'] = "log/rest_connection.log"
-    if nickname
+    if deployment
       @cm.run_test(deployment.nickname, feature_name)
     else
       deployment_nicknames = @dm.variations.map &:nickname
