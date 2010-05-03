@@ -70,7 +70,7 @@
     <ul class="failed">
       <% jobs.select{|j|!j[2][0]}.each do |t| %>
         <li>
-        <a href="<%= t[4] %>"><%= t[4] %></A>
+        <a href="<%= "#{t[4]}.html" %>"><%= t[4] %></A>
         </li>
       <% end %>
     </ul>
@@ -80,7 +80,7 @@
     <ul class="success">
       <% jobs.select{|j|j[2][0]}.each do |t| %>
         <li>
-        <a href="<%= t[4] %>"><%= t[4]  %></A>
+        <a href="<%= "#{t[4]}.html" %>"><%= t[4]  %></A>
         </li>
       <% end %>
     </ul>
