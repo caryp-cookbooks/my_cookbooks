@@ -42,6 +42,16 @@ Then /I should set a variation lineage./ do
   end
 end
 
+Then /I should set a variation backup prefix./ do
+  @lineage = "text:testlineage#{rand(1000000)}"
+  @deployment.set_input('DB_EBS_PREFIX', @lineage)
+# unset all server level inputs in the deployment to ensure use of 
+# the setting from the deployment level
+  @deployment.servers_no_reload.each do |s|
+    s.set_input('DB_EBS_PREFIX', "text:")
+  end
+end
+
 Then /I should set an oldschool variation lineage./ do
   @lineage = "text:testlineage#{rand(1000000)}"
   @deployment.set_input('DB_LINEAGE_NAME', @lineage)

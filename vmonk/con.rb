@@ -43,6 +43,7 @@ class MenuMonk
   end
 
   def initialize
+    @cm = CukeMonk.new
     choose do |menu|
       menu.header = "Deployment Sets Menu"
       menu.index = :number
@@ -138,7 +139,8 @@ class MenuMonk
           end
         end
         menu.choice("run cuke feature on all deployments") { run_cuke }
-        menu.choices(*@dm.variations.map {|m| "#{m.href}" }) do |dep_href|
+        menu.choice("wait for and generate reports") { generate_reports }
+        menu.choices(*@dm.variations.map {|m| "#{m.nickname}" }) do |dep_href|
           deployment_menu(dep_href)
         end
         menu.choice("quit") { exit(0) }
@@ -147,7 +149,7 @@ class MenuMonk
     end
   end
 
-  def run_cuke()
+  def run_cuke(deployment=nil)
     loadables = Dir.glob(FEATURE_GLOB)
     feature_name = choose do |menu|
       menu.header = "Run Feature:"
@@ -155,15 +157,24 @@ class MenuMonk
       menu.choice("cancel") {return}
     end
     FileUtils.mkdir_p("log")
-    cm = CukeMonk.new
     ENV['REST_CONNECTION_LOG'] = "log/rest_connection.log"
-    deployment_nicknames = @dm.variations.map &:nickname
-    cm.run_tests(deployment_nicknames, feature_name)
-    cm.generate_reports
+    if nickname
+      @cm.run_test(deployment.nickname, feature_name)
+    else
+      deployment_nicknames = @dm.variations.map &:nickname
+      @cm.run_tests(deployment_nicknames, feature_name)
+    end
+    #cm.generate_reports
+  end
+
+  def generate_reports
+    @cm.generate_reports
   end
 
   def deployment_menu(deploy_href)
-    deploy = Deployment.find(deploy_href)
+    deploy = Deployment.find_by_nickname_speed(deploy_href)
+    puts "WARNING: found multiple deployments with the same nickname!" unless deploy.size == 1
+    deploy = deploy.first
     deploy.servers.each {|s| s.settings}
     pp deploy
     choose do |menu|
@@ -171,7 +182,7 @@ class MenuMonk
       menu.choice("stop") { deploy.servers.each {|s| s.stop} }
       menu.choice("reboot") { deploy.servers.each {|s| s.reboot} }
       menu.choice("release DNS") { release_dns(deploy.nickname) }
-      #menu.choice("run cuke") {run_cuke(deploy)}
+      menu.choice("run cuke") {run_cuke(deploy)}
       menu.choice("back") 
     end
   end
