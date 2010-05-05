@@ -129,6 +129,7 @@ end
 
 Then /I should reboot the servers\.$/ do
   @servers.each { |s| s.reboot }
+  @servers.each { |s| s.wait_for_state_change }
 end
 
 Then /I should stop the servers\.$/ do

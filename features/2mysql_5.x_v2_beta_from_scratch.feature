@@ -22,27 +22,23 @@ Feature: mysql 5.x v2 (beta) promote operations test image
     When I run a rightscript named "backup" on server "1".
     Then the rightscript should complete successfully.
 
-# This sleep is required for the EBS volume snapshot to settle. 
-# The sleep time can vary so if slave init fails with no snapshot, this is a likely culprit.
-    Then I should sleep 600 seconds.
-# Might as well perform this check here, after waiting a while for servers anyways.
-    Then the servers should have monitoring enabled.
-
-    When I run a rightscript named "slave_init" on server "2".
-    Then the rightscript should complete successfully.
-    When I run a rightscript named "promote" on server "2".
-    Then the rightscript should complete successfully.
-
 #
 # PHASE 2) Relaunch and run restore operations
 #
     Then I should stop the mysql servers.
     Then all servers should go operational.
     And A set of RightScripts for MySQL promote operations. 
+
+# This sleep is required for the EBS snapshot to settle from prior backup.  
+# Assuming 5 minutes already passed while booting.
+    Then I should sleep 500 seconds.
     When I run a rightscript named "restore" on server "1".
     Then the rightscript should complete successfully.
+    Then the servers should have monitoring enabled.
 
-    Then I should sleep 600 seconds.
+# This sleep is required for the EBS volume snapshot to settle. 
+# The sleep time can vary so if slave init fails with no snapshot, this is a likely culprit.
+    Then I should sleep 900 seconds.
     When I run a rightscript named "slave_init" on server "2".
     Then the rightscript should complete successfully.
     When I run a rightscript named "promote" on server "2".
