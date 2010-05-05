@@ -12,6 +12,7 @@ Given /A set of RightScripts for MySQL promote operations\.$/ do
 # hardwired script! hax! (this is an 'anyscript' that users typically use to setup the master dns)
   @scripts_to_run['master_init'] = RightScript.new('href' => "/api/acct/2901/right_scripts/195053")
   @scripts_to_run['create_stripe'] = RightScript.new('href' => "/api/acct/2901/right_scripts/198381")
+  @scripts_to_run['create_mysql_ebs_stripe'] = RightScript.new('href' => "/api/acct/2901/right_scripts/212492")
 end
 
 Then /^I should run a mysql query "([^\"]*)" on server "([^\"]*)"\.$/ do |query, server_index|
@@ -63,11 +64,24 @@ Then /I should set an oldschool variation lineage./ do
   puts "Using Lineage: #{@lineage}"
 end
 
+Then /^I should create a MySQL EBS stripe on server "([^\"]*)"\.$/ do |server_index|
+  human_index = server_index.to_i - 1
+# this needs to match the deployments inputs for lineage and stripe count.
+  options = { "EBS_MOUNT_POINT" => "text:/mnt/mysql", 
+              "EBS_STRIPE_COUNT" => "text:#{@stripe_count}", 
+              "EBS_VOLUME_SIZE_GB" => "text:1", 
+              "DBAPPLICATION_USER" => "text:someuser", 
+              "DBAPPLICATION_PASSWORD" => "text:somepass", 
+              "EBS_VOLUME_SIZE_GB" => "text:1", 
+              "EBS_LINEAGE" => @lineage }
+  @status = @servers[human_index].run_executable(@scripts_to_run['create_mysql_ebs_stripe'], options)
+end
+
 Then /^I should create an EBS stripe on server "([^\"]*)"\.$/ do |server_index|
   human_index = server_index.to_i - 1
 # this needs to match the deployments inputs for lineage and stripe count.
   options = { "EBS_MOUNT_POINT" => "text:/mnt/mysql", 
-              "EBS_STRIPE_COUNT" => "text:1", 
+              "EBS_STRIPE_COUNT" => "text:#{@stripe_count}", 
               "EBS_VOLUME_SIZE_GB" => "text:1", 
               "EBS_LINEAGE" => @lineage }
   @status = @servers[human_index].run_executable(@scripts_to_run['create_stripe'], options)
