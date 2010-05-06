@@ -1,20 +1,4 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "description": "Installs\/Configures cucumber",
-  "name": "cucumber",
-  "conflicting": {
-
-  },
   "providing": {
     "cucumber_run_features(:cwd, :user, :tags, :options)": [
 
@@ -24,6 +8,25 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+
+  },
+  "recipes": {
+    "cucumber": ""
+  },
+  "replacing": {
+
+  },
+  "description": "Installs\/Configures cucumber",
+  "maintainer": "RightScale, Inc.",
+  "name": "cucumber",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
   "platforms": {
 
   },
@@ -31,11 +34,8 @@
   "attributes": {
 
   },
-  "replacing": {
+  "conflicting": {
 
-  },
-  "recipes": {
-    "cucumber": ""
   },
   "license": "All rights reserved"
 }

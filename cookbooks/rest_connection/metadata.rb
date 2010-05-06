@@ -20,7 +20,24 @@ attribute "rest_connection/api/password",
   :description => "Password used to access the RigthScale API.",
   :required => true
 
-attribute "rest_connection/ssh/key",
-  :display_name => "SSH Key",
+attribute "rest_connection/ssh/key/ec2_east",
+  :display_name => "SSH Key for EC2 East Cloud",
   :description => "SSH Key to login to server so we can run commands.",
   :required => true
+
+attribute "rest_connection/ssh/key/ec2_west",
+  :display_name => "SSH Key for EC2 West Cloud",
+  :description => "SSH Key to login to server so we can run commands.",
+  :required => true
+  
+attribute "rest_connection/ssh/key/ec2_eu",
+  :display_name => "SSH Key for EC2 EU Cloud",
+  :description => "SSH Key to login to server so we can run commands.",
+  :required => true
+
+attribute "rest_connection/ssh/key/ec2_ap",
+  :display_name => "SSH Key for EC2 AP Cloud",
+  :description => "SSH Key to login to server so we can run commands.",
+  :required => true
+  
+  

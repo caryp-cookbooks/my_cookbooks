@@ -1,25 +1,4 @@
 {
-  "maintainer": "RightScale, Inc.",
-  "recommendations": {
-
-  },
-  "dependencies": {
-    "git": [
-
-    ],
-    "cucumber": [
-
-    ]
-  },
-  "maintainer_email": "cary@rightscale.com",
-  "suggestions": {
-
-  },
-  "description": "Installs\/Configures resat",
-  "name": "resat",
-  "conflicting": {
-
-  },
   "providing": {
     "resat::do_run_features": [
 
@@ -44,6 +23,36 @@
     ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "dependencies": {
+    "git": [
+
+    ],
+    "cucumber": [
+
+    ]
+  },
+  "recipes": {
+    "resat::do_run_features": "",
+    "resat::do_deployment_destroy": "",
+    "resat::do_deployment_create": "",
+    "resat::do_deployment_shutdown": "",
+    "resat": "",
+    "resat::do_cleanup": "",
+    "resat::do_deployment_reboot": ""
+  },
+  "replacing": {
+
+  },
+  "description": "Installs\/Configures resat",
+  "maintainer": "RightScale, Inc.",
+  "name": "resat",
+  "recommendations": {
+
+  },
+  "maintainer_email": "cary@rightscale.com",
+  "suggestions": {
+
+  },
   "platforms": {
 
   },
@@ -51,70 +60,61 @@
   "attributes": {
     "resat\/git_key": {
       "type": "string",
-      "description": "The private SSH key of the git repository.",
       "multiple_values": false,
+      "description": "The private SSH key of the git repository.",
       "display_name": "Git Repository Credentials",
+      "required": false,
+      "require": true,
       "recipes": [
 
-      ],
-      "required": false,
-      "require": true
+      ]
     },
     "resat\/test\/template": {
       "type": "string",
-      "description": "The type of ServerTemplate to test.",
       "multiple_values": false,
+      "description": "The type of ServerTemplate to test.",
       "display_name": "Template Type",
+      "required": false,
+      "require": true,
       "recipes": [
         "resat::do_deployment_create",
         "resat::do_deployment_destroy",
         "resat::do_deployment_reboot",
         "resat::do_deployment_shutdown"
-      ],
-      "required": false,
-      "require": true
+      ]
     },
     "resat\/test\/type": {
       "type": "string",
-      "description": "Selects deployment config directory, also which tagged features should be run. See http:\/\/wiki.github.com\/aslakhellesoy\/cucumber\/tags",
       "multiple_values": false,
+      "description": "Selects deployment config directory, also which tagged features should be run. See http:\/\/wiki.github.com\/aslakhellesoy\/cucumber\/tags",
       "display_name": "Test Type",
+      "required": false,
+      "require": true,
       "recipes": [
         "resat::do_run_features",
         "resat::do_deployment_create",
         "resat::do_deployment_destroy",
         "resat::do_deployment_reboot",
         "resat::do_deployment_shutdown"
-      ],
-      "required": false,
-      "require": true
+      ]
     },
     "resat\/test\/os": {
       "type": "string",
-      "description": "The platform to test on.",
       "multiple_values": false,
+      "description": "The platform to test on.",
       "display_name": "Test Platform",
+      "required": false,
+      "require": true,
       "recipes": [
         "resat::do_deployment_create",
         "resat::do_deployment_destroy",
         "resat::do_deployment_reboot",
         "resat::do_deployment_shutdown"
-      ],
-      "required": false,
-      "require": true
+      ]
     }
   },
-  "replacing": {
+  "conflicting": {
 
-  },
-  "recipes": {
-    "resat::do_run_features": "",
-    "resat::do_deployment_destroy": "",
-    "resat": "",
-    "resat::do_deployment_create": "",
-    "resat::do_deployment_shutdown": "",
-    "resat::do_cleanup": "",
-    "resat::do_deployment_reboot": ""
   },
   "license": "All rights reserved"
 }

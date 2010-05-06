@@ -22,6 +22,13 @@
 
     ]
   },
+  "recipes": {
+    "lvmros_test::test_all": "",
+    "lvmros_test": "",
+    "lvmros_test::common": "",
+    "lvmros_test::test_s3": "",
+    "lvmros_test::test_cloudfiles": ""
+  },
   "replacing": {
 
   },
@@ -39,59 +46,52 @@
 
   },
   "version": "0.1.0",
-  "recipes": {
-    "lvmros_test::test_all": "",
-    "lvmros_test::common": "",
-    "lvmros_test": "",
-    "lvmros_test::test_s3": "",
-    "lvmros_test::test_cloudfiles": ""
-  },
   "attributes": {
     "test\/cloudfiles\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Username",
+      "required": true,
       "recipes": [
         "lvmros_test::test_cloudfiles"
-      ],
-      "required": true
+      ]
     },
     "test\/s3\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Secret Access Key",
+      "required": true,
       "recipes": [
         "lvmros_test::test_s3"
-      ],
-      "required": true
+      ]
     },
     "test\/s3\/user": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Amazon Access Key ID",
+      "required": true,
       "recipes": [
         "lvmros_test::test_s3"
-      ],
-      "required": true
+      ]
     },
     "test\/cloudfiles\/key": {
       "type": "string",
       "multiple_values": false,
       "display_name": "Rackspace Authorization Key",
+      "required": true,
       "recipes": [
         "lvmros_test::test_cloudfiles"
-      ],
-      "required": true
+      ]
     },
     "test\/container": {
       "default": "regression_test_area",
       "type": "string",
       "multiple_values": false,
       "display_name": "Test Container",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
     }
   },
   "conflicting": {

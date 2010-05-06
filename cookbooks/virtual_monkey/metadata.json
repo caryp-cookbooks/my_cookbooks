@@ -1,5 +1,8 @@
 {
   "providing": {
+    "virtual_monkey::do_tests": [
+
+    ],
     "virtual_monkey": [
 
     ],
@@ -10,6 +13,11 @@
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
   "dependencies": {
 
+  },
+  "recipes": {
+    "virtual_monkey": "",
+    "virtual_monkey::do_tests": "",
+    "virtual_monkey::setup_apptest_database": ""
   },
   "replacing": {
 
@@ -28,20 +36,138 @@
 
   },
   "version": "0.1.0",
-  "recipes": {
-    "virtual_monkey": "",
-    "virtual_monkey::setup_apptest_database": ""
-  },
   "attributes": {
+    "virtual_monkey\/account\/credentials": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "The account key that will be used to access the 'Remote Storage Container'.  For AWS, enter your AWS Secret Access Key.  For Rackspace, enter your API Key.",
+      "display_name": "Remote Storage Account Key",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
     "db_mysql\/bind_address": {
       "default": "0.0.0.0",
       "type": "string",
       "multiple_values": false,
       "display_name": "Database Bind Address",
+      "required": false,
       "recipes": [
 
-      ],
-      "required": false
+      ]
+    },
+    "virtual_monkey\/code\/credentials": {
+      "default": "",
+      "type": "string",
+      "multiple_values": false,
+      "description": "The private SSH key of the git repository.",
+      "display_name": "Repository Credentials",
+      "required": false,
+      "recipes": [
+        "virtual_monkey::default"
+      ]
+    },
+    "virtual_monkey\/your_email": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "The email address we send results email to.",
+      "display_name": "Your Email Address",
+      "required": false,
+      "recipes": [
+        "virtual_monkey::do_tests"
+      ]
+    },
+    "virtual_monkey\/code\/url": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Specify the URL location of the repository that contains the test code. Ex: git:\/\/github.com\/mysite\/myapp.git",
+      "display_name": "Repository URL",
+      "required": true,
+      "recipes": [
+        "virtual_monkey::default"
+      ]
+    },
+    "virtual_monkey\/code": {
+      "type": "hash",
+      "multiple_values": false,
+      "display_name": "PHP Application Code",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
+    "virtual_monkey\/cuke_test_list": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Which cuke test(s) to run.",
+      "display_name": "Cucumber Test List",
+      "required": true,
+      "recipes": [
+        "virtual_monkey::do_tests"
+      ]
+    },
+    "virtual_monkey\/deployment_prefix": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Prefix for test deployment names. Ex: vmonk_php_",
+      "display_name": "Deployment Prefix",
+      "required": true,
+      "recipes": [
+        "virtual_monkey::default"
+      ]
+    },
+    "virtual_monkey\/account\/id": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "The account ID that will be used to access the 'Remote Storage Container'.  For AWS, enter your AWS Access Key ID.  For Rackspace, enter your username.",
+      "display_name": "Remote Storage Account ID",
+      "required": true,
+      "recipes": [
+
+      ]
+    },
+    "virtual_monkey\/code\/branch": {
+      "default": "master",
+      "type": "string",
+      "multiple_values": false,
+      "description": "The name of the branch within the git repository where the test code should be pulled from.",
+      "display_name": "Repository Branch",
+      "required": false,
+      "recipes": [
+        "virtual_monkey::default"
+      ]
+    },
+    "virtual_monkey\/common_inputs_file": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Name of the virtual monkey common inputs file name. Ex: php.json",
+      "display_name": "Common Inputs File",
+      "required": true,
+      "recipes": [
+        "virtual_monkey::do_tests"
+      ]
+    },
+    "virtual_monkey\/test_dir": {
+      "default": "\/root\/tests",
+      "type": "string",
+      "multiple_values": false,
+      "description": "Where should we place the tests?",
+      "display_name": "Test Directory",
+      "required": false,
+      "recipes": [
+
+      ]
+    },
+    "virtual_monkey\/template_id_list": {
+      "type": "string",
+      "multiple_values": false,
+      "description": "Array of ServerTemplate IDs to populate deployments with. Ex: 867509, 123093",
+      "display_name": "Template ID List",
+      "required": true,
+      "recipes": [
+        "virtual_monkey::default"
+      ]
     }
   },
   "conflicting": {
