@@ -3,6 +3,9 @@
     "virtual_monkey::do_tests": [
 
     ],
+    "virtual_monkey::update_test_code": [
+
+    ],
     "virtual_monkey": [
 
     ],
@@ -17,6 +20,7 @@
   "recipes": {
     "virtual_monkey": "",
     "virtual_monkey::do_tests": "",
+    "virtual_monkey::update_test_code": "",
     "virtual_monkey::setup_apptest_database": ""
   },
   "replacing": {
@@ -44,7 +48,8 @@
       "display_name": "Remote Storage Account Key",
       "required": true,
       "recipes": [
-
+        "virtual_monkey::do_tests",
+        "virtual_monkey::default"
       ]
     },
     "db_mysql\/bind_address": {
@@ -65,6 +70,7 @@
       "display_name": "Repository Credentials",
       "required": false,
       "recipes": [
+        "virtual_monkey::update_test_code",
         "virtual_monkey::default"
       ]
     },
@@ -75,7 +81,8 @@
       "display_name": "Your Email Address",
       "required": false,
       "recipes": [
-        "virtual_monkey::do_tests"
+        "virtual_monkey::do_tests",
+        "virtual_monkey::default"
       ]
     },
     "virtual_monkey\/code\/url": {
@@ -85,6 +92,7 @@
       "display_name": "Repository URL",
       "required": true,
       "recipes": [
+        "virtual_monkey::update_test_code",
         "virtual_monkey::default"
       ]
     },
@@ -104,7 +112,8 @@
       "display_name": "Cucumber Test List",
       "required": true,
       "recipes": [
-        "virtual_monkey::do_tests"
+        "virtual_monkey::do_tests",
+        "virtual_monkey::default"
       ]
     },
     "virtual_monkey\/deployment_prefix": {
@@ -114,6 +123,7 @@
       "display_name": "Deployment Prefix",
       "required": true,
       "recipes": [
+        "virtual_monkey::do_tests",
         "virtual_monkey::default"
       ]
     },
@@ -124,7 +134,8 @@
       "display_name": "Remote Storage Account ID",
       "required": true,
       "recipes": [
-
+        "virtual_monkey::do_tests",
+        "virtual_monkey::default"
       ]
     },
     "virtual_monkey\/code\/branch": {
@@ -135,6 +146,7 @@
       "display_name": "Repository Branch",
       "required": false,
       "recipes": [
+        "virtual_monkey::update_test_code",
         "virtual_monkey::default"
       ]
     },
@@ -145,7 +157,8 @@
       "display_name": "Common Inputs File",
       "required": true,
       "recipes": [
-        "virtual_monkey::do_tests"
+        "virtual_monkey::do_tests",
+        "virtual_monkey::default"
       ]
     },
     "virtual_monkey\/test_dir": {
@@ -156,7 +169,8 @@
       "display_name": "Test Directory",
       "required": false,
       "recipes": [
-
+        "virtual_monkey::update_test_code",
+        "virtual_monkey::default"
       ]
     },
     "virtual_monkey\/template_id_list": {
@@ -166,6 +180,7 @@
       "display_name": "Template ID List",
       "required": true,
       "recipes": [
+        "virtual_monkey::do_tests",
         "virtual_monkey::default"
       ]
     }
