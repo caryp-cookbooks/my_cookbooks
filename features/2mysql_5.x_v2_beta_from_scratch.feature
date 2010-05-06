@@ -18,7 +18,7 @@ Feature: mysql 5.x v2 (beta) promote operations test image
     Then I should run a mysql query "create database mynewtest" on server "1".
     Then I should setup master dns to point at server "1".
 # This sleep is to wait for DNS to settle
-    Then I should sleep 50 seconds.
+    Then I should sleep 120 seconds.
     When I run a rightscript named "backup" on server "1".
     Then the rightscript should complete successfully.
 
@@ -49,8 +49,6 @@ Feature: mysql 5.x v2 (beta) promote operations test image
 #
 
     Then I should reboot the servers.
-# This sleep is so that we don't immediately get an operational state.
-    Then I should sleep 60 seconds.
     Then I should wait for the servers to be operational with dns.
 
     When I run a rightscript named "backup" on server "1".
