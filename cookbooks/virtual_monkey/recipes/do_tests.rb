@@ -48,7 +48,7 @@ Chef:Log.info "creating cuke monk"
 cm = CukeMonk.new()
 
 Chef:Log.info "running cuke tests"
-jobs = cm.run_tests(deployments,node[:virtual_monkey][:cuke_test_list])
+jobs = cm.run_tests(deployments,test_dir+node[:virtual_monkey][:cuke_test_list])
 
 Chef:Log.info "generating reports"
 msg = cm.generate_reports(jobs)
