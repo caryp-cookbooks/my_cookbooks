@@ -1,25 +1,24 @@
 #log "syncing output"
-$stdout.sync=(true) unless $stdout.sync
+#$stdout.sync=(true) unless $stdout.sync
 
 #log "inserting creds"
+test_dir = node[:virtual_monkey][:test_dir]
 
 ruby_block "add creds" do
   block do
-   `sed -i s%@@AWS_ACCESS_KEY_ID@@%#{node[:virtual_monkey][:account][:id]}% /root/my_cookbooks/vmonk/lib/cuke_monk.rb`
-   `sed -i s%@@AWS_SECRET_ACCESS_KEY@@%#{node[:virtual_monkey][:account][:credentials]}% /root/my_cookbooks/vmonk/lib/cuke_monk.rb`
+   `sed -i s%@@AWS_ACCESS_KEY_ID@@%#{node[:virtual_monkey][:account][:id]}% #{test_dir}/vmonk/lib/cuke_monk.rb`
+   `sed -i s%@@AWS_SECRET_ACCESS_KEY@@%#{node[:virtual_monkey][:account][:credentials]}% #{test_dir}/vmonk/lib/cuke_monk.rb`
  end
 end
 
-test_dir = node[:virtual_monkey][:test_dir]
-
-ruby_block "run" do
-  block do
+ruby "run cuke tests" do
+  code <<-EOH
     
 require 'rubygems'
 require 'rest_connection'
 require 'erb'
-require '/root/my_cookbooks/vmonk/lib/deployment_monk' 
-require '/root/my_cookbooks/vmonk/lib/cuke_monk' 
+require "#{test_dir}/vmonk/lib/deployment_monk"
+require "#{test_dir}/vmonk/lib/cuke_monk" 
 require '/var/spool/ec2/meta-data.rb'
 
 puts "changing dir" 
@@ -64,5 +63,5 @@ Chef:Log.info `echo "#{msg}" | mail -s "VMonk run complete" #{node[:virtual_monk
 
 Chef:Log.info "terminating"
 #`init 0 `
-  end
+  EOH
 end

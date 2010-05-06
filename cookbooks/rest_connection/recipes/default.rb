@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-["libxml2-dev", "libxml-ruby1.8", "libxslt1-dev"].each { |p| package p }
+["libxml2-dev", "libxml-ruby1.8", "libxslt1-dev", "libsqlite3-dev" ].each { |p| package p }
 
 gem_package "activesupport" do
   version "2.3.5" 
@@ -17,7 +17,7 @@ gem_package "gemcutter" do
   version "0.5.0" 
 end
 
-["jeweler", "rdoc", "right_aws", " sqlite3-ruby",  "sqlite3-dev", "ruby-debug", "rest_connection"].each { |p| gem_package p }
+["jeweler", "rdoc", "right_aws", "do_sqlite3", "dm-core", "ruby-debug", "rest_connection"].each { |p| gem_package p }
 
 
 # Configure rest_connection
