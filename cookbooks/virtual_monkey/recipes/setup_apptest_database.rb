@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "db_mysql::default"
+
 SQL_BASE_DIR = "/root"
 SQL_DUMP = "#{SQL_BASE_DIR}/app_test.sql"
 SCHEMA = "app_test"
@@ -26,7 +28,7 @@ end
 # setup the mysql app_test database
 # TODO: this code was stolen from db_mysql definition db_mysql_restore, port to use svn or git
 bash "unpack mysqldump file: #{SQL_DUMP}" do
-  only_if do `echo "show databases" | mysql | grep -q  "^#{SCHEMA}$"` end
+  not_if do `echo "show databases" | mysql | grep -q  "^#{SCHEMA}$"` end
   user "root"
   cwd "#{SQL_BASE_DIR}"
   code <<-EOH
