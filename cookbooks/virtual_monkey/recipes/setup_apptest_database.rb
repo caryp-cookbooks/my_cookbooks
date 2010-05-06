@@ -26,7 +26,7 @@ end
 # setup the mysql app_test database
 # TODO: this code was stolen from db_mysql definition db_mysql_restore, port to use svn or git
 bash "unpack mysqldump file: #{SQL_DUMP}" do
- # not_if do `echo "show databases" | mysql | grep -q  "^#{SCHEMA}$"` end
+  only_if do `echo "show databases" | mysql | grep -q  "^#{SCHEMA}$"` end
   user "root"
   cwd "#{SQL_BASE_DIR}"
   code <<-EOH

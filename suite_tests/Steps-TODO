@@ -3,7 +3,7 @@ FEs
 3248 Apache modules are not installed properly for Ubuntu images
 2700 haproxy plugin for collectd is not working
 3378 Apache doesn't properly serve static content, due to a bad Rewrite Condition
-3379 Add "LB get HA proxy config" to all FrontEnd ST
+3379 Add "LB get HA proxy config" to all Front End ST
 1401 entering "yes" for the OPT_PHP_ENABLE script breaks the install'
 3302 Ubuntu Apache access_log doesn't get rotated
 

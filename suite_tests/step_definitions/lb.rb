@@ -27,14 +27,14 @@ end
 When /^I cross connect the frontends$/ do
   puts "entering :I cross\-connect the frontends"
   @statuses = Array.new 
-  st = ServerTemplate.find(@servers["FrontEnd"].first.server_template_href)
+  st = ServerTemplate.find(@servers["Front End"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /LB [app|mongrels]+ to HA proxy connect/i }
   raise "Could not find script" unless script_to_run
   
   options = Hash.new
-  options[:LB_HOSTNAME] = get_lb_hostname_input(@servers["FrontEnd"])
+  options[:LB_HOSTNAME] = get_lb_hostname_input(@servers["Front End"])
   
-  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run, options) }
+  @servers["Front End"].each { |s| @statuses << s.run_executable(script_to_run, options) }
   puts "exiting :I cross\-connect the frontends"
 end
 
@@ -48,7 +48,7 @@ When /^I setup deployment input "([^\"]*)" to "([^\"]*)"$/ do |input_name, value
 end
 
 Then /^the cross connect script completes successfully$/ do
-  @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["FrontEnd"][i].audit_link) }
+  @statuses.each_with_index { |s,i| s.wait_for_completed(@servers["Front End"][i].audit_link) }
 end
 
 Then /^I should see all "([^\"]*)" servers in the haproxy config$/ do |app_server_set|
@@ -65,7 +65,7 @@ end
 
 Then /^I should see all servers being served from haproxy$/ do
   puts "entering :I should see all servers being served from haproxy"
-  @servers["FrontEnd"].each do |fe|
+  @servers["Front End"].each do |fe|
     ip_list = @app_server_ips.clone
     ip_list.size.times do 
       cmd = "curl -q #{fe['dns-name']}/serverid/ 2> /dev/null | grep ip= | sed 's/^ip=//' | sed 's/;.*$//'"
@@ -121,7 +121,7 @@ end
 #   st = ServerTemplate.find(@servers["all"].first.server_template_href)
 #   script_to_run = st.executables.detect { |ex| ex.name =~  /WEB apache \(re\)start v2/i }
 #   raise "Script not found" unless script_to_run
-#   @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
+#   @servers["Front End"].each { |s| @statuses << s.run_executable(script_to_run) }
 #   @servers["app"].each { |s| @statuses << s.run_executable(script_to_run) }
 #   puts "exiting :I restart apache on all servers"
 # end
@@ -176,7 +176,7 @@ When /^I restart mongrels on all servers$/ do
   st = ServerTemplate.find(@servers["all"].first.server_template_href)
   script_to_run = st.executables.detect { |ex| ex.name =~  /RB mongrel_cluster \(re\)start v1/i }
   raise "Script not found" unless script_to_run
-  @servers["FrontEnd"].each { |s| @statuses << s.run_executable(script_to_run) }
+  @servers["Front End"].each { |s| @statuses << s.run_executable(script_to_run) }
   puts "exiting :I restart mongrels on all servers"
 end
 
