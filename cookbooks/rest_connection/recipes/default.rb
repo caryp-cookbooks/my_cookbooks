@@ -17,14 +17,15 @@ gem_package "gemcutter" do
   version "0.5.0" 
 end
 
-["jeweler", "rdoc", "right_aws", " sqlite3-ruby",  "sqlite3-dev", "ruby-debug"].each { |p| gem_package p }
+["jeweler", "rdoc", "right_aws", " sqlite3-ruby",  "sqlite3-dev", "ruby-debug", "rest_connection"].each { |p| gem_package p }
 
+
+# Configure rest_connection
 ssh_keys = Array.new
 node[:rest_connection][:ssh][:key].values do |kval|
   ssh_keys << "- #{kval}"
 end
 
-# Configure rest_connection
 directory "#{node[:test][:path][:src]}/.rest_connection"
 
 template "#{node[:test][:path][:src]}/.rest_connection/rest_api_config.yaml" do
