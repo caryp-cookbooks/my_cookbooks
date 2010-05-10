@@ -2,7 +2,6 @@ require "rubygems"
 require "ruby-debug"
 require "rest_connection"
 require "net/ssh"
-require "/var/spool/ec2/meta-data"
 
 def get_lb_hostname_input(fe_servers)
   lb_hostname_input = "text:"
@@ -13,16 +12,11 @@ def get_lb_hostname_input(fe_servers)
 end
 
 def get_tester_ip_addr()
-  my_ip_input = "text:"
-  #TODO: use ohai to grab this value when we move to v5 testers
+  require "/var/spool/ec2/meta-data" #TODO: use ohai to grab this value when we move to v5 testers
+  my_ip_input = "text:" 
   my_ip_input << ENV['EC2_PUBLIC_HOSTNAME'] 
   my_ip_input.strip
 end
-
-#Given /^A deployment with frontends$/ do
-#  puts "entering :A deployment with frontends"
-#  @servers["all"].each { |s| s.settings }
-#end
 
 When /^I cross connect the frontends$/ do
   puts "entering :I cross\-connect the frontends"
