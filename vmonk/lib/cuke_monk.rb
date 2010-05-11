@@ -20,6 +20,9 @@ class CukeMonk
   #
   # on init we need to:
   #  - get a path to look for features
+  
+  REPORT_DIR = "log"
+  LOG_DIR = "/tmp/vmonk"
 
   attr_accessor :feature_tag, :feature_tag_path
 
@@ -28,6 +31,7 @@ class CukeMonk
     @feature_tag = feature_tag
     @feature_tag_path = feature_tag_path
     @threads = []
+    Dir.mkdir LOG_DIR unless File.directory? LOG_DIR
   end
  
   def CukeMonk.finalize(id)
@@ -97,6 +101,7 @@ class CukeMonk
     results avilable at http://s3.amazonaws.com/#{bucket}/#{date}/index.html
 END_OF_MESSAGE
     puts msg
+    File.open("#{LOG_DIR}/#{bucket}-#{date}.log", "w") { |f| f.puts msg }
     return msg
   end
 
@@ -115,7 +120,9 @@ END_OF_MESSAGE
     thread = Thread.fork {
       IO.popen(cmd) { |trickle|
         until trickle.eof?
-          stream_ptr[0] += trickle.gets
+          thread_out = trickle.gets
+          File.open("#{LOG_DIR}/#{deployment}.out","a") { |f| f.puts(thread_out) }
+          stream_ptr[0] += thread_out
         end
       }
 
