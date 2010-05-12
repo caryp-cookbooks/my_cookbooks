@@ -18,12 +18,38 @@ Given /^A deployment$/ do
   @port="80"
 end
 
+Given /^A deployment with "([^\"]*)" servers$/ do |count|
+  @servers = Hash.new
+  raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
+  @deployment = Deployment.find_by_nickname_speed(ENV['DEPLOYMENT']).first
+  raise "FATAL: Couldn't find a deployment with the name #{ENV['DEPLOYMENT']}!" unless @deployment
+  @servers["all"] = @deployment.servers_no_reload
+  raise "FATAL: Deployment #{ENV['DEPLOYMENT']} does not contain any servers!" unless @servers["all"]
+  raise "need at #{count} servers to start, only have: #{@servers["all"].size}" unless @servers["all"].size == count.to_i
+  @servers["all"].each { |s| s.settings }
+  puts "found deployment to use: #{@deployment.nickname}, #{@deployment.href}"
+end
+
 When /^I launch the "([^\"]*)" servers$/ do |server_set|
   puts "entering :I launch the #{server_set}"
   @servers[server_set] = @servers["all"].select { |s| s.nickname =~ /#{server_set}?/ }
-  raise "need at least 2 #{server_set} servers to start, only have: #{@servers[server_set].size}" unless @servers[server_set].size == 2
+  raise "need exactly 2 #{server_set} servers to start, only have: #{@servers[server_set].size}" unless @servers[server_set].size == 2
   @servers[server_set].each { |s| s.start }
   puts "exiting :I launch the #{server_set}"
+end
+
+When /^I launch "([^\"]*)" of the "([^\"]*)" servers$/ do |count, server_set|
+  puts "entering :I launch the #{server_set}"
+  @servers[server_set] = @servers["all"].select { |s| s.nickname =~ /#{server_set}?/ }
+  raise "need exactly #{count} #{server_set} servers to start, only have: #{@servers[server_set].size}" unless @servers[server_set].size == count.to_i
+  @servers[server_set].each { |s| s.start }
+  puts "exiting :I launch the #{server_set}"
+end
+
+When /^I launch all servers$/ do
+  puts "entering :I launch all servers"
+  @servers["all"].each { |s| s.start }
+  puts "exiting :I launch all servers"
 end
 
 Then /^the "([^\"]*)" servers become non\-operational$/ do |server_set|

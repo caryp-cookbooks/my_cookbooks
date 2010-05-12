@@ -5,19 +5,15 @@ Feature: Grid Server Test
 
 Scenario: Grid server test
 
-  Given A deployment
+  Given A deployment with "16" servers
 
-  When I launch the "JC" servers
-  Then the "frontend" servers become operational
+  When I launch all servers
+  Then the "all" servers become operational
 
-  When I launch the "JW" servers
-  Then the "frontend" servers become operational
-
-  Given I am testing the "JC"
+  Given I am testing the "all"
   When I reboot the servers
-  And the "JC" servers become operational
+  And the "all" servers become operational
 
-  Given I am testing the "JW"
-  When I reboot the servers
-  And the "JW" servers become operational
-
+# Just reboot the controllers - the workers will terminate if rebooted
+#
+# Run the Grid macro - then update the rsgrid.json with the input for the new deployment
