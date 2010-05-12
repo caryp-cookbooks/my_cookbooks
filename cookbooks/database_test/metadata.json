@@ -1,35 +1,28 @@
 {
-  "providing": {
-    "database_test": [
+  "recipes": {
 
-    ],
-    "database_test::dev_pristine_restore": [
+  },
+  "groupings": {
 
-    ],
-    "database_test::dev_pristine_backup": [
-
-    ]
   },
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "dependencies": {
-
-  },
-  "recipes": {
-    "database_test::dev_pristine_restore": "",
-    "database_test": "",
-    "database_test::dev_pristine_backup": ""
-  },
-  "replacing": {
-
-  },
-  "description": "used as a test for the database provider",
-  "maintainer": "RightScale, Inc.",
-  "name": "database_test",
   "recommendations": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
+  "dependencies": {
+
+  },
+  "maintainer": "RightScale, Inc.",
   "suggestions": {
+
+  },
+  "description": "used as a test for the database provider",
+  "maintainer_email": "cary@rightscale.com",
+  "name": "database_test",
+  "conflicting": {
+
+  },
+  "providing": {
 
   },
   "platforms": {
@@ -39,7 +32,7 @@
   "attributes": {
 
   },
-  "conflicting": {
+  "replacing": {
 
   },
   "license": "All rights reserved"

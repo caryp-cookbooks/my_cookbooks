@@ -1,35 +1,28 @@
 {
-  "providing": {
-    "dropbox::setup_devlinks": [
+  "recipes": {
 
-    ],
-    "dropbox::install": [
+  },
+  "groupings": {
 
-    ],
-    "dropbox": [
-
-    ]
   },
   "long_description": "",
-  "dependencies": {
-
-  },
-  "recipes": {
-    "dropbox": "",
-    "dropbox::setup_devlinks": "",
-    "dropbox::install": ""
-  },
-  "replacing": {
-
-  },
-  "description": "Installs\/Configures dropbox",
-  "maintainer": "RightScale, Inc.",
-  "name": "dropbox",
   "recommendations": {
 
   },
-  "maintainer_email": "cary@rightscale.com",
+  "dependencies": {
+
+  },
+  "maintainer": "RightScale, Inc.",
   "suggestions": {
+
+  },
+  "description": "Installs\/Configures dropbox",
+  "maintainer_email": "cary@rightscale.com",
+  "name": "dropbox",
+  "conflicting": {
+
+  },
+  "providing": {
 
   },
   "platforms": {
@@ -38,36 +31,45 @@
   "version": "0.1.0",
   "attributes": {
     "dropbox\/email": {
+      "calculated": false,
       "type": "string",
-      "multiple_values": false,
+      "choice": [
+
+      ],
       "description": "Email address linked to your dropbox account.",
       "display_name": "Dropbox User Email",
-      "required": true,
+      "required": "required",
       "recipes": [
         "dropbox::install"
       ]
     },
     "dropbox\/password": {
+      "calculated": false,
       "type": "string",
-      "multiple_values": false,
+      "choice": [
+
+      ],
       "description": "Passwod for your dropbox user account.",
       "display_name": "Dropbox Password",
-      "required": true,
+      "required": "required",
       "recipes": [
         "dropbox::install"
       ]
     },
     "dropbox": {
+      "calculated": false,
       "type": "hash",
-      "multiple_values": false,
+      "choice": [
+
+      ],
       "display_name": "Dropbox Application Settings",
-      "required": false,
       "recipes": [
 
-      ]
+      ],
+      "required": "optional"
     }
   },
-  "conflicting": {
+  "replacing": {
 
   },
   "license": "All rights reserved"
