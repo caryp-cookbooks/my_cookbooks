@@ -7,6 +7,11 @@ version          "0.1"
 
 depends "bd_lvmros"
 
+recipe "lvmros_test::default","Runs test_all"
+recipe "lvmros_test::test_all","Runs test_*"
+recipe "lvmros_test::test_s3",""
+recipe "lvmros_test::test_cloudfiles",""
+
 attribute "test/container",
   :display_name => "Test Container",
   :default => "regression_test_area"

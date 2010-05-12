@@ -1,6 +1,9 @@
 {
   "recipes": {
-
+    "lvmros_test::test_all": "Runs test_*",
+    "lvmros_test::test_s3": "",
+    "lvmros_test::default": "Runs test_all",
+    "lvmros_test::test_cloudfiles": ""
   },
   "groupings": {
 

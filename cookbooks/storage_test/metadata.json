@@ -1,6 +1,8 @@
 {
   "recipes": {
-
+    "storage_test::test_s3": "",
+    "storage_test::test_cloudfiles": "",
+    "storage_test::get_file": ""
   },
   "groupings": {
 

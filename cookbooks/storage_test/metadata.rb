@@ -7,6 +7,10 @@ version          "0.1"
 
 depends "bd_lvmros"
 
+recipe "storage_test::get_file",""
+recipe "storage_test::test_s3",""
+recipe "storage_test::test_cloudfiles",""
+
 attribute "test/container",
   :display_name => "Test Container",
   :default => "regression_test_area"
