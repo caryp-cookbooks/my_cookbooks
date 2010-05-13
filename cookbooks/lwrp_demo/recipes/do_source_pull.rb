@@ -27,7 +27,7 @@ ruby_block "...do some stuff here..." do
   block do end
 end
 
-repo "demo_repo" do
+repo "default" do
   destination @node[:lwrp_demo][:destination]
   action :pull
   provider "repo"

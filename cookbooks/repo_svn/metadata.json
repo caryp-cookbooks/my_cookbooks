@@ -1,87 +1,105 @@
 {
-  "maintainer": "RightScale, Inc.",
+  "recipes": {
+    "repo_svn::default": "Default pattern of loading packages and resources provided"
+  },
+  "groupings": {
+    "svn": {
+      "databag": true,
+      "description": "Settings for managing a Subversion source repository",
+      "display_name": "Subversion Client Default Settings"
+    }
+  },
+  "long_description": "",
   "recommendations": {
 
   },
   "dependencies": {
 
   },
-  "maintainer_email": "support@rightscale.com",
+  "maintainer": "RightScale, Inc.",
   "suggestions": {
 
   },
   "description": "Manages the Subversion version control system",
+  "maintainer_email": "support@rightscale.com",
   "name": "repo_svn",
   "conflicting": {
 
   },
   "providing": {
-    "repo_svn": [
-
-    ],
     "provider:repo": [
 
     ]
   },
-  "long_description": "",
   "platforms": {
 
   },
   "version": "0.0.1",
-  "recipes": {
-    "repo_svn": "",
-    "repo_svn::default": "Default pattern of loading packages and resources provided"
-  },
   "attributes": {
-    "svn\/demo_repo\/revision": {
+    "svn\/arguments": {
+      "calculated": false,
       "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "Revision\/Branch\/Tag",
-      "recipes": [
+      "choice": [
 
       ],
-      "required": false
-    },
-    "svn\/demo_repo\/password": {
-      "type": "string",
       "description": "",
-      "multiple_values": false,
-      "display_name": "Password",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "svn\/demo_repo\/repository": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "Repository Url",
-      "recipes": [
-
-      ],
-      "required": true
-    },
-    "svn\/demo_repo\/username": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
-      "display_name": "User Name",
-      "recipes": [
-
-      ],
-      "required": false
-    },
-    "svn\/demo_repo\/arguments": {
-      "type": "string",
-      "description": "",
-      "multiple_values": false,
       "display_name": "Arguments",
+      "required": "optional",
       "recipes": [
 
+      ]
+    },
+    "svn\/password": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
       ],
-      "required": false
+      "description": "",
+      "display_name": "Password",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "svn\/username": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "User Name",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "svn\/repository": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Repository Url",
+      "required": "required",
+      "recipes": [
+
+      ]
+    },
+    "svn\/revision": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Revision\/Branch\/Tag",
+      "required": "optional",
+      "recipes": [
+
+      ]
     }
   },
   "replacing": {
