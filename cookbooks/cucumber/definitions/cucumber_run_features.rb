@@ -23,7 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-define :cucumber_run_features, cwd => ".", user => "root", tags => [ ], options => "" do
+define :cucumber_run_features, :cwd => ".", :user => "root", :tags => [ ], :options => "" do
    
   tags = ""
   unless params[:tags].empty?
