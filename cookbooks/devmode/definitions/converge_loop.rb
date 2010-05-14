@@ -1,4 +1,4 @@
-define :devmode_converge_loop, remote_recipe => "" do
+define :devmode_converge_loop, :remote_recipe => "" do
   
   total = node[:devmode][:converge_loop][:total].to_i
   count = node[:devmode][:converge_loop][:count].to_i
