@@ -1,6 +1,6 @@
 {
   "recipes": {
-
+    "dropbox::default": "Install dropbox and register instance."
   },
   "groupings": {
 
@@ -40,7 +40,7 @@
       "display_name": "Dropbox User Email",
       "required": "required",
       "recipes": [
-        "dropbox::install"
+        "dropbox::default"
       ]
     },
     "dropbox\/password": {
@@ -53,7 +53,7 @@
       "display_name": "Dropbox Password",
       "required": "required",
       "recipes": [
-        "dropbox::install"
+        "dropbox::default"
       ]
     },
     "dropbox": {
