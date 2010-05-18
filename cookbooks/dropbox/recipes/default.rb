@@ -9,10 +9,6 @@
 OUTPUT_FILE = "dropbox.log"
 DROPBOX_EXEC = "/root/.dropbox-dist/dropboxd"
 
-def logfile_exists?
-  ::File.exists?("/root/#{OUTPUT_FILE}")
-end
-
 platform = node[:kernel][:machine]
 suffix = (platform == "x86_64") ? platform : "x86"
 
@@ -68,16 +64,16 @@ ruby_block "wait for log file" do
   block do
     Chef::Log.info "Waiting for logfile to exist.."
     60.times do
-      break if logfile_exists?
+      break if ::File.exists?("/root/#{OUTPUT_FILE}")
       Chef::Log.info "  retrying..."
       sleep 5
     end
-    raise "Dropbox logfile not found. Unable to register instance!. Fail." unless logfile_exists?
+    raise "Dropbox logfile not found. Unable to register instance!. Fail." unless ::File.exists?("/root/#{OUTPUT_FILE}")
   end
 end
 
 ruby_block "register instance" do
-  only_if do logfile_exists? end
+  only_if do ::File.exists?("/root/#{OUTPUT_FILE}") end
   not_if do ::File.directory?("/root/Dropbox") end
   block do
     # wait for the log to catchup and have the registration link
