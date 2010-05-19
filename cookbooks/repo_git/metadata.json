@@ -39,9 +39,6 @@
     "repo\/default\/branch": {
       "calculated": false,
       "type": "string",
-      "choice": [
-
-      ],
       "description": "",
       "display_name": "Branch\/Tag",
       "required": "optional",
