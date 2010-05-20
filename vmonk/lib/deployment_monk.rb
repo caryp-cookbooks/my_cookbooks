@@ -35,7 +35,8 @@ class DeploymentMonk
 
     @image_count = 0
     @server_templates.each do |st|
-      st.fetch_multi_cloud_images
+      new_st = ServerTemplateInternal.new(:href => st.href)
+      st.multi_cloud_images = new_st.multi_cloud_images
       @image_count = st.multi_cloud_images.size if st.multi_cloud_images.size > @image_count
     end
 
@@ -72,8 +73,8 @@ class DeploymentMonk
           server_params = { :nickname => "tempserver-#{st.nickname}", 
                             :deployment_href => new_deploy.href, 
                             :server_template_href => st.href, 
+                            :cloud_id => cloud
                             #:ec2_image_href => image['image_href'], 
-                            :cloud_id => cloud, 
                             #:instance_type => image['aws_instance_type'] 
                           }
           
@@ -90,7 +91,22 @@ class DeploymentMonk
           else
             use_this_image = st.multi_cloud_images[0]['href']
           end
-          RsInternal.set_server_multi_cloud_image(server.href, use_this_image)
+          #RsInternal.set_server_multi_cloud_image(server.href, use_this_image)
+          sint = ServerInternal.new(:href => server.href)
+          sint.set_multi_cloud_image(use_this_image)
+
+          # finally, set the spot price
+          server.reload
+          server.settings
+          if server.ec2_instance_type =~ /small/ 
+            server.max_spot_price = "0.085"
+          elsif server.ec2_instance_type =~ /large/
+            server.max_spot_price = "0.38"
+          end
+          # rs_bug: attribute update doesn't let you save the pricing=spot, unless you have previously set max spot price 
+          #server.save
+          server.pricing = "spot"
+          server.save
         end
         new_deploy.nickname = dep_tempname + dep_image_list.uniq.join("_AND_")
         new_deploy.save
