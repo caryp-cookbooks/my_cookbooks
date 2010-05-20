@@ -103,8 +103,6 @@ class DeploymentMonk
           elsif server.ec2_instance_type =~ /large/
             server.max_spot_price = "0.38"
           end
-          # rs_bug: attribute update doesn't let you save the pricing=spot, unless you have previously set max spot price 
-          #server.save
           server.pricing = "spot"
           server.save
         end
