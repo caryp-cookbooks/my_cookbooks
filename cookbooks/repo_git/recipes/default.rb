@@ -44,17 +44,21 @@ node[:repo].each do |resource_name, entry|
   if entry[:provider] == PROVIDER_NAME then
     Chef::Log.info("Name:#{resource_name}, entry: #{entry}")
     
-    url = entry[:repository]
+    url = entry["repository"]
     raise "ERROR: You did not specify a repository for repo resource named #{resource_name}." unless url
-    branch = (entry[:branch]) ? entry[:branch] : "master"
-    key = (entry[:ssh_key]) ? entry[:ssh_key] : ""
+    branch = (entry["branch"]) ? entry["branch"] : "master"
+    key = (entry["ssh_key"]) ? entry["ssh_key"] : ""
+
+    log "you are in converge phase!"
+	  Chef::Log.info "you are in the compile phase!"
     
     # Setup git client
     repo resource_name do
-      provider "repo_git"
       repository url
       revision branch
       ssh_key key
+      action :nothing
+      provider "repo_git"
     end
   end
 end

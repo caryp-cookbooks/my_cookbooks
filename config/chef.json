@@ -1,12 +1,12 @@
 { 
-  "recipes": [ "repo_git", "lwrp_demo::do_source_pull" ],
+  "recipes": [ "repo_git::default" ],
 
   "lwrp_demo": {
     "destination": "/tmp/lwrp_demo"
   },
 
   "repo": {	  
-    "demo_repo" : {
+    "default" : {
 	  "provider": "repo_git",
       "remote": "origin", 
       "branch": "mephisto",  

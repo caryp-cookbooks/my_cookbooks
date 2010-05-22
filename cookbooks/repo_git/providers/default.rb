@@ -23,6 +23,10 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+action :nothing do
+  store_resource(new_resource)
+end
+
 action :pull do
  
  Chef::Log.info "Running repo_git::do_pull..."
@@ -80,3 +84,64 @@ action :pull do
   end
  
 end
+
+def store_resource(resource)
+  resource_copy = resource.clone
+  
+  # create parent hash if missing
+  @node[:resource_store] = Hash.new unless @node[:resource_store]
+  
+  # don't serialize node
+  resource_copy.instance_eval("@node = nil")
+  
+  Chef::Log.info "CKP: serialzed #{resource} resource: #{resource_copy.inspect}"
+  
+  # serialize resource to node
+  serialized = resource_copy.to_json
+  Chef::Log.info "CKP: serialzed #{resource} resource: #{serialized}"
+  @node[:resource_store][resource_copy.name] = serialized
+  Chef::Log.info("Resource persisted in node as @node[:resource_store][#{resource.name}]")
+  
+  r = load_resource(resource_copy.name)
+  p = r.provider.new(@node, r)
+  
+  
+  true
+end
+
+def load_resource(name)
+  resource = JSON.parse(@node[:resource_store][name])
+  Chef::Log.info "CKP: unserialzed #{resource} resource: #{resource.inspect}" if @node[:resource_store] && @node[:resource_store][name] 
+  Chef::Log.info("Resource loaded from @node[:resource_store][#{name}]") if resource
+  
+  # add node
+  current_node = @node
+  resource.instance_eval { @node = current_node }
+  
+  # constantize provider string
+  resource.provider = to_const(resource.provider) if resource.provider.is_a?(String)
+  
+  resource
+end
+
+# Convert constant name to constant
+#
+#    "FooBar::Baz".to_const => FooBar::Baz
+#
+# @return [Constant] Constant corresponding to given name or nil if no
+#   constant with that name exists
+#
+# @api public
+def to_const(class_name)
+  names = class_name.split('::')
+  names.shift if names.empty? || names.first.empty?
+
+  constant = Object
+  names.each do |name|
+    # modified to return nil instead of raising an const_missing error
+    constant = constant && constant.const_defined?(name) ? constant.const_get(name) : nil
+  end
+  constant
+end
+
+
