@@ -94,24 +94,19 @@ def store_resource(resource)
   # don't serialize node
   resource_copy.instance_eval("@node = nil")
   
-  Chef::Log.info "CKP: serialzed #{resource} resource: #{resource_copy.inspect}"
-  
   # serialize resource to node
   serialized = resource_copy.to_json
-  Chef::Log.info "CKP: serialzed #{resource} resource: #{serialized}"
   @node[:resource_store][resource_copy.name] = serialized
   Chef::Log.info("Resource persisted in node as @node[:resource_store][#{resource.name}]")
   
   r = load_resource(resource_copy.name)
   p = r.provider.new(@node, r)
   
-  
   true
 end
 
 def load_resource(name)
   resource = JSON.parse(@node[:resource_store][name])
-  Chef::Log.info "CKP: unserialzed #{resource} resource: #{resource.inspect}" if @node[:resource_store] && @node[:resource_store][name] 
   Chef::Log.info("Resource loaded from @node[:resource_store][#{name}]") if resource
   
   # add node
