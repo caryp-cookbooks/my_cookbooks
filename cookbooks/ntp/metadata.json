@@ -1,0 +1,110 @@
+{
+  "recipes": {
+    "ntp::default": "Install and configure the Network Time Protocol."
+  },
+  "groupings": {
+
+  },
+  "long_description": "",
+  "recommendations": {
+
+  },
+  "dependencies": {
+
+  },
+  "maintainer": "Opscode, Inc.",
+  "suggestions": {
+
+  },
+  "description": "Installs and configures ntp as a client or server",
+  "maintainer_email": "cookbooks@opscode.com",
+  "name": "ntp",
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "platforms": {
+    "ubuntu": [
+
+    ],
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "redhat": [
+
+    ],
+    "debian": [
+
+    ]
+  },
+  "version": "0.8.0",
+  "attributes": {
+    "ntp\/servers": {
+      "calculated": false,
+      "default": [
+        "0.us.pool.ntp.org",
+        "1.us.pool.ntp.org"
+      ],
+      "type": "array",
+      "choice": [
+
+      ],
+      "description": "Array of servers we should talk to",
+      "display_name": "NTP Servers",
+      "recipes": [
+
+      ],
+      "required": "optional"
+    },
+    "ntp\/is_server": {
+      "calculated": false,
+      "default": "false",
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "Set to true if this is an NTP server",
+      "display_name": "NTP Is Server?",
+      "recipes": [
+
+      ],
+      "required": "optional"
+    },
+    "ntp\/service": {
+      "calculated": false,
+      "default": "ntp",
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "Name of the NTP service",
+      "display_name": "NTP Service",
+      "recipes": [
+
+      ],
+      "required": "optional"
+    },
+    "ntp": {
+      "calculated": false,
+      "type": "hash",
+      "choice": [
+
+      ],
+      "description": "Hash of NTP attributes",
+      "display_name": "NTP",
+      "recipes": [
+
+      ],
+      "required": "optional"
+    }
+  },
+  "replacing": {
+
+  },
+  "license": "Apache 2.0"
+}
