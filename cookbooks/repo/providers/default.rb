@@ -32,34 +32,8 @@ end
 action :pull do
   abstract_resource = new_resource
   
-  # Does the named provider exist in collection?
-  Chef::Log.info("looking for #{abstract_resource.to_s} in collection")
-  # Find the resource before this one in the collection -- maybe look up diff providers_types with same name?
-  curr_resrc = prev_resrc = nil 
-  @collection.each do |r|   
-    if r.to_s == abstract_resource.to_s then
-      Chef::Log.info("resource: #{r}")
-      prev_resrc = curr_resrc if curr_resrc
-      curr_resrc = r 
-    end
-  end
-  resource = prev_resrc
-  Chef::Log.info("Found #{abstract_resource.to_s} in resource collection! ptype:#{resource.provider}") if resource
-     
-  # If not, look in the node for a serialzed resource from a previous converge
-  unless resource
-    Chef::Log.info("#{abstract_resource.to_s} not found in resource collection! Looking in node...")  
-    resource = load_resource(abstract_resource.name)  
-    Chef::Log.info("Found #{abstract_resource.to_s} in node! ptype:#{resource.inspect}") if resource
-  end
-  raise ("No resource found in collection or node named #{abstract_resource.name}.") unless resource
-  
-  # Merge attributes from abstract resource to concrete resource
-  abstract_resource.instance_variables.each do |iv|
-    unless iv == "@source_line" || iv == "@action" || iv == "@provider"
-     resource.instance_variable_set(iv, abstract_resource.instance_variable_get(iv))
-    end
-  end
+  # Lookup concrete resource/provider
+  resource = lookup_concrete_resource(abstract_resource)
   
   # Load the provider
   provider = resource.provider.new(resource.node, resource, resource.collection)
@@ -71,6 +45,41 @@ action :pull do
   store_resource(resource)
 end
 
+###########################
+# Persistent Resource Study
+
+def lookup_concrete_resource(abstract_resource)
+  # Does the named provider exist in collection?
+  Chef::Log.info("looking for #{abstract_resource.to_s} in collection")
+  
+  Chef::Log.info ("CKP: before lookup")
+  # Find the resource before this one in the collection
+  resources = abstract_resource.resources(abstract_resource.to_s)
+  Chef::Log.info ("CKP: after lookup.")
+  Chef::Log.info ("CKP: after lookup2. #{resources.to_s}")
+  Chef::Log.info ("CKP: after lookup3.")
+   
+  resource = resources[resources.length-1] if resources && resources.is_a?(Array)
+  Chef::Log.info("Found #{abstract_resource.to_s} in resource collection! ptype:#{resource.provider}") if resource
+     
+  # # If not, look in the node for a serialzed resource from a previous converge
+  #   unless resource
+  #     Chef::Log.info("#{abstract_resource.to_s} not found in resource collection! Looking in node...")  
+  #     resource = load_resource(abstract_resource.name)  
+  #     Chef::Log.info("Found #{abstract_resource.to_s} in node! ptype:#{resource.inspect}") if resource
+  #   end
+  raise ("No resource found in collection or node named #{abstract_resource.name}.") unless resource
+  
+  # Merge attributes from abstract resource to concrete resource
+  abstract_resource.instance_variables.each do |iv|
+    unless iv == "@source_line" || iv == "@action" || iv == "@provider"
+     resource.instance_variable_set(iv, abstract_resource.instance_variable_get(iv))
+    end
+  end
+  
+  resource
+end
+
 def store_resource(resource)
   resource_copy = resource.clone
   
@@ -80,24 +89,19 @@ def store_resource(resource)
   # don't serialize node
   resource_copy.instance_eval("@node = nil")
   
-  Chef::Log.info "CKP: serialzed #{resource} resource: #{resource_copy.inspect}"
-  
   # serialize resource to node
   serialized = resource_copy.to_json
-  Chef::Log.info "CKP: serialzed #{resource} resource: #{serialized}"
   @node[:resource_store][resource_copy.name] = serialized
   Chef::Log.info("Resource persisted in node as @node[:resource_store][#{resource.name}]")
   
   r = load_resource(resource_copy.name)
   p = r.provider.new(@node, r)
-  
-  
+    
   true
 end
 
 def load_resource(name)
   resource = JSON.parse(@node[:resource_store][name])
-  Chef::Log.info "CKP: unserialzed #{resource} resource: #{resource.inspect}" if @node[:resource_store] && @node[:resource_store][name] 
   Chef::Log.info("Resource loaded from @node[:resource_store][#{name}]") if resource
   
   # add node
