@@ -19,6 +19,13 @@ package "apache2" do
   action :install
 end
 
+ruby_block "rename apache2 service to CentOS style" do
+  only_if { node[:platform] == "ubuntu" || node[:platform] == "debian" }
+  block do
+    `mv /etc/init.d/apache2 /etc/init.d/httpd`
+  end
+end
+
 service "apache2" do
   case node[:platform]
   when "centos","redhat","fedora","suse"
@@ -29,7 +36,7 @@ service "apache2" do
     restart_command "/sbin/service httpd restart && sleep 1"
     reload_command "/sbin/service httpd reload && sleep 1"
   when "debian","ubuntu"
-    service_name "apache2"
+    service_name "httpd"
   end
   supports value_for_platform(
     "debian" => { "4.0" => [ :restart, :reload ], "default" => [ :restart, :reload, :status ] },
@@ -40,4 +47,6 @@ service "apache2" do
     "default" => { "default" => [:restart, :reload ] }
   )
   action :enable
+  
+  persist true    # save this resource to node for use in later converges
 end

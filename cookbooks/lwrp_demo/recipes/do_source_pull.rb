@@ -30,7 +30,6 @@ end
 repo "default" do
   destination @node[:lwrp_demo][:destination]
   action :pull
-  provider "repo"
 end
 
 ruby_block "...do some other stuff here..." do
