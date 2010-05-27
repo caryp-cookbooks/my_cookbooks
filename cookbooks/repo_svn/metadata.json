@@ -38,6 +38,7 @@
   "attributes": {
     "repo\/default\/username": {
       "calculated": false,
+      "default": "",
       "type": "string",
       "choice": [
 
@@ -55,7 +56,7 @@
       "choice": [
 
       ],
-      "description": "",
+      "description": "The URL to subversion respository. Ex. http:\/\/svn.github.com\/schacon\/cowsay.git",
       "display_name": "Repository Url",
       "required": "required",
       "recipes": [
@@ -64,6 +65,7 @@
     },
     "repo\/default\/arguments": {
       "calculated": false,
+      "default": "",
       "type": "string",
       "choice": [
 
@@ -77,6 +79,7 @@
     },
     "repo\/default\/password": {
       "calculated": false,
+      "default": "",
       "type": "string",
       "choice": [
 
@@ -104,6 +107,7 @@
     },
     "repo\/default\/revision": {
       "calculated": false,
+      "default": "",
       "type": "string",
       "choice": [
 
