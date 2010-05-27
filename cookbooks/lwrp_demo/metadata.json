@@ -1,46 +1,50 @@
 {
-  "maintainer": "RightScale, Inc.",
+  "recipes": {
+    "lwrp_demo::do_source_pull": "Pull source from some repository configured at runtime."
+  },
+  "groupings": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\nThis cookbook uses a chef lightweight resource called 'repo' to define a \ngeneric interface for downloading contents of a source repository.\n\n= REQUIREMENTS:\n\nChef Version >= 0.8.tbd\n\n= ATTRIBUTES: \n\n * destination - where to put the repo locally (ex. \/tmp\/myrepo )\n\n= USAGE:\n\n See \/config\/chef.json for example to use with Chef Solo.\n\n \n\n",
   "recommendations": {
 
   },
   "dependencies": {
-    "resource:repo": [
+    "resource:repo['default']": [
 
     ]
   },
-  "maintainer_email": "cary@rightscale.com",
+  "maintainer": "RightScale, Inc.",
   "suggestions": {
 
   },
   "description": "Demonstrates the use of the Dependency Injection cookbook design patterns",
+  "maintainer_email": "cary@rightscale.com",
   "name": "lwrp_demo",
   "conflicting": {
 
   },
   "providing": {
-    "lwrp_demo::do_source_pull": [
 
-    ]
   },
-  "long_description": "= DESCRIPTION:\n\nThis cookbook uses a chef lightweight resource called 'repo' to define a \ngeneric interface for downloading contents of a source repository.\n\n= REQUIREMENTS:\n\nChef Version >= 0.7.14\n\n= ATTRIBUTES: \n\n * destination - where to put the repo locally (ex. \/tmp\/myrepo )\n\n= USAGE:\n\n See \/roles\/git_client.rb for example to use with Chef Server.\n See \/config\/chef.json for example to use with Chef Solo.\n\n \n\n",
   "platforms": {
 
   },
   "version": "0.0.1",
-  "recipes": {
-    "lwrp_demo::do_source_pull": "Pull source from some repository configured at runtime."
-  },
   "attributes": {
     "lwrp_demo\/destination": {
+      "calculated": false,
       "default": "\/tmp\/lwrp_demo",
       "type": "string",
+      "choice": [
+
+      ],
       "description": "Path to download repository contents to.",
-      "multiple_values": false,
       "display_name": "Destination",
       "recipes": [
 
       ],
-      "required": false
+      "required": "optional"
     }
   },
   "replacing": {

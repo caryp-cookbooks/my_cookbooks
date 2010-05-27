@@ -5,7 +5,7 @@ generic interface for downloading contents of a source repository.
 
 = REQUIREMENTS:
 
-Chef Version >= 0.7.14
+Chef Version >= 0.8.tbd
 
 = ATTRIBUTES: 
 
@@ -13,7 +13,6 @@ Chef Version >= 0.7.14
 
 = USAGE:
 
- See /roles/git_client.rb for example to use with Chef Server.
  See /config/chef.json for example to use with Chef Solo.
 
  

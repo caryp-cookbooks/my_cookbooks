@@ -3,7 +3,7 @@
     "repo_svn::default": "Default pattern of loading packages and resources provided"
   },
   "groupings": {
-    "svn": {
+    "repo\/default": {
       "databag": true,
       "description": "Settings for managing a Subversion source repository",
       "display_name": "Subversion Client Default Settings"
@@ -36,33 +36,7 @@
   },
   "version": "0.0.1",
   "attributes": {
-    "svn\/arguments": {
-      "calculated": false,
-      "type": "string",
-      "choice": [
-
-      ],
-      "description": "",
-      "display_name": "Arguments",
-      "required": "optional",
-      "recipes": [
-
-      ]
-    },
-    "svn\/password": {
-      "calculated": false,
-      "type": "string",
-      "choice": [
-
-      ],
-      "description": "",
-      "display_name": "Password",
-      "required": "optional",
-      "recipes": [
-
-      ]
-    },
-    "svn\/username": {
+    "repo\/default\/username": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -75,7 +49,7 @@
 
       ]
     },
-    "svn\/repository": {
+    "repo\/default\/repository": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -88,7 +62,47 @@
 
       ]
     },
-    "svn\/revision": {
+    "repo\/default\/arguments": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Arguments",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "repo\/default\/password": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Password",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "repo\/default\/provider": {
+      "calculated": false,
+      "default": "repo_svn",
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Repository Provider Type",
+      "recipes": [
+
+      ],
+      "required": "optional"
+    },
+    "repo\/default\/revision": {
       "calculated": false,
       "type": "string",
       "choice": [

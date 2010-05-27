@@ -5,7 +5,7 @@ description      "Demonstrates the use of the Dependency Injection cookbook desi
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
-depends "resource:repo" # not really in metadata spec yet. Format TBD.
+depends "resource:repo['default']" # not really in metadata spec yet. Format TBD.
 
 recipe  "lwrp_demo::do_source_pull", "Pull source from some repository configured at runtime."
 
