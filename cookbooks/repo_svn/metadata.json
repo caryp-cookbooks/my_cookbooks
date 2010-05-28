@@ -50,13 +50,26 @@
 
       ]
     },
+    "repo\/default\/branch": {
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "",
+      "display_name": "Revision\/Branch\/Tag",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
     "repo\/default\/repository": {
       "calculated": false,
       "type": "string",
       "choice": [
 
       ],
-      "description": "The URL to subversion respository. Ex. http:\/\/svn.github.com\/schacon\/cowsay.git",
+      "description": "The URL to subversion repository. Ex. http:\/\/svn.github.com\/schacon\/cowsay.git",
       "display_name": "Repository Url",
       "required": "required",
       "recipes": [
@@ -104,20 +117,6 @@
 
       ],
       "required": "optional"
-    },
-    "repo\/default\/revision": {
-      "calculated": false,
-      "default": "",
-      "type": "string",
-      "choice": [
-
-      ],
-      "description": "",
-      "display_name": "Revision\/Branch\/Tag",
-      "required": "optional",
-      "recipes": [
-
-      ]
     }
   },
   "replacing": {

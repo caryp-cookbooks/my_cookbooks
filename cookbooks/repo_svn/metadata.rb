@@ -20,13 +20,12 @@ attribute "repo/default/provider",
 
 attribute "repo/default/repository",
   :display_name => "Repository Url",
-  :description => "The URL to subversion respository. Ex. http://svn.github.com/schacon/cowsay.git",
+  :description => "The URL to subversion repository. Ex. http://svn.github.com/schacon/cowsay.git",
   :required => "required"
   
-attribute "repo/default/revision",
+attribute "repo/default/branch",
   :display_name => "Revision/Branch/Tag",
   :description => "",
-  :default => "",
   :required => "optional"
 
 attribute "repo/default/username",
