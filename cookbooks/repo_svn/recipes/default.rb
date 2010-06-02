@@ -52,10 +52,10 @@ end
 # Setup all Subversion resources that have attributes in the node.
 node[:repo].each do |resource_name, entry| 
   if entry[:provider] == PROVIDER_NAME then
-    Chef::Log.info("Name:#{resource_name}, entry: #{entry}")
-    
+  
     url = entry[:repository]
     raise "ERROR: You did not specify a repository for repo resource named #{resource_name}." unless url
+    branch = (entry[:branch]) ? entry[:branch] : "HEAD"
     username = (entry[:username]) ? entry[:username] : ""
     password = (entry[:password]) ? entry[:password] : ""
     
@@ -63,6 +63,7 @@ node[:repo].each do |resource_name, entry|
     repo resource_name do
       provider "repo_svn"
       repository url
+      revision branch
       svn_username username
       svn_password password
       

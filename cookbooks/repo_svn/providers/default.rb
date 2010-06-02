@@ -24,32 +24,30 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 action :pull do
- 
-  Chef::Log.info "Running repo_svn::do_pull..."
-
+ 
   # setup parameters 
   password = new_resource.svn_password
-  revision = new_resource.revision
+  branch = new_resource.revision
   params = "--no-auth-cache --non-interactive"
   params << " --username #{new_resource.svn_username} --password #{password}" if "#{password}" != ""
-  params << " --revision #{revision}" if "#{revision}" != ""
+  params << " --revision #{branch}" if "#{branch}" != ""
 
   # pull repo (if exist)
-  ruby_block "pull-exsiting-local-repo" do
+  ruby_block "Pull existing Subversion repository at #{new_resource.destination}" do
     only_if do ::File.directory?(new_resource.destination) end
     block do
       Dir.chdir new_resource.destination
-      puts "Updating existing repo at #{new_resource.destination}"
-      puts `svn update #{params} #{new_resource.repository} #{new_resource.destination}` 
+      Chef::Log.info "Updating existing repo at #{new_resource.destination}"
+      Chef::Log.info `svn update #{params} #{new_resource.repository} #{new_resource.destination}` 
     end
   end
 
   # clone repo (if not exist)
-  ruby_block "create-new-local-repo" do
+  ruby_block "Checkout new Subversion repository to #{new_resource.destination}" do
     not_if do ::File.directory?(new_resource.destination) end
     block do
-      puts "Creating new repo at #{new_resource.destination}"
-      puts `svn checkout #{params} #{new_resource.repository} #{new_resource.destination}`
+      Chef::Log.info "Creating new repo at #{new_resource.destination} #{params} #{new_resource.repository}"
+      Chef::Log.info `svn checkout #{params} #{new_resource.repository} #{new_resource.destination}`
     end
   end
  

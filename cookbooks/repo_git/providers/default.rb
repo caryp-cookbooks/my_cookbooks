@@ -25,8 +25,6 @@
 
 action :pull do
  
- log "Running repo_git::do_pull..."
- 
   # add ssh key and exec script
   keyfile = nil
   keyname = new_resource.ssh_key

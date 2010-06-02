@@ -23,17 +23,11 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-ruby_block "...do some stuff here..." do
-  block do end
-end
+log "...do some stuff here..." 
 
 repo "default" do
   destination @node[:lwrp_demo][:destination]
   action :pull
 end
 
-ruby_block "...do some other stuff here..." do
-  block do end
-end
-
-
+log "...do some other stuff here..."
