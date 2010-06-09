@@ -47,5 +47,6 @@ ruby_block "reboot" do
   block do
     Chef::Log.info "Rebooting so breakpoint tag will take affect."
     `init 6`
+    sleep 1000
   end
 end
