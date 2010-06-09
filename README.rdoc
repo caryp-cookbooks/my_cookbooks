@@ -19,6 +19,6 @@ gets it's dependency on the 'repo' resource fulfilled by this injection.  Hence 
 dubbed the "Dependency Injection" pattern.  To switch between git and scm source repositories, just 
 modify the first recipe in the runlist from 'repo_git' to 'repo_svn'. Vola!
 
-These cookbooks require Chef 0.7.16
+These cookbooks require Chef 0.8.tbd
 
 cary@rightscale.com
