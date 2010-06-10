@@ -41,12 +41,13 @@ end
 
 #TODO: add a reboot count check and fail if count > 3
 
+remote_file "/root/reboot.sh" do
+  source "reboot.sh"
+  mode "0700"
+end
+
 # Reboot, if not set
-ruby_block "reboot" do
-  not_if do node[:devmode_test][:has_breakpoint] end
-  block do
-    Chef::Log.info "Rebooting so breakpoint tag will take affect."
-    `init 6`
-    sleep 1000
-  end
+execute "Rebooting so breakpoint tag will take affect." do
+  command "nohup /root/reboot.sh &"
+  not_if do node.devmode_test.has_breakpoint end
 end
