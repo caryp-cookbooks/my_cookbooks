@@ -73,6 +73,8 @@ Then /^I should create a MySQL EBS stripe on server "([^\"]*)"\.$/ do |server_in
               "DBAPPLICATION_USER" => "text:someuser", 
               "DB_MYSQLDUMP_BUCKET" => "ignore:$ignore",
               "DB_MYSQLDUMP_FILENAME" => "ignore:$ignore",
+              "AWS_ACCESS_KEY_ID" => "ignore:$ignore",
+              "AWS_SECRET_ACCESS_KEY" => "ignore:$ignore",
               "DB_SCHEMA_NAME" => "ignore:$ignore",
               "DBAPPLICATION_PASSWORD" => "text:somepass", 
               "EBS_TOTAL_VOLUME_GROUP_SIZE_GB" => "text:1",
