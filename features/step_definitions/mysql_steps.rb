@@ -71,7 +71,7 @@ Then /^I should create a MySQL EBS stripe on server "([^\"]*)"\.$/ do |server_in
               "EBS_STRIPE_COUNT" => "text:#{@stripe_count}", 
               "EBS_VOLUME_SIZE_GB" => "text:1", 
               "DBAPPLICATION_USER" => "text:someuser", 
-              "DB_MYSQLDUMP_BUCKET" => "$ignore:ignore",
+              "DB_MYSQLDUMP_BUCKET" => "ignore:$ignore",
               "DB_MYSQLDUMP_FILENAME" => "ignore:$ignore",
               "DBAPPLICATION_PASSWORD" => "text:somepass", 
               "EBS_TOTAL_VOLUME_GROUP_SIZE_GB" => "text:1",
