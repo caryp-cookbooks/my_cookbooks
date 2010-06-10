@@ -73,6 +73,7 @@ Then /^I should create a MySQL EBS stripe on server "([^\"]*)"\.$/ do |server_in
               "DBAPPLICATION_USER" => "text:someuser", 
               "DB_MYSQLDUMP_BUCKET" => "ignore:$ignore",
               "DB_MYSQLDUMP_FILENAME" => "ignore:$ignore",
+              "DB_SCHEMA_NAME" => "ignore:$ignore",
               "DBAPPLICATION_PASSWORD" => "text:somepass", 
               "EBS_TOTAL_VOLUME_GROUP_SIZE_GB" => "text:1",
               "EBS_LINEAGE" => @lineage }
