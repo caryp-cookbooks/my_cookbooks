@@ -51,3 +51,8 @@ execute "Rebooting so breakpoint tag will take affect." do
   command "nohup /root/reboot.sh &"
   not_if do node.devmode_test.has_breakpoint end
 end
+
+ruby_block "Wait for reboot" do
+  block { sleep 10000 }
+  not_if do node.devmode_test.has_breakpoint end
+end

@@ -57,5 +57,9 @@ execute "Rebooting so breakpoint tag will take affect." do
   not_if do node.devmode_test.loaded_custom_cookbooks end
 end
 
+ruby_block "Wait for reboot" do
+  block { sleep 10000 }
+  not_if do node.devmode_test.loaded_custom_cookbooks end
+end
 
 log "TODO: Check that were using local cookbook repo (somehow)"
