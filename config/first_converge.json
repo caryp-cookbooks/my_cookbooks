@@ -1,5 +1,5 @@
 { 
-  "recipes": [ "repo_git::default" ],
+  "recipes": [ "lwrp_demo::do_source_pull" ],
 
   "lwrp_demo": {
     "destination": "/tmp/lwrp_demo"
