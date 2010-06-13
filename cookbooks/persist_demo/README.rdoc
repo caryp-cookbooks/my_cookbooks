@@ -1,0 +1,28 @@
+= DESCRIPTION:
+
+A simple example using the 'persist' flag.
+
+In an emergency your ops group might want to perform an action quickly without 
+waiting for a full reconverge.  The persist flag allows the setup of complex 
+resources, like the service[apache] resource in this demo, within the node's 
+primary role/runlist. 
+
+Instead of re-converging the entire runlist, a runlist with a single 
+recipe, like "persist_demo::restart", can be run quickly while still having 
+access to persisted resources. 
+
+= USAGE:
+
+persist_demo::default installs Apache2 and persists the service[apache] 
+resource to the node using the 'persist' flag.
+
+In a separate run list, converge persist_demo::restart to restart httpd using 
+the persisted service[apache] resource.
+
+= OTHER:
+
+In addition to the above use case, the persist flag enables recipes to perform 
+actions on resources from any runlist, by name, without being tightly coupled 
+to the recipe that created the resource -- enabling the possibility for other 
+patterns of reuse and operational substitution.
+

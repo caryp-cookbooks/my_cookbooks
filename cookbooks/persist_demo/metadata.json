@@ -1,0 +1,40 @@
+{
+  "maintainer_email": "cary@rightscale.com",
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "recipes": {
+    "persist_demo::restart": "Restarts httpd using the persisted service[apache] resource.",
+    "persist_demo::default": "Installs Apache2 and persists the service[apache] resource to the node using the 'persist' flag."
+  },
+  "providing": {
+
+  },
+  "description": "Demonstrates the use of the persist resource parameter.",
+  "name": "persist_demo",
+  "replacing": {
+
+  },
+  "groupings": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\nA simple example using the 'persist' flag.\n\nIn an emergency your ops group might want to perform an action quickly without \nwaiting for a full reconverge.  The persist flag allows the setup of complex \nresources, like the service[apache] resource in this demo, within the node's \nprimary role\/runlist. \n\nInstead of re-converging the entire runlist, a runlist with a single \nrecipe, like \"persist_demo::restart\", can be run quickly while still having \naccess to persisted resources. \n\n= USAGE:\n\npersist_demo::default installs Apache2 and persists the service[apache] \nresource to the node using the 'persist' flag.\n\nIn a separate run list, converge persist_demo::restart to restart httpd using \nthe persisted service[apache] resource.\n\n= OTHER:\n\nIn addition to the above use case, the persist flag enables recipes to perform \nactions on resources from any runlist, by name, without being tightly coupled \nto the recipe that created the resource -- enabling the possibility for other \npatterns of reuse and operational substitution.\n\n",
+  "recommendations": {
+
+  },
+  "platforms": {
+
+  },
+  "version": "0.1.0",
+  "attributes": {
+
+  },
+  "maintainer": "RightScale, Inc.",
+  "suggestions": {
+
+  },
+  "license": "All rights reserved"
+}
