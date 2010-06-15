@@ -15,7 +15,7 @@
     "DNSMADEEASY_USER"            : "cred:DNSMADEEASY_TEST_USER",
     "INIT_SLAVE_AT_BOOT"          : "text:false",
     "MASTER_DB_DNSNAME"           : "text:master-ebs-stripe1.test.rightscale.com",
-    "OPT_SYS_LVM_SWAP_SIZE_IN_G"  : "50", 
+    "OPT_SYS_LVM_SWAP_SIZE_IN_G"  : "text:50", 
     "SERVER_UUID"  : "env:RS_INSTANCE_UUID", 
     "SLAVE_DB_DNSID"              : "text:4635264",
     "DB_TERMINATE_SAFETY"         : "text:off"
