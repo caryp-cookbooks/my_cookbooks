@@ -51,7 +51,7 @@ Feature: mysql 5.x v2 (beta) promote operations test image
     Then I should reboot the servers.
     Then I should wait for the servers to be operational with dns.
 # This sleep is for waiting for the slave to catch up to the master since they both reboot at once.
-    Then I should sleep 120 seconds
+    Then I should sleep 120 seconds.
     When I run a rightscript named "backup" on server "1".
     Then the rightscript should complete successfully.
 #
