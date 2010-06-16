@@ -137,4 +137,5 @@ Then /I should stop the servers\.$/ do
   @servers.each { |s| s.wait_for_state("stopped") }
 # need to unset dns ?
   @servers.each { |s| s.dns_name = "" }
+  @servers.each { |s| s.params['dns-name'] = nil }
 end

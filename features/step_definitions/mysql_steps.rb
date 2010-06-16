@@ -148,5 +148,5 @@ Then /I should stop the mysql servers\.$/ do
 
   @servers.each { |s| s.wait_for_state("stopped") }
 # unset dns in our local cached copy..
-  @servers.each { |s| s.dns_name = "" }
+  @servers.each { |s| s.params['dns-name'] = nil }
 end
