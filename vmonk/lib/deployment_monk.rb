@@ -17,7 +17,9 @@ class DeploymentMonk
   def initialize(tag, server_templates = [], extra_images = [])
     @clouds = [1,2,3,4]
     @cloud_names = { 1 => "ec2-east", 2 => "ec2-eu", 3 => "ec2-west", 4 => "ec2-ap"}
-    #@clouds = [1]
+    @instance_vars32 = { "m1.small" => "0.095", "c1.medium" => "0.19" }
+    @instance_vars64 = { "m1.large" => "0.38", "m1.xlarge" => "0.76", "m2.xlarge" => "0.57", "m2.2xlarge" => "1.34", "m2.4xlarge" => "2.68", "c1.xlarge" => "0.76" }
+    #@clouds = [1, 1, 1, 1]
     @tag = tag
     @variations = from_tag
     @server_templates = []
@@ -56,6 +58,31 @@ class DeploymentMonk
              "ec2_security_groups_href" => "https://my.rightscale.com/api/acct/2901/ec2_security_groups/126284",
              "parameters" => { "PRIVATE_SSH_KEY" => "key:publish-test-ap:4"}}
       }
+  end
+
+  # select different instance types for every server
+  def vary_instance_types
+    small_counter = 0
+    large_counter = 0
+    @variations.each do |deployment|
+      deployment.servers_no_reload.each do |server|
+        server.reload
+        server.settings
+        if server.ec2_instance_type =~ /small/ 
+          small_counter += 1
+          new_type = @instance_vars32.keys[small_counter % @instance_vars32.size]
+          server.ec2_instance_type = new_type
+          server.max_spot_price = @instance_vars32[new_type]
+        elsif server.ec2_instance_type =~ /large/
+          large_counter += 1
+          new_type = @instance_vars64.keys[large_counter % @instance_vars64.size]
+          server.ec2_instance_type = new_type
+          server.max_spot_price = @instance_vars64[new_type]
+        end
+        server.pricing = "spot"
+        server.save
+      end
+    end
   end
 
   def generate_variations
