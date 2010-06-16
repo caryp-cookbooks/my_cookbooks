@@ -71,12 +71,12 @@ class DeploymentMonk
         if server.ec2_instance_type =~ /small/ 
           small_counter += 1
           new_type = @instance_vars32.keys[small_counter % @instance_vars32.size]
-          server.params['instance-type'] = new_type
+          server.instance_type = new_type
           server.max_spot_price = @instance_vars32[new_type]
         elsif server.ec2_instance_type =~ /large/
           large_counter += 1
           new_type = @instance_vars64.keys[large_counter % @instance_vars64.size]
-          server.params['instance-type'] = new_type
+          server.instance_type = new_type
           server.max_spot_price = @instance_vars64[new_type]
         end
         server.pricing = "spot"
