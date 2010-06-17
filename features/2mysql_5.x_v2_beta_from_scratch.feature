@@ -35,6 +35,8 @@ Feature: mysql 5.x v2 (beta) promote operations test image
     When I run a rightscript named "restore" on server "1".
     Then the rightscript should complete successfully.
     Then the servers should have monitoring enabled.
+    Then I should check for errors in the mysql logfiles.
+    Then I should check that mysqltmp is setup properly.
 
 # This sleep is required for the EBS volume snapshot to settle. 
 # The sleep time can vary so if slave init fails with no snapshot, this is a likely culprit.

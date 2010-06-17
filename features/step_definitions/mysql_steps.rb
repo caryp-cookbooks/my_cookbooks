@@ -82,6 +82,17 @@ Then /^I should create a MySQL EBS stripe on server "([^\"]*)"\.$/ do |server_in
   @status = @servers[human_index].run_executable(@scripts_to_run['create_mysql_ebs_stripe'], options)
 end
 
+Then /^I should check for errors in the mysql logfiles\.$/ do
+  result = IO.read("/var/log/messages").grep(/mysqld\[.*error/i)
+  raise "Found errors in /var/log/messages! #{result}" unless result.empty?
+end
+
+Then /^I should check that mysqltmp is setup properly\.$/ do
+  query = "show variables like 'tmpdir'"
+  query_command = "echo -e \"#{query}\"| mysql"
+  @servers[human_index].spot_check(query_command) { |result| raise "Failure: tmpdir was unset#{result}" unless result.include?("/mnt/mysqltmp") }
+end
+
 Then /^I should create an EBS stripe on server "([^\"]*)"\.$/ do |server_index|
   human_index = server_index.to_i - 1
 # this needs to match the deployments inputs for lineage and stripe count.
