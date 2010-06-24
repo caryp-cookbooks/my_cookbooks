@@ -1,4 +1,4 @@
-Then /^I should run a command "([^\"]*)" on server "([^\"]*)"\.$/ do |command, server_index|
+Then /^I should run a command "([^\"]*)" on server "([^\"]*)"$/ do |command, server_index|
   human_index = server_index.to_i - 1
   @servers[human_index].spot_check(command) { |result| puts result }
 end

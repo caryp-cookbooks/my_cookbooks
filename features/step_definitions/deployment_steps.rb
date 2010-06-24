@@ -1,8 +1,9 @@
 require "rubygems"
 require "rest_connection"
 require "net/ssh"
+require "timeout"
 
-Given /A deployment./ do
+Given /A deployment/ do
   raise "FATAL:  Please set the environment variable $DEPLOYMENT" unless ENV['DEPLOYMENT']
   @all_servers = Array.new
   @all_servers_os = Array.new
@@ -37,7 +38,7 @@ Given /^with a known OS$/ do
   end
 end
 
-Given /^"([^\"]*)" operational servers./ do |num|
+Given /^"([^\"]*)" operational servers/ do |num|
   servers = @deployment.servers_no_reload
   @servers = servers.select { |s| s.nickname =~ /#{ENV['SERVER_TAG']}/ }
   # only want 2 even if we matched more than that.
@@ -74,18 +75,18 @@ Given /^"([^\"]*)" operational servers named "([^\"]*)"$/ do |num, server_name|
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
 
-Then /^I should sleep (\d+) seconds\.$/ do |seconds|
+Then /^I should sleep (\d+) seconds$/ do |seconds|
   sleep seconds.to_i
 end
 
-Then /^I should set rs_agent_dev:package to "(.*)"\.$/ do |package|
+Then /^I should set rs_agent_dev:package to "(.*)"$/ do |package|
   @deployment.servers_no_reload.each do |s|
     s.tags << {"name"=>"rs_agent_dev:package=#{package}"}
     s.save
   end
 end
 
-Then /^I should set un-set all tags on all servers in the deployment\.$/ do
+Then /^I should set un-set all tags on all servers in the deployment$/ do
   @deployment.servers_no_reload.each do |s|
     # can't unset ALL tags, so we must set a bogus one
     s.tags = [{"name"=>"removeme:now=1"}]
@@ -93,13 +94,13 @@ Then /^I should set un-set all tags on all servers in the deployment\.$/ do
   end
 end
 
-Then /^the servers should have monitoring enabled\.$/ do
+Then /^the servers should have monitoring enabled$/ do
   @servers.each do |server|
     server.monitoring
   end
 end
 
-Then /I should set a variation bucket./ do
+Then /I should set a variation bucket/ do
   bucket = "text:testingcandelete#{@deployment.href.split(/\//).last}"
   @deployment.set_input('remote_storage/default/container', bucket)
 # unset all server level inputs in the deployment to ensure use of 
@@ -108,7 +109,7 @@ Then /I should set a variation bucket./ do
     s.set_input('remote_storage/default/container', "text:")
   end
 end
-Then /I should wait for the servers to be operational with dns\.$/ do
+Then /I should wait for the servers to be operational with dns$/ do
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
 Then /all servers should go operational./ do 
@@ -118,7 +119,7 @@ Then /all servers should go operational./ do
   @servers.each { |s| s.wait_for_operational_with_dns } 
 end
 
-Then /all servers should shutdown./ do 
+Then /all servers should shutdown/ do 
   servers = @deployment.servers_no_reload
   server_tag = ENV['SERVER_TAG']
   @servers = servers.select { |s| s.nickname =~ /#{server_tag}/ }
@@ -127,12 +128,12 @@ Then /all servers should shutdown./ do
   @servers.each { |s| s.wait_for_state("terminated") } 
 end
 
-Then /I should reboot the servers\.$/ do
+Then /I should reboot the servers$/ do
   @servers.each { |s| s.reboot }
   @servers.each { |s| s.wait_for_state_change }
 end
 
-Then /I should stop the servers\.$/ do
+Then /I should stop the servers$/ do
   @servers.each { |s| s.stop }
   @servers.each { |s| s.wait_for_state("stopped") }
 # need to unset dns ?
