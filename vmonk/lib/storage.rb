@@ -1,4 +1,21 @@
 require 'dm-core'
+require 'right_aws'
+require 'sdb/active_sdb'
+require 'ruby-debug'
+
+# TEST CRED
+aws_access_key_id = "1EPVFPZVAGMQQ3YDA5G2"
+aws_secret_access_key = "nuSHnVayKx98A6A0z9HLS1Wly9K09F4CHgUaz2Y6"
+
+RightAws::ActiveSdb.establish_connection(aws_access_key_id, aws_secret_access_key)
+class SharedDns < RightAws::ActiveSdb::Base
+  def self.monkey
+    debugger
+    puts "blah"
+  end
+
+end
+
 
 sqlitedb = File.join(File.dirname(__FILE__), "..", "..", "features", "shared.db")
 puts "using #{sqlitedb}"

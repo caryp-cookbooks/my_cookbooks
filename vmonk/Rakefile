@@ -1,5 +1,6 @@
 require 'rubygems'
-require 'dm-core'
+gem 'dm-core', '~> 0.10.2'
+
 require File.join(File.dirname(__FILE__), "lib", "storage")
 
 desc "Perform automigration"

@@ -11,22 +11,59 @@ require File.join(File.dirname(__FILE__), "lib", "cuke_monk")
 class MenuMonk
   FEATURE_GLOB = File.join(File.dirname(__FILE__), "..", "**", "*.feature")
   CONFIG_DIR=File.join(File.dirname(__FILE__), "config")
+  VIEWS=File.join(File.dirname(__FILE__), "app", "views")
+
+  def initialize
+# Create a color scheme, naming color patterns with symbol names.
+    ft = HighLine::ColorScheme.new do |cs|
+            cs[:headline] = [ :bold, :yellow, :on_black ]
+            cs[:question] = [ :bold, :white, :on_blue]
+            cs[:even_row] = [ :green, :on_black ]
+            cs[:odd_row] = [ :magenta, :on_black ]
+         end
+    HighLine.color_scheme = ft
+    @cm = CukeMonk.new
+    do_dep_sets_menu
+  end
+
+  def do_dep_sets_menu
+    valid_deps = Deployment.find(:all) {|dep| DeploymentSet.all(:tag.like => dep.nickname) }
+    choose do |menu|
+      say "<%= color('Main Menu', :headline) %>"
+      menu.index = :number
+      menu.choice "Create Deployment Set" do
+        deployments_tag = ask("<%= color('Enter new deployments_tag:', :question) %>")
+        templateset = do_templates_menu
+        DeploymentSet.create(:tag => deployments_tag)
+        @dm = DeploymentMonk.new(deployments_tag, templateset.templates.map(&:id))
+      end
+      menu.choice "Find Deployment Set" do
+        deployments_tag = choose do |menu|
+          menu.index = :number
+          say "<%= color('What substring would you like to match deployments with?', :headline) %>"
+          DeploymentSet.all.each {|d| menu.choice(d.tag)}
+          menu.choice("manually enter tag") do
+            deployments_tag = ask("Enter new deployments_tag:") 
+            DeploymentSet.create(:tag => deployments_tag)
+            deployments_tag
+          end
+        end
+        begin
+          @dm = DeploymentMonk.new(deployments_tag)
+        rescue => e
+          say e
+          do_dep_sets_menu
+        end
+      end
+    end
+  end
 
   def do_templates_menu
     choose do |menu|
-      new_layout = "Templates Menu>\n1) New"
-      TemplateSet.all.each_with_index do |ts,index|
-        new_layout += "\n#{index+2})"
-        ts.templates.each do |t|
-          st = ServerTemplate.find(t.id)
-          new_layout += "\n   #{st.nickname}"
-          new_layout += " rev[#{st.version}]" unless st.is_head_version
-        end
-      end
-      new_layout += "\nPick a set of templates -or- New:"
-      menu.layout = new_layout
+      template_view = IO.read(File.join(VIEWS, "template_sets.erb"))
+      menu.layout = template_view
       menu.index = :number
-      menu.choice("New") do
+      menu.choice("create") do
         ask("what template ids? (comma separated list)",
           lambda { |str| 
             new_ts = TemplateSet.create
@@ -38,33 +75,6 @@ class MenuMonk
       end
       TemplateSet.all.each do |ts|
         menu.choice(ts)
-      end
-    end
-  end
-
-  def initialize
-    @cm = CukeMonk.new
-    choose do |menu|
-      menu.header = "Deployment Sets Menu"
-      menu.index = :number
-      menu.choice "Create" do
-        deployments_tag = ask("Enter new deployments_tag:")
-        templateset = do_templates_menu
-        DeploymentSet.create(:tag => deployments_tag)
-        @dm = DeploymentMonk.new(deployments_tag, templateset.templates.map(&:id))
-      end
-      menu.choice "Load" do
-        deployments_tag = choose do |menu|
-          menu.index = :number
-          menu.header = "What substring would you like to match deployments with?"
-          DeploymentSet.all.each {|d| menu.choice(d.tag)}
-          menu.choice("New") do
-            deployments_tag = ask("Enter new deployments_tag:") 
-            DeploymentSet.create(:tag => deployments_tag)
-            deployments_tag
-          end
-        end
-        @dm = DeploymentMonk.new(deployments_tag)
       end
     end
   end
