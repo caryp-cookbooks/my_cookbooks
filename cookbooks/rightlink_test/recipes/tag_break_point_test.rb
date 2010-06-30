@@ -41,18 +41,9 @@ end
 
 #TODO: add a reboot count check and fail if count > 3
 
-remote_file "/root/reboot.sh" do
-  source "reboot.sh"
-  mode "0700"
-end
-
 # Reboot, if not set
 execute "Rebooting so breakpoint tag will take affect." do
-  command "nohup /root/reboot.sh &"
+  command "init 6"
   not_if do node[:devmode_test][:has_breakpoint] end
 end
 
-ruby_block "Wait for reboot" do
-  block { sleep 10000 }
-  not_if do node[:devmode_test][:has_breakpoint] end
-end
