@@ -67,7 +67,7 @@ node[:repo].each do |resource_name, entry|
       svn_username username
       svn_password password
       
-      persist true      # developed by RightScale (to contribute)
+     # persist true      # developed by RightScale (to contribute)
     end
   end
 end

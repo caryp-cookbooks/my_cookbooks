@@ -55,7 +55,7 @@ node[:repo].each do |resource_name, entry|
       revision branch
       ssh_key key
       
-      persist true      # developed by RightScale (to contribute)
+      # persist true      # developed by RightScale (to contribute)
     end
   end
 end
