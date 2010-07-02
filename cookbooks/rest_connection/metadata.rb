@@ -5,6 +5,8 @@ description      "Installs/Configures rest_connection"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
+recipe "rest_connection::default","Install and configure rest_connection client"
+
 attribute "rest_connection/api/user",
   :display_name => "API Username",
   :description => "Username used to access the RigthScale API.",
