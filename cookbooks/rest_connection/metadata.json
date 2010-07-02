@@ -1,5 +1,8 @@
 {
-  "recipes": {
+  "replacing": {
+
+  },
+  "dependencies": {
 
   },
   "groupings": {
@@ -9,21 +12,18 @@
   "recommendations": {
 
   },
-  "dependencies": {
-
-  },
+  "description": "Installs\/Configures rest_connection",
   "maintainer": "RightScale, Inc.",
+  "name": "rest_connection",
   "suggestions": {
 
   },
-  "description": "Installs\/Configures rest_connection",
   "maintainer_email": "cary@rightscale.com",
-  "name": "rest_connection",
   "conflicting": {
 
   },
-  "providing": {
-
+  "recipes": {
+    "rest_connection::default": "Install and configure rest_connection client"
   },
   "platforms": {
 
@@ -38,10 +38,10 @@
       ],
       "description": "Password used to access the RigthScale API.",
       "display_name": "API Password",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/ssh\/key\/ec2_ap": {
       "calculated": false,
@@ -51,10 +51,10 @@
       ],
       "description": "SSH Key to login to server so we can run commands.",
       "display_name": "SSH Key for EC2 AP Cloud",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/ssh\/key\/ec2_west": {
       "calculated": false,
@@ -64,10 +64,10 @@
       ],
       "description": "SSH Key to login to server so we can run commands.",
       "display_name": "SSH Key for EC2 West Cloud",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/ssh\/key\/ec2_eu": {
       "calculated": false,
@@ -77,10 +77,10 @@
       ],
       "description": "SSH Key to login to server so we can run commands.",
       "display_name": "SSH Key for EC2 EU Cloud",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/ssh\/key\/ec2_east": {
       "calculated": false,
@@ -90,10 +90,10 @@
       ],
       "description": "SSH Key to login to server so we can run commands.",
       "display_name": "SSH Key for EC2 East Cloud",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/api\/url": {
       "calculated": false,
@@ -103,10 +103,10 @@
       ],
       "description": "URL used to access the RigthScale API.",
       "display_name": "API URL",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     },
     "rest_connection\/api\/user": {
       "calculated": false,
@@ -116,13 +116,13 @@
       ],
       "description": "Username used to access the RigthScale API.",
       "display_name": "API Username",
-      "required": "required",
       "recipes": [
 
-      ]
+      ],
+      "required": "required"
     }
   },
-  "replacing": {
+  "providing": {
 
   },
   "license": "All rights reserved"
