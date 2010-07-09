@@ -9,8 +9,8 @@ gems_dir: <%= @node[:languages][:ruby][:gems_dir] %>
 
 == Cloud Plugin
 provider  : <%= @node[:cloud][:provider] %>
-public_ip : <%= @node[:cloud][:public_ip][0] %>
-private_ip: <%= @node[:cloud][:private_ip][0] %>
+public_ip : <%= @node[:cloud][:public_ips][0] %>
+private_ip: <%= @node[:cloud][:private_ips][0] %>
 
 
 
