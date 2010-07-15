@@ -14,7 +14,13 @@ define :wait_for_tag, :collection_name => nil, :should_exist => true, :timeout =
     
       resrc = Chef::Resource::ServerCollection.new(collection)
       resrc.tags tag
-      provider = Chef::Provider::ServerCollection.new(node, resrc)
+      provider = nil
+      
+      if (Chef::VERSION =~ /0\.9/) # provider signature changed in Chef 0.9
+        provider = Chef::Provider::ServerCollection.new(resrc, @run_context)
+      else 
+        provider = Chef::Provider::ServerCollection.new(node, resrc)
+      end
       
       done = false
       begin
