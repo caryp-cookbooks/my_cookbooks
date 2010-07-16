@@ -13,8 +13,8 @@ provider  : <%= @node[:cloud][:provider] %>
 public_ip : <%= @node[:cloud][:public_ips][0] %>
 private_ip: <%= @node[:cloud][:private_ips][0] %>
 <% else %>
-public_ip : <%= @node[:cloud][:public_ips][0] %>
-private_ip: <%= @node[:cloud][:private_ips][0] %>
+public_ip : <%= @node[:cloud][:public_ip][0] %>
+private_ip: <%= @node[:cloud][:private_ip][0] %>
 <% end %>
 
 
