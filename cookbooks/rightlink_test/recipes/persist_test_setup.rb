@@ -13,5 +13,6 @@ template "persist_test" do
   path node.persist_test.path
   source "persist_test.erb"
   action :nothing
+  persist true
 end
 
