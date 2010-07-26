@@ -18,8 +18,6 @@ recipe "rightlink_test::resource_remote_recipe_setup","Tags a server as a ping r
 recipe "rightlink_test::tag_cookbook_path_test","Copies this repo to a local dir, sets the cookbook_path tag, and reboots server."
 recipe "rightlink_test::state_test_setup","Overwrites default attribute the first time run. This can be boot or op script."
 recipe "rightlink_test::state_test_check_value","Verifies attribute setup in state_test_setup was persisted. This should be run as an operational script."
+recipe "rightlink_test::persist_test_setup","Persists a resource to file for use in a separate converge. This can be boot or op script."
+recipe "rightlink_test::persist_test_check_value","Verifies resource created in persist_test_setup was persisted. This should be run as an operational script."
 
-attribute "state_test/value",
-  :display_name => "State Test Value",
-  :desription => "The default value for the attribute used in the state test recipes.",
-  :recipes => [ "rightlink_test::state_test_setup" ]
