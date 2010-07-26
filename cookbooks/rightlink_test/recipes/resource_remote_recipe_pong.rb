@@ -14,7 +14,7 @@ log "PONG!"
 template LOGFILE do
   backup 100
   source "pingpong.erb"
-  variables ( 
+  variables( 
     :ping_type => "PONG", 
     :from => @node[:remote_recipe][:from],
     :tags => @node[:remote_recipe][:tags] )
