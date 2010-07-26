@@ -25,12 +25,12 @@
   "recipes": {
     "rightlink_test::state_test_check_value": "Verifies attribute setup in state_test_setup was persisted. This should be run as an operational script.",
     "rightlink_test::resource_remote_recipe_ping": "Called by resource_remote_recipe_test_start -- Add as a operational script.",
-    "rightlink_test::persist_test_check_value": "Verifies resource created in persist_test_setup was persisted. This should be run as an operational script.",
     "rightlink_test::tag_break_point_test": "Add a breakpoint at tag_break_point_test_should_never_run recipe and reboots server.",
     "rightlink_test::core_env_test": "Verifies all require rightscale environment variables are available in the Chef node.",
     "rightlink_test::tag_break_point_test_should_never_run": "Used by tag_break_point_test. This must be the last boot script in your template.",
     "rightlink_test::resource_remote_recipe_test_start": "Starts the remote_recipe 'ping-pong' test.  This must be run as an operational script (or you will get stuck in an endless loop)",
     "rightlink_test::persist_test_setup": "Persists a resource to file for use in a separate converge. This can be boot or op script.",
+    "rightlink_test::persist_test_check": "Verifies resource created in persist_test_setup was persisted. This should be run as an operational script.",
     "rightlink_test::ohai_plugin_test": "Verifies all custom ohai plugin values are available in the Chef node.",
     "rightlink_test::resource_server_collection_test": "Tests the ability to query tags on the local server.",
     "rightlink_test::resource_remote_recipe_pong": "Called by resource_remote_recipe_test_start -- Add as a operational script.",
