@@ -20,4 +20,5 @@ recipe "rightlink_test::state_test_setup","Overwrites default attribute the firs
 recipe "rightlink_test::state_test_check_value","Verifies attribute setup in state_test_setup was persisted. This should be run as an operational script."
 recipe "rightlink_test::persist_test_setup","Persists a resource to file for use in a separate converge. This can be boot or op script."
 recipe "rightlink_test::persist_test_check","Verifies resource created in persist_test_setup was persisted. This should be run as an operational script."
+recipe "rightlink_test::ruby_warning_test","Generate a ruby warning. Recipe should not fail.  Recommend running as boot script."
 

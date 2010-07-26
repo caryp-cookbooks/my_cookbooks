@@ -37,7 +37,8 @@
     "rightlink_test::state_test_setup": "Overwrites default attribute the first time run. This can be boot or op script.",
     "rightlink_test::resource_right_link_tag_test": "Test the ability to add and remove tags.",
     "rightlink_test::tag_cookbook_path_test": "Copies this repo to a local dir, sets the cookbook_path tag, and reboots server.",
-    "rightlink_test::resource_remote_recipe_setup": "Tags a server as a ping receiver.  Any server with this tag needs resource_remote_recipe_ping & resource_remote_recipe_pong as operational scripts."
+    "rightlink_test::resource_remote_recipe_setup": "Tags a server as a ping receiver.  Any server with this tag needs resource_remote_recipe_ping & resource_remote_recipe_pong as operational scripts.",
+    "rightlink_test::ruby_warning_test": "Generate a ruby warning. Recipe should not fail.  Recommend running as boot script."
   },
   "platforms": {
 
