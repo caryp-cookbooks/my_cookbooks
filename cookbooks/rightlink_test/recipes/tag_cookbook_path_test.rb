@@ -4,6 +4,8 @@ TAG = "rs_agent_dev:cookbooks_path=#{COOKBOOK_PATH}/cookbooks"
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 
+log "============ tag_cookbook_path_test =============="
+
 log "Add our instance UUID as a tag: #{UUID_TAG}"
 right_link_tag UUID_TAG
 

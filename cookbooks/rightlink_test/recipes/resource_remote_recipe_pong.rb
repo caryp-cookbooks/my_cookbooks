@@ -1,11 +1,13 @@
 #
-# Cookbook Name:: remote_recipe
-# Recipe:: ping
+# Cookbook Name:: rightlink_test
+# Recipe:: remote_recipe_pong
 #
 # Copyright 2009, RightScale, Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
+log "============ remote_recipe_pong =============="
+
 LOGFILE = "/tmp/pong.log"
 
 log "PONG!"

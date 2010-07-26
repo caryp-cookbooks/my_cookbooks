@@ -1,11 +1,13 @@
 #
-# Cookbook Name:: remote_recipe
-# Recipe:: ping
+# Cookbook Name:: rightlink_test
+# Recipe:: remote_recipe_ping
 #
 # Copyright 2009, RightScale, Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
+log "============ remote_recipe_ping =============="
+
 LOG_FILE = "/tmp/ping.log"
 
 log "PING!"
@@ -13,7 +15,7 @@ log "PING!"
 # touch file
 template LOG_FILE do
   source "pingpong.erb"
-  variables ( 
+  variables( 
     :ping_type => "PING", 
     :from => @node[:remote_recipe][:from],
     :tags => @node[:remote_recipe][:tags] )

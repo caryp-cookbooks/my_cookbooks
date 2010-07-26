@@ -6,6 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+log "============ remote_recipe_setup =============="
+
 TAG = "test:ping=reciever"
 log "Tag server as ping reciever. Tag: #{TAG}"
 

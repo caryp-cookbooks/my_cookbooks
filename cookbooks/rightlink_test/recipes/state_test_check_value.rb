@@ -1,3 +1,14 @@
+#
+# Cookbook Name:: rightlink_test
+# Recipe:: state_test_check_value
+#
+# Copyright 2010, RightScale, Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
+
+log "============ state_test_check_value =============="
+
 ruby_block "check value" do
   block do
     expected = "recipe"

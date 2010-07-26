@@ -2,6 +2,8 @@ TAG = "rs_agent_dev:break_point=rightlink_test::tag_break_point_test_should_neve
 UUID = node[:rightscale][:instance_uuid]
 UUID_TAG = "rs_instance:uuid=#{UUID}"
 
+log "============ tag_break_point_test =============="
+
 log "Add our instance UUID as a tag: #{UUID_TAG}"
 right_link_tag UUID_TAG
 

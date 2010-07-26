@@ -1,11 +1,13 @@
 #
-# Cookbook Name:: state_test
-# Recipe:: default
+# Cookbook Name:: rightlink_test
+# Recipe:: state_test_setup
 #
 # Copyright 2010, RightScale, Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
+
+log "============ state_test_setup =============="
 
 FILENAME = "state_test.txt"
 TEST_DIR = ::File.join(::File::SEPARATOR, "var", "cache", "rightscale", "test")
