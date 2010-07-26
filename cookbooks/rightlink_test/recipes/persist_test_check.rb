@@ -6,10 +6,11 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+return true if Chef::VERSION > "0.8.16" 
 
 # This should be run as an operational script
 # make sure you have rightlink_test::persist_test_setup in your boot scripts list
-
+  
 # Call the create action on a resourse persisted to disk in the boot scripts 
 template "persist_test" do
   action :create

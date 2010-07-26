@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+return true if Chef::VERSION > "0.8.16" 
 
 # Create this resource, but don't do anything yet
 # Just persist for persist_test_check to use within an operational script
