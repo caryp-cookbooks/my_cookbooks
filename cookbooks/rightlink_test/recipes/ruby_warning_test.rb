@@ -14,7 +14,7 @@ log "============ ruby_warning_test =============="
 puts ("warn outside a resource")  # spaces between method calls and parens creates a warning
 
 ruby_block "warn_test" do
-  code do
+  block do
     puts ("warn inside a resource")  # spaces between method calls and parens creates a warning
   end
 end
