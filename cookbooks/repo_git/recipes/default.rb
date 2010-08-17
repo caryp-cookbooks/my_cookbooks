@@ -23,7 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-PROVIDER_NAME = "repo_git"  # grab this from cookbook directory name
+PROVIDER_NAME = "repo_git"  
 
 unless node[:platform] == "mac_os_x" then
   # Install git client
@@ -47,6 +47,7 @@ node[:repo].each do |resource_name, entry|
     raise "ERROR: You did not specify a repository for repo resource named #{resource_name}." unless url
     branch = (entry[:branch]) ? entry[:branch] : "master"
     key = (entry[:ssh_key]) ? entry[:ssh_key] : ""
+    submodule = (entry[:enable_submodules] == "true") ? true : false
 
     # Setup git client
     repo resource_name do
@@ -54,7 +55,7 @@ node[:repo].each do |resource_name, entry|
       repository url
       revision branch
       ssh_key key
-      
+      enable_submodules submodule      
       # persist true      # developed by RightScale (to contribute)
     end
   end
