@@ -10,13 +10,13 @@
 [ "event_machine", "resat", "json", "right_popen", "rest_connection" ].each { |p| gem_package p }
 
 repo "right_image_builder" do
-  destination "~/right_image_builder"
-  :pull
+  destination "/root/right_image_builder"
+  action :pull
 end
 
 repo "image_sandbox" do
-  destination "~/sandbox_builds"
-  :pull
+  destination "/root/sandbox_builds"
+  action :pull
 end
 
 
