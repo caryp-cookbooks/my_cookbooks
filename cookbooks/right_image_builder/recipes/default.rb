@@ -8,7 +8,7 @@
 #
 include_recipe "repo_git::default"
 
-[ "event_machine", "resat", "json", "right_popen", "rest_connection" ].each { |p| gem_package p }
+[ "rspec", "flexmock", "event_machine", "resat", "json", "right_popen", "rest_connection" ].each { |p| gem_package p }
 
 repo "right_image_builder" do
   destination "/root/right_image_builder"
