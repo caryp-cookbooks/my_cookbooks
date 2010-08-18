@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe "repo_git::default"
 
 [ "event_machine", "resat", "json", "right_popen", "rest_connection" ].each { |p| gem_package p }
 
