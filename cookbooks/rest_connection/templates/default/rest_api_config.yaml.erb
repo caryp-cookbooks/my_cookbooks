@@ -4,7 +4,7 @@
 :api_url: <%= @node[:rest_connection][:api][:url] %>
 :ssh_key: 
 <% @keys.each do |key| %>
-- <%= key %>
+- /root/.ssh/<%= key %>
 <% end %>
 :common_headers: 
   X_API_VERSION: "1.0"

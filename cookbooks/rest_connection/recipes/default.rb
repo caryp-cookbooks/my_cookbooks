@@ -22,8 +22,8 @@ end
 
 # Configure rest_connection
 ssh_keys = Array.new
-node[:rest_connection][:ssh][:key].values do |kval|
-  ssh_keys << "- #{kval}"
+node[:rest_connection][:ssh][:key].keys.each do |kval|
+  ssh_keys << kval
 end
 
 directory "#{node[:test][:path][:src]}/.rest_connection"
