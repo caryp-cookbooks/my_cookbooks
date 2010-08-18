@@ -24,6 +24,7 @@ end
 ssh_keys = Array.new
 node[:rest_connection][:ssh][:key].keys.each do |kval|
   ssh_keys << kval
+  `echo "#{node[:rest_connection][:ssh][:key][kval]}" > /root/.ssh/#{kval}`
 end
 
 directory "#{node[:test][:path][:src]}/.rest_connection"
