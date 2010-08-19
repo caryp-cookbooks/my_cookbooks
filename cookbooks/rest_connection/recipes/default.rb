@@ -22,14 +22,15 @@ end
 
 # Configure rest_connection
 ssh_keys = Array.new
+ssh_dir="/root/.ssh"
+`echo "StrictHostKeyChecking no" >> #{ssh_dir}/config`
+`echo "UserKnownHostsFile=/dev/null" >> #{ssh_dir}/config`
+`rm -f #{ssh_dir}/known_hosts`
+
 node[:rest_connection][:ssh][:key].keys.each do |kval|
   ssh_keys << kval
-  ssh_dir="/root/.ssh"
   `echo "#{node[:rest_connection][:ssh][:key][kval]}" > #{ssh_dir}/#{kval}`
   `chmod 600 #{ssh_dir}/#{kval}`
-  `echo "StrictHostKeyChecking no" >> #{ssh_dir}/config`
-  `echo "UserKnownHostsFile=/dev/null" >> #{ssh_dir}/config`
-  `rm -f #{ssh_dir}/known_hosts`
 end
 
 directory "#{node[:test][:path][:src]}/.rest_connection"
