@@ -24,8 +24,12 @@ end
 ssh_keys = Array.new
 node[:rest_connection][:ssh][:key].keys.each do |kval|
   ssh_keys << kval
-  `echo "#{node[:rest_connection][:ssh][:key][kval]}" > /root/.ssh/#{kval}`
-  `chmod 600 /root/.ssh/#{kval}`
+  ssh_dir="/root/.ssh"
+  `echo "#{node[:rest_connection][:ssh][:key][kval]}" > #{ssh_dir}/#{kval}`
+  `chmod 600 #{ssh_dir}/#{kval}`
+  `echo "StrictHostKeyChecking no" >> #{ssh_dir}/config`
+  `echo "UserKnownHostsFile=/dev/null" >> #{ssh_dir}/config`
+  `rm -f #{ssh_dir}/known_hosts`
 end
 
 directory "#{node[:test][:path][:src]}/.rest_connection"
