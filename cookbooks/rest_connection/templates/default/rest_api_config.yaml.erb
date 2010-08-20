@@ -2,7 +2,7 @@
 :pass: <%= @node[:rest_connection][:api][:password] %>
 :user: <%= @node[:rest_connection][:api][:user] %>
 :api_url: <%= @node[:rest_connection][:api][:url] %>
-:ssh_key: 
+:ssh_keys: 
 <% @keys.each do |key| %>
 - /root/.ssh/<%= key %>
 <% end %>
