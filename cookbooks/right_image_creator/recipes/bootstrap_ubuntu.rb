@@ -99,7 +99,10 @@ EOH
 end
 
 if node[:right_image_creator][:release] == "lucid" 
-  
+
+  # Fix apt config so it does not install all recommended packages
+  log "Fixing apt.conf APT::Install-Recommends setting prior to installing Java"
+   
   log "Installing Sun Java for Lucid..."
 
   guest_java_install = "/tmp/java_install"
@@ -114,6 +117,9 @@ if node[:right_image_creator][:release] == "lucid"
 #!/bin/bash
 set -e
 set -x
+
+echo "Setting APT::Install-Recommends to false"
+echo "APT::Install-Recommends \"0\";" > /etc/apt/apt.conf
 
 cp /etc/apt/sources.list /etc/apt/sources.java.sav
 echo "deb http://archive.canonical.com/ lucid partner" >> /etc/apt/sources.list
@@ -153,7 +159,4 @@ EOS
     EOH
   end
 end
-
-
-
 
