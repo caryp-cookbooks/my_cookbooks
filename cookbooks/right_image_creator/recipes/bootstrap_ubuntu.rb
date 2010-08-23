@@ -81,7 +81,7 @@ EOS
     else
       image_name="root.img"
     fi
-    random_dir=/tmp/right_image_creator-$RANDOM
+    random_dir=/tmp/rightimage-$RANDOM
     mkdir $random_dir
     mount -o loop /mnt/vmbuilder/$image_name  $random_dir
     umount #{node[:right_image_creator][:mount_dir]}/proc || true

@@ -10,7 +10,7 @@ end
 
 
 bash "install_runrightscripts" do 
-  not_if "test -e #{node[:right_image_creator][:mount_dir]}/etc/init.d/right_image_creator"
+  not_if "test -e #{node[:right_image_creator][:mount_dir]}/etc/init.d/rightimage"
   code <<-EOC
     set -e 
     set -x

@@ -47,11 +47,11 @@ CHROOT_SCRIPT
 end
 
 bash "install_rightlink" do 
-  not_if "test -e #{node[:right_image_creator][:mount_dir]}/etc/init.d/right_image_creator"
+  not_if "test -e #{node[:right_image_creator][:mount_dir]}/etc/init.d/rightimage"
   code <<-EOC
     set -e
     rm -rf #{node[:right_image_creator][:mount_dir]}/opt/rightscale/
-    install #{node[:right_image_creator][:mount_dir]}/tmp/sandbox_builds/seed_scripts/right_image_creator  #{node[:right_image_creator][:mount_dir]}/etc/init.d/right_image_creator --mode=0755
+    install #{node[:right_image_creator][:mount_dir]}/tmp/sandbox_builds/seed_scripts/rightimage  #{node[:right_image_creator][:mount_dir]}/etc/init.d/rightimage --mode=0755
 
     mkdir -p #{node[:right_image_creator][:mount_dir]}/root/.rightscale
     cp #{node[:right_image_creator][:mount_dir]}/tmp/sandbox_builds/dist/* #{node[:right_image_creator][:mount_dir]}/root/.rightscale
@@ -59,9 +59,9 @@ bash "install_rightlink" do
     chmod 0440 #{node[:right_image_creator][:mount_dir]}/root/.rightscale/*
 
     if [ "#{node[:right_image_creator][:platform]}" == "ubuntu" ]; then
-      chroot #{node[:right_image_creator][:mount_dir]} update-rc.d right_image_creator start 96 2 3 4 5 . stop 1 0 1 6 .
+      chroot #{node[:right_image_creator][:mount_dir]} update-rc.d rightimage start 96 2 3 4 5 . stop 1 0 1 6 .
     else
-      chroot #{node[:right_image_creator][:mount_dir]} chkconfig --add right_image_creator
+      chroot #{node[:right_image_creator][:mount_dir]} chkconfig --add rightimage
     fi
 
   EOC
