@@ -15,6 +15,12 @@ TAG_COUNT.times do |n|
   
 end
 
+ruby_block "let consistency happen eventually" do
+  block do
+    sleep 60
+  end
+end
+
 server_collection COLLECTION_NAME do
   tags [ TAG ]
 end
