@@ -1,0 +1,12 @@
+<%= node[:rightimage][:root_mount] %>  /         ext3    defaults        0 0
+<%= node[:rightimage][:ephemeral_mount] %>   /mnt      ext3    defaults        0 0
+<% if @node[:rightimage][:swap_mount] -%>
+<%= node[:rightimage][:swap_mount] %>  swap      swap    defaults        0 0
+<% end -%>
+<% if @node[:rightimage][:platform] == "centos" -%>
+none       /dev/pts  devpts  gid=5,mode=620  0 0
+none       /dev/shm  tmpfs   defaults        0 0
+<% end -%>
+none       /proc     proc    defaults        0 0
+none       /sys      sysfs   defaults        0 0
+

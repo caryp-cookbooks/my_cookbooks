@@ -1,0 +1,9 @@
+#!/bin/bash -ex 
+
+cd $(dirname $0)
+dirname=$(basename $(pwd))
+updirname=$(basename $(dirname $(pwd)))
+tarname=${dirname}.tgz
+cd ../..
+tar -czvf $tarname ./$updirname/$dirname/.
+mv $tarname  $HOME/Dropbox/Public/cookbooks/.

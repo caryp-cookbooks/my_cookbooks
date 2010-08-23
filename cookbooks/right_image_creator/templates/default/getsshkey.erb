@@ -1,0 +1,79 @@
+#!/bin/bash
+# chkconfig: 4 11 11
+# description: Query the EC2 metadata server for trusted SSH keys and write \
+#   them to root's authorized_keys file
+#
+
+start() {
+  if [ ! -d /root/.ssh ] ; then
+          mkdir -p /root/.ssh
+          chmod 700 /root/.ssh
+  fi
+  
+  touch /root/.ssh/authorized_keys
+  chmod 600 /root/.ssh/authorized_keys  
+
+  echo -n "Fetching list of trusted keys from metadata server..."
+  key_list=`curl -s -L -f http://169.254.169.254/2009-04-04/meta-data/public-keys/`
+  code=$?
+  while [ $code -ne 0 ]; do
+    key_list=`curl -s -L -f http://169.254.169.254/latest/meta-data/public-keys/`
+    code=$?
+    if [ $code -ne 0 ]; then sleep 1; fi
+  done
+  echo "done"
+
+  # Parse each key's name and fetch it
+  for pair in $key_list; do
+    key_index=`expr "$pair" : '\([0-9]*\)=.*'`
+    key_name=`expr "$pair" : '[0-9]*=\(.*\)'`
+
+    echo -n "Fetching public key $key_name from metadata server..."
+    code=`curl -s -L -w '%{http_code}' -o "/root/.ssh/${key_name}.pub" "http://169.254.169.254/2009-04-04/meta-data/public-keys/${key_index}/openssh-key"`
+    while [ $code -ge 500 ]; do
+      code=`curl -s -L -w '%{http_code}' -o "/root/.ssh/${key_name}.pub" "http://169.254.169.254/latest/meta-data/public-keys/${key_index}/openssh-key"`
+    if [ $code -ge 500 ]; then sleep 1; fi
+    done
+    echo "done"
+
+    if [ $code -ge 200 -a $code -lt 300 ]; then
+	  grep -q -f /root/.ssh/${key_name}.pub /root/.ssh/authorized_keys
+	  if [ $? -ne 0 ]; then
+  		#Only append key to authorized_keys if it wasn't already there
+       	cat "/root/.ssh/${key_name}.pub" >> /root/.ssh/authorized_keys
+	  fi
+    else
+      rm "/root/.ssh/${key_name}.pub"
+    fi
+
+  done
+}
+
+stop() {
+  echo "Nothing to do here"
+}
+
+restart() {
+  stop
+  start
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop}"
+    exit 1
+esac
+
+exit $?
+
+

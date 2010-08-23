@@ -1,0 +1,9 @@
+{
+  "rightimage": {
+    "platform": "ubuntu",
+    "release" : "karmic",
+    "arch"    : "i386"
+  },
+  "recipes": [ "rightimage" ]
+}
+ 
