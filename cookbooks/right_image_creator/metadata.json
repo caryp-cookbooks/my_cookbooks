@@ -14,7 +14,7 @@
   },
   "description": "image building tools",
   "maintainer": "RightScale, Inc.",
-  "name": "rightimage",
+  "name": "right_image_creator",
   "suggestions": {
 
   },
@@ -23,22 +23,22 @@
 
   },
   "recipes": {
-    "rightimage::bootstrap_ubuntu": "bootstraps a basic ubuntu image",
-    "rightimage::do_ec2": "migrates the created image to ec2",
-    "rightimage::default": "build image based on host platform",
-    "rightimage::do_centos": "coordinate a centos install",
-    "rightimage::install_rightscale": "installs rightscale",
-    "rightimage::bootstrap_centos": "bootstraps a basic centos image",
-    "rightimage::do_euca": "migrates the created image to eucalyptus",
-    "rightimage::do_ubuntu": "coordinate an ubuntu install",
-    "rightimage::clean": "cleans everything"
+    "right_image_creator::bootstrap_ubuntu": "bootstraps a basic ubuntu image",
+    "right_image_creator::do_ec2": "migrates the created image to ec2",
+    "right_image_creator::default": "build image based on host platform",
+    "right_image_creator::do_centos": "coordinate a centos install",
+    "right_image_creator::install_rightscale": "installs rightscale",
+    "right_image_creator::bootstrap_centos": "bootstraps a basic centos image",
+    "right_image_creator::do_euca": "migrates the created image to eucalyptus",
+    "right_image_creator::do_ubuntu": "coordinate an ubuntu install",
+    "right_image_creator::clean": "cleans everything"
   },
   "platforms": {
 
   },
   "version": "0.0.1",
   "attributes": {
-    "rightimage\/euca\/x509_key_admin": {
+    "right_image_creator\/euca\/x509_key_admin": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -47,11 +47,11 @@
       "description": "x509 key for the admin acct",
       "display_name": "x509 key admin",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/x509_cert": {
+    "right_image_creator\/euca\/x509_cert": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -60,11 +60,11 @@
       "description": "x509 cert ",
       "display_name": "x509 cert ",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/x509_key": {
+    "right_image_creator\/euca\/x509_key": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -73,11 +73,11 @@
       "description": "x509 key ",
       "display_name": "x509 key ",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/user_admin": {
+    "right_image_creator\/euca\/user_admin": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -86,11 +86,11 @@
       "description": "euca user for the admin acct",
       "display_name": "euca user admin",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/aws_509_cert": {
+    "right_image_creator\/aws_509_cert": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -99,15 +99,15 @@
       "description": "aws_509_cert",
       "display_name": "aws_509_cert",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/aws_secret_access_key": {
+    "right_image_creator\/aws_secret_access_key": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -116,15 +116,15 @@
       "description": "aws_secret_access_key",
       "display_name": "aws_secret_access_key",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/image_name_override": {
+    "right_image_creator\/image_name_override": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -133,13 +133,13 @@
       "description": "The image name is created automaticaaly.  Set this value if you want to override the default image name.",
       "display_name": "Image Name Override",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::default"
       ],
       "required": "optional"
     },
-    "rightimage\/image_postfix": {
+    "right_image_creator\/image_postfix": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -148,15 +148,15 @@
       "description": "an optional postfix for the image name",
       "display_name": "image_postfix",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "optional"
     },
-    "rightimage\/release": {
+    "right_image_creator\/release": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -169,7 +169,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/aws_secret_access_key_for_upload": {
+    "right_image_creator\/aws_secret_access_key_for_upload": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -178,15 +178,15 @@
       "description": "aws_secret_access_key_for_upload",
       "display_name": "aws_secret_access_key_for_upload",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/euca_cert": {
+    "right_image_creator\/euca\/euca_cert": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -195,11 +195,11 @@
       "description": "euca cert",
       "display_name": "euca cert",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/walrus_url": {
+    "right_image_creator\/euca\/walrus_url": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -208,11 +208,11 @@
       "description": "walrus url",
       "display_name": "walrus url",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/git_repo": {
+    "right_image_creator\/git_repo": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -225,7 +225,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/euca\/access_key_id": {
+    "right_image_creator\/euca\/access_key_id": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -234,11 +234,11 @@
       "description": "access key id",
       "display_name": "access key id",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/aws_509_key": {
+    "right_image_creator\/aws_509_key": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -247,15 +247,15 @@
       "description": "aws_509_key",
       "display_name": "aws_509_key",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/cloud": {
+    "right_image_creator\/cloud": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -268,7 +268,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/euca\/secret_access_key": {
+    "right_image_creator\/euca\/secret_access_key": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -277,11 +277,11 @@
       "description": "secret access key",
       "display_name": "secret access key",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/user": {
+    "right_image_creator\/euca\/user": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -290,11 +290,11 @@
       "description": "euca user",
       "display_name": "euca user",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/aws_account_number": {
+    "right_image_creator\/aws_account_number": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -303,15 +303,15 @@
       "description": "aws_account_number",
       "display_name": "aws_account_number",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/rightscale_release": {
+    "right_image_creator\/rightscale_release": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -324,7 +324,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/euca\/secret_access_key_admin": {
+    "right_image_creator\/euca\/secret_access_key_admin": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -333,11 +333,11 @@
       "description": "secret access key for the admin acct",
       "display_name": "secret access key admin",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/aws_access_key_id_for_upload": {
+    "right_image_creator\/aws_access_key_id_for_upload": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -346,15 +346,15 @@
       "description": "aws_access_key_id for the uplaod bucket",
       "display_name": "aws_access_key_id_for_upload",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/platform": {
+    "right_image_creator\/platform": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -367,7 +367,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/euca\/euca_url": {
+    "right_image_creator\/euca\/euca_url": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -376,11 +376,11 @@
       "description": "euca url",
       "display_name": "euca url",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/aws_access_key_id": {
+    "right_image_creator\/aws_access_key_id": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -389,15 +389,15 @@
       "description": "aws_access_key_id",
       "display_name": "aws_access_key_id",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/region": {
+    "right_image_creator\/region": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -410,7 +410,7 @@
       ],
       "required": "required"
     },
-    "rightimage\/image_upload_bucket": {
+    "right_image_creator\/image_upload_bucket": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -419,15 +419,15 @@
       "description": "the bucket to upload the image to",
       "display_name": "image_upload_bucket",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/x509_cert_admin": {
+    "right_image_creator\/euca\/x509_cert_admin": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -436,11 +436,11 @@
       "description": "x509 cert for the admin acct",
       "display_name": "x509 cert admin",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/euca\/access_key_id_admin": {
+    "right_image_creator\/euca\/access_key_id_admin": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -449,11 +449,11 @@
       "description": "access key id for admin acct",
       "display_name": "access key id admin acct",
       "recipes": [
-        "rightimage::do_euca"
+        "right_image_creator::do_euca"
       ],
       "required": "required"
     },
-    "rightimage\/image_prefix": {
+    "right_image_creator\/image_prefix": {
       "calculated": false,
       "type": "string",
       "choice": [
@@ -462,15 +462,15 @@
       "description": "an optional prefix for the image name",
       "display_name": "image_prefix",
       "recipes": [
-        "rightimage::do_euca",
-        "rightimage::do_ec2",
-        "rightimage::do_centos",
-        "rightimage::do_ubuntu",
-        "rightimage::default"
+        "right_image_creator::do_euca",
+        "right_image_creator::do_ec2",
+        "right_image_creator::do_centos",
+        "right_image_creator::do_ubuntu",
+        "right_image_creator::default"
       ],
       "required": "optional"
     },
-    "rightimage\/arch": {
+    "right_image_creator\/arch": {
       "calculated": false,
       "type": "string",
       "choice": [

@@ -1,6 +1,6 @@
-mount_dir = node[:rightimage][:mount_dir]
-package_release_version = node[:rightimage][:rightscale_release]
-target_platform = node[:rightimage][:platform]
+mount_dir = node[:right_image_creator][:mount_dir]
+package_release_version = node[:right_image_creator][:rightscale_release]
+target_platform = node[:right_image_creator][:platform]
 
 remote_file "#{mount_dir}/etc/init.d/righthostname" do
   mode "0755"
@@ -10,7 +10,7 @@ end
 
 
 bash "install_runrightscripts" do 
-  not_if "test -e #{node[:rightimage][:mount_dir]}/etc/init.d/rightimage"
+  not_if "test -e #{node[:right_image_creator][:mount_dir]}/etc/init.d/right_image_creator"
   code <<-EOC
     set -e 
     set -x
@@ -28,6 +28,6 @@ bash "install_runrightscripts" do
     fi  
     chroot #{mount_dir} ln -f /opt/rightscale/etc/motd /etc/motd
     echo v#{package_release_version} > #{mount_dir}/etc/rightscale-release
-    echo #{node[:rightimage][:cloud]} > /etc/rightscale.d/cloud
+    echo #{node[:right_image_creator][:cloud]} > /etc/rightscale.d/cloud
   EOC
 end

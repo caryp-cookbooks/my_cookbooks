@@ -1,27 +1,27 @@
-mount_dir = node[:rightimage][:mount_dir]
+mount_dir = node[:right_image_creator][:mount_dir]
 
 #install prereq packages
-node[:rightimage][:host_packages].split.each { |p| package p} 
+node[:right_image_creator][:host_packages].split.each { |p| package p} 
 
 
 #create bootstrap command
-case node[:rightimage][:platform]
+case node[:right_image_creator][:platform]
   when "ubuntu"
-    bootstrap_cmd = "/usr/bin/vmbuilder  #{node[:rightimage][:virtual_environment]} ubuntu -o \
-        --suite=#{node[:rightimage][:release]} \
-        -d #{node[:rightimage][:build_dir]} \
-        --rootsize=#{node[:rightimage][:root_size]} \
+    bootstrap_cmd = "/usr/bin/vmbuilder  #{node[:right_image_creator][:virtual_environment]} ubuntu -o \
+        --suite=#{node[:right_image_creator][:release]} \
+        -d #{node[:right_image_creator][:build_dir]} \
+        --rootsize=#{node[:right_image_creator][:root_size]} \
         --install-mirror=http://mirror.rightscale.com/ubuntu \
         --install-security-mirror=http://mirror.rightscale.com/ubuntu \
         --components=main,restricted,universe,multiverse \
-        --lang=#{node[:rightimage][:lang]} "
-    if node[:rightimage][:arch] == "i386"
+        --lang=#{node[:right_image_creator][:lang]} "
+    if node[:right_image_creator][:arch] == "i386"
       bootstrap_cmd << " --arch i386"
       bootstrap_cmd << " --addpkg libc6-xen"
     else
       bootstrap_cmd << " --arch amd64"
     end
-    node[:rightimage][:guest_packages].split.each { |p| bootstrap_cmd << " --addpkg " + p} 
+    node[:right_image_creator][:guest_packages].split.each { |p| bootstrap_cmd << " --addpkg " + p} 
 
 puts "bootstrap_cmd = " + bootstrap_cmd
   else 
@@ -41,7 +41,7 @@ bash "configure_image"  do
     set -e
     set -x
 
-    if [ "#{node[:rightimage][:release]}" == "hardy" ]; then
+    if [ "#{node[:right_image_creator][:release]}" == "hardy" ]; then
       locale-gen en_US.UTF-8
       export LANG=en_US.UTF-8
       export LC_ALL=en_US.UTF-8
@@ -76,29 +76,29 @@ EOS
     chmod +x /tmp/configure_script
     #{bootstrap_cmd} --exec=/tmp/configure_script
 
-    if [ "#{node[:rightimage][:release]}" == "lucid" ] ;then
+    if [ "#{node[:right_image_creator][:release]}" == "lucid" ] ;then
       image_name=`cat /mnt/vmbuilder/xen.conf  | grep xvda1 | grep -v root  | cut -c 25- | cut -c -9`
     else
       image_name="root.img"
     fi
-    random_dir=/tmp/rightimage-$RANDOM
+    random_dir=/tmp/right_image_creator-$RANDOM
     mkdir $random_dir
     mount -o loop /mnt/vmbuilder/$image_name  $random_dir
-    umount #{node[:rightimage][:mount_dir]}/proc || true
-    rm -rf #{node[:rightimage][:mount_dir]}
-    mkdir -p #{node[:rightimage][:mount_dir]}
-    rsync -a $random_dir/ #{node[:rightimage][:mount_dir]}/
+    umount #{node[:right_image_creator][:mount_dir]}/proc || true
+    rm -rf #{node[:right_image_creator][:mount_dir]}
+    mkdir -p #{node[:right_image_creator][:mount_dir]}
+    rsync -a $random_dir/ #{node[:right_image_creator][:mount_dir]}/
     umount $random_dir
     rm -rf  $random_dir
-    mkdir -p #{node[:rightimage][:mount_dir]}/var/man
-    chroot #{node[:rightimage][:mount_dir]}  chown -R man:root /var/man
+    mkdir -p #{node[:right_image_creator][:mount_dir]}/var/man
+    chroot #{node[:right_image_creator][:mount_dir]}  chown -R man:root /var/man
 
 
 EOH
   not_if "test -e /mnt/vmbuilder/root.img"
 end
 
-if node[:rightimage][:release] == "lucid" 
+if node[:right_image_creator][:release] == "lucid" 
   
   log "Installing Sun Java for Lucid..."
 
