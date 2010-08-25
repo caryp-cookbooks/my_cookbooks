@@ -1,17 +1,43 @@
 {
-    "recommendations": {
-    },
-    "recipes": {
-      "right_image_builder::default": "Installs environment in which to run the image builder."
-    },
-    "maintainer": "RightScale, Inc.",
     "suggestions": {
     },
     "maintainer_email": "cary@rightscale.com",
     "conflicting": {
     },
+    "recipes": {
+      "right_image_builder::default": "Installs environment in which to run the image builder."
+    },
+    "providing": {
+    },
     "name": "right_image_builder",
     "attributes": {
+      "repo/virtualmonkey/repository": {
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "",
+        "display_name": "Repository Url",
+        "recipes": [
+
+        ],
+        "required": "required"
+      },
+      "repo/virtualmonkey/provider": {
+        "calculated": false,
+        "default": "repo_git",
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "",
+        "display_name": "Repository Provider Type",
+        "recipes": [
+
+        ],
+        "required": "optional"
+      },
       "repo/image_sandbox/ssh_key": {
         "calculated": false,
         "type": "string",
@@ -53,6 +79,19 @@
         ],
         "required": "optional"
       },
+      "repo/virtualmonkey/ssh_key": {
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "your github key",
+        "display_name": "SSH Key",
+        "recipes": [
+
+        ],
+        "required": "required"
+      },
       "repo/image_sandbox/branch": {
         "calculated": false,
         "type": "string",
@@ -67,45 +106,6 @@
         "required": "optional"
       },
       "repo/right_image_builder/ssh_key": {
-        "calculated": false,
-        "type": "string",
-        "choice": [
-
-        ],
-        "description": "your github key",
-        "display_name": "SSH Key",
-        "recipes": [
-
-        ],
-        "required": "required"
-      },
-      "repo/virtulamonkey/branch": {
-        "calculated": false,
-        "type": "string",
-        "choice": [
-
-        ],
-        "description": "",
-        "display_name": "Branch/Tag",
-        "recipes": [
-
-        ],
-        "required": "optional"
-      },
-      "repo/virtulamonkey/repository": {
-        "calculated": false,
-        "type": "string",
-        "choice": [
-
-        ],
-        "description": "",
-        "display_name": "Repository Url",
-        "recipes": [
-
-        ],
-        "required": "required"
-      },
-      "repo/virtulamonkey/ssh_key": {
         "calculated": false,
         "type": "string",
         "choice": [
@@ -158,15 +158,14 @@
         ],
         "required": "optional"
       },
-      "repo/virtulamonkey/provider": {
+      "repo/virtualmonkey/branch": {
         "calculated": false,
-        "default": "repo_git",
         "type": "string",
         "choice": [
 
         ],
         "description": "",
-        "display_name": "Repository Provider Type",
+        "display_name": "Branch/Tag",
         "recipes": [
 
         ],
@@ -176,21 +175,14 @@
     "platforms": {
     },
     "version": "0.1.0",
-    "providing": {
-    },
-    "license": "All rights reserved",
     "replacing": {
     },
-    "dependencies": {
-      "resource:repo['right_image_builder']": [
-
-      ]
-    },
+    "license": "All rights reserved",
     "groupings": {
-      "repo/virtulamonkey": {
+      "repo/virtualmonkey": {
         "databag": true,
         "description": "Settings for managing a Git source repository",
-        "display_name": "Git Client virtulamonkey Settings"
+        "display_name": "Git Client virtualmonkey Settings"
       },
       "repo/right_image_builder": {
         "databag": true,
@@ -203,6 +195,14 @@
         "display_name": "Git Client image_sandbox Settings"
       }
     },
+    "dependencies": {
+      "resource:repo['right_image_builder']": [
+
+      ]
+    },
     "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+    "recommendations": {
+    },
+    "maintainer": "RightScale, Inc.",
     "description": "Installs/Configures right_image_builder"
   }
