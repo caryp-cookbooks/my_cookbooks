@@ -8,7 +8,7 @@
 #
 include_recipe "repo_git::default"
 
-[ "rspec", "flexmock", "event_machine", "resat", "json", "right_popen", "rest_connection", "gemedit", "ruby-debug" ].each { |p| gem_package p }
+[ "rspec", "flexmock", "event_machine", "resat", "json", "right_popen", "rest_connection", "gemedit", "ruby-debug", "fog", "trollop", "highline" ].each { |p| gem_package p }
 
 repo "right_image_builder" do
   destination "/root/right_image_builder"
@@ -17,6 +17,11 @@ end
 
 repo "image_sandbox" do
   destination "/root/sandbox_builds"
+  action :pull
+end
+
+repo "virtualmonkey" do
+  destination "/root/virtualmonkey"
   action :pull
 end
 
