@@ -12,6 +12,8 @@ recipe "right_image_creator::bootstrap_centos", "bootstraps a basic centos image
 recipe "right_image_creator::install_rightscale", "installs rightscale"
 recipe "right_image_creator::do_ec2", "migrates the created image to ec2"
 recipe "right_image_creator::do_euca", "migrates the created image to eucalyptus" 
+recipe "right_image_creator::do_vmops", "migrates the created image to cloud.com" 
+recipe "right_image_creator::install_vhd-util", "install the vhd-util tool"
 
 
 
