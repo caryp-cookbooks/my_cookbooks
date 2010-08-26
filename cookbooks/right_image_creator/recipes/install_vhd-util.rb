@@ -1,6 +1,6 @@
 %w{mercurial git ncurses-devel dev86 iasl SDL python-devel libgcrypt-devel uuid-devel openssl-devel}.each do |p| package p end
 
-cookbook_file "/tmp/vhd-util-patch" do 
+remote_file "/tmp/vhd-util-patch" do 
   source "/tmp/vhd-util-patch"
 end
 
