@@ -13,7 +13,7 @@ bash "install_vhd-util" do
     rm -rf /mnt/vhd && mkdir /mnt/vhd && cd /mnt/vhd
     hg clone http://xenbits.xensource.com/xen-4.0-testing.hg
     cd xen-4.0-testing.hg/tools
-    patch -p0 << /tmp/vhd-util-patch
+    patch -p0 < /tmp/vhd-util-patch
     cd ..
     make install-tools
     cd tools/blktap2/
