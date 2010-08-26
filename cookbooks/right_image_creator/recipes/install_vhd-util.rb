@@ -5,7 +5,7 @@ remote_file "/tmp/vhd-util-patch" do
 end
 
 bash "install_vhd-util" do 
-  script = <<EOF
+  code <<-EOF
 #!/bin/bash -ex
     set -e
     set -x
@@ -19,5 +19,5 @@ bash "install_vhd-util" do
     cd tools/blktap2/
     make 
     make install
-EOF
+  EOF
 end
