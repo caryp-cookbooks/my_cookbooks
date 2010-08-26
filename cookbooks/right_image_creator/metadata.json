@@ -9,6 +9,7 @@
       "right_image_creator::do_euca": "migrates the created image to eucalyptus",
       "right_image_creator::do_ec2": "migrates the created image to ec2",
       "right_image_creator::bootstrap_ubuntu": "bootstraps a basic ubuntu image",
+      "right_image_creator::install_vhd-util": "install the vhd-util tool",
       "right_image_creator::default": "build image based on host platform"
     },
     "recommendations": {
