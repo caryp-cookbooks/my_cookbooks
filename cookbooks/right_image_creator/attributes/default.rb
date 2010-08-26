@@ -59,6 +59,9 @@ case right_image_creator[:cloud]
     set[:right_image_creator][:root_mount] = "/dev/sda1" 
     set[:right_image_creator][:ephemeral_mount] = "/dev/sdb" 
     set[:right_image_creator][:swap_mount] = "/dev/sda3"  unless right_image_creator[:arch]  == "x86_64"
+  when "vmops"
+    set[:right_image_creator][:root_mount] = "/dev/xvda"
+    set[:right_image_creator][:ephemeral_mount] = "/dev/xvdb"
 end
 
 # set rightscale stuff
