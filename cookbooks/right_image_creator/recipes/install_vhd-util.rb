@@ -1,7 +1,7 @@
 %w{mercurial git ncurses-devel dev86 iasl SDL python-devel libgcrypt-devel uuid-devel openssl-devel}.each do |p| package p end
 
 remote_file "/tmp/vhd-util-patch" do 
-  source "/tmp/vhd-util-patch"
+  source "vhd-util-patch"
 end
 
 bash "install_vhd-util" do 
