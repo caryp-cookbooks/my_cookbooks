@@ -6,6 +6,7 @@ destination_image_mount = "/mnt/vmops_image_mount"
 vhd_image = destination_image + '.vhd'
 
 "#{source_image}/proc #{destination_image_mount}/proc #{destination_image_mount}".split.each do |mount_point|
+puts "mount_point is #{mount_point}"
   mount mount_point do 
     action :umount
   end 
