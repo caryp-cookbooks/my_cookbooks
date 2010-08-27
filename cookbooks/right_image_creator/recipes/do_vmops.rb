@@ -13,6 +13,8 @@ puts "mount_point is #{mount_point}"
   end 
 end
 
+`echo foo >> /tmp/foo`
+
 bash "create_vmops_image" do 
   code <<-EOH
     set -e 
