@@ -25,6 +25,10 @@ bash "create_vmops_image" do
     destination_image="#{destination_image}"
     destination_image_mount="#{destination_image_mount}"
 
+    umount -lf #{source_image}/proc || true 
+    umount -lf #{destination_image_mount}/proc || true 
+    umount -lf #{destination_image_mount} || true
+
     rm -rf $destination_image $destination_image_mount
     dd if=/dev/zero of=$destination_image bs=1M count=10240    
     mke2fs -F -j $destination_image
