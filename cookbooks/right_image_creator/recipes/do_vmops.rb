@@ -10,6 +10,7 @@ vhd_image = destination_image + '.vhd'
 puts "mount_point is #{mount_point}"
   mount mount_point do 
     action :umount
+    device ""
   end 
 end
 
