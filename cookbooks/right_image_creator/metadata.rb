@@ -89,13 +89,13 @@ attribute "right_image_creator/aws_access_key_id",
   :display_name => "aws_access_key_id",
   :description => "aws_access_key_id",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_secret_access_key",
   :display_name => "aws_secret_access_key",
   :description => "aws_secret_access_key",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_509_key",
   :display_name => "aws_509_key",

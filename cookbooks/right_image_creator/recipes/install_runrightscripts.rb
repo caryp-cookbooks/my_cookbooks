@@ -28,6 +28,5 @@ bash "install_runrightscripts" do
     fi  
     chroot #{mount_dir} ln -f /opt/rightscale/etc/motd /etc/motd
     echo v#{package_release_version} > #{mount_dir}/etc/rightscale-release
-    echo #{node[:right_image_creator][:cloud]} > /etc/rightscale.d/cloud
   EOC
 end

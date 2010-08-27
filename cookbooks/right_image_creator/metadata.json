@@ -103,7 +103,8 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
-          "right_image_creator::default"
+          "right_image_creator::default",
+          "right_image_creator::do_vmops"
         ],
         "display_name": "aws_access_key_id",
         "description": "aws_access_key_id"
@@ -382,7 +383,8 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
-          "right_image_creator::default"
+          "right_image_creator::default",
+          "right_image_creator::do_vmops"
         ],
         "display_name": "aws_secret_access_key",
         "description": "aws_secret_access_key"

@@ -5,6 +5,7 @@ remote_file "/tmp/vhd-util-patch" do
 end
 
 bash "install_vhd-util" do 
+  not_if "which vhd-util"
   code <<-EOF
 #!/bin/bash -ex
     set -e
