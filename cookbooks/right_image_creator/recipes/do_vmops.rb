@@ -33,7 +33,7 @@ end
 
 # insert grub conf
 template "#{node[:right_image_creator][:mount_dir]}/boot/grub/grub.conf" do 
-  source grub.conf
+  source "grub.conf"
   backup false 
 end
 
