@@ -1,6 +1,6 @@
 include_recipe "right_image_creator::install_vhd-util"
 
-source_image = "#{node.rightimage_creator.mount_dir}" 
+source_image = "#{node.right_image_creator.mount_dir}" 
 destination_image = "/mnt/vmops_image"
 destination_image_mount = "/mnt/vmops_image_mount"
 vhd_image = destination_image + '.vhd'
@@ -16,7 +16,7 @@ bash "create_vmops_image" do
     set -e 
     set -x
 
-    source_image="#{node.rightimage_creator.mount_dir}" 
+    source_image="#{node.right_image_creator.mount_dir}" 
     destination_image="#{destination_image}"
     destination_image_mount="#{destination_image_mount}"
 
