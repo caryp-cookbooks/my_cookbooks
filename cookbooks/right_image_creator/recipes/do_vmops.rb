@@ -5,15 +5,6 @@ destination_image = "/mnt/vmops_image"
 destination_image_mount = "/mnt/vmops_image_mount"
 vhd_image = destination_image + '.vhd'
 
-"#{source_image}/proc #{destination_image_mount}/proc #{destination_image_mount}".split.each do |mount_point|
-`echo mount_point is #{mount_point} >> /tmp/out `
-puts "mount_point is #{mount_point}"
-  mount mount_point do 
-    action :umount
-    device ""
-  end 
-end
-
 `echo foo >> /tmp/foo`
 
 bash "create_vmops_image" do 
@@ -53,16 +44,12 @@ template "/mnt/vmops_image_mount/etc/fstab" do
   backup false
 end
 
-mount "#{destination_image_mount}/proc" do 
-  fstype "proc" 
-  device "none" 
-end
-
 
 bash "do_vmops" do 
   code <<-EOH
 #!/bin/bash -ex
     mount_dir="/mnt/vmops_image_mount/"
+    mount -t proc none $mount_dir/proc
     rm -f $mount_dir/boot/vmlinu* 
     yum -c /tmp/yum.conf --installroot=$mount_dir -y install kernel-xen
     rm -f $mount_dir/boot/initrd*
@@ -82,15 +69,13 @@ bash "do_vmops" do
 
     mkdir -p $mount_dir/etc/rightscale.d
     echo "vmops" > $mount_dir/etc/rightscale.d/cloud
+
+
+    umount -lf $mount_dir/proc
+    umount -lf $mount_dir
   EOH
 end
 
-
-"#{destination_image_mount}/proc  #{destination_image_mount}".split.each do |mount_point|
-  mount mount_point do 
-    action :umount
-  end
-end
 
 bash "convert_to_vhd" do 
   cwd File.dirname destination_image
