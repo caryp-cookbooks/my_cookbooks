@@ -5,8 +5,6 @@ destination_image = "/mnt/vmops_image"
 destination_image_mount = "/mnt/vmops_image_mount"
 vhd_image = destination_image + '.vhd'
 
-`echo foo >> /tmp/foo`
-
 bash "create_vmops_image" do 
   code <<-EOH
     set -e 
