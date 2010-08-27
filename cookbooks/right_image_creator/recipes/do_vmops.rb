@@ -32,14 +32,14 @@ bash "create_vmops_image" do
 end
 
 # insert grub conf
-template "#{node[:right_image_creator][:mount_dir]}/boot/grub/grub.conf" do 
+template "#{destination_image_mount}/boot/grub/grub.conf" do 
   source "grub.conf"
   backup false 
 end
 
 
 # add fstab
-template "/mnt/vmops_image_mount/etc/fstab" do
+template "#{destination_image_mount}/etc/fstab" do
   source "fstab.erb"
   backup false
 end
@@ -48,7 +48,7 @@ end
 bash "do_vmops" do 
   code <<-EOH
 #!/bin/bash -ex
-    mount_dir="/mnt/vmops_image_mount/"
+    mount_dir=#{destination_image_mount}
     mount -t proc none $mount_dir/proc
     rm -f $mount_dir/boot/vmlinu* 
     yum -c /tmp/yum.conf --installroot=$mount_dir -y install kernel-xen
@@ -94,7 +94,7 @@ bash "convert_to_vhd" do
     # upload image
     export AWS_ACCESS_KEY_ID=#{node[:right_image_creator][:aws_access_key_id]}
     export AWS_SECRET_ACCESS_KEY=#{node[:right_image_creator][:aws_secret_access_key]}
-    s3cmd put rightscale_rightlink_dev:$vhd_image $vhd_image x-amz-acl:public-read
+    s3cmd put #{node.right_image_creator.image_upload_bucket}:$vhd_image $vhd_image x-amz-acl:public-read
 
   EOH
 end
