@@ -59,67 +59,67 @@ attribute "right_image_creator/image_upload_bucket",
   :display_name => "image_upload_bucket",
   :description => "the bucket to upload the image to",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/image_prefix",
   :display_name => "image_prefix",
   :description => "an optional prefix for the image name",
   :required => "optional",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/image_postfix",
   :display_name => "image_postfix",
   :description => "an optional postfix for the image name",
   :required => "optional",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/image_name_override",
   :display_name => "Image Name Override",
   :description => "The image name is created automaticaaly.  Set this value if you want to override the default image name.",
   :required => "optional",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2", "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2", "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_account_number",
   :display_name => "aws_account_number",
   :description => "aws_account_number",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_access_key_id",
   :display_name => "aws_access_key_id",
   :description => "aws_access_key_id",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_secret_access_key",
   :display_name => "aws_secret_access_key",
   :description => "aws_secret_access_key",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_509_key",
   :display_name => "aws_509_key",
   :description => "aws_509_key",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_509_cert",
   :display_name => "aws_509_cert",
   :description => "aws_509_cert",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
  
 attribute "right_image_creator/aws_access_key_id_for_upload",
   :display_name => "aws_access_key_id_for_upload",
   :description => "aws_access_key_id for the uplaod bucket",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
   
 attribute "right_image_creator/aws_secret_access_key_for_upload",
   :display_name => "aws_secret_access_key_for_upload",
   :description => "aws_secret_access_key_for_upload",
   :required => "required",
-  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" ]
+  :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
 
 
 ## euca inputs  
