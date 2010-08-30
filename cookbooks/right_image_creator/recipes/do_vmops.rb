@@ -85,6 +85,8 @@ bash "convert_to_vhd" do
     raw_image=$(basename #{destination_image})
     vhd_image=${raw_image}.vhd
 
+    cp $raw_image $raw_image.bak 
+
     vhd-util convert -s 0 -t 1 -i $raw_image -o $vhd_image
     vhd-util convert -s 1 -t 2 -i $vhd_image -o $vhd_image
     bzip2 $vhd_image
