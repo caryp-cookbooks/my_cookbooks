@@ -46,17 +46,17 @@ end
 bash "do_vmops" do 
   code <<-EOH
 #!/bin/bash -ex
+    set -e 
+    set -x
     mount_dir=#{destination_image_mount}
     mount -t proc none $mount_dir/proc
     rm -f $mount_dir/boot/vmlinu* 
+    rm -rf $mount_dir/lib/modules/*
     yum -c /tmp/yum.conf --installroot=$mount_dir -y install kernel-xen
     rm -f $mount_dir/boot/initrd*
-    chroot $mount_dir mkinitrd --omit-scsi-modules --with=xennet  --preload=xenblk  initrd-2.6.18-164.15.1.el5.centos.plusxen  2.6.18-164.15.1.el5.centos.plusxen
-    mv $mount_dir/initrd-2.6.18-164.15.1.el5.centos.plusxen  $mount_dir/boot/.
+    chroot $mount_dir mkinitrd --omit-scsi-modules --with=xennet  --preload=xenblk  initrd-#{node.right_image_creator.vmops.kernel}  #{node.right_image_creator.vmops.kernel}
+    mv $mount_dir/initrd-#{node.right_image_creator.vmops.kernel}  $mount_dir/boot/.
 
-    # clear out unnecessary modules
-    rm -rf $mount_dir/lib/modules/2.6.24-19-xen
-    rm -rf $mount_dir/lib/modules/2.6.18-164.15.1.el5.centos.plus
 
     # clean out packages
     yum -c /tmp/yum.conf --installroot=$mount_dir -y clean all
