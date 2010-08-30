@@ -88,8 +88,8 @@ bash "convert_to_vhd" do
     cp $raw_image $raw_image.bak 
 
     vhd-util convert -s 0 -t 1 -i $raw_image -o $vhd_image
-    vhd-util convert -s 1 -t 2 -i $vhd_image -o $vhd_image
-    bzip2 $vhd_image
+    vhd-util convert -s 1 -t 2 -i $vhd_image -o #{image_name}.vhd
+    bzip2 #{image_name}.vhd
 
     # upload image
     export AWS_ACCESS_KEY_ID=#{node.right_image_creator.aws_access_key_id_for_upload}
