@@ -92,6 +92,7 @@ bash "convert_to_vhd" do
     # upload image
     export AWS_ACCESS_KEY_ID=#{node.right_image_creator.aws_access_key_id_for_upload}
     export AWS_SECRET_ACCESS_KEY=#{node.right_image_creator.aws_secret_access_key_for_upload}
+    export AWS_CALLING_FORMAT=SUBDOMAIN 
     /usr/local/bin/s3cmd put #{node.right_image_creator.image_upload_bucket}:$vhd_image.bz2 /mnt/$vhd_image.bz2 x-amz-acl:public-read
 
   EOH
