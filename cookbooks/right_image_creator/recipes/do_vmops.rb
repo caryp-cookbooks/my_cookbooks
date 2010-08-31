@@ -1,3 +1,7 @@
+class Chef::Resource::Bash
+  include RightScale::RightImage::Helper
+end
+
 include_recipe "right_image_creator::install_vhd-util"
 
 source_image = "#{node.right_image_creator.mount_dir}" 
