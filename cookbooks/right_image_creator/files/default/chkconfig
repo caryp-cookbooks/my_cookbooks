@@ -14,7 +14,6 @@ chkconfig --level 4 nfslock off
 chkconfig --level 4 sendmail off
 chkconfig --level 4 cpuspeed off
 chkconfig --level 4 autofs off
-chkconfig --level 4 bluetooth off
 chkconfig --level 4 rpcidmapd off
 chkconfig --level 4 rpcsvcgssd off
 chkconfig --level 4 rpcgssd off
@@ -35,7 +34,6 @@ chkconfig --del kudzu
 chkconfig --del hidd
 chkconfig --del gpm
 chkconfig --del pcscd
-chkconfig --del bluetooth
 chkconfig --del cpuspeed
 chkconfig --del rdisc
 chkconfig --del sendmail

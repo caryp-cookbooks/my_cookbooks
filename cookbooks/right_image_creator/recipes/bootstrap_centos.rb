@@ -70,7 +70,7 @@ test -e /dev/ptmx #|| chroot $imagedir mknod --mode 666 /dev/ptmx c 5 2
 chroot #{node[:right_image_creator][:mount_dir]} authconfig --enableshadow --useshadow --enablemd5 --updateall
 
 yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y install  #{node[:right_image_creator][:guest_packages]}
-yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y remove avahi avahi-compat-libdns_sd cups*
+yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y remove avahi avahi-compat-libdns_sd cups* bluez* gnome-bluetooth* 
 yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y clean packages
 
 mkdir -p #{node[:right_image_creator][:mount_dir]}/etc/ssh
