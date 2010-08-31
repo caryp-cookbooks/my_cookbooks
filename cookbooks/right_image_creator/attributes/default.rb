@@ -47,7 +47,7 @@ case right_image_creator[:release]
   when "lucid"
   if right_image_creator[:cloud] == "ec2"
     set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-2.6.32-305-ec2" 
-    right_image_creator[:host_packages] << " python-vm-builder-ec2"
+    right_image_creator[:host_packages] << " python-vm-builder-ec2 devscripts"
   else
     set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-virtual" 
   end

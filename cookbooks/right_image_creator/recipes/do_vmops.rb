@@ -58,7 +58,7 @@ bash "do_vmops" do
     rm -rf $mount_dir/lib/modules/*
     yum -c /tmp/yum.conf --installroot=$mount_dir -y install kernel-xen
     rm -f $mount_dir/boot/initrd*
-    chroot $mount_dir mkinitrd --omit-scsi-modules --with=xennet  --preload=xenblk  initrd-#{node.right_image_creator.vmops.kernel}  #{node.right_image_creator.vmops.kernel}
+    chroot $mount_dir mkinitrd --omit-scsi-modules --with=xennet   --with=xenblk  --preload=xenblk  initrd-#{node.right_image_creator.vmops.kernel}  #{node.right_image_creator.vmops.kernel}
     mv $mount_dir/initrd-#{node.right_image_creator.vmops.kernel}  $mount_dir/boot/.
 
 
