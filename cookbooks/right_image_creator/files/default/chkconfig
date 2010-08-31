@@ -13,7 +13,6 @@ chkconfig --level 4 portmap off
 chkconfig --level 4 nfslock off
 chkconfig --level 4 sendmail off
 chkconfig --level 4 cpuspeed off
-chkconfig --level 4 cups off
 chkconfig --level 4 autofs off
 chkconfig --level 4 bluetooth off
 chkconfig --level 4 rpcidmapd off
@@ -38,7 +37,6 @@ chkconfig --del gpm
 chkconfig --del pcscd
 chkconfig --del bluetooth
 chkconfig --del cpuspeed
-chkconfig --del cups
 chkconfig --del rdisc
 chkconfig --del sendmail
 chkconfig --del readahead_later
