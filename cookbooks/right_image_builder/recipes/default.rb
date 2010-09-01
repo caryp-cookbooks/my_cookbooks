@@ -20,9 +20,9 @@ repo "image_sandbox" do
   action :pull
 end
 
-repo "virtualmonkey" do
-  destination "/root/virtualmonkey"
-  action :pull
-end
+#repo "virtualmonkey" do
+#  destination "/root/virtualmonkey"
+#  action :pull
+#end
 
 
