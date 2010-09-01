@@ -10,6 +10,8 @@ set[:right_image_creator][:build_dir] = "/mnt/vmbuilder"
 set[:right_image_creator][:mount_dir] = "/mnt/image"
 set[:right_image_creator][:virtual_environment] = "xen"
 set[:right_image_creator][:install_mirror] = "mirror.rightscale.com"
+set[:right_image_creator][:install_mirror_date] = "latest"
+set[:right_image_creator][:install_mirror_date] = "20090310" if [:right_image_creator][:release] == "5.2"
 set_unless[:right_image_creator][:image_name_override] = ""
 
 default[:right_image_creator][:platform] = UNKNOWN
