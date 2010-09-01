@@ -11,7 +11,7 @@ set[:right_image_creator][:mount_dir] = "/mnt/image"
 set[:right_image_creator][:virtual_environment] = "xen"
 set[:right_image_creator][:install_mirror] = "mirror.rightscale.com"
 set_unless[:right_image_creator][:image_name_override] = ""
-set[:right_image_creator][:install_mirror_date] = "20090310" 
+set[:right_image_creator][:install_mirror_date] = "latest" 
 
 default[:right_image_creator][:platform] = UNKNOWN
 default[:right_image_creator][:cloud] = "ec2"
