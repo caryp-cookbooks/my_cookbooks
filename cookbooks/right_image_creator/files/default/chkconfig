@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -x
 
 chkconfig --add postfix
 chkconfig --level 4 postfix on 
