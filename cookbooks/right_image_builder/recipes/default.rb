@@ -7,8 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "repo_git::default"
+
 bash "add_gem_source" do
-  code<<-EOC
+  code <<-EOC
     gem sources -a http://gems.rubyforge.org/
   EOC
 end
