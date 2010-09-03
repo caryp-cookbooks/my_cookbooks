@@ -7,6 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "repo_git::default"
+bash "add_gem_source" do
+  code<<-EOC
+    gem sources -a http://gems.rubyforge.org/
+  EOC
+end
+
 
 [ "rspec", "flexmock", "event_machine", "resat", "json", "right_popen", "rest_connection", "gemedit", "ruby-debug", "fog", "trollop", "highline" ].each { |p| gem_package p }
 
@@ -19,10 +25,4 @@ repo "image_sandbox" do
   destination "/root/sandbox_builds"
   action :pull
 end
-
-#repo "virtualmonkey" do
-#  destination "/root/virtualmonkey"
-#  action :pull
-#end
-
 
