@@ -34,9 +34,9 @@ unless node[:platform] == "mac_os_x" then
     package "git"
   end
 
-  package "gitk"
-  package "git-svn"
-  package "git-email"
+#  package "gitk"
+#  package "git-svn"
+#  package "git-email"
 end
 
 # Setup all git resources that have attributes in the node.
