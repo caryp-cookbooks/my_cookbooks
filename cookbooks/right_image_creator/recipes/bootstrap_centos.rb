@@ -185,11 +185,14 @@ EOF
 end
 
 
-
-remote_file "#{node[:right_image_creator][:mount_dir]}/root/.bashrc" do 
-  source "bashrc" 
-  backup false
-end
+# Over writing the existing file is not the desired behavior.  We need
+# to add the rightscale special sauce to what's there.  This is now
+# in the install_rightscale recipe.  This will do the same thing on
+# Ubuntu and CentOS
+#remote_file "#{node[:right_image_creator][:mount_dir]}/root/.bashrc" do 
+#  source "bashrc" 
+#  backup false
+#end
 
 remote_file "#{node[:right_image_creator][:mount_dir]}/root/.bash_profile" do 
   source "bash_profile" 

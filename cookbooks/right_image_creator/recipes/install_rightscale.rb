@@ -60,6 +60,12 @@ end
 
 bash "insert_bashrc" do 
   code <<-EOS
+    # Move the current .bashrc out of the way if it exists
+    if [ -f #{node[:right_image_creator][:mount_dir]}/root/.bashrc ]; then
+      mv  -f #{node[:right_image_creator][:mount_dir]}/root/.bashrc  \
+             #{node[:right_image_creator][:mount_dir]}/root/save_bashrc
+    fi
+    # Put the RS special sauce at the top of the bashrc
 cat <<-BASHRC >> #{node[:right_image_creator][:mount_dir]}/root/.bashrc
 
 export PATH=\\$PATH:/home/ec2/bin
@@ -70,6 +76,11 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 BASHRC
-
+    if [ -f #{node[:right_image_creator][:mount_dir]}/root/save_bashrc ]; then
+      # Append the existing bashrc to the one just created - if it exists
+      cat #{node[:right_image_creator][:mount_dir]}/root/save_bashrc \
+              >>  #{node[:right_image_creator][:mount_dir]}/root/.bashrc
+      rm -f #{node[:right_image_creator][:mount_dir]}/root/save_bashrc
+    fi
   EOS
 end
