@@ -232,7 +232,8 @@ end
 bash "setup_debug" do 
   only_if { node[:right_image_creator][:debug] == "true"  }
   code <<-EOH
-    sed -i 's/root::/root:$1$Yw4FVTSj$.OOi42zRornqDqchZ0J/y/:' #{node[:right_image_creator][:mount_dir]}/etc/shadow
+    sed -i 's%root::%root:$1$Yw4FVTSj$.OOi42zRornqDqchZ0J/y/:%' #{node[:right_image_creator][:mount_dir]}/etc/shadow
+    sed -i 's%root:*:%root:$1$Yw4FVTSj$.OOi42zRornqDqchZ0J/y/:%' #{node[:right_image_creator][:mount_dir]}/etc/shadow
     echo 'PermitRootLogin yes' >> #{node[:right_image_creator][:mount_dir]}/etc/ssh/sshd_config
     echo 'PasswordAuthentication yes' >> #{node[:right_image_creator][:mount_dir]}/etc/ssh/sshd_config
 EOH
