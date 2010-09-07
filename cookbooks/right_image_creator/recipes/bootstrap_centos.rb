@@ -3,6 +3,9 @@
 template "/tmp/yum.conf" do 
   source "yum.conf.erb"
   backup false
+  variables ({
+    :bootstrap => true
+  })
 end
 
 directory "#{node[:right_image_creator][:mount_dir]}/tmp" do 

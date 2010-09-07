@@ -1,3 +1,4 @@
+<% if @bootstrap -%>
 [main]
 cachedir=/var/cache/yum
 debuglevel=2
@@ -11,6 +12,7 @@ tolerant=1
 exactarch=1
 reposdir=/dev/null
 metadata_expire=1800
+<% end -%>
 
 
 [base]
