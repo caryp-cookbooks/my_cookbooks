@@ -228,3 +228,10 @@ template "#{node[:right_image_creator][:mount_dir]}/root/.gemrc" do
   source "gemrc.erb"
   backup false
 end
+
+bash "setup_debug" do 
+  only_if { node[:right_image_creator][:debug] }
+  code <<-EOH
+    sed -i 's/root::/root:$1$Yw4FVTSj$.OOi42zRornqDqchZ0J/y/:' #{node[:right_image_creator][:mount_dir]}/etc/shadow
+EOH
+end

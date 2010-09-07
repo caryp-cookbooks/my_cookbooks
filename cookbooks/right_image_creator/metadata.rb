@@ -122,6 +122,13 @@ attribute "right_image_creator/aws_secret_access_key_for_upload",
   :recipes => [ "right_image_creator::do_euca" ,"right_image_creator::do_ec2" , "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::do_vmops" ]
 
 
+attribute "right_image_creator/debug",
+  :display_name => "debug",
+  :description => "toggles debug mode",
+  :required => "optional",
+  :recipes => [ "right_image_creator::do_centos" , "right_image_creator::do_ubuntu" , "right_image_creator::default" , "right_image_creator::bootstrap_centos" , "right_image_creator::bootstrap_ubuntu" ]
+
+
 ## euca inputs  
 attribute "right_image_creator/euca/user",
   :display_name => "euca user",

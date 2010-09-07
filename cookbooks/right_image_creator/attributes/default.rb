@@ -4,6 +4,7 @@
 
 UNKNOWN = :unknown.to_s
 
+set_unless[:right_image_creator][:debug] = false
 set[:right_image_creator][:lang] = "en_US.UTF-8"
 set[:right_image_creator][:root_size] = "2048"
 set[:right_image_creator][:build_dir] = "/mnt/vmbuilder"
