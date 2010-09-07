@@ -110,10 +110,6 @@ rm -f #{node[:right_image_creator][:mount_dir]}/tmp/chkconfig
 sed -i s/root::/root:*:/ #{node[:right_image_creator][:mount_dir]}/etc/shadow
 
 
-#have to do this to fix a yummy bug
-rm #{node[:right_image_creator][:mount_dir]}/var/lib/rpm/__*
-chroot #{node[:right_image_creator][:mount_dir]} rpm --rebuilddb
-
 
 echo "127.0.0.1   localhost   localhost.localdomain" > #{node[:right_image_creator][:mount_dir]}/etc/hosts
 echo "NOZEROCONF=true" >> #{node[:right_image_creator][:mount_dir]}/etc/sysconfig/network
@@ -188,15 +184,6 @@ EOF
 end
 
 
-# Over writing the existing file is not the desired behavior.  We need
-# to add the rightscale special sauce to what's there.  This is now
-# in the install_rightscale recipe.  This will do the same thing on
-# Ubuntu and CentOS
-#remote_file "#{node[:right_image_creator][:mount_dir]}/root/.bashrc" do 
-#  source "bashrc" 
-#  backup false
-#end
-
 remote_file "#{node[:right_image_creator][:mount_dir]}/root/.bash_profile" do 
   source "bash_profile" 
   backup false
@@ -227,6 +214,14 @@ end
 template "#{node[:right_image_creator][:mount_dir]}/root/.gemrc" do 
   source "gemrc.erb"
   backup false
+end
+
+bash "clean_db" do 
+  code <<-EOH
+    #have to do this to fix a yummy bug
+    rm #{node[:right_image_creator][:mount_dir]}/var/lib/rpm/__*
+    chroot #{node[:right_image_creator][:mount_dir]} rpm --rebuilddb
+  EOH
 end
 
 bash "setup_debug" do 
