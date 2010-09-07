@@ -31,9 +31,6 @@ when "centos"
 
   right_image_creator[:guest_packages] << " kernel-xen" if right_image_creator[:cloud] == "euca"
 
-  ## make sure that centos 5.2 had the lsb_release command
-  right_image_creator[:guest_packages] << " redhat-lsb" if right_image_creator[:release] == "5.2"
-
   set[:right_image_creator][:host_packages] = "swig"
   set[:right_image_creator][:package_type] = "rpm"
 when UNKNOWN
