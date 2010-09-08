@@ -76,6 +76,11 @@ yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y 
 #yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y remove avahi avahi-compat-libdns_sd bluez* gnome-bluetooth* 
 yum -c /tmp/yum.conf --installroot=#{node[:right_image_creator][:mount_dir]} -y clean all
 
+
+## stop crap from going in the logs...    
+rm #{node[:right_image_creator][:mount_dir]}/var/lib/rpm/__*
+chroot #{node[:right_image_creator][:mount_dir]} rpm --rebuilddb
+
 mkdir -p #{node[:right_image_creator][:mount_dir]}/etc/ssh
 
 
