@@ -61,7 +61,6 @@ bash "do_vmops" do
     chroot $mount_dir mkinitrd --omit-scsi-modules --with=xennet   --with=xenblk  --preload=xenblk  initrd-#{node.right_image_creator.vmops.kernel}  #{node.right_image_creator.vmops.kernel}
     mv $mount_dir/initrd-#{node.right_image_creator.vmops.kernel}  $mount_dir/boot/.
 
-
     # clean out packages
     yum -c /tmp/yum.conf --installroot=$mount_dir -y clean all
 
@@ -72,6 +71,8 @@ bash "do_vmops" do
     mkdir -p $mount_dir/etc/rightscale.d
     echo "vmops" > $mount_dir/etc/rightscale.d/cloud
 
+    rm ${mount_dir}/var/lib/rpm/__*
+    chroot $mount_dir rpm --rebuilddb
 
     umount -lf $mount_dir/proc
     umount -lf $mount_dir
