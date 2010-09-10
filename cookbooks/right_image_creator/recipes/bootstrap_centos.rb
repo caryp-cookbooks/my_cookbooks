@@ -232,8 +232,12 @@ end
 bash "setup_debug" do 
   only_if { node[:right_image_creator][:debug] == "true"  }
   code <<-EOH
+    set -e
+    set -x
     ## set root passwd to 'rightscale'
-    chroot #{node[:right_image_creator][:mount_dir]} 'echo "root:rightscale" | chpasswd '
+    echo 'echo root:rightscale | chpasswd' > #{node[:right_image_creator][:mount_dir]}/tmp/chpasswd
+    chmod +x #{node[:right_image_creator][:mount_dir]}/tmp/chpasswd
+    chroot #{node[:right_image_creator][:mount_dir]} /tmp/chpasswd
     echo 'PermitRootLogin yes' >> #{node[:right_image_creator][:mount_dir]}/etc/ssh/sshd_config
     echo 'PasswordAuthentication yes' >> #{node[:right_image_creator][:mount_dir]}/etc/ssh/sshd_config
 EOH
