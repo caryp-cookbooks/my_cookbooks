@@ -306,7 +306,7 @@ end
 ## set kernel to use for vmops
 case right_image_creator[:release]
 when "5.2" 
-  set.right_image_creator.vmops.kernel = "2.6.18-92.1.22.el5.centos.plusxen"
+  set[:right_image_creator][:vmops][:kernel] = "2.6.18-92.1.22.el5.centos.plusxen"
 when "5.4" 
-  set.right_image_creator.vmops.kernel = "2.6.18-164.15.1.el5.centos.plusxen"
+  set[:right_image_creator][:vmops][:kernel] = "2.6.18-164.15.1.el5.centos.plusxen"
 end
