@@ -47,12 +47,13 @@ case right_image_creator[:release]
     #set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-ec2"
     right_image_creator[:host_packages] << " python-vm-builder-ec2"
   when "lucid"
-  if right_image_creator[:cloud] == "ec2"
-    set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-2.6.32-305-ec2" 
-    right_image_creator[:host_packages] << " python-vm-builder-ec2 devscripts"
-  else
-    set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-virtual" 
-  end
+    if right_image_creator[:cloud] == "ec2"
+      set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-2.6.32-305-ec2" 
+      right_image_creator[:host_packages] << " python-vm-builder-ec2 devscripts"
+    else
+      set[:right_image_creator][:guest_packages] = right_image_creator[:guest_packages] + " linux-image-virtual" 
+      right_image_creator[:host_packages] << " python-vm-builder  devscripts"
+    end
 end if right_image_creator[:platform] == "ubuntu" 
 
 # set cloud stuff
