@@ -1,7 +1,7 @@
 <%= node[:right_image_creator][:root_mount] %>  /         ext3    defaults        0 0
-<%= node[:right_image_creator][:ephemeral_mount] %>   /mnt      ext3    defaults        0 0
+<%= node[:right_image_creator][:ephemeral_mount] %>   /mnt      ext3    defaults,nobootwait        0 0
 <% if @node[:right_image_creator][:swap_mount] -%>
-<%= node[:right_image_creator][:swap_mount] %>  swap      swap    defaults        0 0
+<%= node[:right_image_creator][:swap_mount] %>  swap      swap    defaults,nobootwait        0 0
 <% end -%>
 <% if @node[:right_image_creator][:platform] == "centos" -%>
 none       /dev/pts  devpts  gid=5,mode=620  0 0
