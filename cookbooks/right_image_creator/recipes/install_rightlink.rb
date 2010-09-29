@@ -66,4 +66,8 @@ bash "install_rightlink" do
     fi
 
   EOC
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> added CentOS 5.2 kenel mappings
