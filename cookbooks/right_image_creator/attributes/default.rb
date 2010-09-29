@@ -264,6 +264,7 @@ when "lucid"
     end
   end
 when "5.4"
+when "5.2"
   case right_image_creator[:region]
   when "us-east"
     case right_image_creator[:arch]
