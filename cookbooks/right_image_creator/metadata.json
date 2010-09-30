@@ -3,6 +3,7 @@
       "right_image_creator::do_ubuntu": "coordinate an ubuntu install",
       "right_image_creator::install_rightscale": "installs rightscale",
       "right_image_creator::bootstrap_centos": "bootstraps a basic centos image",
+      "right_image_creator::do_sles": "coordinate a sles install",
       "right_image_creator::do_vmops": "migrates the created image to cloud.com",
       "right_image_creator::clean": "cleans everything",
       "right_image_creator::do_centos": "coordinate a centos install",
@@ -10,7 +11,8 @@
       "right_image_creator::do_ec2": "migrates the created image to ec2",
       "right_image_creator::bootstrap_ubuntu": "bootstraps a basic ubuntu image",
       "right_image_creator::install_vhd-util": "install the vhd-util tool",
-      "right_image_creator::default": "build image based on host platform"
+      "right_image_creator::default": "build image based on host platform",
+      "right_image_creator::bootstrap_sles": "bootstraps a basic sles image"
     },
     "recommendations": {
     },
@@ -46,6 +48,7 @@
           "right_image_creator::do_euca",
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
@@ -104,6 +107,7 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
+          "right_image_creator::do_sles",
           "right_image_creator::default",
           "right_image_creator::do_vmops",
           "right_image_creator::do_vmops"
@@ -161,6 +165,7 @@
           "right_image_creator::do_euca",
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
@@ -206,6 +211,7 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
+          "right_image_creator::do_sles",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
         ],
@@ -262,6 +268,7 @@
           "right_image_creator::do_euca",
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
@@ -281,6 +288,7 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
+          "right_image_creator::do_sles",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
         ],
@@ -299,6 +307,7 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
+          "right_image_creator::do_sles",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
         ],
@@ -317,6 +326,7 @@
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
           "right_image_creator::do_ubuntu",
+          "right_image_creator::do_sles",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
         ],
@@ -347,6 +357,7 @@
           "right_image_creator::do_euca",
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::do_vmops"
@@ -389,9 +400,11 @@
         "type": "string",
         "recipes": [
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::bootstrap_centos",
+          "right_image_creator::bootstrap_sles",
           "right_image_creator::bootstrap_ubuntu"
         ],
         "display_name": "debug",
@@ -408,6 +421,7 @@
           "right_image_creator::do_euca",
           "right_image_creator::do_ec2",
           "right_image_creator::do_centos",
+          "right_image_creator::do_sles",
           "right_image_creator::do_ubuntu",
           "right_image_creator::default",
           "right_image_creator::do_vmops",
