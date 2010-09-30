@@ -38,7 +38,7 @@ export AWS_SECRET_ACCESS_KEY=#{node[:right_image_creator][:aws_secret_access_key
 export AWS_CALLING_FORMAT=SUBDOMAIN 
 
 echo rake right_link:#{node[:right_image_creator][:package_type]}:upload 
-#rake right_link:#{node[:right_image_creator][:package_type]}:upload 
+rake right_link:#{node[:right_image_creator][:package_type]}:upload 
 
 CHROOT_SCRIPT
     chmod +x #{node[:right_image_creator][:mount_dir]}/tmp/build_rightlink.sh
@@ -66,8 +66,4 @@ bash "install_rightlink" do
     fi
 
   EOC
-<<<<<<< HEAD
 end
-=======
-end
->>>>>>> added CentOS 5.2 kenel mappings
