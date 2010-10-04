@@ -62,6 +62,13 @@ case right_image_creator[:cloud]
     set[:right_image_creator][:root_mount] = "/dev/sda1" 
     set[:right_image_creator][:ephemeral_mount] = "/dev/sdb" 
     set[:right_image_creator][:swap_mount] = "/dev/sda3"  unless right_image_creator[:arch]  == "x86_64"
+    case right_image_creator[:platform]
+    when "ubuntu" 
+      set[:right_image_creator][:fstab][:ephemeral_mount_opts] = "defaults,nobootwait"
+      set[:right_image_creator][:fstab][:swap] = "defaults,nobootwait"
+    when "centos"
+      set[:right_image_creator][:fstab][:ephemeral_mount_opts] = "defaults"
+      set[:right_image_creator][:fstab][:swap] = "defaults"
   when "vmops"
     set[:right_image_creator][:root_mount] = "/dev/xvda"
     set[:right_image_creator][:ephemeral_mount] = "/dev/xvdb"
