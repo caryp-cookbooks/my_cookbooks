@@ -129,6 +129,7 @@ case right_image_creator[:release]
     set[:right_image_creator][:release_number] = "10.10" 
   else 
     set[:right_image_creator][:release_number] = right_image_creator[:release]
+  end
 end
 
 ## figure out kernel to use
