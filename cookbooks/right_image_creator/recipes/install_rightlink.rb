@@ -35,6 +35,7 @@ rake submodules:sandbox:create
 rake right_link:#{node[:right_image_creator][:package_type]}:build
 export AWS_ACCESS_KEY_ID=#{node[:right_image_creator][:aws_access_key_id_for_upload]}
 export AWS_SECRET_ACCESS_KEY=#{node[:right_image_creator][:aws_secret_access_key_for_upload]}
+export AWS_CALLING_FORMAT=SUBDOMAIN 
 
 echo rake right_link:#{node[:right_image_creator][:package_type]}:upload 
 rake right_link:#{node[:right_image_creator][:package_type]}:upload 
