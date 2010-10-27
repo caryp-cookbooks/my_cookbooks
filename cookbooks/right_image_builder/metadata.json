@@ -68,20 +68,6 @@
       ],
       "required": "optional"
     },
-    "repo\/right_image_builder\/provider": {
-      "default": "repo_git",
-      "calculated": false,
-      "type": "string",
-      "choice": [
-
-      ],
-      "description": "",
-      "display_name": "Repository Provider Type",
-      "recipes": [
-
-      ],
-      "required": "optional"
-    },
     "repo\/image_sandbox\/branch": {
       "calculated": false,
       "type": "string",
@@ -120,20 +106,6 @@
 
       ],
       "required": "required"
-    },
-    "repo\/image_sandbox\/provider": {
-      "default": "repo_git",
-      "calculated": false,
-      "type": "string",
-      "choice": [
-
-      ],
-      "description": "",
-      "display_name": "Repository Provider Type",
-      "recipes": [
-
-      ],
-      "required": "optional"
     },
     "repo\/right_image_builder\/branch": {
       "calculated": false,

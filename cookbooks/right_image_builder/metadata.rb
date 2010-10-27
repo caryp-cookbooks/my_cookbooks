@@ -14,11 +14,6 @@ grouping "repo/right_image_builder",
  :description => "Settings for managing a Git source repository",
  :databag => true       # proposed metadata addition
 
-attribute "repo/right_image_builder/provider",
-  :display_name => "Repository Provider Type",
-  :description => "",
-  :default => "repo_git"
-
 attribute "repo/right_image_builder/repository",
   :display_name => "Repository Url",
   :description => "",
@@ -40,11 +35,6 @@ grouping "repo/image_sandbox",
  :display_name => "Git Client image_sandbox Settings",
  :description => "Settings for managing a Git source repository",
  :databag => true       # proposed metadata addition
-
-attribute "repo/image_sandbox/provider",
-  :display_name => "Repository Provider Type",
-  :description => "",
-  :default => "repo_git"
 
 attribute "repo/image_sandbox/repository",
   :display_name => "Repository Url",
