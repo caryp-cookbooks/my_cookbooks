@@ -61,30 +61,30 @@ attribute "repo/image_sandbox/ssh_key",
   :description => "your github key",
   :required => "required"
   
-  
-grouping "repo/virtualmonkey",
- :display_name => "Git Client virtualmonkey Settings",
- :description => "Settings for managing a Git source repository",
- :databag => true       # proposed metadata addition
-
-attribute "repo/virtualmonkey/provider",
-  :display_name => "Repository Provider Type",
-  :description => "",
-  :default => "repo_git"
-
-attribute "repo/virtualmonkey/repository",
-  :display_name => "Repository Url",
-  :description => "",
-  :required => "required"
-  
-attribute "repo/virtualmonkey/branch",
-  :display_name => "Branch/Tag",
-  :description => "",
-  :required => "optional"
-  
-attribute "repo/virtualmonkey/ssh_key",
-  :display_name => "SSH Key",
-  :description => "your github key",
-  :required => "required"
+ 
+# grouping "repo/virtualmonkey",
+#  :display_name => "Git Client virtualmonkey Settings",
+#  :description => "Settings for managing a Git source repository",
+#  :databag => true       # proposed metadata addition
+# 
+# attribute "repo/virtualmonkey/provider",
+#   :display_name => "Repository Provider Type",
+#   :description => "",
+#   :default => "repo_git"
+# 
+# attribute "repo/virtualmonkey/repository",
+#   :display_name => "Repository Url",
+#   :description => "",
+#   :required => "required"
+#   
+# attribute "repo/virtualmonkey/branch",
+#   :display_name => "Branch/Tag",
+#   :description => "",
+#   :required => "optional"
+#   
+# attribute "repo/virtualmonkey/ssh_key",
+#   :display_name => "SSH Key",
+#   :description => "your github key",
+#   :required => "required"
 
 
