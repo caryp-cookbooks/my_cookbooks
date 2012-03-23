@@ -22,11 +22,6 @@ require 'rubygems'
 require 'chef'
 require 'json'
 
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = %w{--format pretty}
-end
-
 # Load constants from rake config file.
 ###
 # Company and SSL Details
@@ -85,86 +80,3 @@ end
 
 load 'chef/tasks/chef_repo.rake'
 
-# My tasks to help work with mulitple repos 
-#
-projects = %w[../cookbooks_premium ../cookbooks_public ./ ]
-opscode = "." #"#{ENV['HOME']}/src/cookbooks"
-
-desc "Update local repositories from upstream"
-task :update do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-      puts `git pull --rebase rightscale master`
-			puts "======================="
-    end
-  end
-end
-
-desc "Push local repositories to origin"
-task :push do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-		  puts `git push`
-			puts "======================="
-    end
-  end
-end
-
-desc "Commit any changes in local repos"
-task :commit do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-      puts `git add .`
-		  puts `git commit -m 'development commit'`
-			puts "======================="
-    end
-  end
-end
-
-desc "Show diff for all repos"
-task :diff do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-			puts `git diff`
-			puts "======================="
-    end
-  end
-end
-
-desc "Show status for all repos"
-task :status do
-  projects.each do |p|
-    dir="#{opscode}/#{p}"
-		Dir.chdir(dir) do
-			puts "======================="
-			puts "Dir: #{dir}"
-			puts `git status`
-			puts "======================="
-    end
-  end
-end
-# 
-# desc "Update metadata for all local repos"
-# task :metadata do
-#   projects.each do |p|
-#     dir="#{opscode}/#{p}"
-#     Dir.chdir(dir) do
-#       puts "======================="
-#       puts "Dir: #{dir}"
-#       puts `rake metadata`
-#       puts "======================="
-#     end
-#   end
-# end
